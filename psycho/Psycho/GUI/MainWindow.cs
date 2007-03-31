@@ -75,7 +75,7 @@ namespace Psycho
                         MindControl mapControl = new MindControl (model, mapView);
                         mapView.WireUp (mapControl, model);
 
-                        //AddAccelGroup(UIView.uiManager.AccelGroup);
+                        AddAccelGroup(UIView.uiManager.AccelGroup);
 
                         Expander buttonExpander = new Expander ("Property View");
                         buttonExpander.Add (buttonView);

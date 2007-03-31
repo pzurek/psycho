@@ -192,11 +192,6 @@ namespace Psycho
                         if (iTopic.IsCurrent)
                                 strokeColor = new Cairo.Color (0.75, 0.75, 0.75);
                         Cairo.Color fillColor = strokeColor;
-                        iTopic.Frame.Sketch (iContext);
-                        fillColor.A = 0.16;
-                        iContext.Color = fillColor;
-                        iContext.FillPreserve ();
-                        iContext.Color = strokeColor;
                         iContext.LineWidth = iTopic.Style.StrokeWidth;
 
                         int reminder = (int) System.Math.IEEERemainder (iContext.LineWidth, 2);
@@ -204,12 +199,12 @@ namespace Psycho
                                 iContext.Translate (0.5, 0.5);
                         }
 
+                        iTopic.Frame.Sketch (iContext);
+                        fillColor.A = 0.16;
+                        iContext.Color = fillColor;
+                        iContext.FillPreserve ();
+                        iContext.Color = strokeColor;
                         iContext.Stroke ();
-
-                        if (reminder != 0) {
-                                iContext.Translate (-0.5, -0.5);
-                        }                       
-
                         iContext.Restore ();
                 }
 

@@ -68,8 +68,8 @@ namespace Psycho
                         this.RightMargin = 0;
                         this.TopMargin = 0;
                         this.BottomMargin = 0;
-                        this.CrankChamfer = 8;
-                        this.CrankRadius = 8;
+                        this.CrankChamfer = 12;
+                        this.CrankRadius = 12;
                         this.PolyDistance = 8;
                         this.Width = 150;
                         this.Padding = 4;
@@ -159,19 +159,19 @@ namespace Psycho
                         {
                                 switch (this.Topic.Level) {
                                 case 0:
-                                connectShape = ConnectionShape.Crank;// Curve;
+                                connectShape = ConnectionShape.Curve;
                                 break;
                                 case 1:
-                                connectShape = ConnectionShape.Crank;// RoundedCrank;
+                                connectShape = ConnectionShape.RoundedCrank;
                                 break;
                                 case 2:
-                                connectShape = ConnectionShape.Crank;// Arc;
+                                connectShape = ConnectionShape.Arc;
                                 break;
                                 case 3:
-                                connectShape = ConnectionShape.Crank;// RoundedAngleCrank;
+                                connectShape = ConnectionShape.RoundedAngleCrank;
                                 break;
                                 case 4:
-                                connectShape = ConnectionShape.Crank;// AngleCrank;
+                                connectShape = ConnectionShape.AngleCrank;
                                 break;
                                 case 5:
                                 connectShape = ConnectionShape.ChamferedCrank;
@@ -207,13 +207,13 @@ namespace Psycho
                                         strokeColor = new Color (55, 55, 55);
                                         break;
                                         case "1":
-                                        strokeColor = new Color (239, 41, 41);
+                                        strokeColor = new Color (52, 101, 164);// (239, 41, 41);
                                         break;
                                         case "2":
-                                        strokeColor = new Color (237, 212, 0);
+                                        strokeColor = new Color (239, 41, 41);// (237, 212, 0);
                                         break;
                                         case "3":
-                                        strokeColor = new Color (52, 101, 164);
+                                        strokeColor = new Color (237, 212, 0);
                                         break;
                                         case "4":
                                         strokeColor = new Color (115, 210, 22);

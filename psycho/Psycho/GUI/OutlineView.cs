@@ -152,8 +152,8 @@ namespace Psycho
 
                 void outlineView_KeyReleaseEvent (object sender, KeyReleaseEventArgs args)
                 {
-                        string key = args.Event.Key.ToString ();
-                        Console.WriteLine (key);
+                        //string key = args.Event.Key.ToString ();
+                        //Console.WriteLine (key);
                         //switch (key) {
                         //case "Return":
                         //if (isEdited) return;

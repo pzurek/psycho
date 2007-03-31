@@ -133,8 +133,8 @@ namespace Psycho
                 {
                         get
                         {
-                                middleStart.X = this.Start.X + this.ConnectionVector.Dx / 2;
-                                middleStart.Y = this.Start.Y;
+                                middleStart.X = System.Math.Floor (this.Start.X + this.ConnectionVector.Dx / 2);
+                                middleStart.Y = System.Math.Floor (this.Start.Y);
                                 return middleStart;
                         }
                 }
@@ -143,8 +143,8 @@ namespace Psycho
                 {
                         get
                         {
-                                middleEnd.X = this.End.X - this.ConnectionVector.Dx / 2;
-                                middleEnd.Y = this.End.Y;
+                                middleEnd.X = System.Math.Floor (this.End.X - this.ConnectionVector.Dx / 2);
+                                middleEnd.Y = System.Math.Floor (this.End.Y);
                                 return middleEnd;
                         }
                 }
@@ -153,8 +153,8 @@ namespace Psycho
                 {
                         get
                         {
-                                curveControlStart.X = this.Start.X + ConnectionVector.Dx / 1.61;
-                                curveControlStart.Y = this.Start.Y;
+                                curveControlStart.X = System.Math.Floor (this.Start.X + ConnectionVector.Dx / 1.61);
+                                curveControlStart.Y = System.Math.Floor (this.Start.Y);
                                 return curveControlStart;
                         }
                 }
@@ -163,8 +163,8 @@ namespace Psycho
                 {
                         get
                         {
-                                curveControlEnd.X = this.End.X - ConnectionVector.Dx / 1.61;
-                                curveControlEnd.Y = this.End.Y;
+                                curveControlEnd.X = System.Math.Floor (this.End.X - ConnectionVector.Dx / 1.61);
+                                curveControlEnd.Y = System.Math.Floor (this.End.Y);
                                 return curveControlEnd;
                         }
                 }
@@ -175,22 +175,22 @@ namespace Psycho
                         {
                                 if (this.ConnectionVector.Dx * this.ConnectionVector.Dy > 0) {
                                         if (this.ConnectionVector.Dx > 0) {
-                                                roundedCrankCenterStart.X = MiddleStart.X - CrankRadius;
-                                                roundedCrankCenterStart.Y = MiddleStart.Y + CrankRadius;
+                                                roundedCrankCenterStart.X = System.Math.Floor (MiddleStart.X - CrankRadius);
+                                                roundedCrankCenterStart.Y = System.Math.Floor (MiddleStart.Y + CrankRadius);
                                         }
                                         else {
-                                                roundedCrankCenterStart.X = MiddleStart.X + CrankRadius;
-                                                roundedCrankCenterStart.Y = MiddleStart.Y - CrankRadius;
+                                                roundedCrankCenterStart.X = System.Math.Floor (MiddleStart.X + CrankRadius);
+                                                roundedCrankCenterStart.Y = System.Math.Floor (MiddleStart.Y - CrankRadius);
                                         }
                                 }
                                 else {
                                         if (this.ConnectionVector.Dx < 0) {
-                                                roundedCrankCenterStart.X = MiddleStart.X + CrankRadius;
-                                                roundedCrankCenterStart.Y = MiddleStart.Y + CrankRadius;
+                                                roundedCrankCenterStart.X = System.Math.Floor (MiddleStart.X + CrankRadius);
+                                                roundedCrankCenterStart.Y = System.Math.Floor (MiddleStart.Y + CrankRadius);
                                         }
                                         else {
-                                                roundedCrankCenterStart.X = MiddleStart.X - CrankRadius;
-                                                roundedCrankCenterStart.Y = MiddleStart.Y - CrankRadius;
+                                                roundedCrankCenterStart.X = System.Math.Floor (MiddleStart.X - CrankRadius);
+                                                roundedCrankCenterStart.Y = System.Math.Floor (MiddleStart.Y - CrankRadius);
                                         }
                                 }
                                 return roundedCrankCenterStart;
@@ -203,22 +203,22 @@ namespace Psycho
                         {
                                 if (this.ConnectionVector.Dx * this.ConnectionVector.Dy > 0) {
                                         if (this.ConnectionVector.Dx > 0) {
-                                                roundedCrankCenterEnd.X = MiddleEnd.X + CrankRadius;
-                                                roundedCrankCenterEnd.Y = MiddleEnd.Y - CrankRadius;
+                                                roundedCrankCenterEnd.X = System.Math.Floor (MiddleEnd.X + CrankRadius);
+                                                roundedCrankCenterEnd.Y = System.Math.Floor (MiddleEnd.Y - CrankRadius);
                                         }
                                         else {
-                                                roundedCrankCenterEnd.X = MiddleEnd.X - CrankRadius;
-                                                roundedCrankCenterEnd.Y = MiddleEnd.Y + CrankRadius;
+                                                roundedCrankCenterEnd.X = System.Math.Floor (MiddleEnd.X - CrankRadius);
+                                                roundedCrankCenterEnd.Y = System.Math.Floor (MiddleEnd.Y + CrankRadius);
                                         }
                                 }
                                 else {
                                         if (this.ConnectionVector.Dx < 0) {
-                                                roundedCrankCenterEnd.X = MiddleEnd.X - CrankRadius;
-                                                roundedCrankCenterEnd.Y = MiddleEnd.Y - CrankRadius;
+                                                roundedCrankCenterEnd.X = System.Math.Floor (MiddleEnd.X - CrankRadius);
+                                                roundedCrankCenterEnd.Y = System.Math.Floor (MiddleEnd.Y - CrankRadius);
                                         }
                                         else {
-                                                roundedCrankCenterEnd.X = MiddleEnd.X + CrankRadius;
-                                                roundedCrankCenterEnd.Y = MiddleEnd.Y + CrankRadius;
+                                                roundedCrankCenterEnd.X = System.Math.Floor (MiddleEnd.X + CrankRadius);
+                                                roundedCrankCenterEnd.Y = System.Math.Floor (MiddleEnd.Y + CrankRadius);
                                         }
                                 } return roundedCrankCenterEnd;
                         }
@@ -228,8 +228,8 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankStart1.X = this.MiddleStart.X - this.CrankRadius * System.Math.Sign(this.connectionVector.Dx);
-                                chamferedCrankStart1.Y = this.MiddleStart.Y;
+                                chamferedCrankStart1.X = System.Math.Floor (this.MiddleStart.X - this.CrankRadius * System.Math.Sign(this.connectionVector.Dx));
+                                chamferedCrankStart1.Y = System.Math.Floor (this.MiddleStart.Y);
                                 return chamferedCrankStart1;
                         }
                 }
@@ -238,8 +238,8 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankStart2.X = this.MiddleStart.X;
-                                chamferedCrankStart2.Y = this.MiddleStart.Y + this.CrankRadius * System.Math.Sign (this.connectionVector.Dy);
+                                chamferedCrankStart2.X = System.Math.Floor (this.MiddleStart.X);
+                                chamferedCrankStart2.Y = System.Math.Floor (this.MiddleStart.Y + this.CrankRadius * System.Math.Sign (this.connectionVector.Dy));
                                 return chamferedCrankStart2;
                         }
                 }
@@ -248,8 +248,8 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankEnd1.X = this.MiddleEnd.X + this.CrankChamfer * System.Math.Sign (this.connectionVector.Dx);
-                                chamferedCrankEnd1.Y = this.MiddleEnd.Y;
+                                chamferedCrankEnd1.X = System.Math.Floor (this.MiddleEnd.X + this.CrankChamfer * System.Math.Sign (this.connectionVector.Dx));
+                                chamferedCrankEnd1.Y = System.Math.Floor (this.MiddleEnd.Y);
                                 return chamferedCrankEnd1;
                         }
                 }
@@ -258,8 +258,8 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankEnd2.X = this.MiddleEnd.X;
-                                chamferedCrankEnd2.Y = this.MiddleEnd.Y - this.CrankChamfer * System.Math.Sign (this.connectionVector.Dy);
+                                chamferedCrankEnd2.X = System.Math.Floor (this.MiddleEnd.X);
+                                chamferedCrankEnd2.Y = System.Math.Floor (this.MiddleEnd.Y - this.CrankChamfer * System.Math.Sign (this.connectionVector.Dy));
                                 return chamferedCrankEnd2;
                         }
                 }
@@ -268,8 +268,8 @@ namespace Psycho
                 {
                         get
                         {
-                                arcControlStart.X = this.Start.X + this.ConnectionVector.Dx / 2;
-                                arcControlStart.Y = this.Start.Y;
+                                arcControlStart.X = System.Math.Floor (this.Start.X + this.ConnectionVector.Dx / 2);
+                                arcControlStart.Y = System.Math.Floor (this.Start.Y);
                                 return arcControlStart;
                         }
                 }
@@ -278,8 +278,8 @@ namespace Psycho
                 {
                         get
                         {
-                                arcControlEnd.X = this.End.X;
-                                arcControlEnd.Y = this.End.Y - this.ConnectionVector.Dy / 2;
+                                arcControlEnd.X = System.Math.Floor (this.End.X);
+                                arcControlEnd.Y = System.Math.Floor (this.End.Y - this.ConnectionVector.Dy / 2);
                                 return arcControlEnd;
                         }
                 }
@@ -288,8 +288,8 @@ namespace Psycho
                 {
                         get
                         {
-                                roundedAngleCrankStart.X = this.Start.X + this.ConnectionVector.Dx / 8;
-                                roundedAngleCrankStart.Y = this.Start.Y;
+                                roundedAngleCrankStart.X = System.Math.Floor (this.Start.X + this.ConnectionVector.Dx / 8);
+                                roundedAngleCrankStart.Y = System.Math.Floor (this.Start.Y);
                                 return roundedAngleCrankStart;
                         }
                 }
@@ -298,8 +298,8 @@ namespace Psycho
                 {
                         get
                         {
-                                roundedAngleCrankEnd.X = this.End.X - this.ConnectionVector.Dx / 8;
-                                roundedAngleCrankEnd.Y = this.End.Y - this.ConnectionVector.Dy / 4;
+                                roundedAngleCrankEnd.X = System.Math.Floor (this.End.X - this.ConnectionVector.Dx / 8);
+                                roundedAngleCrankEnd.Y = System.Math.Floor (this.End.Y - this.ConnectionVector.Dy / 4);
                                 return roundedAngleCrankEnd;
                         }
                 }

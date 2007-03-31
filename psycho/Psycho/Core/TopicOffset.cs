@@ -52,20 +52,20 @@ namespace Psycho
                 public void Update (Topic iTopic)
                 {
                         if (iTopic.IsCentral)
-                                x = 0 /*- iTopic.TextHeight / 2*/;
+                                x = 10 /*- iTopic.TextHeight / 2*/;
                         else
-                                x = iTopic.Parent.Offset.X +
+                                x = System.Math.Floor (iTopic.Parent.Offset.X +
                                     iTopic.Parent.Frame.Width +
-                                    iTopic.Style.HorChildDist;
+                                    iTopic.Style.HorChildDist);
 
                         if (iTopic.IsCentral)
-                                y = 0 /*- iTopic.TextWidth / 2*/;
+                                y = 10 /*- iTopic.TextWidth / 2*/;
                         else
                                 if (iTopic.IsFirst)
-                                        y = iTopic.Parent.Offset.Y;
+                                        y = System.Math.Floor (iTopic.Parent.Offset.Y);
                                 else
-                                        y = iTopic.Previous.Offset.Y +
-                                            iTopic.Previous.TotalHeight;
+                                        y = System.Math.Floor (iTopic.Previous.Offset.Y +
+                                            iTopic.Previous.TotalHeight);
                 }
 
                 public double X

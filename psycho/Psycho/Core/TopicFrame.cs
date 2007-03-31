@@ -88,7 +88,7 @@ namespace Psycho
                         switch (this.Topic.Style.Shape) {
                         case TopicShape.Octagon:
                         if (this.Topic.Style.PolyDistance > 0.25 * this.Height)
-                                polyDist = 0.25 * this.Height;
+                                polyDist = System.Math.Floor (0.25 * this.Height);
                         else
                                 polyDist = this.Topic.Style.PolyDistance;
                         break;
@@ -185,10 +185,10 @@ namespace Psycho
                 {
                         get
                         {
-                                origin.X = this.Topic.Offset.X -
-                                           this.Topic.Style.LeftMargin;
-                                origin.Y = this.Topic.Offset.Y -
-                                           this.Topic.Style.TopMargin;
+                                origin.X = System.Math.Floor (this.Topic.Offset.X -
+                                           this.Topic.Style.LeftMargin);
+                                origin.Y = System.Math.Floor (this.Topic.Offset.Y -
+                                           this.Topic.Style.TopMargin);
                                 return origin;
                         }
                 }
@@ -197,10 +197,10 @@ namespace Psycho
                 {
                         get
                         {
-                                center.X = this.Origin.X +
-                                           this.Width / 2;
-                                center.Y = this.Origin.Y +
-                                           this.Height / 2;
+                                center.X = System.Math.Floor (this.Origin.X +
+                                           this.Width / 2);
+                                center.Y = System.Math.Floor (this.Origin.Y +
+                                           this.Height / 2);
                                 return center;
                         }
                 }
@@ -209,18 +209,18 @@ namespace Psycho
                 {
                         get
                         {
-                                left.X = this.Origin.X - /*
+                                left.X = System.Math.Floor (this.Origin.X - /*
                                          this.HexDistHor -
                                          this.OctDistHor -*/
                                          this.PolyDist -
-                                         this.Radius;
+                                         this.Radius);
 
                                 if (this.Topic.Style.Shape == TopicShape.Line)
-                                        left.Y = this.Origin.Y +
-                                                  this.Height;
+                                        left.Y = System.Math.Floor (this.Origin.Y +
+                                                  this.Height);
                                 else
-                                        left.Y = this.Origin.Y +
-                                                 this.Height / 2;
+                                        left.Y = System.Math.Floor (this.Origin.Y +
+                                                 this.Height / 2);
                                 return left;
                         }
                 }
@@ -229,19 +229,19 @@ namespace Psycho
                 {
                         get
                         {
-                                right.X = this.Origin.X +
+                                right.X = System.Math.Floor (this.Origin.X +
                                           this.Width +/*
                                           this.HexDistHor +
                                           this.OctDistHor +*/
                                           this.PolyDist +
-                                          this.Radius;
+                                          this.Radius);
 
                                 if (this.Topic.Style.Shape == TopicShape.Line)
-                                        right.Y = this.Origin.Y +
-                                                  this.Height;
+                                        right.Y = System.Math.Floor (this.Origin.Y +
+                                                  this.Height);
                                 else
-                                        right.Y = this.Origin.Y +
-                                                  this.Height / 2;
+                                        right.Y = System.Math.Floor (this.Origin.Y +
+                                                  this.Height / 2);
                                 return right;
                         }
                 }
@@ -250,8 +250,8 @@ namespace Psycho
                 {
                         get
                         {
-                                top.X = this.Origin.X +
-                                         this.Width / 2;
+                                top.X = System.Math.Floor (this.Origin.X +
+                                         this.Width / 2);
                                 top.Y = this.Origin.Y;
                                 return top;
                         }
@@ -261,10 +261,10 @@ namespace Psycho
                 {
                         get
                         {
-                                bottom.X = this.Origin.X +
-                                         this.Width / 2;
-                                bottom.Y = this.Origin.Y +
-                                          this.Height;
+                                bottom.X = System.Math.Floor (this.Origin.X +
+                                         this.Width / 2);
+                                bottom.Y = System.Math.Floor (this.Origin.Y +
+                                          this.Height);
                                 return bottom;
                         }
                 }

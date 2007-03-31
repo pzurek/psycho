@@ -57,8 +57,7 @@ namespace Psycho
                         rootNode.AppendChild (rootTitle);
                         xmlModel.AppendChild (rootNode);
                         currentXmlTopic = rootNode;
-
-                        NotifyObservers ();
+                        //NotifyObservers ();
                 }
 
                 List<IView> observerList = new List<IView> ();
@@ -149,7 +148,7 @@ namespace Psycho
                                 newTopic.Parent = iTopic;
                                 CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);
                                 iTopic.AddSubtopic (newTopic);
-                                if (newTopic.Level < 3)
+                                if (newTopic.Level < 4)
                                         AppendSomeNodes (newTopic);
                         }
                 }
@@ -166,7 +165,6 @@ namespace Psycho
                                 SetCurrentXml (CurrentTopic.GUID);
                                 newTopics.Add (newTopic);
                                 UpdateToTop (newTopic);
-                                //UpdateAllOffsets ();
                                 NotifyObservers ();
                         }
                 }
@@ -181,7 +179,7 @@ namespace Psycho
                         SetCurrentXml (CurrentTopic.GUID);
                         newTopics.Add (newTopic);
                         UpdateToTop (newTopic);
-                        //UpdateAllOffsets ();
+                        //UpdateAllOffsets ();//Moved to NotifyObservers()
                         NotifyObservers ();
                 }
 
