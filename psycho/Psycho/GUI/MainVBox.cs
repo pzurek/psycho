@@ -38,8 +38,9 @@ namespace Psycho
             model.AppendSomeNodes(model.CentralTopic);
 
             TemporaryButtonBox buttonView = new TemporaryButtonBox();
-            PsychoNodeView outlineView = new PsychoNodeView();
-            ScrolledWindow outlineContainer = new ScrolledWindow();
+//            PsychoNodeView outlineView = new PsychoNodeView();
+//            ScrolledWindow outlineContainer = new ScrolledWindow();
+            PsychoOutlineView outlineView = new PsychoOutlineView();
 
             Console.WriteLine("Creating button view");
             MindControl buttonControl = new MindControl(model, buttonView);
@@ -50,7 +51,7 @@ namespace Psycho
             Console.WriteLine("Creating outline view");
             MindControl outlineControl = new MindControl(model, outlineView);
             Console.WriteLine("Creating controller");
-            outlineContainer.Add(outlineView);
+//            outlineContainer.Add(outlineView);
             outlineView.WireUp(outlineControl, model);
             Console.WriteLine("The outline view connected to the model and controller");
             ShowAll();

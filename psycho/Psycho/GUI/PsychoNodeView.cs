@@ -31,17 +31,10 @@ namespace Psycho {
 
     public partial class PsychoNodeView : NodeView {
 
+        private PsychoTreeNode centralNode = new PsychoTreeNode("", "");
+        private PsychoTreeNode selectedNode = new PsychoTreeNode("", "");
+
         public PsychoNodeView() : base() {
-
-            //TreeViewColumn titleColumn = new TreeViewColumn();
-            //titleColumn.Title = "Topic title";
-            //CellRendererText titleCell = new CellRendererText();
-            //titleColumn.PackStart(titleCell, true);
-
-            //titleCell.Editable = true;
-            //titleCell.Edited += new EditedHandler(titleCell_Edited);
-
-//            AppendColumn(titleColumn);
 
             AppendColumn("Title", new CellRendererText(), "text", 0);
             AppendColumn("GUID", new CellRendererText(), "text", 1);

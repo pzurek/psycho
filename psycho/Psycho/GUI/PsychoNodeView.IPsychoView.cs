@@ -29,108 +29,108 @@ using Gtk;
 
 namespace Psycho {
 
-    public partial class PsychoNodeView : IPsychoView {
+    public partial class PsychoNodeView {
 
         #region IPsychoView Members
 
-        private new IPsychoModel Model;
-        private IPsychoControl Control;
+        //private new IPsychoModel Model;
+        //private IPsychoControl Control;
 
-        private PsychoTreeNode centralNode = new PsychoTreeNode("", "");
-        private PsychoTreeNode selectedNode = new PsychoTreeNode("", "");
-        public NodeStore store = new NodeStore(typeof(PsychoTreeNode));
+        //private PsychoTreeNode centralNode = new PsychoTreeNode("", "");
+        //private PsychoTreeNode selectedNode = new PsychoTreeNode("", "");
+        //public NodeStore store = new NodeStore(typeof(PsychoTreeNode));
 
-        public void Update(IPsychoModel paramModel)
-        {
-            store.Clear();
-            centralNode = new PsychoTreeNode(paramModel.CentralTopic.Title, paramModel.CentralTopic.GUID);
-            store.AddNode(centralNode);
-            AddNodesRecursively(centralNode, paramModel.CentralTopic);
-            ExpandAll();
-            ListAllNodes();
-            Realize();
-            Show();
-        }
+        //public void Update(IPsychoModel paramModel)
+        //{
+        //    store.Clear();
+        //    centralNode = new PsychoTreeNode(paramModel.CentralTopic.Title, paramModel.CentralTopic.GUID);
+        //    store.AddNode(centralNode);
+        //    AddNodesRecursively(centralNode, paramModel.CentralTopic);
+        //    ExpandAll();
+        //    ListAllNodes();
+        //    Realize();
+        //    Show();
+        //}
 
-        public void AddTopic()
-        {
-        }
+        //public void AddTopic()
+        //{
+        //}
 
-        public void AddSubtopic()
-        {
-        }
+        //public void AddSubtopic()
+        //{
+        //}
 
-        public void DeleteTopic()
-        {
-        }
+        //public void DeleteTopic()
+        //{
+        //}
 
-        public void ExpandTopic(string paramGuid, bool isExpanded)
-        {
-        }
+        //public void ExpandTopic(string paramGuid, bool isExpanded)
+        //{
+        //}
 
-        public void EditTitle(string Title)
-        {
-        }
+        //public void EditTitle(string Title)
+        //{
+        //}
 
-        public void SetCurrentTopic()
-        {
-        }
+        //public void SetCurrentTopic()
+        //{
+        //}
 
-        public void DisableAddSibling()
-        {
-        }
+        //public void DisableAddSibling()
+        //{
+        //}
 
-        public void EnableAddSibling()
-        {
-        }
+        //public void EnableAddSibling()
+        //{
+        //}
 
-        public void DisableDelete()
-        {
-        }
+        //public void DisableDelete()
+        //{
+        //}
 
-        public void EnableDelete()
-        {
-        }
+        //public void EnableDelete()
+        //{
+        //}
 
-        public void WireUp(IPsychoControl paramControl, IPsychoModel paramModel)
-        {
-            if (Model != null) {
-                Model.RemoveObserver(this);
-            }
+        //public void WireUp(IPsychoControl paramControl, IPsychoModel paramModel)
+        //{
+        //    if (Model != null) {
+        //        Model.RemoveObserver(this);
+        //    }
 
-            Model = paramModel;
-            Control = paramControl;
+        //    Model = paramModel;
+        //    Control = paramControl;
 
-            Control.SetModel(Model);
-            Control.SetView(this);
-            Model.AddObserver(this);
-            Update(Model);
-        }
+        //    Control.SetModel(Model);
+        //    Control.SetView(this);
+        //    Model.AddObserver(this);
+        //    Update(Model);
+        //}
 
-        private void AddNodesRecursively(PsychoTreeNode paramNode, Topic paramTopic)
-        {
-            foreach (Topic child in paramTopic.Subtopics) {
-                PsychoTreeNode newNode = new PsychoTreeNode(child.Title, child.GUID);
-                paramNode.AddChild(newNode);
-                newNode.Parent = paramNode;
-                AddNodesRecursively(newNode, child);
-            }
-        }
+        //private void AddNodesRecursively(PsychoTreeNode paramNode, Topic paramTopic)
+        //{
+        //    foreach (Topic child in paramTopic.Subtopics) {
+        //        PsychoTreeNode newNode = new PsychoTreeNode(child.Title, child.GUID);
+        //        paramNode.AddChild(newNode);
+        //        newNode.Parent = paramNode;
+        //        AddNodesRecursively(newNode, child);
+        //    }
+        //}
 
-        public void SelectNodeByGUID(string paramGuid)
-        {
-            foreach (PsychoTreeNode node in this) {
-                this.NodeSelection.SelectNode(node);
-                Console.WriteLine("Node found :" + node.GUID);
-                if (node.GUID == paramGuid) break;
-            }
-        }
+        //public void SelectNodeByGUID(string paramGuid)
+        //{
+        //    foreach (PsychoTreeNode node in this) {
+        //        this.NodeSelection.SelectNode(node);
+        //        Console.WriteLine("Node found :" + node.GUID);
+        //        if (node.GUID == paramGuid) break;
+        //    }
+        //}
 
-        private void ListAllNodes()
-        {
-            foreach (PsychoTreeNode node in store)
-                Console.WriteLine(node.Title);
-        }
+        //private void ListAllNodes()
+        //{
+        //    foreach (PsychoTreeNode node in store)
+        //        Console.WriteLine(node.Title);
+        //}
 
         #endregion
     }
