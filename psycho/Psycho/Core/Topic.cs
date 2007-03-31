@@ -598,8 +598,8 @@ namespace Psycho
 
                 public bool IsOnOtherSide
                 {
-                        get { return IsOnOtherSide; }
-                        set { IsOnOtherSide = value; }
+                        get { return isOnOtherSide; }
+                        set { isOnOtherSide = value; }
                 }
 
                 public bool IsCentral
