@@ -171,9 +171,9 @@ namespace Psycho {
                 store.GetIter(out parent, parentPath);
                 TreeIter iter = store.InsertNode(parent, position);
                 store.SetValue(iter, 0, topic);
-                outlineView.Selection.SelectIter(iter);
                 TreePath path = store.GetPath(iter);
                 outlineView.ExpandToPath(path);
+                outlineView.Selection.SelectIter(iter);
             }
 
             foreach (Topic topic in paraModel.DeletedTopics) {

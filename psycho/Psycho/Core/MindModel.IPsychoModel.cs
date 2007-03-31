@@ -86,8 +86,8 @@ namespace Psycho {
                 CurrentTopic.Parent.AddSubtopicAt((currentIndex + 1), newTopic);
                 CurrentTopic = newTopic;
                 newTopics.Add(newTopic);
+                NotifyObservers();
             }
-            NotifyObservers();
         }
 
         public void CreateSubtopic()
