@@ -32,7 +32,7 @@ namespace Psycho
         using Pango;
         using Psycho;
 
-        public class Topic
+        public class Topic : ITopic
         {
                 public Topic ()
                 {

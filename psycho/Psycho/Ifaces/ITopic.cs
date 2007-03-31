@@ -31,18 +31,29 @@ namespace Psycho
 
         public interface ITopic
         {
+                Topics Subtopics { get; set; }
+                string Text { get; set; }
 
-                string Title { get; set; }
-                ITopic Parent { get; set; }
-                int Level { get; }
-                string Id { get; set; }
-                string Path { get; }
+                //public Pango.Layout TextLayout { get; set; }
+
+                int TextWidth { get;}
+                int TextHeight { get;}
+                Title TopicTitle { get; set; }
+                TopicType Type { get; set; }
+                Topic Parent { get; set; }
                 string GUID { get; }
+                Notes TopicNotes { get; set; }
                 bool IsExpanded { get; set; }
-                Topics subtopics { get; set; }
+                Style TopicStyle { get; set; }
+                bool HasNotes { get;}
+                int TotalCount { get; }
+                string Path { get; }
+                string Number  { get; }
+                int Level { get; }
 
-                void AddSubtopic (int paramIndex, ITopic paramTopic);
-                void AddSubtopic (ITopic paramTopic);
+                void AddSubtopic (Topic paramTopic);
+                void AddSubtopic (int paramIndex, Topic paramTopic);
                 void Delete ();
+                void ForEach (Action<Topic> action);
         }
 }
