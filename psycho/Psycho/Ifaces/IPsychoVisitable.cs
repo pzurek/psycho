@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Psycho {
+
     public interface IPsychoVisitable {
 
         void Accept (IPsychoVisitor visitor);
