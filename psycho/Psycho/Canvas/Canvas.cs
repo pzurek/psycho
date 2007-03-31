@@ -109,7 +109,7 @@ namespace Psycho
                         //DrawRectangles (iContext, Model.CentralTopic);
                         DrawConnections (iContext, Model.CentralTopic);
                         DrawFrames (iContext, Model.CentralTopic);
-                        DrawTexts (iContext, Model.CentralTopic);
+                        //DrawTexts (iContext, Model.CentralTopic);
                         DrawFrame (iContext, Model.CentralTopic);
                         DrawText (/*iContext,*/ Model.CentralTopic);
                 }
@@ -137,6 +137,7 @@ namespace Psycho
                                 if (TempTopic.IsExpanded)
                                         DrawFrames (iContext, TempTopic);
                                 DrawFrame (iContext, TempTopic);
+                                DrawText (/*iContext, */TempTopic);
                         }
                 }
 
