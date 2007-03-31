@@ -35,6 +35,8 @@ namespace Psycho
                 string description;
                 string family;
                 Single size;
+                Color color;
+                Color strikethroughColor;
                 bool bold;
                 bool italic;
                 bool underline;
@@ -45,6 +47,8 @@ namespace Psycho
                 {
                         this.family = paramFamily;
                         this.size = paramSize;
+                        this.color = new Color ();
+                        this.strikethroughColor = new Color ();
                         this.bold = false;
                         this.italic = false;
                         this.underline = false;
@@ -55,7 +59,7 @@ namespace Psycho
                 {
                         get
                         {
-                                description = (family + " " + size.ToString ());
+                                description = (family + ", " + size.ToString ());
                                 return description;
                         }
                 }
@@ -70,6 +74,18 @@ namespace Psycho
                 {
                         get { return size; }
                         set { size = value; }
+                }
+
+                public Color FontColor
+                {
+                        get { return color; }
+                        set { color = value; }
+                }
+
+                public Color StrikethroughColor
+                {
+                        get { return strikethroughColor; }
+                        set { strikethroughColor = value; }
                 }
 
                 public bool Bold

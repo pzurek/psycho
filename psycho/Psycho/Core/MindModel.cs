@@ -35,7 +35,7 @@ namespace Psycho
         public class MindModel : IModel
         {
 
-                Topic centralTopic = new Topic (1234);
+                Topic centralTopic = new Topic ();
                 Topic currentTopic;
                 XmlElement currentXmlTopic;
                 XmlElement currentXmlParent;

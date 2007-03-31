@@ -5,13 +5,29 @@ using Cairo;
 namespace Psycho
 {
 
-        public class Knockout : DrawingArea
+        public class Knockout : DrawingArea, IView
         {
+                IModel Model;
+                IControl Control;
 
-                Pango.Layout text;
-
-                public Knockout ()
+                public void WireUp (IControl paramControl, IModel paramModel)
                 {
+                        if (Model != null) {
+                                Model.RemoveObserver (this);
+                        }
+
+                        Model = paramModel;
+                        Control = paramControl;
+
+                        Control.SetModel (Model);
+                        Control.SetView (this);
+                        Model.AddObserver (this);
+                        Update (Model);
+                }
+
+                public void Update (IModel paramModel)
+                {
+                        this.QueueDraw ();
                 }
 
                 void OvalPath (Context cr, double xc, double yc, double xr, double yr)
@@ -78,11 +94,13 @@ namespace Psycho
                         cr.Fill ();
                 }
 
+                Pango.Layout text;
+
                 void DrawText ()
                 {
-                        text = new Pango.Layout (this.PangoContext);
-                        text.FontDescription = (Pango.FontDescription.FromString ("Bitstream Vera Sans 20"));
-                        text.SetMarkup ("Pango Context So that's how it works...");
+                        text = new Pango.Layout (Model.CentralTopic.PangoContext);
+                        text = Model.CentralTopic.TextLayout;
+                        text.FontDescription = Pango.FontDescription.FromString (Model.CentralTopic.Style.StyleFont.Description);
                 }
 
                 void Draw (Context cr, int width, int height)
@@ -139,14 +157,75 @@ namespace Psycho
                 protected override bool OnExposeEvent (Gdk.EventExpose e)
                 {
                         Context cr = Gdk.CairoHelper.Create (e.Window);
-                        int w, h;
+                        int w, h, tw, th;
                         e.Window.GetSize (out w, out h);
                         Draw (cr, w, h);
-                        Gdk.Color textColor = new Gdk.Color (0, 0, 0);
-                        text.FontDescription.Family = "Courier New";
-                        text.FontDescription.Size = 10;
-                        this.GdkWindow.DrawLayout (this.Style.TextAAGC (StateType.Normal), 10, 200, text);
+                        tw = Model.CentralTopic.TextWidth;
+                        th = Model.CentralTopic.TextHeight;
+
+                        this.GdkWindow.DrawLayout (this.Style.TextAAGC (StateType.Normal), ((w - tw) / 2), ((h - th) / 2), text);
                         return true;
+                }
+
+
+                public void AddTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void AddSubtopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void DeleteTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void CommitChange (Topic paramTopic)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void ExpandTopic (string paramGuid, bool isExpanded)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EditTitle (string Title)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void TriggerEdit (bool editPending)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void DisableAddSibling ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void DisableDelete ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EnableAddSibling ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EnableDelete ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
                 }
         }
 }

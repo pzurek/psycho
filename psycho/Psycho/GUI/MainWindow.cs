@@ -70,6 +70,10 @@ namespace Psycho
                         MindControl notesControl = new MindControl (model, notesView);
                         notesView.WireUp (notesControl, model);
 
+                        Knockout mapView = new Knockout ();
+                        MindControl mapControl = new MindControl (model, mapView);
+                        mapView.WireUp (mapControl, model);
+
                         //AddAccelGroup(UIView.uiManager.AccelGroup);
 
                         Expander buttonExpander = new Expander ("Property View");
@@ -82,8 +86,6 @@ namespace Psycho
 
                         Notebook mainNotebook = new Notebook ();
                         mainNotebook.BorderWidth = 6;
-
-                        Knockout mapView = new Knockout ();
 
                         mainNotebook.InsertPage (mapView, new Label ("Map View"), /*new Label("Map View"),*/ 0);
                         mainNotebook.InsertPage (nodeView, new Label ("Outline View"), /*new Label("Outline View"),*/ 1);

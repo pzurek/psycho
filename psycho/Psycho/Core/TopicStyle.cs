@@ -50,7 +50,7 @@ namespace Psycho
 
                 public TopicStyle ()
                 {
-                        this.styleFont = (new Font ("Arial", 12));
+                        this.styleFont = (new Font ("Bitstream Vera Sans", 20));
                         this.shape = TopicShape.RoundedRectangle;
                         this.connectPoint = ConnectionPoint.Edge;
                         this.connectShape = ConnectionShape.Curve;

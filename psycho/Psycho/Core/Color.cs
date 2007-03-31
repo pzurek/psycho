@@ -54,6 +54,14 @@ namespace Psycho
                         blue = paramBlue;
                 }
 
+                public void SetRGB (ushort paramRed, ushort paramGreen, ushort paramBlue)
+                {
+                        alfa = 255;
+                        red = paramRed;
+                        green = paramGreen;
+                        blue = paramBlue;
+                }
+
                 public void SetAlfa (ushort paramAlfa)
                 {
                         this.alfa = paramAlfa;
@@ -62,6 +70,13 @@ namespace Psycho
                 public void GetARGB (out ushort outAlfa, out ushort outRed, out ushort outGreen, out ushort outBlue)
                 {
                         outAlfa = alfa;
+                        outRed = red;
+                        outGreen = green;
+                        outBlue = blue;
+                }
+
+                public void GetRGB (out ushort outRed, out ushort outGreen, out ushort outBlue)
+                {
                         outRed = red;
                         outGreen = green;
                         outBlue = blue;
@@ -76,7 +91,7 @@ namespace Psycho
                 public Color ()
                 {
                         this.name = "";
-                        this.alfa = 0;
+                        this.alfa = 255;
                         this.red = 0;
                         this.green = 0;
                         this.blue = 0;
@@ -111,6 +126,15 @@ namespace Psycho
                         this.red = paramRed;
                         this.green = paramGreen;
                         this.blue = paramBlue;
+                }
+
+                public Pango.Color ToPangoColor ()
+                {
+                        Pango.Color outColor = new Pango.Color ();
+                        outColor.Red = this.red;
+                        outColor.Green = this.green;
+                        outColor.Blue = this.blue;
+                        return outColor;
                 }
         }
 }

@@ -29,10 +29,11 @@ namespace Psycho
         using System.Collections;
         using System.Collections.Generic;
         using System.Xml;
+        using Gtk;
         using Pango;
         using Psycho;
 
-        public class Topic : ITopic
+        public class Topic : Widget, ITopic
         {
                 public Topic ()
                 {
@@ -41,27 +42,27 @@ namespace Psycho
                         this.Text = ("Topic ");
                         this.isExpanded = false;
                         this.style = (new TopicStyle ());
-                        textLayout = new Layout (context);
-                        textLayout.SetText (this.text);
-                        textLayout.FontDescription = FontDescription.FromString (this.style.StyleFont.Description);
+                        textLayout = new Pango.Layout (this.PangoContext);
+                        Pango.AttrForeground textColor = new AttrForeground (this.style.StyleFont.FontColor.ToPangoColor ());
                 }
 
-                public Topic (int topic_number)
+                public Topic (int topicNumber)
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
-                        this.Text = ("Topic " + topic_number.ToString ());
-                        this.isExpanded = false;
-                        this.style = (new TopicStyle ());
-                        textLayout = new Layout (context);
-                        textLayout.SetText (this.text);
-                        textLayout.FontDescription = FontDescription.FromString (this.style.StyleFont.Description);
+                        this.Text = ("Topic " + topicNumber.ToString ());
+                        this.IsExpanded = false;
+                        this.Style = (new TopicStyle ());
+                        this.textLayout = new Pango.Layout (this.PangoContext);
+                        this.textLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
+                        this.textLayout.SetText (this.text);
                 }
 
                 string text;
                 string number;
                 Topic parent;
                 int level;
+                int index;
                 int totalCount;
                 string path;
                 string guid;
@@ -70,16 +71,33 @@ namespace Psycho
                 TopicStyle style;
                 Title topicTitle;
                 TopicType type;
-                Pango.Layout textLayout;
+                int xOffset;
+                int yOffset;
                 int textWidth;
                 int textHeight;
                 Topics subtopics = new Topics ();
-                Pango.Context context = new Pango.Context (new IntPtr ());
+                Pango.Layout textLayout;
+                bool isOnLeft;
 
                 public Topics Subtopics
                 {
                         get { return subtopics; }
                         set { subtopics = value; }
+                }
+
+                public int Index
+                {
+                        get
+                        {
+                                if (this.Parent != null) {
+                                        index = this.Parent.Subtopics.IndexOf (this);
+                                        return index;
+                                }
+                                else {
+                                        index = -1;
+                                        return index;
+                                }
+                        }
                 }
 
                 public string Text
@@ -90,7 +108,11 @@ namespace Psycho
 
                 public Pango.Layout TextLayout
                 {
-                        get { return textLayout; }
+                        get
+                        {
+                                textLayout.SetText (this.text);
+                                return textLayout;
+                        }
                 }
 
                 public int TextWidth
@@ -106,9 +128,21 @@ namespace Psycho
                 {
                         get
                         {
-                                TextLayout.GetPixelSize (out textWidth, out textHeight);
+                                textLayout.GetPixelSize (out textWidth, out textHeight);
                                 return textHeight;
                         }
+                }
+
+                public void SetOffset (int paramXOffset, int paramYOffset)
+                {
+                        xOffset = paramXOffset;
+                        yOffset = paramYOffset;
+                }
+
+                public void GetOffset (out int outXOffset, out int outYOffset)
+                {
+                        outXOffset = xOffset;
+                        outYOffset = yOffset;
                 }
 
                 public Title TopicTitle
@@ -123,10 +157,33 @@ namespace Psycho
                         set { type = value; }
                 }
 
-                public Topic Parent
+                new public Topic Parent
                 {
                         get { return parent; }
                         set { parent = value; }
+                }
+
+                public Topic Next
+                {
+                        get
+                        {
+                                if (this.Parent.Subtopics.Count > this.Index)
+                                        return this.Parent.Subtopics[(this.index + 1)];
+                                else
+                                        return null;
+                        }
+
+                }
+
+                public Topic Previous
+                {
+                        get
+                        {
+                                if (this.Index > 0)
+                                        return this.Parent.Subtopics[(this.index - 1)];
+                                else
+                                        return null;
+                        }
                 }
 
                 public string GUID
@@ -146,10 +203,49 @@ namespace Psycho
                         set { isExpanded = value; }
                 }
 
-                public TopicStyle Style
+                public bool IsOnLeft
                 {
-                        get { return Style; }
-                        set { Style = value; }
+                        get { return isOnLeft; }
+                        set { isOnLeft = value; }
+                }
+
+                public bool IsCentral
+                {
+                        get
+                        {
+                                if (this.Parent == null)
+                                        return true;
+                                else
+                                        return false;
+                        }
+                }
+
+                public bool IsFirst
+                {
+                        get
+                        {
+                                if (this.Parent != null || this.index != 0)
+                                        return true;
+                                else
+                                        return false;
+                        }
+                }
+
+                public bool IsLast
+                {
+                        get
+                        {
+                                if (this.Parent != null || this.Parent.Subtopics.Count == this.index)
+                                        return true;
+                                else
+                                        return false;
+                        }
+                }
+
+                new public TopicStyle Style
+                {
+                        get { return style; }
+                        set { style = value; }
                 }
 
                 public bool HasNotes
@@ -179,7 +275,7 @@ namespace Psycho
                         }
                 }
 
-                public string Path
+                new public string Path
                 {
                         get
                         {
