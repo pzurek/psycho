@@ -233,6 +233,5 @@ namespace Psycho {
         {
             Control.RequestExpand(isExpanded);
         }
-
     }
 }
