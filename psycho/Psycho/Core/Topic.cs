@@ -191,21 +191,21 @@ namespace Psycho
                         get
                         {
                                 switch (this.Parent.Style.SubLayout) {
-                                        case SubtopicsLayout.Map: {
+                                        case SubtopicLayout.Map: {
                                                 if (this.IsOnOtherSide)
                                                         inPoint = this.Frame.Right;
                                                 else
                                                         inPoint = this.Frame.Left;
                                         }
                                         break;
-                                        case SubtopicsLayout.Root: {
+                                        case SubtopicLayout.Root: {
                                                 if (this.IsOnOtherSide)
                                                         inPoint = this.Frame.Right;
                                                 else
                                                         inPoint = this.Frame.Left;
                                         }
                                         break;
-                                        case SubtopicsLayout.OrgChart:
+                                        case SubtopicLayout.OrgChart:
                                         inPoint = this.Frame.Top;
                                         break;
                                 }
@@ -222,17 +222,17 @@ namespace Psycho
                                         outPoint = this.Frame.Center;
                                 else
                                         switch (this.Style.SubLayout) {
-                                                case SubtopicsLayout.Map: {
+                                                case SubtopicLayout.Map: {
                                                         if (this.IsOnOtherSide)
                                                                 outPoint = this.Frame.Left;
                                                         else
                                                                 outPoint = this.Frame.Right;
                                                 }
                                                 break;
-                                                case SubtopicsLayout.Root:
+                                                case SubtopicLayout.Root:
                                                 outPoint = this.Frame.Bottom;
                                                 break;
-                                                case SubtopicsLayout.OrgChart:
+                                                case SubtopicLayout.OrgChart:
                                                 outPoint = this.Frame.Bottom;
                                                 break;
                                         }
@@ -417,14 +417,14 @@ namespace Psycho
                         {
                                 if (this.IsExpanded && this.SubtopicList.Count > 0)
                                         switch (this.Style.SubLayout) {
-                                                case SubtopicsLayout.Map:
+                                                case SubtopicLayout.Map:
                                                 if (this.SubtopicList.Height > this.Height)
                                                         totalHeight = this.SubtopicList.Height;
                                                 break;
-                                                case SubtopicsLayout.Root:
+                                                case SubtopicLayout.Root:
                                                 totalHeight = this.Height + this.SubtopicList.Height + this.Style.VerChildDist;
                                                 break;
-                                                case SubtopicsLayout.OrgChart:
+                                                case SubtopicLayout.OrgChart:
                                                 totalHeight = this.Height + this.SubtopicList.Height + this.Style.OrgChartVertDist;
                                                 break;
                                         }
@@ -440,13 +440,13 @@ namespace Psycho
                         {
                                         if (this.IsExpanded && this.SubtopicList.Count > 0)
                                                 switch (this.Style.SubLayout) {
-                                                        case SubtopicsLayout.Map:
+                                                        case SubtopicLayout.Map:
                                                         totalWidth = this.Width + this.SubtopicList.Width + this.Style.HorChildDist;
                                                         break;
-                                                        case SubtopicsLayout.Root:
+                                                        case SubtopicLayout.Root:
                                                         totalWidth = this.Width / 2  + this.SubtopicList.Width + this.Style.HorChildDist / 2;
                                                         break;
-                                                        case SubtopicsLayout.OrgChart:
+                                                        case SubtopicLayout.OrgChart:
                                                         if (this.SubtopicList.Width > this.Width)
                                                                 totalWidth = this.SubtopicList.Width;
                                                         break;

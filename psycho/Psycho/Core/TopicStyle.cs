@@ -51,7 +51,7 @@ namespace Psycho
                 int polyDistance;
                 bool fixedWidth;
                 int width;
-                SubtopicsLayout subLayout;
+                SubtopicLayout subLayout;
 
                 Stylus stylus = new Stylus ();
 
@@ -121,22 +121,22 @@ namespace Psycho
                         set { connectPoint = value; }
                 }
 
-                public SubtopicsLayout SubLayout
+                public SubtopicLayout SubLayout
                 {
                         get
                         {
                                 switch (this.Topic.Index) {
                                         case 0:
-                                        subLayout = SubtopicsLayout.Map;
+                                        subLayout = SubtopicLayout.Map;
                                         break;
                                         case 1:
-                                        subLayout = SubtopicsLayout.Root;
+                                        subLayout = SubtopicLayout.Root;
                                         break;
                                         case 2:
-                                        subLayout = SubtopicsLayout.OrgChart;
+                                        subLayout = SubtopicLayout.OrgChart;
                                         break;
                                         default:
-                                        subLayout = SubtopicsLayout.Map;
+                                        subLayout = SubtopicLayout.Map;
                                         break;
                                 }
 

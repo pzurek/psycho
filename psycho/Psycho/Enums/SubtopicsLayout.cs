@@ -29,7 +29,7 @@ using System;
 
 namespace Psycho
 {
-        public enum SubtopicsLayout
+        public enum SubtopicLayout
         {
                 Map,
                 Root,

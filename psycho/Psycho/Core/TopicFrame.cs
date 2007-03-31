@@ -306,7 +306,7 @@ namespace Psycho
 
                 void sketchLine ()
                 {
-                        if (this.Topic.Parent.Style.SubLayout == SubtopicsLayout.OrgChart)
+                        if (this.Topic.Parent.Style.SubLayout == SubtopicLayout.OrgChart)
                                 context.Rectangle (Origin, RecWidth, Height);
                         else {
                                 context.MoveTo (Origin);

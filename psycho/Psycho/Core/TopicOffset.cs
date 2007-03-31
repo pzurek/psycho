@@ -87,7 +87,7 @@ namespace Psycho
                                 return;
                         else {
                                 switch (this.Topic.Parent.Style.SubLayout) {
-                                        case SubtopicsLayout.Map:
+                                        case SubtopicLayout.Map:
                                         if (iTopic.IsOnOtherSide) {
                                                 if (iTopic.IsFirst) {
                                                         baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX -
@@ -116,7 +116,7 @@ namespace Psycho
                                         }
                                         break;
 
-                                        case SubtopicsLayout.Root:
+                                        case SubtopicLayout.Root:
                                         if (iTopic.IsOnOtherSide) {
                                                 if (iTopic.IsFirst) {
                                                         baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX -
@@ -142,7 +142,7 @@ namespace Psycho
                                                         baseX = System.Math.Floor (iTopic.Previous.Offset.BaseX);
                                                 }
                                         } break;
-                                        case SubtopicsLayout.OrgChart:{
+                                        case SubtopicLayout.OrgChart:{
                                                 if (iTopic.IsOnOtherSide) {
                                                         if (iTopic.IsFirst) {
                                                                 baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX -
@@ -180,7 +180,7 @@ namespace Psycho
                                 return;
                         else {
                                 switch (this.Topic.Parent.Style.SubLayout) {
-                                        case SubtopicsLayout.Map:
+                                        case SubtopicLayout.Map:
                                         if (iTopic.IsFirst) {
                                                 if (iTopic.Level == 1)
                                                         baseY = iTopic.Parent.Offset.BaseY -
@@ -194,7 +194,7 @@ namespace Psycho
                                         }
 
                                         break;
-                                        case SubtopicsLayout.Root: {
+                                        case SubtopicLayout.Root: {
                                                 if (iTopic.IsFirst) {
                                                         if (iTopic.Level == 1)
                                                                 baseY = iTopic.Parent.Offset.BaseY -
@@ -211,7 +211,7 @@ namespace Psycho
                                         }
                                         break;
 
-                                        case SubtopicsLayout.OrgChart: {
+                                        case SubtopicLayout.OrgChart: {
                                                 if (iTopic.IsOnOtherSide) {
                                                         if (iTopic.IsFirst) {
                                                                 if (iTopic.Level == 1)
@@ -255,19 +255,19 @@ namespace Psycho
                                 return;
                         else {
                                 switch (this.Topic.Style.SubLayout) {
-                                        case SubtopicsLayout.Map:
+                                        case SubtopicLayout.Map:
                                         if (iTopic.IsOnOtherSide)
                                                 localX = System.Math.Floor (-iTopic.Width / 2);
                                         else
                                                 localX = System.Math.Floor (iTopic.Width / 2);
                                         break;
-                                        case SubtopicsLayout.Root:
+                                        case SubtopicLayout.Root:
                                         if (iTopic.IsOnOtherSide)
                                                 localX = System.Math.Floor (-iTopic.Width / 2);
                                         else
                                                 localX = System.Math.Floor (iTopic.Width / 2);
                                         break;
-                                        case SubtopicsLayout.OrgChart:
+                                        case SubtopicLayout.OrgChart:
                                         localX = System.Math.Floor (iTopic.TotalWidth / 2);
                                         break;
                                 }
@@ -281,13 +281,13 @@ namespace Psycho
                                 return;
                         else {
                                 switch (this.Topic.Style.SubLayout) {
-                                        case SubtopicsLayout.Map:
+                                        case SubtopicLayout.Map:
                                         localY = System.Math.Floor (iTopic.TotalHeight / 2);
                                         break;
-                                        case SubtopicsLayout.Root:
+                                        case SubtopicLayout.Root:
                                         localY = System.Math.Floor (iTopic.Height / 2);
                                         break;
-                                        case SubtopicsLayout.OrgChart:
+                                        case SubtopicLayout.OrgChart:
                                         localY = System.Math.Floor (iTopic.Height / 2);
                                         break;
                                 }

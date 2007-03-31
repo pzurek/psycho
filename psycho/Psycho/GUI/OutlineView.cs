@@ -226,9 +226,10 @@ namespace Psycho
                 {
                         this.updatePending = true;
                         //outlineView.Model = null;
-                        UpdateNew (iModel);
-                        UpdateDeletedPath (iModel);
-                        UpdateChanged (iModel);
+                        //Build (iModel);
+                        //UpdateNew (iModel);
+                        //UpdateDeletedPath (iModel);
+                        //UpdateChanged (iModel);
                         //outlineView.Model = store;
                         workingTopic = iModel.CurrentTopic;
                         this.updatePending = false;
