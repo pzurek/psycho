@@ -29,53 +29,54 @@ using Gtk;
 using Cairo;
 
 namespace Gdk {
-    public class Graphics {
-        //Use [DllImport("libgdk-win32-2.0-0.dll")] for  Win32 
-        [DllImport ("libgdk-win32-2.0-0.dll")]
-        internal static extern IntPtr gdk_x11_drawable_get_xdisplay (IntPtr raw);
 
-        [DllImport ("libgdk-win32-2.0-0.dll")]
-        internal static extern IntPtr gdk_x11_drawable_get_xid (IntPtr raw);
+        public class Graphics {
 
-        [DllImport ("libgdk-win32-2.0-0.dll")]
-        internal static extern IntPtr gdk_drawable_get_visual (IntPtr raw);
+                [DllImport ("libgdk-win32-2.0-0.dll")]
+                internal static extern IntPtr gdk_x11_drawable_get_xdisplay (IntPtr raw);
 
-        [DllImport ("libgdk-win32-2.0-0.dll")]
-        internal static extern IntPtr gdk_x11_visual_get_xvisual (IntPtr raw);
+                [DllImport ("libgdk-win32-2.0-0.dll")]
+                internal static extern IntPtr gdk_x11_drawable_get_xid (IntPtr raw);
 
-        [DllImport ("libgdk-win32-2.0-0.dll")]
-        internal static extern IntPtr gdk_cairo_create (IntPtr raw);
+                [DllImport ("libgdk-win32-2.0-0.dll")]
+                internal static extern IntPtr gdk_drawable_get_visual (IntPtr raw);
 
-        public static Cairo.Context CreateDrawable (Gdk.Drawable drawable)
-        {
-            IntPtr x_drawable = IntPtr.Zero;
-            int x_off = 0, y_off = 0;
+                [DllImport ("libgdk-win32-2.0-0.dll")]
+                internal static extern IntPtr gdk_x11_visual_get_xvisual (IntPtr raw);
 
-            int x, y, w, h, d;
-            ((Gdk.Window) drawable).GetGeometry (out x, out y, out w, out h, out d);
+                [DllImport ("libgdk-win32-2.0-0.dll")]
+                internal static extern IntPtr gdk_cairo_create (IntPtr raw);
 
-            bool is_gdk_window = drawable is Gdk.Window;
-            if (is_gdk_window)
-                ((Gdk.Window) drawable).GetInternalPaintInfo (out drawable,
-                                         out x_off, out y_off);
+                public static Cairo.Context CreateDrawable (Gdk.Drawable drawable)
+                {
+                        IntPtr x_drawable = IntPtr.Zero;
+                        int x_off = 0, y_off = 0;
 
-            x_drawable = drawable.Handle;
-            IntPtr visual = gdk_drawable_get_visual (x_drawable);
+                        int x, y, w, h, d;
+                        ((Gdk.Window) drawable).GetGeometry (out x, out y, out w, out h, out d);
 
-            IntPtr Xdisplay = gdk_x11_drawable_get_xdisplay (x_drawable);
-            IntPtr Xvisual = gdk_x11_visual_get_xvisual (visual);
-            IntPtr Xdrawable = gdk_x11_drawable_get_xid (x_drawable);
+                        bool is_gdk_window = drawable is Gdk.Window;
+                        if (is_gdk_window)
+                                ((Gdk.Window) drawable).GetInternalPaintInfo (out drawable,
+                                                         out x_off, out y_off);
 
-            Cairo.XlibSurface s = new Cairo.XlibSurface (Xdisplay,
-                                     Xdrawable,
-                                     Xvisual,
-                                     w, h);
+                        x_drawable = drawable.Handle;
+                        IntPtr visual = gdk_drawable_get_visual (x_drawable);
 
-            Cairo.Context g = new Cairo.Context (s);
+                        IntPtr Xdisplay = gdk_x11_drawable_get_xdisplay (x_drawable);
+                        IntPtr Xvisual = gdk_x11_visual_get_xvisual (visual);
+                        IntPtr Xdrawable = gdk_x11_drawable_get_xid (x_drawable);
 
-            if (is_gdk_window)
-                g.Translate (-(double) x_off, -(double) y_off);
-            return g;
+                        Cairo.XlibSurface s = new Cairo.XlibSurface (Xdisplay,
+                                                 Xdrawable,
+                                                 Xvisual,
+                                                 w, h);
+
+                        Cairo.Context g = new Cairo.Context (s);
+
+                        if (is_gdk_window)
+                                g.Translate (-(double) x_off, -(double) y_off);
+                        return g;
+                }
         }
-    }
 }

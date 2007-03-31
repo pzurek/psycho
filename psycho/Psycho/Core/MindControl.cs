@@ -27,76 +27,74 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Psycho {
-    class MindControl : IControl {
-        private IModel Model;
-        private IView View;
 
-        public MindControl(IModel paramModel, IView paramView)
-        {
-            Model = paramModel;
-            View = paramView;
+        class MindControl : IControl {
+
+                private IModel Model;
+                private IView View;
+
+                public MindControl (IModel paramModel, IView paramView)
+                {
+                        Model = paramModel;
+                        View = paramView;
+                }
+
+                public void SetModel (IModel paramModel)
+                {
+                        Model = paramModel;
+                }
+
+                public void SetView (IView paramView)
+                {
+                        View = paramView;
+                }
+
+                public void RequestSetCurrent (string paramGuid)
+                {
+                        if (Model != null)
+                                Model.SetCurrent (paramGuid, Model.CentralTopic);
+                }
+
+                public void RequestAddSubtopic ()
+                {
+                        if (Model != null)
+                                Model.CreateSubtopic ();
+                }
+
+                public void RequestAddTopic ()
+                {
+                        if (Model != null)
+                                Model.CreateTopic ();
+                }
+
+                public void RequestDelete ()
+                {
+                        if (Model != null)
+                                Model.DeleteTopic ();
+                }
+
+                public void RequestSetTitle (string paramTitle)
+                {
+                        if (Model != null)
+                                Model.SetTitle (paramTitle);
+                }
+
+                public void RequestExpand (string paramGuid, bool isExpanded)
+                {
+                        if (Model != null)
+                                Model.ExpandTopic (paramGuid, isExpanded);
+                }
+
+                public void RequestEditFlag (bool editPending)
+                {
+                        if (Model != null)
+                                Model.EditPending = editPending;
+                }
+
+                public void RequestChange (Topic paramTopic)
+                {
+                        if (Model != null)
+                                Model.ChangeTopic (paramTopic);
+                }
         }
-
-        #region IControl Members
-
-        public void SetModel(IModel paramModel)
-        {
-            Model = paramModel;
-        }
-
-        public void SetView(IView paramView)
-        {
-            View = paramView;
-        }
-
-        public void RequestSetCurrent(string paramGuid)
-        {
-            if (Model != null)
-                Model.SetCurrent(paramGuid, Model.CentralTopic);
-        }
-
-        public void RequestAddSubtopic()
-        {
-            if (Model != null) 
-                Model.CreateSubtopic();
-        }
-
-        public void RequestAddTopic()
-        {
-            if (Model != null) 
-                Model.CreateTopic();
-        }
-
-        public void RequestDelete()
-        {
-            if (Model != null)
-                Model.DeleteTopic();
-        }
-
-        public void RequestSetTitle(string paramTitle)
-        {
-            if (Model != null) 
-                Model.SetTitle (paramTitle);
-        }
-
-        public void RequestExpand(string paramGuid, bool isExpanded)
-        {
-            if (Model != null) 
-                Model.ExpandTopic(paramGuid, isExpanded);
-        }
-
-        public void RequestEditFlag (bool editPending)
-        {
-            if (Model != null)
-                Model.EditPending = editPending;
-        }
-
-        public void RequestChange (Topic paramTopic)
-        {
-            if (Model != null)
-                Model.ChangeTopic (paramTopic);
-        }
-
-        #endregion
-    }
 }

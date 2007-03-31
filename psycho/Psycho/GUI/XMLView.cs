@@ -32,117 +32,113 @@ using GtkSourceView;
 
 namespace Psycho {
 
-    public class XMLView : ScrolledWindow, IView {
+        public class XMLView : ScrolledWindow, IView {
 
-        private IModel Model;
-        private IControl Control;
-        private SourceView XmlPreview;
-        private XmlWriterSettings xmlSettings;
-        private StringBuilder builder;
-        private XmlWriter writer;
+                private IModel Model;
+                private IControl Control;
+                private SourceView XmlPreview;
+                private XmlWriterSettings xmlSettings;
+                private StringBuilder builder;
+                private XmlWriter writer;
 
-        public XMLView ()
-        {
-            XmlPreview = new SourceView ();
-            XmlPreview.AutoIndent = true;
-            XmlPreview.Editable = false;
-            XmlPreview.RedrawOnAllocate = true;
-            XmlPreview.ShowLineMarkers = true;
-            XmlPreview.ShowLineNumbers = true;
+                public XMLView ()
+                {
+                        XmlPreview = new SourceView ();
+                        XmlPreview.AutoIndent = true;
+                        XmlPreview.Editable = false;
+                        XmlPreview.RedrawOnAllocate = true;
+                        XmlPreview.ShowLineMarkers = true;
+                        XmlPreview.ShowLineNumbers = true;
 
-            xmlSettings = new XmlWriterSettings ();
-            xmlSettings.Indent = true;
-            xmlSettings.IndentChars = "        ";
+                        xmlSettings = new XmlWriterSettings ();
+                        xmlSettings.Indent = true;
+                        xmlSettings.IndentChars = "        ";
 
-            this.Add (XmlPreview);
-            ShowAll ();
+                        this.Add (XmlPreview);
+                        ShowAll ();
+                }
+
+                public void Update (IModel paramModel)
+                {
+                        builder = new StringBuilder ();
+                        writer = XmlWriter.Create (builder, xmlSettings);
+                        paramModel.XMLModel.Save (writer);
+                        this.XmlPreview.Buffer.Text = builder.ToString ();
+                }
+
+                public void WireUp (IControl paramControl, IModel paramModel)
+                {
+                        if (Model != null) {
+                                Model.RemoveObserver (this);
+                        }
+
+                        Model = paramModel;
+                        Control = paramControl;
+
+                        Control.SetModel (Model);
+                        Control.SetView (this);
+                        Model.AddObserver (this);
+                        Update (Model);
+                }
+
+                public void AddTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void AddSubtopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void DeleteTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void ExpandTopic (string paramGuid, bool isExpanded)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EditTitle (string Title)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void TriggerEdit (bool editPending)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void DisableAddSibling ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void DisableDelete ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EnableAddSibling ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EnableDelete ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void CommitChange (Topic paramTopic)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
         }
-
-        #region IView Members
-
-        public void Update (IModel paramModel)
-        {
-            builder = new StringBuilder ();
-            writer = XmlWriter.Create (builder, xmlSettings);
-            paramModel.XMLModel.Save (writer);
-            this.XmlPreview.Buffer.Text = builder.ToString();
-        }
-
-        public void WireUp (IControl paramControl, IModel paramModel)
-        {
-            if (Model != null) {
-                Model.RemoveObserver (this);
-            }
-
-            Model = paramModel;
-            Control = paramControl;
-
-            Control.SetModel (Model);
-            Control.SetView (this);
-            Model.AddObserver (this);
-            Update (Model);
-        }
-
-        public void AddTopic ()
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void AddSubtopic ()
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void DeleteTopic ()
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void ExpandTopic (string paramGuid, bool isExpanded)
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void EditTitle (string Title)
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void SetCurrentTopic ()
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void TriggerEdit (bool editPending)
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void DisableAddSibling ()
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void DisableDelete ()
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void EnableAddSibling ()
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void EnableDelete ()
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void CommitChange (Topic paramTopic)
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        #endregion
-    }
 }

@@ -24,26 +24,18 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Psycho {
 
-        public interface IView {
+        public enum TopicShape {
 
-                void Update (IModel paramModel);
-                void WireUp (IControl paramControl, IModel paramModel);
-                void AddTopic ();
-                void AddSubtopic ();
-                void DeleteTopic ();
-                void CommitChange (Topic paramTopic);
-                void ExpandTopic (string paramGuid, bool isExpanded);
-                void EditTitle (string Title);
-                void SetCurrentTopic ();
-                void TriggerEdit (bool editPending);
-                void DisableAddSibling ();
-                void DisableDelete ();
-                void EnableAddSibling ();
-                void EnableDelete ();
+                None,
+                Line,
+                Rectangle,
+                RoundedRectangle,
+                Circle,
+                Ellipse,
+                Hexagon,
+                Octagon
         }
 }

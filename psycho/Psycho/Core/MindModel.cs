@@ -25,296 +25,296 @@
 
 namespace Psycho {
 
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Xml;
-    using Psycho;
+        using System;
+        using System.Collections;
+        using System.Collections.Generic;
+        using System.Xml;
+        using Psycho;
 
-    public class MindModel : IModel {
+        public class MindModel : IModel {
 
-        private Topic centralTopic = new Topic (1234);
-        private Topic currentTopic;
-        private XmlElement currentXmlTopic;
-        private XmlElement currentXmlParent;
-        private XmlElement currentXmlSibling;
-        private XmlElement foundXmlTopic;
-        private XmlDocument xmlModel = new XmlDocument ();
+                private Topic centralTopic = new Topic (1234);
+                private Topic currentTopic;
+                private XmlElement currentXmlTopic;
+                private XmlElement currentXmlParent;
+                private XmlElement currentXmlSibling;
+                private XmlElement foundXmlTopic;
+                private XmlDocument xmlModel = new XmlDocument ();
 
-        public MindModel ()
-        {
-            this.currentTopic = this.centralTopic;
-            centralTopic.Text = "Central Topic";
+                public MindModel ()
+                {
+                        this.currentTopic = this.centralTopic;
+                        centralTopic.Text = "Central Topic";
 
-            XmlDeclaration declarationNode = XMLModel.CreateXmlDeclaration ("1.0", "UTF-8", "");
-            xmlModel.AppendChild (declarationNode);
-            XmlElement rootNode = xmlModel.CreateElement ("Topic");
-            rootNode.SetAttribute ("guid", CentralTopic.GUID);
-            XmlElement rootTitle = xmlModel.CreateElement ("Title");
-            rootTitle.SetAttribute ("text", CentralTopic.Text);
-            rootNode.AppendChild (rootTitle);
-            xmlModel.AppendChild (rootNode);
-            currentXmlTopic = rootNode;
+                        XmlDeclaration declarationNode = XMLModel.CreateXmlDeclaration ("1.0", "UTF-8", "");
+                        xmlModel.AppendChild (declarationNode);
+                        XmlElement rootNode = xmlModel.CreateElement ("Topic");
+                        rootNode.SetAttribute ("guid", CentralTopic.GUID);
+                        XmlElement rootTitle = xmlModel.CreateElement ("Title");
+                        rootTitle.SetAttribute ("text", CentralTopic.Text);
+                        rootNode.AppendChild (rootTitle);
+                        xmlModel.AppendChild (rootNode);
+                        currentXmlTopic = rootNode;
 
-            NotifyObservers ();
-        }
-
-        private ArrayList observerList = new ArrayList ();
-        private Topics newTopics = new Topics ();
-        private Topics deletedTopics = new Topics ();
-        private string deletedTopicPath = ("");
-        private Topics changedTopics = new Topics ();
-        private bool editPending;
-        public int levelCounter;
-
-        public Topic FindByGUID (string paramGuid/*, Topic paramTopic*/)
-        {
-            Topic found = new Topic (0);
-
-            Queue<Topic> remaining = new Queue<Topic> ();
-            remaining.Enqueue (this.CentralTopic);
-
-            while (remaining.Count > 0) {
-                Topic topic = remaining.Dequeue ();
-                if (topic.GUID != paramGuid) {
-                    foreach (Topic child in topic.Subtopics) {
-                        remaining.Enqueue (child);
-                    }
+                        NotifyObservers ();
                 }
-                else {
-                    found = topic;
-                    break;
+
+                private ArrayList observerList = new ArrayList ();
+                private Topics newTopics = new Topics ();
+                private Topics deletedTopics = new Topics ();
+                private string deletedTopicPath = ("");
+                private Topics changedTopics = new Topics ();
+                private bool editPending;
+                public int levelCounter;
+
+                public Topic FindByGUID (string paramGuid/*, Topic paramTopic*/)
+                {
+                        Topic found = new Topic (0);
+
+                        Queue<Topic> remaining = new Queue<Topic> ();
+                        remaining.Enqueue (this.CentralTopic);
+
+                        while (remaining.Count > 0) {
+                                Topic topic = remaining.Dequeue ();
+                                if (topic.GUID != paramGuid) {
+                                        foreach (Topic child in topic.Subtopics) {
+                                                remaining.Enqueue (child);
+                                        }
+                                }
+                                else {
+                                        found = topic;
+                                        break;
+                                }
+                        }
+                        return found;
                 }
-            }
-            return found;
-        }
 
-        public XmlElement FindXmlByGuid (string paramGuid)
-        {
-            string xPath = ("//Topic[@guid='" + paramGuid + "']");
-            foundXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
-            return foundXmlTopic;
-        }
-
-
-        public Topic CurrentTopic
-        {
-            get { return currentTopic; }
-            set { currentTopic = value; }
-        }
-
-        public Topics NewTopics
-        {
-            get { return newTopics; }
-        }
-
-        public Topics ChangedTopics
-        {
-            get { return changedTopics; }
-        }
-
-        public string DeletedTopicPath
-        {
-            get { return deletedTopicPath; }
-        }
-
-        public Topics DeletedTopics
-        {
-            get { return deletedTopics; }
-        }
-
-        public Topic CentralTopic
-        {
-            get { return centralTopic; }
-            set { centralTopic = value; }
-        }
-
-        public int CurrentLevel
-        {
-            get { return currentTopic.Level; }
-        }
-
-        public bool EditPending
-        {
-            get { Console.WriteLine ("Edit pending {0}", editPending.ToString ()); return editPending; }
-            set { editPending = value; Console.WriteLine ("Edit pending {0}", editPending.ToString ()); }
-        }
-
-        public void AppendSomeNodes (Topic paramTopic)
-        {
-            while (paramTopic.Subtopics.Count < 2) {
-                Topic newTopic = new Topic (this.centralTopic.TotalCount);
-                newTopic.Parent = paramTopic;
-                CreateXMLSubtopic (paramTopic.GUID, newTopic.GUID, newTopic.Text);
-                paramTopic.AddSubtopic (newTopic);
-                if (newTopic.Level < 4)
-                    AppendSomeNodes (newTopic);
-            }
-        }
-
-        public void CreateTopic ()
-        {
-            if (CurrentTopic.Parent != null) {
-                int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf (CurrentTopic);
-                Topic newTopic = new Topic (centralTopic.TotalCount);
-                newTopic.Parent = CurrentTopic.Parent;
-                CurrentTopic.Parent.AddSubtopicAt ((currentIndex + 1), newTopic);
-                CreateXMLTopic (CurrentTopic, newTopic);
-                CurrentTopic = newTopic;
-                SetCurrentXml (CurrentTopic.GUID);
-                newTopics.Add (newTopic);
-                NotifyObservers ();
-            }
-        }
-
-        public void CreateSubtopic ()
-        {
-            Topic newTopic = new Topic (centralTopic.TotalCount);
-            newTopic.Parent = CurrentTopic;
-            CurrentTopic.AddSubtopic (newTopic);
-            CreateXMLSubtopic (newTopic);
-            CurrentTopic = newTopic;
-            SetCurrentXml (CurrentTopic.GUID);
-            newTopics.Add (newTopic);
-            NotifyObservers ();
-        }
-
-        public void CreateXMLSubtopic (string parentGuid, string paramGuid, string paramTitle)
-        {
-            XmlElement newXmlTopic = xmlModel.CreateElement ("Topic");
-            newXmlTopic.SetAttribute ("guid", paramGuid);
-            XmlElement newXmlTitle = xmlModel.CreateElement ("Title");
-            newXmlTitle.SetAttribute ("text", paramTitle);
-            newXmlTopic.AppendChild (newXmlTitle);
-            currentXmlParent = FindXmlByGuid (parentGuid);
-            currentXmlParent.AppendChild (newXmlTopic);
-        }
-
-        public void CreateXMLTopic (string parentGuid, string prevSiblingGuid, string paramGuid, string paramTitle)
-        {
-            XmlElement newXmlTopic = xmlModel.CreateElement ("Topic");
-            newXmlTopic.SetAttribute ("guid", paramGuid);
-            XmlElement newXmlTitle = xmlModel.CreateElement ("Title");
-            newXmlTitle.SetAttribute ("text", paramTitle);
-            newXmlTopic.AppendChild (newXmlTitle);
-            currentXmlParent = FindXmlByGuid (parentGuid);
-            currentXmlSibling = FindXmlByGuid (prevSiblingGuid);
-            currentXmlParent.InsertAfter (newXmlTopic, currentXmlSibling);
-        }
-
-        public void CreateXMLSubtopic (Topic paramTopic)
-        {
-            CreateXMLSubtopic (paramTopic.Parent.GUID, paramTopic.GUID, paramTopic.Text);
-        }
-
-        public void CreateXMLTopic (Topic paramSibling, Topic paramTopic)
-        {
-            CreateXMLTopic (paramSibling.Parent.GUID, paramSibling.GUID, paramTopic.GUID, paramTopic.Text);
-        }
-
-        public void DeleteTopic ()
-        {
-            int newIndex;
-            int currentIndex;
-
-            if (CurrentTopic.Parent != null) {
-                currentIndex = CurrentTopic.Parent.Subtopics.IndexOf (CurrentTopic);
-            }
-            else
-                return;
-
-            Topic tempParent = this.CurrentTopic.Parent;
-            Topic deletedTopic = (CurrentTopic);
-
-            deletedTopicPath = (deletedTopic.Path);
-            deletedTopics.Add (deletedTopic);
-
-            currentXmlParent = FindXmlByGuid (CurrentTopic.Parent.GUID);
-            currentXmlTopic = FindXmlByGuid (CurrentTopic.GUID);
-            currentXmlParent.RemoveChild (currentXmlTopic);
-
-            if (CurrentTopic.Parent.Subtopics.Count == 1) {
-                CurrentTopic.Parent.Subtopics.Clear ();
-                CurrentTopic = tempParent;
-            }
-            else {
-                if (currentIndex == (CurrentTopic.Parent.Subtopics.Count - 1)) {
-                    newIndex = currentIndex - 1;
+                public XmlElement FindXmlByGuid (string paramGuid)
+                {
+                        string xPath = ("//Topic[@guid='" + paramGuid + "']");
+                        foundXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
+                        return foundXmlTopic;
                 }
-                else {
-                    newIndex = currentIndex;
+
+
+                public Topic CurrentTopic
+                {
+                        get { return currentTopic; }
+                        set { currentTopic = value; }
                 }
-                CurrentTopic.Parent.Subtopics.RemoveAt (currentIndex);
-                CurrentTopic = tempParent.Subtopics[newIndex];
-                SetCurrentXml (CurrentTopic.GUID);
-            }
-            NotifyObservers ();
-        }
 
-        public void SetTitle (string paramTitle)
-        {
-            CurrentTopic.Text = (paramTitle);
-            changedTopics.Add (CurrentTopic);
-            NotifyObservers ();
-        }
+                public Topics NewTopics
+                {
+                        get { return newTopics; }
+                }
 
-        public void AddObserver (IView paramView)
-        {
-            observerList.Add (paramView);
-        }
+                public Topics ChangedTopics
+                {
+                        get { return changedTopics; }
+                }
 
-        public void RemoveObserver (IView paramView)
-        {
-            observerList.Remove (paramView);
-        }
+                public string DeletedTopicPath
+                {
+                        get { return deletedTopicPath; }
+                }
 
-        public void NotifyObservers ()
-        {
-            foreach (IView view in observerList) {
-                view.Update (this);
-            }
-            ClearChanges ();
-        }
+                public Topics DeletedTopics
+                {
+                        get { return deletedTopics; }
+                }
 
-        private void ClearChanges ()
-        {
-            newTopics.Clear ();
-            deletedTopicPath = ("");
-            deletedTopics.Clear ();
-            changedTopics.Clear ();
-        }
+                public Topic CentralTopic
+                {
+                        get { return centralTopic; }
+                        set { centralTopic = value; }
+                }
 
-        public void SetCurrent (string paramGuid, Topic paramTopic5)
-        {
-            Topic saughtTopic = FindByGUID (paramGuid);
-            CurrentTopic = saughtTopic;
-            SetCurrentXml (CurrentTopic.GUID);
-            NotifyObservers ();
-        }
+                public int CurrentLevel
+                {
+                        get { return currentTopic.Level; }
+                }
 
-        public void SetCurrentXml (string paramGuid)
-        {
-            string xPath = ("//Topic[@guid='" + paramGuid + "']");
-            currentXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
-            NotifyObservers ();
-        }
+                public bool EditPending
+                {
+                        get { Console.WriteLine ("Edit pending {0}", editPending.ToString ()); return editPending; }
+                        set { editPending = value; Console.WriteLine ("Edit pending {0}", editPending.ToString ()); }
+                }
 
-        public void ExpandTopic (string paramGuid, bool isExpanded)
-        {
-            Topic ExpandedTopic = FindByGUID (paramGuid);
-            ExpandedTopic.IsExpanded = (isExpanded);
-        }
+                public void AppendSomeNodes (Topic paramTopic)
+                {
+                        while (paramTopic.Subtopics.Count < 2) {
+                                Topic newTopic = new Topic (this.centralTopic.TotalCount);
+                                newTopic.Parent = paramTopic;
+                                CreateXMLSubtopic (paramTopic.GUID, newTopic.GUID, newTopic.Text);
+                                paramTopic.AddSubtopic (newTopic);
+                                if (newTopic.Level < 4)
+                                        AppendSomeNodes (newTopic);
+                        }
+                }
 
-        public void ChangeTopic (Topic paramTopic)
-        {
-            CurrentTopic = paramTopic;
-            ChangedTopics.Add (CurrentTopic);
-            NotifyObservers ();
-        }
+                public void CreateTopic ()
+                {
+                        if (CurrentTopic.Parent != null) {
+                                int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf (CurrentTopic);
+                                Topic newTopic = new Topic (centralTopic.TotalCount);
+                                newTopic.Parent = CurrentTopic.Parent;
+                                CurrentTopic.Parent.AddSubtopicAt ((currentIndex + 1), newTopic);
+                                CreateXMLTopic (CurrentTopic, newTopic);
+                                CurrentTopic = newTopic;
+                                SetCurrentXml (CurrentTopic.GUID);
+                                newTopics.Add (newTopic);
+                                NotifyObservers ();
+                        }
+                }
 
-        public XmlDocument XMLModel
-        {
-            get { return xmlModel; }
+                public void CreateSubtopic ()
+                {
+                        Topic newTopic = new Topic (centralTopic.TotalCount);
+                        newTopic.Parent = CurrentTopic;
+                        CurrentTopic.AddSubtopic (newTopic);
+                        CreateXMLSubtopic (newTopic);
+                        CurrentTopic = newTopic;
+                        SetCurrentXml (CurrentTopic.GUID);
+                        newTopics.Add (newTopic);
+                        NotifyObservers ();
+                }
+
+                public void CreateXMLSubtopic (string parentGuid, string paramGuid, string paramTitle)
+                {
+                        XmlElement newXmlTopic = xmlModel.CreateElement ("Topic");
+                        newXmlTopic.SetAttribute ("guid", paramGuid);
+                        XmlElement newXmlTitle = xmlModel.CreateElement ("Title");
+                        newXmlTitle.SetAttribute ("text", paramTitle);
+                        newXmlTopic.AppendChild (newXmlTitle);
+                        currentXmlParent = FindXmlByGuid (parentGuid);
+                        currentXmlParent.AppendChild (newXmlTopic);
+                }
+
+                public void CreateXMLTopic (string parentGuid, string prevSiblingGuid, string paramGuid, string paramTitle)
+                {
+                        XmlElement newXmlTopic = xmlModel.CreateElement ("Topic");
+                        newXmlTopic.SetAttribute ("guid", paramGuid);
+                        XmlElement newXmlTitle = xmlModel.CreateElement ("Title");
+                        newXmlTitle.SetAttribute ("text", paramTitle);
+                        newXmlTopic.AppendChild (newXmlTitle);
+                        currentXmlParent = FindXmlByGuid (parentGuid);
+                        currentXmlSibling = FindXmlByGuid (prevSiblingGuid);
+                        currentXmlParent.InsertAfter (newXmlTopic, currentXmlSibling);
+                }
+
+                public void CreateXMLSubtopic (Topic paramTopic)
+                {
+                        CreateXMLSubtopic (paramTopic.Parent.GUID, paramTopic.GUID, paramTopic.Text);
+                }
+
+                public void CreateXMLTopic (Topic paramSibling, Topic paramTopic)
+                {
+                        CreateXMLTopic (paramSibling.Parent.GUID, paramSibling.GUID, paramTopic.GUID, paramTopic.Text);
+                }
+
+                public void DeleteTopic ()
+                {
+                        int newIndex;
+                        int currentIndex;
+
+                        if (CurrentTopic.Parent != null) {
+                                currentIndex = CurrentTopic.Parent.Subtopics.IndexOf (CurrentTopic);
+                        }
+                        else
+                                return;
+
+                        Topic tempParent = this.CurrentTopic.Parent;
+                        Topic deletedTopic = (CurrentTopic);
+
+                        deletedTopicPath = (deletedTopic.Path);
+                        deletedTopics.Add (deletedTopic);
+
+                        currentXmlParent = FindXmlByGuid (CurrentTopic.Parent.GUID);
+                        currentXmlTopic = FindXmlByGuid (CurrentTopic.GUID);
+                        currentXmlParent.RemoveChild (currentXmlTopic);
+
+                        if (CurrentTopic.Parent.Subtopics.Count == 1) {
+                                CurrentTopic.Parent.Subtopics.Clear ();
+                                CurrentTopic = tempParent;
+                        }
+                        else {
+                                if (currentIndex == (CurrentTopic.Parent.Subtopics.Count - 1)) {
+                                        newIndex = currentIndex - 1;
+                                }
+                                else {
+                                        newIndex = currentIndex;
+                                }
+                                CurrentTopic.Parent.Subtopics.RemoveAt (currentIndex);
+                                CurrentTopic = tempParent.Subtopics[newIndex];
+                                SetCurrentXml (CurrentTopic.GUID);
+                        }
+                        NotifyObservers ();
+                }
+
+                public void SetTitle (string paramTitle)
+                {
+                        CurrentTopic.Text = (paramTitle);
+                        changedTopics.Add (CurrentTopic);
+                        NotifyObservers ();
+                }
+
+                public void AddObserver (IView paramView)
+                {
+                        observerList.Add (paramView);
+                }
+
+                public void RemoveObserver (IView paramView)
+                {
+                        observerList.Remove (paramView);
+                }
+
+                public void NotifyObservers ()
+                {
+                        foreach (IView view in observerList) {
+                                view.Update (this);
+                        }
+                        ClearChanges ();
+                }
+
+                private void ClearChanges ()
+                {
+                        newTopics.Clear ();
+                        deletedTopicPath = ("");
+                        deletedTopics.Clear ();
+                        changedTopics.Clear ();
+                }
+
+                public void SetCurrent (string paramGuid, Topic paramTopic5)
+                {
+                        Topic saughtTopic = FindByGUID (paramGuid);
+                        CurrentTopic = saughtTopic;
+                        SetCurrentXml (CurrentTopic.GUID);
+                        NotifyObservers ();
+                }
+
+                public void SetCurrentXml (string paramGuid)
+                {
+                        string xPath = ("//Topic[@guid='" + paramGuid + "']");
+                        currentXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
+                        NotifyObservers ();
+                }
+
+                public void ExpandTopic (string paramGuid, bool isExpanded)
+                {
+                        Topic ExpandedTopic = FindByGUID (paramGuid);
+                        ExpandedTopic.IsExpanded = (isExpanded);
+                }
+
+                public void ChangeTopic (Topic paramTopic)
+                {
+                        CurrentTopic = paramTopic;
+                        ChangedTopics.Add (CurrentTopic);
+                        NotifyObservers ();
+                }
+
+                public XmlDocument XMLModel
+                {
+                        get { return xmlModel; }
+                }
         }
-    }
 }

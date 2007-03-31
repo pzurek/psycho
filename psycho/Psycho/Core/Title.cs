@@ -29,7 +29,28 @@ using System.Text;
 
 namespace Psycho {
 
-    public class Title {
+        public class Title {
 
-    }
+                string text;
+                Font textFont;
+                bool isPlainText;
+                private FontMarkers titleFontMarkers = new FontMarkers ();
+
+                public string Text
+                {
+                        get { return text; }
+                        set { text = value; }
+                }
+
+                public bool IsPlainText
+                {
+                        get
+                        {
+                                if (titleFontMarkers.Count == 0)
+                                        return true;
+                                else
+                                        return false;
+                        }
+                }
+        }
 }

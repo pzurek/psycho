@@ -29,34 +29,34 @@ using System.Text;
 
 namespace Psycho {
 
-    public class Color {
+        public class Color {
 
-        ushort red;
-        ushort green;
-        ushort blue;
-        ushort alfa;
-        bool isAuto;
+                ushort red;
+                ushort green;
+                ushort blue;
+                ushort alfa;
+                bool isAuto;
 
-        public bool IsAuto
-        {
-            get { return isAuto; }
-            set { isAuto = value; }
+                public bool IsAuto
+                {
+                        get { return isAuto; }
+                        set { isAuto = value; }
+                }
+
+                public void SetRGBA (ushort paramRed, ushort paramGreen, ushort paramBlue, ushort paramAlfa)
+                {
+                        red = paramRed;
+                        green = paramGreen;
+                        blue = paramBlue;
+                        alfa = paramAlfa;
+                }
+
+                public void GetRGBA (out ushort outRed, out ushort outGreen, out ushort outBlue, out ushort outAlfa)
+                {
+                        outRed = red;
+                        outGreen = green;
+                        outBlue = blue;
+                        outAlfa = alfa;
+                }
         }
-
-        public void SetRGBA (ushort paramRed, ushort paramGreen, ushort paramBlue, ushort paramAlfa)
-        {
-            red = paramRed;
-            green = paramGreen;
-            blue = paramBlue;
-            alfa = paramAlfa;
-        }
-
-        public void GetRGBA(out ushort outRed, out ushort outGreen, out ushort outBlue, out ushort outAlfa)
-        {
-            outRed = red;
-            outGreen = green;
-            outBlue = blue;
-            outAlfa = alfa;
-        }
-    }
 }

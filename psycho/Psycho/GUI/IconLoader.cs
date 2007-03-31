@@ -28,36 +28,36 @@ using Gdk;
 
 namespace Psycho {
 
-    public class IconLoader {
+        public class IconLoader {
 
-        const string psychoIconFile = "Resources/psycho-small.png";
-        const string topicIconFile = "Resources/psycho-topic.png";
-        const string subtopicIconFile = "Resources/psycho-subtopic.png";
-        const string deleteIconFile = "Resources/psycho-delete.png";
-        const string calloutIconFile = "Resources/psycho-callout.png";
-        const string borderIconFile = "Resources/psycho-border.png";
-        const string relationIconFile = "Resources/psycho-relation.png";
-        const string notesIconFile = "Resources/psycho-notes-small.png";
+                const string psychoIconFile = "Resources/psycho-small.png";
+                const string topicIconFile = "Resources/psycho-topic.png";
+                const string subtopicIconFile = "Resources/psycho-subtopic.png";
+                const string deleteIconFile = "Resources/psycho-delete.png";
+                const string calloutIconFile = "Resources/psycho-callout.png";
+                const string borderIconFile = "Resources/psycho-border.png";
+                const string relationIconFile = "Resources/psycho-relation.png";
+                const string notesIconFile = "Resources/psycho-notes-small.png";
 
-        public Pixbuf psychoIcon;
-        public Pixbuf topicIcon;
-        public Pixbuf subtopicIcon;
-        public Pixbuf deleteIcon;
-        public Pixbuf calloutIcon;
-        public Pixbuf borderIcon;
-        public Pixbuf relationIcon;
-        public Pixbuf notesIcon;
+                public Pixbuf psychoIcon;
+                public Pixbuf topicIcon;
+                public Pixbuf subtopicIcon;
+                public Pixbuf deleteIcon;
+                public Pixbuf calloutIcon;
+                public Pixbuf borderIcon;
+                public Pixbuf relationIcon;
+                public Pixbuf notesIcon;
 
-        public IconLoader ()
-        {
-            psychoIcon = new Pixbuf (psychoIconFile);
-            topicIcon = new Pixbuf (topicIconFile);
-            subtopicIcon = new Pixbuf (subtopicIconFile);
-            deleteIcon = new Pixbuf (deleteIconFile);
-            calloutIcon = new Pixbuf (calloutIconFile);
-            borderIcon = new Pixbuf (borderIconFile);
-            relationIcon = new Pixbuf (relationIconFile);
-            notesIcon = new Pixbuf (notesIconFile);
+                public IconLoader ()
+                {
+                        psychoIcon = new Pixbuf (psychoIconFile);
+                        topicIcon = new Pixbuf (topicIconFile);
+                        subtopicIcon = new Pixbuf (subtopicIconFile);
+                        deleteIcon = new Pixbuf (deleteIconFile);
+                        calloutIcon = new Pixbuf (calloutIconFile);
+                        borderIcon = new Pixbuf (borderIconFile);
+                        relationIcon = new Pixbuf (relationIconFile);
+                        notesIcon = new Pixbuf (notesIconFile);
+                }
         }
-    }
 }

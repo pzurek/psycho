@@ -28,28 +28,28 @@ using System.Text;
 
 namespace Psycho {
 
-    public class FontMarker {
+        public class FontMarker {
 
-        Font textFont;
-        int startIndex;
-        int endIndex;
+                Font textFont;
+                int startIndex;
+                int endIndex;
 
-        public Font TextFont 
-        {
-            get { return textFont; }
-            set { textFont = value; }
+                public Font TextFont
+                {
+                        get { return textFont; }
+                        set { textFont = value; }
+                }
+
+                public int StartIndex
+                {
+                        get { return startIndex; }
+                        set { startIndex = value; }
+                }
+
+                public int EndIndex
+                {
+                        get { return endIndex; }
+                        set { endIndex = value; }
+                }
         }
-
-        public int StartIndex
-        {
-            get { return startIndex; }
-            set { startIndex = value; }
-        }
-
-        public int EndIndex
-        {
-            get { return endIndex; }
-            set { endIndex = value; }
-        }
-    }
 }

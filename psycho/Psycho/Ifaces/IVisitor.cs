@@ -24,12 +24,11 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Psycho {
-    public interface IVisitor {
 
-        void Visit (object visitable);
-    }
+        public interface IVisitor {
+
+                void Visit (object visitable);
+        }
 }

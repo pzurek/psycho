@@ -29,8 +29,8 @@ using System.Text;
 
 namespace Psycho {
 
-    public interface IVisitable {
+        public interface IVisitable {
 
-        void Accept (IVisitor visitor);
-    }
+                void Accept (IVisitor visitor);
+        }
 }

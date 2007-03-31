@@ -30,62 +30,62 @@ using Gtk;
 
 namespace Psycho {
 
-    public class UIManagerView : IView {
+        public class UIManagerView : IView {
 
-        private IModel Model;
-        private IControl Control;
+                private IModel Model;
+                private IControl Control;
 
-        IconLoader iconLoader = new IconLoader ();
+                IconLoader iconLoader = new IconLoader ();
 
-        public UIManager uiManager = new UIManager ();
-        ActionGroup actions = new ActionGroup ("group");
-        
-        const string ui =
-        "<ui>" +
-        "  <menubar name='MenuBar'>" +
-        "    <menu action='FileMenu'>" +
-        "      <menuitem action='New'/>" +
-        "      <menuitem action='Open'/>" +
-        "      <menuitem action='Save'/>" +
-        "      <menuitem action='SaveAs'/>" +
-        "      <separator/>" +
-        "      <menuitem action='Quit'/>" +
-        "    </menu>" +
-        "    <menu action='EditMenu'>" +
-        "      <menuitem action='AddTopic'/>" +
-        "      <menuitem action='AddSubtopic'/>" +
-        "      <menuitem action='Delete'/>" +
-        "      <menuitem action='Relation'/>" +
-        "      <menuitem action='Callout'/>" +
-        "      <menuitem action='Border'/>" +
-        "      <separator/>" +
-        "      <menuitem action='Copy'/>" +
-        "      <menuitem action='Cut'/>" +
-        "      <menuitem action='Paste'/>" +
-        "    </menu>" +
-        "    <menu action='HelpMenu'>" +
-        "      <menuitem action='About'/>" +
-        "    </menu>" +
-        "  </menubar>" +
-        "  <toolbar  name='ToolBar'>" +
-        "    <toolitem name='new' action='New'/>" +
-        "    <toolitem name='open' action='Open'/>" +
-        "    <toolitem name='save' action='Save'/>" +
-        "    <separator action='Sep1'/>" +
-        "    <toolitem name='addtopic' action='AddTopic'/>" +
-        "    <toolitem name='addsubtopic' action='AddSubtopic'/>" +
-        "    <toolitem name='delete' action='Delete'/>" +
-        "    <toolitem name='relation' action='Relation'/>" +
-        "    <toolitem name='callout' action='Callout'/>" +
-        "    <toolitem name='border' action='Border'/>" +
-        "  </toolbar>" +
-        "</ui>";
+                public UIManager uiManager = new UIManager ();
+                ActionGroup actions = new ActionGroup ("group");
 
-        public UIManagerView ()
-        {
-            BuildIcons ();
+                const string ui =
+                "<ui>" +
+                "  <menubar name='MenuBar'>" +
+                "    <menu action='FileMenu'>" +
+                "      <menuitem action='New'/>" +
+                "      <menuitem action='Open'/>" +
+                "      <menuitem action='Save'/>" +
+                "      <menuitem action='SaveAs'/>" +
+                "      <separator/>" +
+                "      <menuitem action='Quit'/>" +
+                "    </menu>" +
+                "    <menu action='EditMenu'>" +
+                "      <menuitem action='AddTopic'/>" +
+                "      <menuitem action='AddSubtopic'/>" +
+                "      <menuitem action='Delete'/>" +
+                "      <menuitem action='Relation'/>" +
+                "      <menuitem action='Callout'/>" +
+                "      <menuitem action='Border'/>" +
+                "      <separator/>" +
+                "      <menuitem action='Copy'/>" +
+                "      <menuitem action='Cut'/>" +
+                "      <menuitem action='Paste'/>" +
+                "    </menu>" +
+                "    <menu action='HelpMenu'>" +
+                "      <menuitem action='About'/>" +
+                "    </menu>" +
+                "  </menubar>" +
+                "  <toolbar  name='ToolBar'>" +
+                "    <toolitem name='new' action='New'/>" +
+                "    <toolitem name='open' action='Open'/>" +
+                "    <toolitem name='save' action='Save'/>" +
+                "    <separator action='Sep1'/>" +
+                "    <toolitem name='addtopic' action='AddTopic'/>" +
+                "    <toolitem name='addsubtopic' action='AddSubtopic'/>" +
+                "    <toolitem name='delete' action='Delete'/>" +
+                "    <toolitem name='relation' action='Relation'/>" +
+                "    <toolitem name='callout' action='Callout'/>" +
+                "    <toolitem name='border' action='Border'/>" +
+                "  </toolbar>" +
+                "</ui>";
 
-            ActionEntry[] entries = new ActionEntry[] {
+                public UIManagerView ()
+                {
+                        BuildIcons ();
+
+                        ActionEntry[] entries = new ActionEntry[] {
                 new ActionEntry ("FileMenu", null, "_File", null, null, null),
                 new ActionEntry ("EditMenu", null, "_Edit", null, null, null),
                 new ActionEntry ("HelpMenu", null, "_Help", null, null, null),
@@ -110,159 +110,155 @@ namespace Psycho {
                 new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
             };
 
-            actions.Add (entries);
+                        actions.Add (entries);
 
-            uiManager.InsertActionGroup (actions, 0);
-            uiManager.AddUiFromString (ui);
-            uiManager.AddTearoffs = true;
-            Toolbar toolbar = (Toolbar)(uiManager.GetWidget ("/ToolBar"));
-            toolbar.IconSize = IconSize.LargeToolbar;
+                        uiManager.InsertActionGroup (actions, 0);
+                        uiManager.AddUiFromString (ui);
+                        uiManager.AddTearoffs = true;
+                        Toolbar toolbar = (Toolbar) (uiManager.GetWidget ("/ToolBar"));
+                        toolbar.IconSize = IconSize.LargeToolbar;
+                }
+
+                private void BuildIcons ()
+                {
+                        Pixbuf topicIcon = iconLoader.topicIcon;
+                        Pixbuf subtopicIcon = iconLoader.subtopicIcon;
+                        Pixbuf deleteIcon = iconLoader.deleteIcon;
+                        Pixbuf calloutIcon = iconLoader.calloutIcon;
+                        Pixbuf borderIcon = iconLoader.borderIcon;
+                        Pixbuf relationIcon = iconLoader.relationIcon;
+
+                        IconFactory factory = new IconFactory ();
+                        factory.Add ("psycho-topic", new IconSet (topicIcon));
+                        factory.Add ("psycho-subtopic", new IconSet (subtopicIcon));
+                        factory.Add ("psycho-delete", new IconSet (deleteIcon));
+                        factory.Add ("psycho-callout", new IconSet (calloutIcon));
+                        factory.Add ("psycho-border", new IconSet (borderIcon));
+                        factory.Add ("psycho-relation", new IconSet (relationIcon));
+                        factory.AddDefault ();
+
+                        StockManager.Add (new StockItem ("psycho-topic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+                        StockManager.Add (new StockItem ("psycho-subtopic", "Add Subtopic", 0, Gdk.ModifierType.Button1Mask, ""));
+                        StockManager.Add (new StockItem ("psycho-delete", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+                        StockManager.Add (new StockItem ("psycho-callout", "Add Callout", 0, Gdk.ModifierType.Button1Mask, ""));
+                        StockManager.Add (new StockItem ("psycho-border", "Create Border", 0, Gdk.ModifierType.Button1Mask, ""));
+                        StockManager.Add (new StockItem ("psycho-relation", "Create Relation", 0, Gdk.ModifierType.Button1Mask, ""));
+                }
+
+                private void ActionActivated (object sender, EventArgs args)
+                {
+                        Action action = sender as Action;
+                        Console.WriteLine ("Action \"{0}\" activated", action.AccelPath);
+
+                        switch (action.Name) {
+                        case "AddTopic":
+                        AddTopic ();
+                        return;
+                        case "AddSubtopic":
+                        AddSubtopic ();
+                        return;
+                        case "Delete":
+                        DeleteTopic ();
+                        return;
+                        default: break;
+                        }
+                }
+
+                public void WireUp (IControl paramControl, IModel paramModel)
+                {
+                        if (Model != null) {
+                                Model.RemoveObserver (this);
+                        }
+
+                        Model = paramModel;
+                        Control = paramControl;
+
+                        Control.SetModel (Model);
+                        Control.SetView (this);
+                        Model.AddObserver (this);
+                        Update (Model);
+                }
+
+                public void CheckButtonsLegal ()
+                {
+                        if (Model.CurrentTopic == Model.CentralTopic) {
+                                DisableAddSibling ();
+                                DisableDelete ();
+                        }
+                        else {
+                                EnableAddSibling ();
+                                EnableDelete ();
+                        }
+                }
+
+                public void Update (IModel paramModel)
+                {
+                        CheckButtonsLegal ();
+                }
+
+                public void AddTopic ()
+                {
+                        Control.RequestAddTopic ();
+                }
+
+                public void AddSubtopic ()
+                {
+                        Control.RequestAddSubtopic ();
+                }
+
+                public void DeleteTopic ()
+                {
+                        Control.RequestDelete ();
+                }
+
+                public void ExpandTopic (string paramGuid, bool isExpanded)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EditTitle (string Title)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void TriggerEdit (bool editPending)
+                {
+                }
+
+                public void DisableAddSibling ()
+                {
+                        if (actions["AddTopic"] != null)
+                                actions["AddTopic"].Sensitive = false;
+
+                }
+
+                public void EnableAddSibling ()
+                {
+                        if (actions["AddTopic"] != null)
+                                actions["AddTopic"].Sensitive = true;
+
+                }
+
+                public void DisableDelete ()
+                {
+                        if (actions["Delete"] != null)
+                                actions["Delete"].Sensitive = false;
+                }
+
+                public void EnableDelete ()
+                {
+                        if (actions["Delete"] != null)
+                                actions["Delete"].Sensitive = true;
+                }
+
+                public void CommitChange (Topic paramTopic)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
         }
-
-        private void BuildIcons ()
-        {
-            Pixbuf topicIcon = iconLoader.topicIcon;
-            Pixbuf subtopicIcon = iconLoader.subtopicIcon;
-            Pixbuf deleteIcon = iconLoader.deleteIcon;
-            Pixbuf calloutIcon = iconLoader.calloutIcon;
-            Pixbuf borderIcon = iconLoader.borderIcon;
-            Pixbuf relationIcon = iconLoader.relationIcon;
-
-            IconFactory factory = new IconFactory ();
-            factory.Add ("psycho-topic", new IconSet (topicIcon));
-            factory.Add ("psycho-subtopic", new IconSet (subtopicIcon));
-            factory.Add ("psycho-delete", new IconSet (deleteIcon));
-            factory.Add ("psycho-callout", new IconSet (calloutIcon));
-            factory.Add ("psycho-border", new IconSet (borderIcon));
-            factory.Add ("psycho-relation", new IconSet (relationIcon));
-            factory.AddDefault ();
-
-            StockManager.Add (new StockItem ("psycho-topic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add (new StockItem ("psycho-subtopic", "Add Subtopic", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add (new StockItem ("psycho-delete", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add (new StockItem ("psycho-callout", "Add Callout", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add (new StockItem ("psycho-border", "Create Border", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add (new StockItem ("psycho-relation", "Create Relation", 0, Gdk.ModifierType.Button1Mask, ""));
-        }
-
-        private void ActionActivated (object sender, EventArgs args)
-        {
-            Action action = sender as Action;
-            Console.WriteLine ("Action \"{0}\" activated", action.AccelPath);
-            
-            switch (action.Name) {
-            case "AddTopic":
-                AddTopic ();
-                return;
-            case "AddSubtopic":
-                AddSubtopic ();
-                return;
-            case "Delete":
-                DeleteTopic ();
-                return;
-            default: break;
-            }
-        }
-
-        #region IView Members
-
-        public void WireUp (IControl paramControl, IModel paramModel)
-        {
-            if (Model != null) {
-                Model.RemoveObserver (this);
-            }
-
-            Model = paramModel;
-            Control = paramControl;
-
-            Control.SetModel (Model);
-            Control.SetView (this);
-            Model.AddObserver (this);
-            Update (Model);
-        }
-
-        public void CheckButtonsLegal ()
-        {
-            if (Model.CurrentTopic == Model.CentralTopic) {
-                DisableAddSibling ();
-                DisableDelete ();
-            }
-            else {
-                EnableAddSibling ();
-                EnableDelete ();
-            }
-        }
-
-        public void Update (IModel paramModel)
-        {
-            CheckButtonsLegal ();
-        }
-
-        public void AddTopic ()
-        {
-            Control.RequestAddTopic ();
-        }
-
-        public void AddSubtopic ()
-        {
-            Control.RequestAddSubtopic ();
-        }
-
-        public void DeleteTopic ()
-        {
-            Control.RequestDelete ();
-        }
-
-        public void ExpandTopic (string paramGuid, bool isExpanded)
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void EditTitle (string Title)
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void SetCurrentTopic ()
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        public void TriggerEdit (bool editPending)
-        {
-        }
-
-        public void DisableAddSibling ()
-        {
-            if (actions["AddTopic"] != null)
-                actions["AddTopic"].Sensitive = false;
-
-        }
-
-        public void EnableAddSibling ()
-        {
-            if (actions["AddTopic"] != null)
-                actions["AddTopic"].Sensitive = true;
-
-        }
-
-        public void DisableDelete ()
-        {
-            if (actions["Delete"] != null)
-                actions["Delete"].Sensitive = false;
-        }
-
-        public void EnableDelete ()
-        {
-            if (actions["Delete"] != null)
-                actions["Delete"].Sensitive = true;
-        }
-
-        public void CommitChange (Topic paramTopic)
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        #endregion
-    }
 }

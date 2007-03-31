@@ -29,9 +29,9 @@ using System.Text;
 
 namespace Psycho {
 
-    public class Stylus {
+        public class Stylus {
 
+                List<Color> ColorOrder;
 
-
-    }
+        }
 }

@@ -28,17 +28,19 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Psycho {
-    public interface IControl {
-        void RequestAddTopic ();
-        void RequestAddSubtopic ();
-        void RequestDelete ();
-        void RequestChange (Topic paramTopic);
-        void RequestSetTitle (string title);
-        void RequestSetCurrent (string paramGuid);
-        void RequestExpand (string paramGuid, bool expand);
-        void RequestEditFlag (bool editPending);
 
-        void SetModel (IModel paramModel);
-        void SetView (IView paramView);
-    }
+        public interface IControl {
+
+                void RequestAddTopic ();
+                void RequestAddSubtopic ();
+                void RequestDelete ();
+                void RequestChange (Topic paramTopic);
+                void RequestSetTitle (string title);
+                void RequestSetCurrent (string paramGuid);
+                void RequestExpand (string paramGuid, bool expand);
+                void RequestEditFlag (bool editPending);
+
+                void SetModel (IModel paramModel);
+                void SetView (IView paramView);
+        }
 }

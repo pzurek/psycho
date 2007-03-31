@@ -25,51 +25,37 @@
 
 namespace Psycho {
 
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using Psycho;
+        using System;
+        using System.Collections;
+        using System.Collections.Generic;
+        using Psycho;
 
-    public class Task {
+        public class Task {
 
-        public Task (Topic paramTopic)
-        {
-            this.guid = paramTopic.GUID;
+                public Task (Topic paramTopic) {
+                        this.topic = paramTopic;
+                }
+
+                private string startDate;
+                private string dueDate;
+                private Topic topic;
+
+                public string StartDate {
+                        get { return startDate; }
+                        set { startDate = value; }
+                }
+
+                public string DueDate {
+                        get { return dueDate; }
+                        set { dueDate = value; }
+                }
+
+                public Topic Topic {
+                        get { return topic; }
+                }
+
+                public string GUID {
+                        get { return this.topic.GUID; }
+                }
         }
-
-        #region private fields
-        private string startDate;
-        private string dueDate;
-        private Topic topic;
-        private string guid;
-        #endregion
-
-        #region public fields
-
-        public string StartDate
-        {
-            get { return startDate; }
-            set { startDate = value; }
-        }
-
-        public string DueDate
-        {
-            get { return dueDate; }
-            set { dueDate = value; }
-        }
-
-        public Topic Topic
-        {
-            get { return topic; }
-            set { topic = value; }
-        }
-
-        public string GUID
-        {
-            get { return guid; }
-            set { guid = value; }
-        }
-
-        #endregion
-    }
 }

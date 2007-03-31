@@ -30,96 +30,92 @@ using Psycho;
 
 namespace Psycho {
 
-    public class MainWindow : Gtk.Window {
+        public class MainWindow : Gtk.Window {
 
-        public MainWindow ()
-            : base ("Psycho")
-        {
-            IconLoader iconLoader = new IconLoader ();
-            Icon = iconLoader.psychoIcon;
+                public MainWindow ()
+                        : base ("Psycho")
+                {
+                        IconLoader iconLoader = new IconLoader ();
+                        Icon = iconLoader.psychoIcon;
 
-            VBox globalVBox = new VBox ();
-            VBox mainVBox = new VBox ();
-            HPaned mainHPaned = new HPaned ();
+                        VBox globalVBox = new VBox ();
+                        VBox mainVBox = new VBox ();
+                        HPaned mainHPaned = new HPaned ();
 
-            MindModel model = new MindModel ();
-            model.AppendSomeNodes (model.CentralTopic);
+                        MindModel model = new MindModel ();
+                        model.AppendSomeNodes (model.CentralTopic);
 
-            ButtonView buttonView = new ButtonView ();
-            MindControl buttonControl = new MindControl (model, buttonView);
-            buttonView.WireUp (buttonControl, model);
+                        ButtonView buttonView = new ButtonView ();
+                        MindControl buttonControl = new MindControl (model, buttonView);
+                        buttonView.WireUp (buttonControl, model);
 
-            OutlineView nodeView = new OutlineView ();
-            MindControl outlineControl = new MindControl (model, nodeView);
-            nodeView.WireUp (outlineControl, model);
+                        OutlineView nodeView = new OutlineView ();
+                        MindControl outlineControl = new MindControl (model, nodeView);
+                        nodeView.WireUp (outlineControl, model);
 
-            UIManagerView UIView = new UIManagerView ();
-            MindControl uiManControl = new MindControl (model, UIView);
-            UIView.WireUp (uiManControl, model);
+                        UIManagerView UIView = new UIManagerView ();
+                        MindControl uiManControl = new MindControl (model, UIView);
+                        UIView.WireUp (uiManControl, model);
 
-            StatusView statusView = new StatusView ();
-            MindControl statusControl = new MindControl (model, statusView);
-            statusView.WireUp (statusControl, model);
+                        StatusView statusView = new StatusView ();
+                        MindControl statusControl = new MindControl (model, statusView);
+                        statusView.WireUp (statusControl, model);
 
-            XMLView XMLPreview = new XMLView ();
-            MindControl XMLControl = new MindControl (model, XMLPreview);
-            XMLPreview.WireUp (XMLControl, model);
+                        XMLView XMLPreview = new XMLView ();
+                        MindControl XMLControl = new MindControl (model, XMLPreview);
+                        XMLPreview.WireUp (XMLControl, model);
 
-            NotesView notesView = new NotesView ();
-            MindControl notesControl = new MindControl (model, notesView);
-            notesView.WireUp (notesControl, model);
+                        NotesView notesView = new NotesView ();
+                        MindControl notesControl = new MindControl (model, notesView);
+                        notesView.WireUp (notesControl, model);
 
-            //AddAccelGroup(UIView.uiManager.AccelGroup);
+                        //AddAccelGroup(UIView.uiManager.AccelGroup);
 
-            Expander buttonExpander = new Expander ("Property View");
-            buttonExpander.Add (buttonView);
+                        Expander buttonExpander = new Expander ("Property View");
+                        buttonExpander.Add (buttonView);
 
-            Expander notesExpander = new Expander ("Notes");
-            notesView.BorderWidth = 6;
-            notesExpander.Add (notesView);
-            notesExpander.Expanded = true;
+                        Expander notesExpander = new Expander ("Notes");
+                        notesView.BorderWidth = 6;
+                        notesExpander.Add (notesView);
+                        notesExpander.Expanded = true;
 
-            Notebook mainNotebook = new Notebook ();
-            mainNotebook.BorderWidth = 6;
+                        Notebook mainNotebook = new Notebook ();
+                        mainNotebook.BorderWidth = 6;
 
-            Knockout mapView = new Knockout ();
+                        Knockout mapView = new Knockout ();
 
-            mainNotebook.InsertPage (mapView, new Label ("Map View"), /*new Label("Map View"),*/ 0);
-            mainNotebook.InsertPage (nodeView, new Label ("Outline View"), /*new Label("Outline View"),*/ 1);
-            mainNotebook.InsertPage (XMLPreview, new Label ("XML View"), /*new Label("XML View"),*/ 2);
+                        mainNotebook.InsertPage (mapView, new Label ("Map View"), /*new Label("Map View"),*/ 0);
+                        mainNotebook.InsertPage (nodeView, new Label ("Outline View"), /*new Label("Outline View"),*/ 1);
+                        mainNotebook.InsertPage (XMLPreview, new Label ("XML View"), /*new Label("XML View"),*/ 2);
 
-            mainNotebook.ShowBorder = true;
+                        mainNotebook.ShowBorder = true;
 
-            globalVBox.Homogeneous = false;
-            globalVBox.PackStart (UIView.uiManager.GetWidget ("/MenuBar"), false, false, 0);
-            globalVBox.PackStart (UIView.uiManager.GetWidget ("/ToolBar"), false, false, 0);
-            
-            globalVBox.PackStart (buttonExpander, false, false, 6);
+                        globalVBox.Homogeneous = false;
+                        globalVBox.PackStart (UIView.uiManager.GetWidget ("/MenuBar"), false, false, 0);
+                        globalVBox.PackStart (UIView.uiManager.GetWidget ("/ToolBar"), false, false, 0);
+                        globalVBox.PackStart (buttonExpander, false, false, 6);
 
-            mainVBox.PackStart (mainNotebook, true, true, 0);
-            Frame mainFrame = new Frame ();
-            mainFrame.Add (mainVBox);
-            mainFrame.Shadow = ShadowType.EtchedIn;
-            Frame notesFrame = new Frame ();
-            notesFrame.Add (notesExpander);
-            notesFrame.Shadow = ShadowType.EtchedIn;
+                        mainVBox.PackStart (mainNotebook, true, true, 0);
+                        Frame mainFrame = new Frame ();
+                        mainFrame.Add (mainVBox);
+                        mainFrame.Shadow = ShadowType.EtchedIn;
+                        Frame notesFrame = new Frame ();
+                        notesFrame.Add (notesExpander);
+                        notesFrame.Shadow = ShadowType.EtchedIn;
 
-            mainHPaned.Add1 (mainFrame);
-            mainHPaned.Add2 (notesFrame);
-            int windowWidth = new int ();
-            int windowHeight = new int ();
-            this.SetSizeRequest (640, 480);
-            this.GetSize (out windowWidth, out windowHeight);
-            mainHPaned.Position = (int)(windowWidth * 0.6);
+                        mainHPaned.Add1 (mainFrame);
+                        mainHPaned.Add2 (notesFrame);
+                        int windowWidth = new int ();
+                        int windowHeight = new int ();
+                        this.SetSizeRequest (640, 480);
+                        this.GetSize (out windowWidth, out windowHeight);
+                        mainHPaned.Position = (int) (windowWidth * 0.6);
 
-            
-            globalVBox.PackStart (mainHPaned, true, true, 0);
+                        globalVBox.PackStart (mainHPaned, true, true, 0);
+                        globalVBox.PackEnd (statusView, false, false, 0);
+                        globalVBox.ShowAll ();
 
-
-            globalVBox.PackEnd (statusView, false, false, 0);
-            globalVBox.ShowAll ();
-
-            Add (globalVBox);
+                        Add (globalVBox);
+                }
         }
-    }
 }

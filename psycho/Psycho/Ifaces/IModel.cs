@@ -30,35 +30,30 @@ using System.Text;
 using System.Xml;
 
 namespace Psycho {
-    public interface IModel {
 
-        #region properties
-        Topic CurrentTopic { get; set; }
-        Topic CentralTopic { get; set; }
-        bool EditPending { get; set; }
-        Topics NewTopics { get; }
-        Topics DeletedTopics { get; }
-        string DeletedTopicPath { get; }
-        Topics ChangedTopics { get; }
-        int CurrentLevel { get; }
-        XmlDocument XMLModel { get; }
-        #endregion
+        public interface IModel {
 
-        #region methods
-        void CreateTopic ();
-        void CreateSubtopic ();
-        void DeleteTopic ();
-        void ChangeTopic (Topic paramTopic);
-        void SetCurrent (string paramGuid, Topic paramTopic);
-        void SetTitle (string paramString);
-        void ExpandTopic (string paramGuid, bool isExpanded);
-        //void TriggerEdit (bool editPending);
-        #endregion
+                Topic CurrentTopic { get; set; }
+                Topic CentralTopic { get; set; }
+                bool EditPending { get; set; }
+                Topics NewTopics { get; }
+                Topics DeletedTopics { get; }
+                string DeletedTopicPath { get; }
+                Topics ChangedTopics { get; }
+                int CurrentLevel { get; }
+                XmlDocument XMLModel { get; }
 
-        #region Observer implementation
-        void AddObserver (IView paramView);
-        void RemoveObserver (IView paramView);
-        void NotifyObservers ();
-        #endregion
-    }
+                void CreateTopic ();
+                void CreateSubtopic ();
+                void DeleteTopic ();
+                void ChangeTopic (Topic paramTopic);
+                void SetCurrent (string paramGuid, Topic paramTopic);
+                void SetTitle (string paramString);
+                void ExpandTopic (string paramGuid, bool isExpanded);
+                //void TriggerEdit (bool editPending);
+
+                void AddObserver (IView paramView);
+                void RemoveObserver (IView paramView);
+                void NotifyObservers ();
+        }
 }

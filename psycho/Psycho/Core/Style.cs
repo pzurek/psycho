@@ -28,56 +28,49 @@ using System.Text;
 
 namespace Psycho {
 
-        public class Font {
+        public class Style {
 
-                string name;
-                Single size;
-                bool bold;
-                bool italic;
-                bool underline;
-                bool strikethrough;
-                bool isAuto;
+                Font styleFont;
+                TopicShape shape;
+                ConnectionPoint connectPoint;
+                ConnectionShape connectShape;
+                Color fillColor;
+                Color strokeColor;
 
-                public string Name
+                public Font StyleFont
                 {
-                        get { return name; }
-                        set { name = value; }
+                        get { return styleFont; }
+                        set { styleFont = value; }
                 }
 
-                public Single Size
+                public TopicShape Shape
                 {
-                        get { return size; }
-                        set { size = value; }
+                        get { return shape; }
+                        set { shape = value; }
                 }
 
-                public bool Bold
+                public ConnectionPoint ConnectPoint
                 {
-                        get { return bold; }
-                        set { bold = value; }
+                        get { return connectPoint; }
+                        set { connectPoint = value; }
                 }
 
-                public bool Italic
+                public ConnectionShape ConnectShape
                 {
-                        get { return italic; }
-                        set { italic = value; }
+                        get { return connectShape; }
+                        set { connectShape = value; }
                 }
 
-                public bool Underline
+                public Color FillColor
                 {
-                        get { return underline; }
-                        set { underline = value; }
+                        get { return fillColor; }
+                        set { fillColor = value; }
                 }
 
-                public bool Strikethrough
+                public Color StrokeColor
                 {
-                        get { return strikethrough; }
-                        set { strikethrough = value; }
-                }
-
-                public bool IsAuto
-                {
-                        get { return isAuto; }
-                        set { isAuto = value; }
+                        get { return strokeColor; }
+                        set { strokeColor = value; }
                 }
         }
 }

@@ -23,44 +23,37 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-namespace Psycho
-{
-	using System;
-    using System.Collections;
-    using System.Collections.Generic;
-	using Psycho;
-	
-	public class Notes {
+namespace Psycho {
 
-        #region private fields
-        private string text;
-        private Topic topic;
-        private string guid;
-        #endregion
+        using System;
+        using System.Collections;
+        using System.Collections.Generic;
+        using Psycho;
 
-        public Notes(Topic paramTopic) {
-            this.topic = paramTopic;
-        	this.guid = paramTopic.GUID;
+        public class Notes {
+
+                private string text;
+                private Topic topic;
+
+                public Notes (Topic paramTopic)
+                {
+                        this.topic = paramTopic;
+                }
+
+                public string Text
+                {
+                        get { return text; }
+                        set { text = value; }
+                }
+
+                public Topic Topic
+                {
+                        get { return topic; }
+                }
+
+                public string GUID
+                {
+                        get { return this.topic.GUID; }
+                }
         }
-
-        #region public fields
-
-    	public string Text
-		{
-			get { return text; }
-			set { text = value; }
-		}
-
-		public Topic Topic
-		{
-			get { return topic; }
-		}
-		
-        public string GUID
-        {
-            get { return guid; }
-        }
-
-        #endregion
-    }
 }

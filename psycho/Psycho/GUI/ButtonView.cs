@@ -30,169 +30,160 @@ using Gtk;
 using Gdk;
 
 namespace Psycho {
-    ///<summary>
-    ///Temporary view.
-    ///Buttons creating and deleting topics
-    /// and a nodeview to show them and select the current.
-    ///</summary>
-    public class ButtonView : VBox, IView {
 
-        Entry titleEntry = new Entry ();
-        Button addSiblingButton = new Button ();
-        Button addChildButton = new Button ();
-        Button deleteButton = new Button ();
+        public class ButtonView : VBox, IView {
 
-        private IModel Model;
-        private IControl Control;
+                Entry titleEntry = new Entry ();
+                Button addSiblingButton = new Button ();
+                Button addChildButton = new Button ();
+                Button deleteButton = new Button ();
 
-        public ButtonView ()
-            : base ()
-        {
+                private IModel Model;
+                private IControl Control;
 
-            this.Homogeneous = false;
-            this.BorderWidth = 6;
+                public ButtonView ()
+                        : base ()
+                {
 
-            HButtonBox buttonBox = new HButtonBox ();
+                        this.Homogeneous = false;
+                        this.BorderWidth = 6;
 
-            titleEntry.KeyReleaseEvent += new KeyReleaseEventHandler (titleEntry_KeyReleaseEvent);
+                        HButtonBox buttonBox = new HButtonBox ();
 
-            addSiblingButton.Label = ("Add Sibling");
-            addSiblingButton.Clicked += new EventHandler (btnAddSibling_Click);
+                        titleEntry.KeyReleaseEvent += new KeyReleaseEventHandler (titleEntry_KeyReleaseEvent);
 
-            addChildButton.Label = ("Add Child");
-            addChildButton.Clicked += new EventHandler (btnAddChild_Click);
+                        addSiblingButton.Label = ("Add Sibling");
+                        addSiblingButton.Clicked += new EventHandler (btnAddSibling_Click);
 
-            deleteButton.Label = ("Delete");
-            deleteButton.Clicked += new EventHandler (btnDelete_Click);
+                        addChildButton.Label = ("Add Child");
+                        addChildButton.Clicked += new EventHandler (btnAddChild_Click);
 
-            buttonBox.Homogeneous = true;
-            buttonBox.Layout = (Gtk.ButtonBoxStyle.Start);
-            buttonBox.Spacing = 6;
-            buttonBox.PackStart (addSiblingButton, false, true, 6);
-            buttonBox.PackStart (addChildButton, false, true, 6);
-            buttonBox.PackStart (deleteButton, false, true, 6);
+                        deleteButton.Label = ("Delete");
+                        deleteButton.Clicked += new EventHandler (btnDelete_Click);
 
-            this.PackStart (titleEntry, false, false, 6);
-            this.PackStart (buttonBox, false, false, 6);
+                        buttonBox.Homogeneous = true;
+                        buttonBox.Layout = (Gtk.ButtonBoxStyle.Start);
+                        buttonBox.Spacing = 6;
+                        buttonBox.PackStart (addSiblingButton, false, true, 6);
+                        buttonBox.PackStart (addChildButton, false, true, 6);
+                        buttonBox.PackStart (deleteButton, false, true, 6);
+
+                        this.PackStart (titleEntry, false, false, 6);
+                        this.PackStart (buttonBox, false, false, 6);
+                }
+
+                void titleEntry_KeyReleaseEvent (object o, KeyReleaseEventArgs args)
+                {
+                        string key = args.Event.Key.ToString ();
+                        if (args.Event.Key == Gdk.Key.Return)
+                                EditTitle (titleEntry.Text);
+                }
+
+                public void WireUp (IControl paramControl, IModel paramModel)
+                {
+                        if (Model != null) {
+                                Model.RemoveObserver (this);
+                        }
+
+                        Model = paramModel;
+                        Control = paramControl;
+
+                        Control.SetModel (Model);
+                        Control.SetView (this);
+                        Model.AddObserver (this);
+                        Update (Model);
+                }
+
+                public void CheckButtonsLegal ()
+                {
+                        if (Model.CurrentTopic == Model.CentralTopic) {
+                                DisableAddSibling ();
+                                DisableDelete ();
+                        }
+                        else {
+                                EnableAddSibling ();
+                                EnableDelete ();
+                        }
+                }
+
+                public void EditTitle (string paramString)
+                {
+                        Control.RequestSetTitle (paramString);
+                }
+
+                private void btnAddChild_Click (object sender, System.EventArgs args)
+                {
+                        AddSubtopic ();
+                }
+
+                public void AddSubtopic ()
+                {
+                        Control.RequestAddSubtopic ();
+                }
+
+                private void btnAddSibling_Click (object sender, System.EventArgs args)
+                {
+                        AddTopic ();
+                }
+
+                public void AddTopic ()
+                {
+                        Control.RequestAddTopic ();
+                }
+
+                private void btnDelete_Click (object sender, System.EventArgs args)
+                {
+                        DeleteTopic ();
+                }
+
+                public void DeleteTopic ()
+                {
+                        Control.RequestDelete ();
+                }
+
+                public void SetCurrentTopic ()
+                {
+                }
+
+                public void TriggerEdit (bool editPending)
+                {
+                        Control.RequestEditFlag (editPending);
+                }
+
+                public void Update (IModel paramModel)
+                {
+                        titleEntry.Text = paramModel.CurrentTopic.Text;
+                        CheckButtonsLegal ();
+                }
+
+                public void DisableAddSibling ()
+                {
+                        addSiblingButton.Sensitive = (false);
+                }
+
+                public void EnableAddSibling ()
+                {
+                        addSiblingButton.Sensitive = (true);
+                }
+
+                public void DisableDelete ()
+                {
+                        deleteButton.Sensitive = (false);
+                }
+
+                public void EnableDelete ()
+                {
+                        deleteButton.Sensitive = (true);
+                }
+
+                public void ExpandTopic (string paramGuid, bool isExpanded)
+                {
+                        Control.RequestExpand (paramGuid, isExpanded);
+                }
+
+                public void CommitChange (Topic paramTopic)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
         }
-
-        void titleEntry_KeyReleaseEvent (object o, KeyReleaseEventArgs args)
-        {
-            string key = args.Event.Key.ToString ();
-            if (args.Event.Key == Gdk.Key.Return)
-                EditTitle (titleEntry.Text);
-        }
-
-        public void WireUp (IControl paramControl, IModel paramModel)
-        {
-            if (Model != null) {
-                Model.RemoveObserver (this);
-            }
-
-            Model = paramModel;
-            Control = paramControl;
-
-            Control.SetModel (Model);
-            Control.SetView (this);
-            Model.AddObserver (this);
-            Update (Model);
-        }
-
-        public void CheckButtonsLegal ()
-        {
-            if (Model.CurrentTopic == Model.CentralTopic) {
-                DisableAddSibling ();
-                DisableDelete ();
-            }
-            else {
-                EnableAddSibling ();
-                EnableDelete ();
-            }
-        }
-
-        public void EditTitle (string paramString)
-        {
-            Control.RequestSetTitle (paramString);
-        }
-
-        private void btnAddChild_Click (object sender, System.EventArgs args)
-        {
-            AddSubtopic ();
-        }
-
-        public void AddSubtopic ()
-        {
-            Control.RequestAddSubtopic ();
-        }
-
-        private void btnAddSibling_Click (object sender, System.EventArgs args)
-        {
-            AddTopic ();
-        }
-
-        public void AddTopic ()
-        {
-            Control.RequestAddTopic ();
-        }
-
-        private void btnDelete_Click (object sender, System.EventArgs args)
-        {
-            DeleteTopic ();
-        }
-
-        public void DeleteTopic ()
-        {
-            Control.RequestDelete ();
-        }
-
-        public void SetCurrentTopic ()
-        {
-        }
-
-        public void TriggerEdit (bool editPending)
-        {
-            Control.RequestEditFlag (editPending);
-        }
-
-        public void Update (IModel paramModel)
-        {
-            titleEntry.Text = paramModel.CurrentTopic.Text;
-            CheckButtonsLegal ();
-        }
-
-        public void DisableAddSibling ()
-        {
-            addSiblingButton.Sensitive = (false);
-        }
-
-        public void EnableAddSibling ()
-        {
-            addSiblingButton.Sensitive = (true);
-        }
-
-        public void DisableDelete ()
-        {
-            deleteButton.Sensitive = (false);
-        }
-
-        public void EnableDelete ()
-        {
-            deleteButton.Sensitive = (true);
-        }
-
-        public void ExpandTopic (string paramGuid, bool isExpanded)
-        {
-            Control.RequestExpand (paramGuid, isExpanded);
-        }
-
-        #region IView Members
-
-
-        public void CommitChange (Topic paramTopic)
-        {
-            throw new Exception ("The method or operation is not implemented.");
-        }
-
-        #endregion
-    }
 }
