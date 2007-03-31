@@ -216,7 +216,7 @@ namespace Psycho
                         store.Clear ();
                         TreeIter centralNode = store.AppendValues (iModel.CentralTopic);
                         AddNodesRecursively (store, centralNode, iModel.CentralTopic);
-                        outlineView.ExpandAll ();
+                        //outlineView.ExpandAll ();
                         if (selectedNode.Stamp != 0) {
                                 outlineView.ScrollToCell (store.GetPath (selectedNode), titleColumn, true, 0, 0);
                         }
@@ -225,12 +225,10 @@ namespace Psycho
                 public void Update (IModel iModel)
                 {
                         this.updatePending = true;
-                        //outlineView.Model = null;
-                        //Build (iModel);
+                        Build (iModel);
                         //UpdateNew (iModel);
                         //UpdateDeletedPath (iModel);
                         //UpdateChanged (iModel);
-                        //outlineView.Model = store;
                         workingTopic = iModel.CurrentTopic;
                         this.updatePending = false;
                 }
@@ -245,6 +243,7 @@ namespace Psycho
                                         store.GetIter (out parent, parentPath);
                                         TreeIter iter = store.InsertNode (parent, position);
                                         store.SetValue (iter, 0, topic);
+                                        store.SetValue (iter, 1, topic);
                                         TreePath path = store.GetPath (iter);
                                         SelectCurrentRow (iter, path);
                                 }
@@ -275,6 +274,7 @@ namespace Psycho
                                         TreeIter iter;
                                         store.GetIter (out iter, path);
                                         store.SetValue (iter, 0, topic);
+                                        store.SetValue (iter, 1, topic);
                                         SelectCurrentRow (iter, path);
                                 }
                         }
@@ -368,10 +368,11 @@ namespace Psycho
                 void OnSelectionChanged (object sender, System.EventArgs args)
                 {
                         TreeModel model;
-
-                        if (((TreeSelection) sender).GetSelected (out model, out selectedNode))
-                                selectedTopic = (Topic) model.GetValue (selectedNode, 0);
-                        if (!updatePending) SetCurrentTopic ();
+                        if (!updatePending) {
+                                if (((TreeSelection) sender).GetSelected (out model, out selectedNode))
+                                        selectedTopic = (Topic) model.GetValue (selectedNode, 0);
+                                SetCurrentTopic ();
+                        }
                 }
 
                 void titleCell_Edited (object sender, Gtk.EditedArgs args)
