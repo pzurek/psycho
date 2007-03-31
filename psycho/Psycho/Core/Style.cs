@@ -43,6 +43,8 @@ namespace Psycho {
                 int rightMargin;
                 int topMargin;
                 int bottomMargin;
+                bool fixedWidth;
+                int width;
 
                 public Font StyleFont
                 {
@@ -138,6 +140,18 @@ namespace Psycho {
                                         return bottomMargin;
                         }
                         set { bottomMargin = value; }
+                }
+
+                public bool FixedWidth
+                {
+                        get { return fixedWidth; }
+                        set { fixedWidth = value; }
+                }
+
+                public int Width
+                {
+                        get { return width; }
+                        set { width = value; }
                 }
         }
 }
