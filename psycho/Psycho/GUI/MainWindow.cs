@@ -81,7 +81,7 @@ namespace Psycho {
             Notebook mainNotebook = new Notebook ();
             mainNotebook.BorderWidth = 6;
 
-            DrawingArea mapView = new DrawingArea ();
+            Knockout mapView = new Knockout ();
 
             mainNotebook.InsertPage (mapView, new Label ("Map View"), /*new Label("Map View"),*/ 0);
             mainNotebook.InsertPage (nodeView, new Label ("Outline View"), /*new Label("Outline View"),*/ 1);
