@@ -145,12 +145,12 @@ namespace Psycho
 
                 public void AppendSomeNodes (Topic iTopic)
                 {
-                        while (iTopic.Subtopics.Count < 4) {
+                        while (iTopic.Subtopics.Count < 3) {
                                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                                 newTopic.Parent = iTopic;
                                 CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);
                                 iTopic.AddSubtopic (newTopic);
-                                if (newTopic.Level < 5)
+                                if (newTopic.Level < 4)
                                         AppendSomeNodes (newTopic);
                         }
                 }
@@ -311,7 +311,6 @@ namespace Psycho
                 {
                         string xPath = ("//Topic[@guid='" + iGuid + "']");
                         currentXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
-                        NotifyObservers ();
                 }
 
                 public void ExpandTopic (string iGuid, bool isExpanded)
