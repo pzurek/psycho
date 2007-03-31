@@ -3,6 +3,8 @@
 // Author:
 //   Piotr Zurek, p.zurek@gmail.com
 //
+//   www.psycho-project.org
+//
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
@@ -29,10 +31,8 @@ using System.Text;
 
 namespace Psycho
 {
-
         public interface IView
         {
-
                 void Update (IModel iModel);
                 void WireUp (IControl iControl, IModel iModel);
                 void AddTopic ();

@@ -3,6 +3,8 @@
 // Author:
 //   Piotr Zurek, p.zurek@gmail.com
 //
+//   www.psycho-project.org
+//
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
@@ -88,6 +90,7 @@ namespace Psycho
                 int totalCount;
                 string path;
                 string guid;
+                bool isValid;
                 bool isCurrent;
                 bool isExpanded;
                 bool isVisible;
@@ -462,6 +465,7 @@ namespace Psycho
                 {
                         get
                         {
+                                //if (!IsValid) {
                                 level = 0;
                                 Queue<Topic> remaining = new Queue<Topic> ();
 
@@ -472,6 +476,7 @@ namespace Psycho
                                         if (topic.Parent != null) remaining.Enqueue (topic.Parent);
                                         level++;
                                 }
+                                //}
                                 return level;
                         }
                 }
@@ -504,6 +509,16 @@ namespace Psycho
                                 foreach (Topic child in topic.Subtopics)
                                         remaining.Enqueue (child);
                         }
+                }
+
+                public bool IsValid
+                {
+                        get { return isValid; }
+                }
+
+                public void Invalidate ()
+                {
+                        ;
                 }
         }
 }

@@ -3,6 +3,8 @@
 // Author:
 //   Piotr Zurek, p.zurek@gmail.com
 //
+//   www.psycho-project.org
+//
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
@@ -25,10 +27,10 @@
 
 using System;
 
-namespace Psycho {
-
-        public enum ConnectionShape {
-
+namespace Psycho
+{
+        public enum ConnectionShape
+        {
                 None,
                 Straight,
                 Arc,
@@ -36,5 +38,7 @@ namespace Psycho {
                 Crank,
                 RoundedCrank,
                 ChamferedCrank,
+                AngleCrank,
+                RoundedAngleCrank,
         }
 }

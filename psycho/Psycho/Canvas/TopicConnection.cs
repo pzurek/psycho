@@ -3,6 +3,8 @@
 // Author:
 //   Piotr Zurek, p.zurek@gmail.com
 //
+//   www.psycho-project.org
+//
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
 // "Software"), to deal in the Software without restriction, including
@@ -40,6 +42,7 @@ namespace Psycho
                 Cairo.PointD chamferedCrankEnd1, chamferedCrankEnd2;
                 Cairo.PointD arcControlStart, arcControlEnd;
                 Cairo.PointD curveControlStart, curveControlEnd;
+                Cairo.PointD roundedAngleCrankStart, roundedAngleCrankEnd;
                 double crankRadius, crankChamfer;
 
                 static double PI = System.Math.PI;
@@ -275,6 +278,26 @@ namespace Psycho
                         }
                 }
 
+                public Cairo.PointD RoundedAngleCrankStart
+                {
+                        get
+                        {
+                                roundedAngleCrankStart.X = this.Start.X + this.ConnectionVector.Dx / 4;
+                                roundedAngleCrankStart.Y = this.Start.Y;
+                                return roundedAngleCrankStart;
+                        }
+                }
+
+                public Cairo.PointD RoundedAngleCrankEnd
+                {
+                        get
+                        {
+                                roundedAngleCrankEnd.X = this.End.X - this.ConnectionVector.Dx / 4;
+                                roundedAngleCrankEnd.Y = this.End.Y - this.ConnectionVector.Dy / 2;
+                                return roundedAngleCrankEnd;
+                        }
+                }
+
                 public void Sketch (Cairo.Context iContext)
                 {
                         if (this.Topic.Parent == null)
@@ -286,6 +309,12 @@ namespace Psycho
                         break;
                         case ConnectionShape.Crank:
                         sketchCrank ();
+                        break;
+                        case ConnectionShape.AngleCrank:
+                        sketchAngleCrank ();
+                        break;
+                        case ConnectionShape.RoundedAngleCrank:
+                        sketchRoundedAngleCrank ();
                         break;
                         case ConnectionShape.ChamferedCrank:
                         sketchChamferedCrank ();
@@ -366,6 +395,21 @@ namespace Psycho
                 private void sketchStraight ()
                 {
                         context.MoveTo (Start);
+                        context.LineTo (End);
+                }
+
+                private void sketchAngleCrank ()
+                {
+                        context.MoveTo (Start);
+                        context.LineTo (MiddleStart);
+                        context.LineTo (End);
+                }
+
+                private void sketchRoundedAngleCrank ()
+                {
+                        context.MoveTo (Start);
+                        context.LineTo (RoundedAngleCrankStart);
+                        context.CurveTo (MiddleStart, MiddleStart, RoundedAngleCrankEnd);
                         context.LineTo (End);
                 }
         }
