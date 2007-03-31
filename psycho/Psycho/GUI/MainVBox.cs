@@ -36,7 +36,7 @@ namespace Psycho
             MindModel model = new MindModel();
             model.AppendSomeNodes(model.CentralTopic);
 
-            TemporaryButtonBox buttonView = new TemporaryButtonBox();
+            PsychoButtonView buttonView = new PsychoButtonView();
             MindControl buttonControl = new MindControl(model, buttonView);
             buttonView.WireUp(buttonControl, model);
 

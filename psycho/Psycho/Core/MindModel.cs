@@ -37,7 +37,6 @@ namespace Psycho
     {
     	public MindModel()
 		{
-    		Console.WriteLine("Creating new Mind Model");
             this.currentTopic = this.centralTopic;
             centralTopic.Title = "Central Topic";
             NotifyObservers();
@@ -47,13 +46,14 @@ namespace Psycho
 
         public void AppendSomeNodes(Topic paramTopic)
         {
-            while (paramTopic.Subtopics.Count < 2){
+            while (paramTopic.Subtopics.Count < 3){
                 Topic newTopic = new Topic(this.centralTopic.TotalCount);
                 newTopic.Parent = paramTopic;
                 paramTopic.AddSubtopic(newTopic);
+                Console.WriteLine(newTopic.TopicPath);
             }
 
-            while (levelCounter < 2) {
+            while (levelCounter < 3) {
                 foreach (Topic topic in paramTopic.Subtopics) {
                     levelCounter++;
                     AppendSomeNodes(topic);

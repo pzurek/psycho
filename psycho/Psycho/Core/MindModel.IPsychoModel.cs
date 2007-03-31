@@ -24,6 +24,7 @@
 //
 
 namespace Psycho {
+
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -40,11 +41,29 @@ namespace Psycho {
 
         #region IPsychoModel Members
         private ArrayList observerList = new ArrayList();
+        public Topics newTopics = new Topics();
+        public Topics deletedTopics = new Topics();
+        public Topics changedTopics = new Topics();
 
         public Topic CurrentTopic
         {
             get { return currentTopic; }
             set { currentTopic = value; }
+        }
+
+        public Topics NewTopics
+        {
+            get { return newTopics; }
+        }
+
+        public Topics ChangedTopics
+        {
+            get { return changedTopics; }
+        }
+
+        public Topics DeletedTopics
+        {
+            get { return deletedTopics; }
         }
 
         public Topic CentralTopic
@@ -68,6 +87,7 @@ namespace Psycho {
                 newTopic.Parent = CurrentTopic.Parent;
                 CurrentTopic.Parent.AddSubtopicAt((currentIndex + 1), newTopic);
                 CurrentTopic = newTopic;
+                newTopics.Add(newTopic);
             }
             NotifyObservers();
         }
@@ -78,6 +98,7 @@ namespace Psycho {
             newTopic.Parent = CurrentTopic;
             CurrentTopic.AddSubtopic(newTopic);
             CurrentTopic = newTopic;
+            newTopics.Add(newTopic);
             NotifyObservers();
         }
 
@@ -86,6 +107,7 @@ namespace Psycho {
             int newIndex;
             int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
             Topic tempParent = this.CurrentTopic.Parent;
+            deletedTopics.Add(CurrentTopic);
 
             if (CurrentTopic.Parent.Subtopics.Count == 1) {
                 CurrentTopic.Parent.Subtopics.Clear();
@@ -107,6 +129,7 @@ namespace Psycho {
         public void SetTitle(string paramTitle)
         {
             CurrentTopic.Title = (paramTitle);
+            changedTopics.Add(CurrentTopic);
             NotifyObservers();
         }
 
@@ -126,6 +149,14 @@ namespace Psycho {
             foreach (IPsychoView view in observerList) {
                 view.Update(this);
             }
+            ClearChanges();
+        }
+
+        private void ClearChanges ()
+        {
+            NewTopics.Clear();
+            DeletedTopics.Clear();
+            ChangedTopics.Clear();
         }
 
         public void SetCurrent(string paramGuid, Topic paramTopic)

@@ -149,13 +149,39 @@ namespace Psycho {
             (cell as CellRendererText).Text = topic.GUID;
         }
 
-        public void Update (IPsychoModel paramModel)
+        public void Build (IPsychoModel paramModel)
         {
             store.Clear();
             TreeIter centralNode = store.AppendValues(paramModel.CentralTopic);
             AddNodesRecursively(store, centralNode, paramModel.CentralTopic);
             outlineView.ExpandAll();
             outlineView.ScrollToCell(store.GetPath(selectedNode), titleColumn, true, 0, 0);
+        }
+
+        public void Update (IPsychoModel paraModel)
+        {
+            foreach (Topic topic in paraModel.NewTopics) {
+                TreeIter parentIter;
+                TreePath parentPath = new TreePath(topic.Parent.TopicPath);
+                store.GetIter(out parentIter, parentPath);
+                TreeIter iter = store.AppendValues(parentIter, topic);
+                outlineView.Selection.SelectIter(iter);
+            }
+
+            foreach (Topic topic in paraModel.DeletedTopics) {
+                TreeIter Iter;
+                TreePath Path = new TreePath(topic.TopicPath);
+                store.GetIter(out Iter, Path);
+                store.Remove(ref Iter);
+            }
+
+            foreach (Topic topic in paraModel.ChangedTopics) {
+                TreeIter parentIter;
+                TreePath parentPath = new TreePath(topic.Parent.TopicPath);
+                store.GetIter(out parentIter, parentPath);
+                TreeIter iter = store.AppendValues(parentIter, topic);
+                outlineView.Selection.SelectIter(iter);
+            }
         }
 
         public void AddTopic ()
@@ -216,6 +242,7 @@ namespace Psycho {
             Control.SetModel(Model);
             Control.SetView(this);
             Model.AddObserver(this);
+            Build(Model);
             Update(Model);
         }
 
@@ -224,18 +251,6 @@ namespace Psycho {
 
             foreach (Topic child in paramTopic.Subtopics) {
                 TreeIter kid = paramStore.AppendValues(paramParent, child);
-
-                //if (paramTopic.IsExpanded) {
-                //    outlineView.ExpandRow(paramStore.GetPath(paramParent), true);
-                //}
-                //else
-                //    outlineView.ExpandRow(paramStore.GetPath(paramParent), false);
-
-                if (Model.CurrentTopic == child) {
-                    selectedNode = kid;
-                    Console.WriteLine("Current iter set to: " + child.Title);
-                }
-
                 AddNodesRecursively(paramStore, kid, child);
             }
         }
