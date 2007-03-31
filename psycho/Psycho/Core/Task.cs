@@ -24,12 +24,13 @@
 //
 
 namespace Psycho {
+
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using Psycho;
 
-    public partial class Task {
+    public class Task {
 
         public Task (Topic paramTopic)
         {

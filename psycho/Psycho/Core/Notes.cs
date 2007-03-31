@@ -30,7 +30,7 @@ namespace Psycho
     using System.Collections.Generic;
 	using Psycho;
 	
-	public partial class Notes {
+	public class Notes {
 
         public Notes(Topic paramTopic) {
         	this.guid = paramTopic.GUID;

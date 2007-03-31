@@ -28,12 +28,14 @@ using Gtk;
 using Psycho;
 
 namespace Psycho {
+
     public class MainWindow : Window {
+
         public MainWindow ()
             : base ("Psycho")
         {
-            IconLoader iconLoader = new IconLoader ();
-            Icon = iconLoader.topicIcon;
+            //IconLoader iconLoader = new IconLoader ();
+            //Icon = iconLoader.topicIcon;
 
             VBox mainVBox = new VBox ();
 
@@ -75,7 +77,7 @@ namespace Psycho {
 
             mainVBox.PackStart (UIView.uiManager.GetWidget ("/MenuBar"), false, false, 0);
             mainVBox.PackStart (UIView.uiManager.GetWidget ("/ToolBar"), false, false, 0);
-
+            
             mainVBox.PackStart (buttonExpander, false, false, 6);
             mainVBox.PackStart (mainNotebook, true, true, 6);
             mainVBox.PackEnd (statusView, false, false, 0);

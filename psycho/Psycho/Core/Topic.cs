@@ -27,13 +27,13 @@ namespace Psycho {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Xml;
+    using System.Xml.Serialization;
     using Psycho;
 
-    public partial class Topic {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="Title"></param>
+    [Serializable]
+    public class Topic {
+
         public Topic (int topic_number)
         {
             System.Guid newGuid = System.Guid.NewGuid ();
@@ -54,9 +54,11 @@ namespace Psycho {
         #endregion
 
         #region public fields
-
+        
+        [XmlElement("Subtopics")]
         public Topics Subtopics = new Topics ();
 
+        [XmlElement("Title")]
         public string Title
         {
             get { return title; }
@@ -81,6 +83,7 @@ namespace Psycho {
             set { isExpanded = value; }
         }
 
+        [XmlAttribute ("GUID")]
         public string GUID
         {
             get { return guid; }

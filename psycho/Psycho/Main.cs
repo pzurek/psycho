@@ -34,7 +34,7 @@ namespace Psycho
 			Application.Init ();
         	MainWindow mainWindow = new MainWindow();
             mainWindow.DeleteEvent += OnDelete;
-            mainWindow.SetDefaultSize (640, 480);
+            mainWindow.SetDefaultSize (800, 600);
             mainWindow.SetPosition(WindowPosition.Center);
             mainWindow.Show();
 	        Application.Run ();

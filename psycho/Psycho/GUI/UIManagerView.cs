@@ -36,7 +36,7 @@ namespace Psycho {
         private IControl Control;
 
         public UIManager uiManager = new UIManager ();
-
+        
         const string ui =
         "<ui>" +
         "  <menubar name='MenuBar'>" +
@@ -52,6 +52,9 @@ namespace Psycho {
         "      <menuitem action='AddTopic'/>" +
         "      <menuitem action='AddSubtopic'/>" +
         "      <menuitem action='Delete'/>" +
+        "      <menuitem action='Relation'/>" +
+        "      <menuitem action='Callout'/>" +
+        "      <menuitem action='Border'/>" +
         "      <separator/>" +
         "      <menuitem action='Copy'/>" +
         "      <menuitem action='Cut'/>" +
@@ -62,18 +65,22 @@ namespace Psycho {
         "    </menu>" +
         "  </menubar>" +
         "  <toolbar  name='ToolBar'>" +
+        "    <toolitem name='new' action='New'/>" +
         "    <toolitem name='open' action='Open'/>" +
-        "    <toolitem name='quit' action='Quit'/>" +
+        "    <toolitem name='save' action='Save'/>" +
         "    <separator action='Sep1'/>" +
         "    <toolitem name='addtopic' action='AddTopic'/>" +
         "    <toolitem name='addsubtopic' action='AddSubtopic'/>" +
         "    <toolitem name='delete' action='Delete'/>" +
+        "    <toolitem name='relation' action='Relation'/>" +
+        "    <toolitem name='callout' action='Callout'/>" +
+        "    <toolitem name='border' action='Border'/>" +
         "  </toolbar>" +
         "</ui>";
 
         public UIManagerView ()
         {
-            BuildIcons ();
+            //BuildIcons ();
 
             ActionEntry[] entries = new ActionEntry[] {
                 new ActionEntry ("FileMenu", null, "_File", null, null, null),
@@ -86,9 +93,12 @@ namespace Psycho {
                 new ActionEntry ("SaveAs", Stock.SaveAs, "Save _As", null, "Save to a file", new EventHandler (ActionActivated)),
                 new ActionEntry ("Quit", Stock.Quit, "_Quit", "<control>Q", "Quit", new EventHandler (ActionActivated)),
                 
-                new ActionEntry ("AddTopic", "psycho-topic", "Add _Topic", "Return", "Add Topic", new EventHandler (ActionActivated)),
-                new ActionEntry ("AddSubtopic", "psycho-subtopic", "Add _Subtopic", "Insert", "Add Subtopic", new EventHandler (ActionActivated)),
-                new ActionEntry ("Delete", "psycho-delete", "_Delete Topic", "Delete", "Delete Topic", new EventHandler (ActionActivated)),
+                new ActionEntry ("AddTopic", "psycho-topic", "_Topic", "Return", "Create a new topic on a current level", new EventHandler (ActionActivated)),
+                new ActionEntry ("AddSubtopic", "psycho-subtopic", "_Subtopic", "Insert", "Create a new topic as a child for currently selected topic", new EventHandler (ActionActivated)),
+                new ActionEntry ("Delete", "psycho-delete", "_Delete", "Delete", "Delete currently selected topic", new EventHandler (ActionActivated)),
+                new ActionEntry ("Relation", "psycho-relation", "_Relation", "", "Create a relation between two existing elements", new EventHandler (ActionActivated)),
+                new ActionEntry ("Callout", "psycho-callout", "_Callout", "", "Create a callout topic for currently selected element", new EventHandler (ActionActivated)),
+                new ActionEntry ("Border", "psycho-border", "_Border", "", "Add Border", new EventHandler (ActionActivated)),
                 
                 new ActionEntry ("Copy", Stock.Copy, "Copy", "<control>C", "Copy to clipboard", new EventHandler (ActionActivated)),
                 new ActionEntry ("Cut", Stock.Cut, "Cut", "<control>X", "Cut to clipboard", new EventHandler (ActionActivated)),
@@ -118,7 +128,7 @@ namespace Psycho {
 
             StockManager.Add (new StockItem ("psycho-topic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
             StockManager.Add (new StockItem ("psycho-subtopic", "Add Subtopic", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add (new StockItem ("psyhco-delete", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add (new StockItem ("psycho-delete", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
         }
 
         private void ActionActivated (object sender, EventArgs a)
