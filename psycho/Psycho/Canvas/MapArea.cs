@@ -101,7 +101,6 @@ namespace Psycho
                         mapContext = Gdk.CairoHelper.Create (args.Event.Window);
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
-                        //this.Vadjustment.SetBounds (-200, Model.CentralTopic.TotalHeight + 10, 10, 10, mapArea.Allocation.Height);
                         this.mapArea.SetSizeRequest (2000, (int) Model.CentralTopic.TotalHeight);
                         ((IDisposable) mapContext.Target).Dispose ();
                         ((IDisposable) mapContext).Dispose ();

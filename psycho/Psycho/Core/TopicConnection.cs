@@ -228,7 +228,7 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankStart1.X = this.MiddleStart.X + this.CrankRadius;
+                                chamferedCrankStart1.X = this.MiddleStart.X - this.CrankRadius * System.Math.Sign(this.connectionVector.Dx);
                                 chamferedCrankStart1.Y = this.MiddleStart.Y;
                                 return chamferedCrankStart1;
                         }
@@ -239,7 +239,7 @@ namespace Psycho
                         get
                         {
                                 chamferedCrankStart2.X = this.MiddleStart.X;
-                                chamferedCrankStart2.Y = this.MiddleStart.Y - this.CrankRadius;
+                                chamferedCrankStart2.Y = this.MiddleStart.Y + this.CrankRadius * System.Math.Sign (this.connectionVector.Dy);
                                 return chamferedCrankStart2;
                         }
                 }
@@ -248,7 +248,7 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankEnd1.X = this.MiddleEnd.X - this.CrankChamfer;
+                                chamferedCrankEnd1.X = this.MiddleEnd.X + this.CrankChamfer * System.Math.Sign (this.connectionVector.Dx);
                                 chamferedCrankEnd1.Y = this.MiddleEnd.Y;
                                 return chamferedCrankEnd1;
                         }
@@ -259,7 +259,7 @@ namespace Psycho
                         get
                         {
                                 chamferedCrankEnd2.X = this.MiddleEnd.X;
-                                chamferedCrankEnd2.Y = this.MiddleEnd.Y + this.CrankChamfer;
+                                chamferedCrankEnd2.Y = this.MiddleEnd.Y - this.CrankChamfer * System.Math.Sign (this.connectionVector.Dy);
                                 return chamferedCrankEnd2;
                         }
                 }
