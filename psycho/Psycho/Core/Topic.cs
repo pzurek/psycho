@@ -263,7 +263,7 @@ namespace Psycho
 
                 void updateLeft ()
                 {
-                        this.left = (int) this.Frame.Top.X;
+                        this.left = (int) this.Frame.Left.X;
                         foreach (Topic topic in this.Subtopics) {
                                 if (topic.left < this.Left)
                                         this.left = topic.Left;
@@ -272,7 +272,7 @@ namespace Psycho
 
                 void updateRight ()
                 {
-                        this.right = (int) this.Frame.Top.X;
+                        this.right = (int) this.Frame.Right.X;
                         foreach (Topic topic in this.Subtopics) {
                                 if (topic.right > this.Right)
                                         this.right = topic.Right;
@@ -291,8 +291,13 @@ namespace Psycho
                 {
                         containsPoint = false;
                         if ((iY > this.Frame.Top.Y && iY < this.Frame.Bottom.Y)
-                                && (iX > this.Frame.Left.X && iX < this.Frame.Right.X))
+                                && (iX > this.Frame.Left.X && iX < this.Frame.Right.X)) {
                                 containsPoint = true;
+                                Console.WriteLine ("Top: " + this.Frame.Top.Y +
+                                                   "\nBottom: " + this.Frame.Bottom.Y +
+                                                   "\nLeft: " + this.Frame.Left.X +
+                                                   "\nRight: " + this.Frame.Right.X);
+                        }
                         return containsPoint;
                 }
 

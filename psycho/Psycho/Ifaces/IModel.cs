@@ -51,6 +51,7 @@ namespace Psycho
                 void ChangeTopic (Topic iTopic);
                 void SetCurrent (string iGuid);
                 void SetCurrent (Topic iTopic);
+                void ClearCurrent ();
                 void SetCurrentByCoords (int iX, int iY);
                 void CurrentGoForward ();
                 void CurrentGoBack ();

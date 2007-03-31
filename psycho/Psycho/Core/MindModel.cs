@@ -45,7 +45,7 @@ namespace Psycho
 
                 public MindModel ()
                 {
-                        CentralTopic = new Topic ("Central Topic");
+                        CentralTopic = new Topic ("Psycho - free mind mapping solution");
                         SetCurrent (CentralTopic);
 
                         XmlDeclaration declarationNode = XMLModel.CreateXmlDeclaration ("1.0", "UTF-8", "");
@@ -401,6 +401,14 @@ namespace Psycho
                         this.CentralTopic.UpdateLimits ();
                 }
 
+                public void ClearCurrent ()
+                {
+                        if (this.CurrentTopic != null) {
+                                this.CurrentTopic.IsCurrent = false;
+                                this.CurrentTopic = null;
+                        }
+                }
+
                 public void SetCurrentByCoords (int iX, int iY)
                 {
                         setCurrentByCoords (this.CentralTopic, iX, iY);
@@ -408,7 +416,6 @@ namespace Psycho
 
                 void setCurrentByCoords (Topic iTopic, int iX, int iY)
                 {
-
                         if (iTopic.RegionContainsPoint (iX, iY)) {
 
                                 Console.WriteLine ("Topic: " + iTopic.Text + " contains region hit");

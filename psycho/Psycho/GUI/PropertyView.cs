@@ -98,8 +98,8 @@ namespace Psycho
                         basicPropertyBox.PackStart (fillColor, false, false, 6);
 
                         this.PackStart (titleEntry, false, false, 6);
-                        this.PackStart (buttonBox, false, false, 6);
-                        this.PackStart (basicPropertyBox, false, false, 6);
+                        //this.PackStart (buttonBox, false, false, 6);
+                        //this.PackStart (basicPropertyBox, false, false, 6);
                 }
 
                 void titleEntry_KeyReleaseEvent (object o, KeyReleaseEventArgs args)
@@ -239,6 +239,16 @@ namespace Psycho
 
 
                 public void SetCurrentByCoords (int iX, int iY)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                #endregion
+
+                #region IView Members
+
+
+                public void ClearCurrentTopic ()
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }

@@ -125,15 +125,16 @@ namespace Psycho
                                 Model.ChangeTopic (iTopic);
                 }
 
-                #region IControl Members
-
-
                 public void RequestSetCurrentByCoords (int iX, int iY)
                 {
                         if (Model != null)
                                 Model.SetCurrentByCoords (iX, iY);
                 }
 
-                #endregion
+                public void RequestClearCurrent ()
+                {
+                        if (Model != null)
+                                Model.ClearCurrent ();
+                }
         }
 }

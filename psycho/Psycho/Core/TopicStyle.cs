@@ -69,17 +69,16 @@ namespace Psycho
                         this.BottomMargin = 0;
                         this.CrankChamfer = 12;
                         this.CrankRadius = 12;
-                        this.PolyDistance = 8;
-                        this.Width = 150;
-                        this.Padding = 4;
-                        this.HorChildDist = 49;
+                        this.PolyDistance = 7;
+                        this.Width = 100;
+                        this.Padding = 3;
+                        this.HorChildDist = 42;
                 }
 
                 public Topic Topic
                 {
                         get { return topic; }
                 }
-
 
                 public Font StyleFont
                 {
@@ -210,10 +209,10 @@ namespace Psycho
                         {
                                 switch (this.Topic.Level) {
                                 case 0:
-                                strokeWidth = 4;
+                                strokeWidth = 3;
                                 break;
                                 case 1:
-                                strokeWidth = 3;
+                                strokeWidth = 2;
                                 break;
                                 case 2:
                                 strokeWidth = 2;

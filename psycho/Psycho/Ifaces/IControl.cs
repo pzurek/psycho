@@ -37,6 +37,7 @@ namespace Psycho
                 void RequestChange (Topic iTopic);
                 void RequestSetTitle (string title);
                 void RequestSetCurrent (string iGuid);
+                void RequestClearCurrent ();
                 void RequestSetCurrentByCoords (int X, int Y);
                 void RequestCurrentForward ();
                 void RequestCurrentBack ();

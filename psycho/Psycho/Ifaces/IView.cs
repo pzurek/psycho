@@ -42,6 +42,7 @@ namespace Psycho
                 void ExpandTopic (string iGuid, bool isExpanded);
                 void EditTitle (string Title);
                 void SetCurrentTopic ();
+                void ClearCurrentTopic ();
                 void SetCurrentByCoords (int iX, int iY);
                 void SetCurrentForward ();
                 void SetCurrentBack ();

@@ -172,7 +172,7 @@ namespace Psycho
                         get
                         {
                                 if (this.Topic.Style.Shape == TopicShape.RoundedRectangle) {
-                                        radius = 6 /*this.Topic.Style.MinMargin*/;
+                                        radius = 7 /*this.Topic.Style.MinMargin*/;
                                 }
                                 else
                                         radius = 0;
@@ -208,9 +208,7 @@ namespace Psycho
                 {
                         get
                         {
-                                left.X = System.Math.Floor (this.Origin.X - /*
-                                         this.HexDistHor -
-                                         this.OctDistHor -*/
+                                left.X = System.Math.Floor (this.Origin.X -
                                          this.PolyDist -
                                          this.Radius);
 
@@ -229,9 +227,7 @@ namespace Psycho
                         get
                         {
                                 right.X = System.Math.Floor (this.Origin.X +
-                                          this.Width +/*
-                                          this.HexDistHor +
-                                          this.OctDistHor +*/
+                                          this.Width +
                                           this.PolyDist +
                                           this.Radius);
 
@@ -251,7 +247,12 @@ namespace Psycho
                         {
                                 top.X = System.Math.Floor (this.Origin.X +
                                          this.Width / 2);
-                                top.Y = this.Origin.Y;
+
+                                //if (this.Topic.Style.Shape == TopicShape.Line)
+                                //        top.Y = System.Math.Floor (this.Origin.Y -
+                                //                  this.Height);
+                                //else
+                                        top.Y = this.Origin.Y;
                                 return top;
                         }
                 }
@@ -262,8 +263,11 @@ namespace Psycho
                         {
                                 bottom.X = System.Math.Floor (this.Origin.X +
                                          this.Width / 2);
-                                bottom.Y = System.Math.Floor (this.Origin.Y +
-                                          this.Height);
+                                //if (this.Topic.Style.Shape == TopicShape.Line)
+                                //        bottom.Y = System.Math.Floor (this.Origin.Y);
+                                //else
+                                        bottom.Y = System.Math.Floor (this.Origin.Y +
+                                                  this.Height);
                                 return bottom;
                         }
                 }

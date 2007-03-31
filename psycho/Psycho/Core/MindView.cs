@@ -70,18 +70,15 @@ namespace Psycho
 
                 void mapArea_ButtonPressEvent (object sender, ButtonPressEventArgs args)
                 {
-                        Console.WriteLine ("Mouse clicked");
-
                         if (args.Event.Type != Gdk.EventType.ButtonPress)
                                 return;
-
+                        ClearCurrentTopic ();
                         //if (a.Event.Button == 1)
                         //        is_dragging = true;
 
                         mapArea.HasFocus = true;
-		        Gdk.EventButton pos = args.Event;
-                        Control.RequestSetCurrentByCoords ((int) pos.X, (int) pos.Y);
-                        Console.WriteLine (pos.X + " " + pos.Y);
+                        Gdk.EventButton pos = args.Event;
+                        SetCurrentByCoords ((int) pos.X, (int) pos.Y);
                         args.RetVal = true;
                 }
 
@@ -136,29 +133,29 @@ namespace Psycho
                 {
                         string key = args.Event.Key.ToString ();
                         switch (key) {
-                        case "Return":
-                        AddTopic ();
-                        return;
-                        case "Insert":
-                        AddSubtopic ();
-                        return;
-                        case "Delete":
-                        DeleteTopic ();
-                        return;
-                        case "Left":            //At the moment it's Right-Child Down-Next but that should
-                        SetCurrentUp ();        //be Subtopic layout dependent
-                        return;
-                        case "Right":
-                        SetCurrentDown ();
-                        return;
-                        case "Up":
-                        SetCurrentBack ();
-                        args.RetVal = true;
-                        return;
-                        case "Down":
-                        SetCurrentForward ();
-                        return;
-                        default: break;
+                                case "Return":
+                                AddTopic ();
+                                return;
+                                case "Insert":
+                                AddSubtopic ();
+                                return;
+                                case "Delete":
+                                DeleteTopic ();
+                                return;
+                                case "Left":            //At the moment it's Right-Child Down-Next but that should
+                                SetCurrentUp ();        //be Subtopic layout dependent
+                                return;
+                                case "Right":
+                                SetCurrentDown ();
+                                return;
+                                case "Up":
+                                SetCurrentBack ();
+                                args.RetVal = true;
+                                return;
+                                case "Down":
+                                SetCurrentForward ();
+                                return;
+                                default: break;
                         }
                 }
 
@@ -294,6 +291,16 @@ namespace Psycho
                         Control.RequestExpand (this.Model.CurrentTopic.GUID, !this.Model.CurrentTopic.IsExpanded);
                 }
 
+                public void SetCurrentByCoords (int iX, int iY)
+                {
+                        Control.RequestSetCurrentByCoords (iX, iY);
+                }
+
+                public void ClearCurrentTopic ()
+                {
+                        Control.RequestClearCurrent ();
+                }
+
                 public void SetCurrentForward ()
                 {
                         Control.RequestCurrentForward ();
@@ -353,15 +360,5 @@ namespace Psycho
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
-
-                #region IView Members
-
-
-                public void SetCurrentByCoords (int iX, int iY)
-                {
-                        throw new Exception ("The method or operation is not implemented.");
-                }
-
-                #endregion
         }
 }
