@@ -42,6 +42,7 @@ namespace Psycho
                 {
                         this.topic = iTopic;
                         this.isAuto = true;
+                        Update (iTopic);
                 }
 
                 public Topic Topic
@@ -49,22 +50,30 @@ namespace Psycho
                         get { return topic; }
                 }
 
+                public void Update (Topic iTopic)
+                {
+                        if (iTopic.IsCentral)
+                                x = 20;
+                        else
+                                x = iTopic.Parent.Offset.X +
+                                    iTopic.Parent.Frame.Width +
+                                    iTopic.Style.HorChildDist;
+
+                        if (iTopic.IsCentral)
+                                y = 20;
+                        else
+                                if (iTopic.IsFirst)
+                                        y = iTopic.Parent.Offset.Y;
+                                else
+                                        y = iTopic.Previous.Offset.Y +
+                                            iTopic.Previous.TotalHeight;
+                }
+
                 public double X
                 {
                         get
                         {
-                                if (!IsXValid) {
-                                        if (this.Topic.IsCentral)
-                                                x = 20;
-                                        else
-                                                x = this.Topic.Parent.Offset.X +
-                                                    this.Topic.Parent.Frame.Width +
-                                                    this.Topic.Style.HorChildDist;
-                                        IsXValid = true;
-                                        return x;
-                                }
-                                else
-                                        return x;
+                                return x;
                         }
                         set
                         {
@@ -77,20 +86,7 @@ namespace Psycho
                 {
                         get
                         {
-                                if (!IsYValid) {
-                                        if (this.Topic.IsCentral)
-                                                y = 20;
-                                        else
-                                                if (this.Topic.IsFirst)
-                                                        y = this.Topic.Parent.Offset.Y;
-                                                else
-                                                        y = this.Topic.Previous.Offset.Y +
-                                                            this.Topic.Previous.TotalHeight;
-                                        IsYValid = true;
-                                        return y;
-                                }
-                                else
-                                        return y;
+                                return y;
                         }
                         set
                         {

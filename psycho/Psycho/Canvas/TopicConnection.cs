@@ -54,9 +54,16 @@ namespace Psycho
                 public TopicConnection (Topic iTopic)
                 {
                         this.topic = iTopic;
+                        Update (iTopic);
+                }
+
+                public void Update (Topic iTopic)
+                {
                         this.shape = iTopic.Style.ConnectShape;
                         this.start = iTopic.Frame.Left;
                         this.end = iTopic.Parent.Frame.Right;
+                        this.connectionVector.Dx = this.End.X - this.Start.X;
+                        this.connectionVector.Dy = this.End.Y - this.Start.Y;
                 }
 
                 public Topic Topic
@@ -92,8 +99,6 @@ namespace Psycho
                 {
                         get
                         {
-                                connectionVector.Dx = this.End.X - this.Start.X;
-                                connectionVector.Dy = this.End.Y - this.Start.Y;
                                 return connectionVector;
                         }
                 }
