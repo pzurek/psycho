@@ -25,17 +25,18 @@
 
 using System;
 using Gtk;
+using Gdk;
 using Psycho;
 
 namespace Psycho {
 
-    public class MainWindow : Window {
+    public class MainWindow : Gtk.Window {
 
         public MainWindow ()
             : base ("Psycho")
         {
-            //IconLoader iconLoader = new IconLoader ();
-            //Icon = iconLoader.topicIcon;
+            IconLoader iconLoader = new IconLoader ();
+            Icon = iconLoader.psychoIcon;
 
             VBox globalVBox = new VBox ();
             VBox mainVBox = new VBox ();

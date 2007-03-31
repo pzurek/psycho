@@ -34,8 +34,10 @@ namespace Psycho {
 
         private IModel Model;
         private IControl Control;
+        IconLoader iconLoader = new IconLoader ();
 
         public UIManager uiManager = new UIManager ();
+        ActionGroup actions = new ActionGroup ("group");
         
         const string ui =
         "<ui>" +
@@ -80,7 +82,7 @@ namespace Psycho {
 
         public UIManagerView ()
         {
-            //BuildIcons ();
+            BuildIcons ();
 
             ActionEntry[] entries = new ActionEntry[] {
                 new ActionEntry ("FileMenu", null, "_File", null, null, null),
@@ -107,7 +109,6 @@ namespace Psycho {
                 new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
             };
 
-            ActionGroup actions = new ActionGroup ("group");
             actions.Add (entries);
 
             uiManager.InsertActionGroup (actions, 0);
@@ -115,11 +116,11 @@ namespace Psycho {
             uiManager.AddTearoffs = true;
         }
 
-        static void BuildIcons ()
+        private void BuildIcons ()
         {
-            Gdk.Pixbuf topicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-topic.png");
-            Gdk.Pixbuf subtopicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-subtopic.png");
-            Gdk.Pixbuf deleteIcon = Gdk.Pixbuf.LoadFromResource ("psycho-delete.png");
+            Pixbuf topicIcon = iconLoader.topicIcon;
+            Pixbuf subtopicIcon = iconLoader.subtopicIcon;
+            Pixbuf deleteIcon = iconLoader.deleteIcon;
 
             IconFactory factory = new IconFactory ();
             factory.Add ("psycho-topic", new IconSet (topicIcon));
@@ -221,23 +222,28 @@ namespace Psycho {
 
         public void DisableAddSibling ()
         {
-        }
+            if (actions["AddTopic"] != null)
+                actions["AddTopic"].Sensitive = false;
 
-        public void DisableDelete ()
-        {
-            if (uiManager.GetAction ("<Actions>/group/Delete") != null) {
-                Action deleteAction = uiManager.GetAction ("<Actions>/group/Delete");
-                deleteAction.Sensitive = false;
-            }
-                
         }
 
         public void EnableAddSibling ()
         {
+            if (actions["AddTopic"] != null)
+                actions["AddTopic"].Sensitive = true;
+
+        }
+
+        public void DisableDelete ()
+        {
+            if (actions["Delete"] != null)
+                actions["Delete"].Sensitive = false;
         }
 
         public void EnableDelete ()
         {
+            if (actions["Delete"] != null)
+                actions["Delete"].Sensitive = true;
         }
 
         public void CommitChange (Topic paramTopic)

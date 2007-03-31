@@ -132,10 +132,5 @@ namespace Psycho {
             Draw (cr, w, h);
             return true;
         }
-
-        void OnQuit (object sender, DeleteEventArgs e)
-        {
-            Application.Quit ();
-        }
     }
 }

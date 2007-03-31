@@ -30,19 +30,22 @@ namespace Psycho {
 
     public class IconLoader {
 
-        //string topicIconFile = "Icons/16x16/psycho-topic.png";
-        //string subtopicIconFile = "Icons/16x16/psycho-subtopic.png";
-        //string deleteIconFile = "Icons/16x16/psycho-delete.png";
+        const string psychoIconFile = "Resources/psycho-small.png";
+        const string topicIconFile = "Resources/psycho-topic.png";
+        const string subtopicIconFile = "Resources/psycho-subtopic.png";
+        const string deleteIconFile = "Resources/psycho-delete.png";
 
-        public Gdk.Pixbuf topicIcon;
-        public Gdk.Pixbuf subtopicIcon;
-        public Gdk.Pixbuf deleteIcon;
+        public Pixbuf psychoIcon;
+        public Pixbuf topicIcon;
+        public Pixbuf subtopicIcon;
+        public Pixbuf deleteIcon;
 
         public IconLoader ()
         {
-            topicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-topic.png");
-            subtopicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-subtopic.png");
-            deleteIcon = Gdk.Pixbuf.LoadFromResource ("psycho-delete.png");
+            psychoIcon = new Pixbuf (psychoIconFile);
+            topicIcon = new Pixbuf (topicIconFile);
+            subtopicIcon = new Pixbuf (subtopicIconFile);
+            deleteIcon = new Pixbuf (deleteIconFile);
         }
     }
 }
