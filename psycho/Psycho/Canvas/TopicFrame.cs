@@ -56,8 +56,9 @@ namespace Psycho
                         {
                                 frameWidth = this.Topic.TextWidth +
                                              this.Topic.Style.LeftMargin +
-                                             this.Topic.Style.RightMargin +
-                                              2 * this.Topic.Style.StrokeWidth;
+                                             this.Topic.Style.RightMargin /*+
+                                              2 * this.Topic.Style.StrokeWidth*/
+                                                                                ;
                                 return frameWidth;
                         }
                 }
@@ -68,8 +69,9 @@ namespace Psycho
                         {
                                 frameHeight = this.Topic.TextHeight +
                                               this.Topic.Style.TopMargin +
-                                              this.Topic.Style.BottomMargin +
-                                              2 * this.Topic.Style.StrokeWidth;
+                                              this.Topic.Style.BottomMargin /*+
+                                              2 * this.Topic.Style.StrokeWidth*/
+                                                                                ;
                                 return frameHeight;
                         }
                 }

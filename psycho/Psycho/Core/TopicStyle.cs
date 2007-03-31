@@ -46,7 +46,7 @@ namespace Psycho
                 int bottomMargin;
                 int minMargin;
                 int maxMargin;
-                int padding;
+                int padding, horChildDist;
                 int crankRadius, crankChamfer;
                 bool fixedWidth;
                 int width;
@@ -56,9 +56,9 @@ namespace Psycho
                 public TopicStyle (Topic iTopic) //TODO: One big hack
                 {
                         this.topic = iTopic;
-                        this.StyleFont = (new Font ("Bitstream Vera Sans", 10)); // TODO: That of course has to be loaded from style
+                        this.StyleFont = (new Font ("Verdana", 10)); // TODO: That of course has to be loaded from style
                         this.ConnectPoint = ConnectionPoint.Edge;
-                        this.StrokeWidth = 1.5;
+                        this.StrokeWidth = 2;
                         this.EqualMargins = true;
                         this.LeftMargin = 3;
                         this.RightMargin = 0;
@@ -67,7 +67,8 @@ namespace Psycho
                         this.CrankChamfer = 12;
                         this.CrankRadius = 12;
                         this.Width = 150;
-                        this.Padding = 4;
+                        this.Padding = 7;
+                        this.HorChildDist = 50;
                 }
 
                 public Topic Topic
@@ -99,7 +100,7 @@ namespace Psycho
                                 shape = TopicShape.Rectangle;
                                 break;
                                 default:
-                                shape = TopicShape.Hexagon;
+                                shape = TopicShape.Line;
                                 break;
                                 }
                                 return shape;
@@ -122,12 +123,15 @@ namespace Psycho
                                 connectShape = ConnectionShape.Curve;
                                 break;
                                 case 1:
-                                connectShape = ConnectionShape.RoundedCrank;
-                                break;
-                                case 2:
                                 connectShape = ConnectionShape.Arc;
                                 break;
+                                case 2:
+                                connectShape = ConnectionShape.RoundedCrank;
+                                break;
                                 case 3:
+                                connectShape = ConnectionShape.ChamferedCrank;
+                                break;
+                                case 4:
                                 connectShape = ConnectionShape.Crank;
                                 break;
                                 default:
@@ -290,6 +294,12 @@ namespace Psycho
                 {
                         get { return padding; }
                         set { padding = value; }
+                }
+
+                public int HorChildDist
+                {
+                        get { return horChildDist; }
+                        set { horChildDist = value; }
                 }
 
                 public bool FixedWidth

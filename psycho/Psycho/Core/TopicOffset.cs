@@ -51,10 +51,12 @@ namespace Psycho
                         get
                         {
                                 if (isAuto) {
-                                        if (Topic.IsCentral)
+                                        if (this.Topic.IsCentral)
                                                 x = 20;
                                         else
-                                                x = Topic.Parent.Offset.X + Topic.Parent.Frame.Width + 70;
+                                                x = this.Topic.Parent.Offset.X +
+                                                    this.Topic.Parent.Frame.Width +
+                                                    this.Topic.Style.HorChildDist;
                                         return x;
                                 }
                                 else
