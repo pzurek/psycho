@@ -30,15 +30,15 @@ using Gtk;
 
 namespace Psycho
 {
-
         public class UIManagerView : IView
         {
-
                 IModel Model;
                 IControl Control;
 
                 public UIManager uiManager = new UIManager ();
                 ActionGroup actions = new ActionGroup ("group");
+
+                Toolbar toolbar;
 
                 const string ui =
                 "<ui>" +
@@ -108,14 +108,21 @@ namespace Psycho
                                 new ActionEntry ("Paste", Stock.Paste, "Paste", "<control>V", "Paste from clipboard", new EventHandler (ActionActivated)),
                                 
                                 new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
-            };
+                        };
 
                         actions.Add (entries);
 
                         uiManager.InsertActionGroup (actions, 0);
                         uiManager.AddUiFromString (ui);
-                        Toolbar toolbar = (Toolbar) (uiManager.GetWidget ("/ToolBar"));
-                        toolbar.IconSize = IconSize.LargeToolbar;
+                        toolbar = (Toolbar) (uiManager.GetWidget ("/ToolBar"));
+                        toolbar.CanFocus = true;
+                        uiManager.PreActivate += new PreActivateHandler (uiManager_PreActivate);
+                        toolbar.IconSize = IconSize.Button;
+                }
+
+                void uiManager_PreActivate (object o, PreActivateArgs args)
+                {
+                        Console.WriteLine ("Toolbar focused");
                 }
 
                 void BuildIcons ()
@@ -146,6 +153,7 @@ namespace Psycho
 
                 void ActionActivated (object sender, EventArgs args)
                 {
+
                         Action action = sender as Action;
                         Console.WriteLine ("Action \"{0}\" activated", action.AccelPath);
 

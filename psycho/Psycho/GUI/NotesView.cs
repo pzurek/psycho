@@ -30,10 +30,8 @@ using Gtk;
 
 namespace Psycho
 {
-
         class NotesView : ScrolledWindow, IView
         {
-
                 IModel Model;
                 IControl Control;
 
@@ -49,6 +47,7 @@ namespace Psycho
                         notesView.WrapMode = WrapMode.Word;
                         notesBuffer = notesView.Buffer;
                         notesTagTable = notesBuffer.TagTable;
+                        notesView.AcceptsTab = false;
                         notesBuffer.Changed += new EventHandler (notesBuffer_Changed);
                         notesView.FocusOutEvent += new FocusOutEventHandler (notesView_FocusOutEvent);
                         notesView.FocusInEvent += new FocusInEventHandler (notesView_FocusInEvent);
@@ -62,11 +61,13 @@ namespace Psycho
                 void notesView_FocusInEvent (object sender, FocusInEventArgs args)
                 {
                         editPending = true;
+                        Console.WriteLine ("Notes focused");
                 }
 
                 void notesView_FocusOutEvent (object sender, FocusOutEventArgs args)
                 {
                         editPending = false;
+                        Console.WriteLine ("Notes focus lost");
                         Update (Model);
                 }
 
@@ -85,7 +86,7 @@ namespace Psycho
                 {
                         if (editPending == false) {
                                 workingTopic = paramModel.CurrentTopic;
-                                if (workingTopic.TopicNotes != null)
+                                if (workingTopic.TopicNotes != null && workingTopic.TopicNotes.Text != "")
                                         notesBuffer.Text = workingTopic.TopicNotes.Text;
                                 else
                                         notesBuffer.Clear ();

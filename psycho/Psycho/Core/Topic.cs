@@ -180,12 +180,14 @@ namespace Psycho
 
                 public Notes TopicNotes
                 {
-                        get {
+                        get
+                        {
                                 if (this.topicNotes == null)
                                         topicNotes = new Notes (this);
                                 return topicNotes;
                         }
-                        set {
+                        set
+                        {
                                 if (this.topicNotes == null)
                                         topicNotes = new Notes (this);
                                 topicNotes = value;

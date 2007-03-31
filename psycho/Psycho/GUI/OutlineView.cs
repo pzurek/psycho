@@ -124,15 +124,17 @@ namespace Psycho
                         ShowAll ();
                 }
 
-                void outlineView_FocusOutEvent (object o, FocusOutEventArgs args)
-                {
-                        editPending = false;
-                        Update (Model);
-                }
-
                 void outlineView_FocusInEvent (object o, FocusInEventArgs args)
                 {
                         editPending = true;
+                        Console.WriteLine ("Outline focused");
+                }
+
+                void outlineView_FocusOutEvent (object o, FocusOutEventArgs args)
+                {
+                        editPending = false;
+                        Console.WriteLine ("Outline focus lost");
+                        Update (Model);
                 }
 
                 void titleCell_EditingCanceled (object sender, EventArgs args)
