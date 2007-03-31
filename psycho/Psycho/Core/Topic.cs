@@ -173,25 +173,26 @@ namespace Psycho
 
                 public Cairo.PointD OutPoint
                 {
-                        get {
+                        get
+                        {
                                 if (this.Style.ConnectPoint == ConnectionPoint.Center)
                                         outPoint = this.Frame.Center;
                                 else
                                         switch (this.Style.SubLayout) {
                                                 case SubtopicsLayout.Map: {
-                                                if (this.isOnLeft)
-                                                        outPoint = this.Frame.Left;
-                                                else
-                                                        outPoint = this.Frame.Right;
+                                                        if (this.isOnLeft)
+                                                                outPoint = this.Frame.Left;
+                                                        else
+                                                                outPoint = this.Frame.Right;
                                                 }
-                                                        break;
+                                                break;
                                                 case SubtopicsLayout.Root: {
-                                                                outPoint = this.Frame.Bottom;
-                                                        }
-                                                        break;
+                                                        outPoint = this.Frame.Bottom;
+                                                }
+                                                break;
                                         }
-
-                                return outPoint; }
+                                return outPoint;
+                        }
                 }
 
                 public Topics Subtopics
