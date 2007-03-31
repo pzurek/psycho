@@ -166,7 +166,7 @@ namespace Psycho
                                 SetCurrent (newTopic);
                                 SetCurrentXml (CurrentTopic.GUID);
                                 newTopics.Add (newTopic);
-                                InvalidateToTop (CurrentTopic);
+                                UpdateToTop (newTopic);
                                 NotifyObservers ();
                         }
                 }
@@ -180,7 +180,7 @@ namespace Psycho
                         SetCurrent (newTopic);
                         SetCurrentXml (CurrentTopic.GUID);
                         newTopics.Add (newTopic);
-                        InvalidateToTop (CurrentTopic);
+                        UpdateToTop (newTopic);
                         NotifyObservers ();
                 }
 
@@ -253,7 +253,7 @@ namespace Psycho
                                 CurrentTopic = tempParent.Subtopics[newIndex];
                                 SetCurrentXml (CurrentTopic.GUID);
                         }
-                        InvalidateToTop (tempParent);
+                        UpdateToTop (tempParent);
                         NotifyObservers ();
                 }
 
@@ -339,6 +339,15 @@ namespace Psycho
                         iTopic.Invalidate ();
                         if (iTopic.Parent != null)
                                 InvalidateToTop (iTopic.Parent);
+                        else
+                                return;
+                }
+
+                public static void UpdateToTop (Topic iTopic)
+                {
+                        iTopic.Update ();
+                        if (iTopic.Parent != null)
+                                UpdateToTop (iTopic.Parent);
                         else
                                 return;
                 }

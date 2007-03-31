@@ -98,7 +98,7 @@ namespace Psycho
                         //this.Update ();
                 }
 
-                void Update ()
+                public void Update ()
                 {
                         this.UpdateTextSize (this);
                         this.Offset.Update (this);
