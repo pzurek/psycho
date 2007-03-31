@@ -41,8 +41,9 @@ namespace Psycho
                 const string borderIconFile = "psycho-border.png";
                 const string relationIconFile = "psycho-relation.png";
                 const string notesIconFile = "psycho-notes-small.png";
-                const string paperFile = "paper.png";
-                //const string paperFile = "checker.png";
+                //const string paperFile = "paper.png";
+                //const string paperFile = "blue_tile.png";
+                const string paperFile = "checker.png";
 
                 static string psychoIconPath = System.IO.Path.Combine (resourceDirectory, psychoIconFile);
                 static string topicIconPath = System.IO.Path.Combine (resourceDirectory, topicIconFile);

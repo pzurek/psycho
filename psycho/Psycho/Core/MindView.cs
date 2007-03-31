@@ -190,10 +190,12 @@ namespace Psycho
 
                 void DrawTopics (Context iContext)
                 {
+                        iContext.Save ();
                         DrawConnections (iContext, Model.CentralTopic);
                         DrawFrames (iContext, Model.CentralTopic);
                         DrawFrame (iContext, Model.CentralTopic);
                         DrawText (iContext, Model.CentralTopic);
+                        iContext.Restore ();
                 }
 
                 public void DrawConnections (Cairo.Context iContext, Topic iTopic)
@@ -247,6 +249,7 @@ namespace Psycho
                                 (int) (iTopic.Offset.Y - iTopic.TextHeight / 2)
                                 );
                         Pango.Layout layout = Pango.CairoHelper.CreateLayout (iContext);
+//                       iContext.Color = new Cairo.Color (1, 1, 1); // Just trying different colours
                         layout = iTopic.TextLayout;
                         Pango.CairoHelper.ShowLayout (iContext, layout);
                         iContext.Restore ();
