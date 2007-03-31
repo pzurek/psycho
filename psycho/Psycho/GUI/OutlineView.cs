@@ -116,6 +116,7 @@ namespace Psycho
                         outlineView.FocusOutEvent += new FocusOutEventHandler (outlineView_FocusOutEvent);
 
                         outlineView.ExpanderColumn.Expand = true;
+                        outlineView.RulesHint = true;
                         outlineView.CanFocus = true;
                         this.VscrollbarPolicy = PolicyType.Always;
                         Add (outlineView);

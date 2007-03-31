@@ -54,8 +54,8 @@ namespace Psycho
                         this.shape = iTopic.Style.ConnectShape;
                         this.Start = iTopic.Frame.Left;
                         this.End = iTopic.Parent.Frame.Right;
-                        this.connectionVector.Dx = this.Start.X - this.End.X;
-                        this.connectionVector.Dy = this.Start.Y - this.End.Y;
+                        this.connectionVector.Dx = this.End.X - this.Start.X;
+                        this.connectionVector.Dy = this.End.Y - this.Start.Y;
                 }
 
                 public Topic Topic
@@ -83,7 +83,7 @@ namespace Psycho
                         }
                         set
                         {
-                               end = value;
+                                end = value;
                         }
                 }
 
@@ -93,10 +93,6 @@ namespace Psycho
                         {
                                 return connectionVector;
                         }
-                        set
-                        {
-                                connectionVector = value;
-                        }
                 }
 
 
@@ -104,7 +100,6 @@ namespace Psycho
                 {
                         get
                         {
-                                //crankRadius = 0;
                                 if (System.Math.Abs (this.ConnectionVector.Dy) > (2 * this.Topic.Style.CrankRadius))
                                         crankRadius = this.Topic.Style.CrankRadius;
                                 else
@@ -117,7 +112,6 @@ namespace Psycho
                 {
                         get
                         {
-                                //crankChamfer = 0;
                                 if (System.Math.Abs (this.ConnectionVector.Dy) > (2 * this.Topic.Style.CrankChamfer))
                                         crankChamfer = this.Topic.Style.CrankChamfer;
                                 else
@@ -130,8 +124,7 @@ namespace Psycho
                 {
                         get
                         {
-                                //middleStart = new Cairo.PointD ();
-                                middleStart.X = this.Start.X - this.ConnectionVector.Dx / 2;
+                                middleStart.X = this.Start.X + this.ConnectionVector.Dx / 2;
                                 middleStart.Y = this.Start.Y;
                                 return middleStart;
                         }
@@ -141,8 +134,7 @@ namespace Psycho
                 {
                         get
                         {
-                                //middleEnd = new Cairo.PointD ();
-                                middleEnd.X = this.End.X + this.ConnectionVector.Dx / 2;
+                                middleEnd.X = this.End.X - this.ConnectionVector.Dx / 2;
                                 middleEnd.Y = this.End.Y;
                                 return middleEnd;
                         }
@@ -152,8 +144,7 @@ namespace Psycho
                 {
                         get
                         {
-                                //curveControlStart = new Cairo.PointD ();
-                                curveControlStart.X = this.Start.X - ConnectionVector.Dx / 1.61;
+                                curveControlStart.X = this.Start.X + ConnectionVector.Dx / 1.61;
                                 curveControlStart.Y = this.Start.Y;
                                 return curveControlStart;
                         }
@@ -163,8 +154,7 @@ namespace Psycho
                 {
                         get
                         {
-                                //curveControlEnd = new Cairo.PointD ();
-                                curveControlEnd.X = this.End.X + ConnectionVector.Dx / 1.61;
+                                curveControlEnd.X = this.End.X - ConnectionVector.Dx / 1.61;
                                 curveControlEnd.Y = this.End.Y;
                                 return curveControlEnd;
                         }
@@ -174,9 +164,26 @@ namespace Psycho
                 {
                         get
                         {
-                                //roundedCrankCenterStart = new Cairo.PointD ();
-                                roundedCrankCenterStart.X = this.MiddleStart.X + this.CrankRadius;
-                                roundedCrankCenterStart.Y = this.MiddleStart.Y - this.CrankRadius;
+                                if (this.ConnectionVector.Dx * this.ConnectionVector.Dy > 0) {
+                                        if (this.ConnectionVector.Dx > 0) {
+                                                roundedCrankCenterStart.X = MiddleStart.X - CrankRadius;
+                                                roundedCrankCenterStart.Y = MiddleStart.Y + CrankRadius;
+                                        }
+                                        else {
+                                                roundedCrankCenterStart.X = MiddleStart.X + CrankRadius;
+                                                roundedCrankCenterStart.Y = MiddleStart.Y - CrankRadius;
+                                        }
+                                }
+                                else {
+                                        if (this.ConnectionVector.Dx < 0) {
+                                                roundedCrankCenterStart.X = MiddleStart.X + CrankRadius;
+                                                roundedCrankCenterStart.Y = MiddleStart.Y + CrankRadius;
+                                        }
+                                        else {
+                                                roundedCrankCenterStart.X = MiddleStart.X - CrankRadius;
+                                                roundedCrankCenterStart.Y = MiddleStart.Y - CrankRadius;
+                                        }
+                                }
                                 return roundedCrankCenterStart;
                         }
                 }
@@ -185,10 +192,26 @@ namespace Psycho
                 {
                         get
                         {
-                                //roundedCrankCenterEnd = new Cairo.PointD ();
-                                roundedCrankCenterEnd.X = this.MiddleEnd.X - this.CrankRadius;
-                                roundedCrankCenterEnd.Y = this.MiddleEnd.Y + this.CrankRadius;
-                                return roundedCrankCenterEnd;
+                                if (this.ConnectionVector.Dx * this.ConnectionVector.Dy > 0) {
+                                        if (this.ConnectionVector.Dx > 0) {
+                                                roundedCrankCenterEnd.X = MiddleEnd.X + CrankRadius;
+                                                roundedCrankCenterEnd.Y = MiddleEnd.Y - CrankRadius;
+                                        }
+                                        else {
+                                                roundedCrankCenterEnd.X = MiddleEnd.X - CrankRadius;
+                                                roundedCrankCenterEnd.Y = MiddleEnd.Y + CrankRadius;
+                                        }
+                                }
+                                else {
+                                        if (this.ConnectionVector.Dx < 0) {
+                                                roundedCrankCenterEnd.X = MiddleEnd.X - CrankRadius;
+                                                roundedCrankCenterEnd.Y = MiddleEnd.Y - CrankRadius;
+                                        }
+                                        else {
+                                                roundedCrankCenterEnd.X = MiddleEnd.X + CrankRadius;
+                                                roundedCrankCenterEnd.Y = MiddleEnd.Y + CrankRadius;
+                                        }
+                                } return roundedCrankCenterEnd;
                         }
                 }
 
@@ -196,7 +219,6 @@ namespace Psycho
                 {
                         get
                         {
-                                //chamferedCrankStart1 = new Cairo.PointD ();
                                 chamferedCrankStart1.X = this.MiddleStart.X + this.CrankRadius;
                                 chamferedCrankStart1.Y = this.MiddleStart.Y;
                                 return chamferedCrankStart1;
@@ -207,7 +229,6 @@ namespace Psycho
                 {
                         get
                         {
-                                //chamferedCrankStart2 = new Cairo.PointD ();
                                 chamferedCrankStart2.X = this.MiddleStart.X;
                                 chamferedCrankStart2.Y = this.MiddleStart.Y - this.CrankRadius;
                                 return chamferedCrankStart2;
@@ -218,7 +239,6 @@ namespace Psycho
                 {
                         get
                         {
-                                //chamferedCrankEnd1 = new Cairo.PointD ();
                                 chamferedCrankEnd1.X = this.MiddleEnd.X - this.CrankChamfer;
                                 chamferedCrankEnd1.Y = this.MiddleEnd.Y;
                                 return chamferedCrankEnd1;
@@ -229,7 +249,6 @@ namespace Psycho
                 {
                         get
                         {
-                                //chamferedCrankEnd2 = new Cairo.PointD ();
                                 chamferedCrankEnd2.X = this.MiddleEnd.X;
                                 chamferedCrankEnd2.Y = this.MiddleEnd.Y + this.CrankChamfer;
                                 return chamferedCrankEnd2;
@@ -240,8 +259,7 @@ namespace Psycho
                 {
                         get
                         {
-                                //arcControlStart = new Cairo.PointD ();
-                                arcControlStart.X = this.Start.X - this.ConnectionVector.Dx / 2;
+                                arcControlStart.X = this.Start.X + this.ConnectionVector.Dx / 2;
                                 arcControlStart.Y = this.Start.Y;
                                 return arcControlStart;
                         }
@@ -251,9 +269,8 @@ namespace Psycho
                 {
                         get
                         {
-                                //arcControlEnd = new Cairo.PointD ();
                                 arcControlEnd.X = this.End.X;
-                                arcControlEnd.Y = this.End.Y + this.ConnectionVector.Dy / 2;
+                                arcControlEnd.Y = this.End.Y - this.ConnectionVector.Dy / 2;
                                 return arcControlEnd;
                         }
                 }
@@ -305,8 +322,26 @@ namespace Psycho
                 private void sketchRoundedCrank ()
                 {
                         context.MoveTo (Start);
-                        context.Arc (RoundedCrankCenterStart.X, RoundedCrankCenterStart.Y, this.CrankRadius, angle2, angle3);
-                        context.ArcNegative (RoundedCrankCenterEnd.X, RoundedCrankCenterEnd.Y, this.CrankRadius, angle1, angle4);
+                        if (this.ConnectionVector.Dx * this.ConnectionVector.Dy > 0) {
+                                if (this.ConnectionVector.Dx > 0) {
+                                        context.Arc (RoundedCrankCenterStart.X, RoundedCrankCenterStart.Y, this.CrankRadius, angle4, angle1);
+                                        context.ArcNegative (RoundedCrankCenterEnd.X, RoundedCrankCenterEnd.Y, this.CrankRadius, angle3, angle2);
+                                }
+                                else {
+                                        context.Arc (RoundedCrankCenterStart.X, RoundedCrankCenterStart.Y, this.CrankRadius, angle2, angle3);
+                                        context.ArcNegative (RoundedCrankCenterEnd.X, RoundedCrankCenterEnd.Y, this.CrankRadius, angle1, angle4);
+                                }
+                        }
+                        else {
+                                if (this.ConnectionVector.Dx > 0) {
+                                        context.ArcNegative (RoundedCrankCenterStart.X, RoundedCrankCenterStart.Y, this.CrankRadius, angle2, angle1);
+                                        context.Arc (RoundedCrankCenterEnd.X, RoundedCrankCenterEnd.Y, this.CrankRadius, angle3, angle4);
+                                }
+                                else {
+                                        context.ArcNegative (RoundedCrankCenterStart.X, RoundedCrankCenterStart.Y, this.CrankRadius, angle4, angle3);
+                                        context.Arc (RoundedCrankCenterEnd.X, RoundedCrankCenterEnd.Y, this.CrankRadius, angle1, angle2);
+                                }
+                        }
                         context.LineTo (End);
                 }
 
