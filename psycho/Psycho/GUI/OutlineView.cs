@@ -216,14 +216,12 @@ namespace Psycho
 
                 public void Update (IModel iModel)
                 {
-                        //if (this.IsFocus) {
                         updatePending = true;
                         UpdateNew (iModel);
                         UpdateDeletedPath (iModel);
                         UpdateChanged (iModel);
                         workingTopic = iModel.CurrentTopic;
                         updatePending = false;
-                        //}
                 }
 
                 public void UpdateNew (IModel iModel)
