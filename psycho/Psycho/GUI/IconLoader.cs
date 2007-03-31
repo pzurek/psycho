@@ -42,6 +42,7 @@ namespace Psycho
                 const string relationIconFile = "psycho-relation.png";
                 const string notesIconFile = "psycho-notes-small.png";
                 const string paperFile = "paper.png";
+                //const string paperFile = "checker.png";
 
                 static string psychoIconPath = System.IO.Path.Combine (resourceDirectory, psychoIconFile);
                 static string topicIconPath = System.IO.Path.Combine (resourceDirectory, topicIconFile);
@@ -51,7 +52,7 @@ namespace Psycho
                 static string borderIconPath = System.IO.Path.Combine (resourceDirectory, borderIconFile);
                 static string relationIconPath = System.IO.Path.Combine (resourceDirectory, relationIconFile);
                 static string notesIconPath = System.IO.Path.Combine (resourceDirectory, notesIconFile);
-                static string paperPath = System.IO.Path.Combine (resourceDirectory, paperFile);
+                public static string paperPath = System.IO.Path.Combine (resourceDirectory, paperFile);
 
                 public static Pixbuf psychoIcon;
                 public static Pixbuf topicIcon;

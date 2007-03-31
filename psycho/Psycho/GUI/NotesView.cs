@@ -76,9 +76,9 @@ namespace Psycho
                 void notesBuffer_Changed (object sender, EventArgs args)
                 {
                         if (notesView.HasFocus) {
-                                if (workingTopic.Notes == null)
-                                        workingTopic.Notes = new TopicNotes (workingTopic);
-                                workingTopic.Notes.Text = notesBuffer.Text;
+                                if (workingTopic.Note == null)
+                                        workingTopic.Note = new TopicNote (workingTopic);
+                                workingTopic.Note.Text = notesBuffer.Text;
                                 CommitChange (workingTopic);
                         }
 
@@ -88,8 +88,8 @@ namespace Psycho
                 {
                         if (editPending == false) {
                                 workingTopic = iModel.CurrentTopic;
-                                if (workingTopic.Notes != null && workingTopic.Notes.Text != "")
-                                        notesBuffer.Text = workingTopic.Notes.Text;
+                                if (workingTopic.Note != null && workingTopic.Note.Text != "")
+                                        notesBuffer.Text = workingTopic.Note.Text;
                                 else
                                         notesBuffer.Clear ();
                         }

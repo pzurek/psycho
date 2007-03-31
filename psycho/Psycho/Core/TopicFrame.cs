@@ -272,6 +272,7 @@ namespace Psycho
                 public void Sketch (Cairo.Context iContext)
                 {
                         context = iContext;
+
                         switch (this.Topic.Style.Shape) {
                         case TopicShape.Rectangle:
                         sketchRectangle ();

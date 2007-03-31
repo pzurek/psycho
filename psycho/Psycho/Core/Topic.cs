@@ -46,7 +46,8 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic ";
                         this.Style = new TopicStyle (this);
-                        //this.Update ();
+                        if (this.Parent != null)
+                                this.Parent.Update ();
                 }
 
                 public Topic (string iTitle)
@@ -55,7 +56,8 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = iTitle;
                         this.Style = new TopicStyle (this);
-                        //this.Update ();
+                        if (this.Parent != null)
+                                this.Parent.Update ();
                 }
 
                 public Topic (Topic iParent)
@@ -66,7 +68,8 @@ namespace Psycho
                         this.Parent = iParent;
                         iParent.Subtopics.Add (this);
                         this.Style = new TopicStyle (this);
-                        //this.Update ();
+                        if (this.Parent != null)
+                                this.Parent.Update ();
                 }
 
                 public Topic (string iTitle, Topic iParent)
@@ -77,7 +80,8 @@ namespace Psycho
                         this.Parent = iParent;
                         iParent.Subtopics.Add (this);
                         this.Style = new TopicStyle (this);
-                        //this.Update ();
+                        if (this.Parent != null)
+                                this.Parent.Update ();
                 }
 
                 public Topic (int topicNumber)
@@ -86,7 +90,8 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic " + topicNumber.ToString ();
                         this.Style = new TopicStyle (this);
-                        //this.Update ();
+                        if (this.Parent != null)
+                                this.Parent.Update ();
                 }
 
                 public Topic (int topicNumber, Topic iParent)
@@ -97,15 +102,14 @@ namespace Psycho
                         this.Parent = iParent;
                         iParent.Subtopics.Add (this);
                         this.Style = new TopicStyle (this);
-                        //this.Update ();
+                        if (this.Parent != null)
+                                this.Parent.Update ();
                 }
 
                 public void Update ()
                 {
                         this.UpdateTextSize (this);
-                        this.Offset.Update (this);
                         this.Frame.Update (this);
-                        this.Connection.Update (this);
                 }
 
                 void UpdateTextSize (Topic iTopic)
@@ -131,8 +135,8 @@ namespace Psycho
                 bool isCurrent;
                 bool isExpanded;
                 bool isVisible;
-                bool hasNotes;
-                TopicNotes notes;
+                bool hasNote;
+                TopicNote note;
                 TopicStyle style;
                 TopicOffset offset;
                 Title topicTitle;
@@ -313,19 +317,19 @@ namespace Psycho
                         get { return guid; }
                 }
 
-                public TopicNotes Notes
+                public TopicNote Note
                 {
                         get
                         {
-                                if (this.notes == null)
-                                        notes = new TopicNotes (this);
-                                return notes;
+                                if (this.note == null)
+                                        note = new TopicNote (this);
+                                return note;
                         }
                         set
                         {
-                                if (this.notes == null)
-                                        notes = new TopicNotes (this);
-                                notes = value;
+                                if (this.note == null)
+                                        note = new TopicNote (this);
+                                note = value;
                         }
                 }
 
@@ -429,6 +433,17 @@ namespace Psycho
                         }
                 }
 
+                public bool HasNote
+                {
+                        get
+                        {
+                                if (this.Note != null)
+                                        hasNote = !String.IsNullOrEmpty (this.Note.Text);
+                                return hasNote;
+                        }
+                }
+
+
                 new public TopicStyle Style
                 {
                         get { return style; }
@@ -449,7 +464,7 @@ namespace Psycho
                 {
                         get
                         {
-                                return !String.IsNullOrEmpty (this.Notes.Text);
+                                return !String.IsNullOrEmpty (this.Note.Text);
                         }
                 }
 
@@ -500,7 +515,8 @@ namespace Psycho
                 {
                         get
                         {
-                                //if (!IsValid) {
+                                if (level == null)
+                                        ;
                                 level = 0;
                                 Queue<Topic> remaining = new Queue<Topic> ();
 
@@ -511,7 +527,6 @@ namespace Psycho
                                         if (topic.Parent != null) remaining.Enqueue (topic.Parent);
                                         level++;
                                 }
-                                //}
                                 return level;
                         }
                 }

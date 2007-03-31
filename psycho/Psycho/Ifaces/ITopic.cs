@@ -44,7 +44,7 @@ namespace Psycho
                 TopicType Type { get; set; }
                 Topic Parent { get; set; }
                 string GUID { get; }
-                TopicNotes Notes { get; set; }
+                TopicNote Note { get; set; }
                 bool IsExpanded { get; set; }
                 TopicStyle Style { get; set; }
                 bool HasNotes { get;}

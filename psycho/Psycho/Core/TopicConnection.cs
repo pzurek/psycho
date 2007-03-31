@@ -59,10 +59,10 @@ namespace Psycho
 
                 public void Update (Topic iTopic)
                 {
-                        this.shape = iTopic.Style.ConnectShape;
-                        this.start = iTopic.Frame.Left;
-                        if (iTopic.Parent != null)
+                        if (iTopic.Parent != null) {
+                                this.start = iTopic.Frame.Left;
                                 this.end = iTopic.Parent.Frame.Right;
+                        }
                         this.connectionVector.Dx = this.End.X - this.Start.X;
                         this.connectionVector.Dy = this.End.Y - this.Start.Y;
                 }

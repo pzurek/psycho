@@ -36,8 +36,7 @@ namespace Psycho
         public class MainWindow : Gtk.Window
         {
 
-                public MainWindow ()
-                        : base ("Psycho")
+                public MainWindow () : base ("Psycho")
                 {
                         Icon = IconLoader.psychoIcon;
 
@@ -72,7 +71,7 @@ namespace Psycho
                         MindControl notesControl = new MindControl (model, notesView);
                         notesView.WireUp (notesControl, model);
 
-                        Canvas mapView = new Canvas ();
+                        MapView mapView = new MapView ();
                         MindControl mapControl = new MindControl (model, mapView);
                         mapView.WireUp (mapControl, model);
 

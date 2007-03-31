@@ -32,12 +32,12 @@ namespace Psycho
         using System.Collections.Generic;
         using Psycho;
 
-        public class TopicNotes
+        public class TopicNote
         {
                 string text;
                 Topic topic;
 
-                public TopicNotes (Topic iTopic)
+                public TopicNote (Topic iTopic)
                 {
                         this.topic = iTopic;
                         //string previousText, nextText, firstAncestorText;

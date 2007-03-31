@@ -34,22 +34,23 @@ using Cairo;
 
 namespace Psycho
 {
-        class Canvas : ScrolledWindow, IView
+        class MapView : ScrolledWindow, IView
         {
                 IModel Model;
                 IControl Control;
 
                 DrawingArea mapArea;
+                Viewport mapViewPort;
 
                 Gdk.GC gc;
                 Cairo.Context mapContext;
                 Pango.Layout text;
 
-                public Canvas ()
+                public MapView ()
                         : base ()
                 {
                         mapArea = new DrawingArea ();
-                        //mapArea.DoubleBuffered = true;
+                        mapViewPort = new Viewport ();
                         mapArea.ExposeEvent += OnMapExpose;
                         mapArea.Realized += OnMapRealize;
                         this.Vadjustment.ValueChanged += new EventHandler (Vadjustment_ValueChanged);
@@ -60,7 +61,8 @@ namespace Psycho
                         this.Vadjustment.PageIncrement = 200;
                         this.Hadjustment.StepIncrement = 10;
                         this.Hadjustment.PageIncrement = 50;
-                        this.AddWithViewport (mapArea);
+                        this.mapViewPort.Add (mapArea);
+                        this.Add (mapViewPort);
                 }
 
                 void Vadjustment_ValueChanged (object sender, EventArgs e)
@@ -91,28 +93,29 @@ namespace Psycho
 
                 void OnMapRealize (object sender, EventArgs e)
                 {
-                        gc = new Gdk.GC (this.GdkWindow);
+                        gc = new Gdk.GC (this.mapArea.GdkWindow);
                 }
 
-                void OnMapExpose (object sender, ExposeEventArgs e)
+                void OnMapExpose (object sender, ExposeEventArgs args)
                 {
-                        Gdk.Window mapWindow = e.Event.Window;
-                        mapContext = Gdk.CairoHelper.Create (mapWindow);
-                        mapContext.Antialias = Antialias.Default;
+                        mapContext = Gdk.CairoHelper.Create (args.Event.Window);
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
-                        this.Vadjustment.SetBounds (-200, Model.CentralTopic.TotalHeight, 10, 10, mapArea.Allocation.Height);
+                        //this.Vadjustment.SetBounds (-200, Model.CentralTopic.TotalHeight + 10, 10, 10, mapArea.Allocation.Height);
+                        this.mapArea.SetSizeRequest (2000, (int) Model.CentralTopic.TotalHeight);
                         ((IDisposable) mapContext.Target).Dispose ();
                         ((IDisposable) mapContext).Dispose ();
                 }
 
                 private void DrawBackground (Context iContext)
                 {
-                        Surface background = new ImageSurface ("Resources/paper.png");
+                        iContext.Save ();
+                        Surface background = new ImageSurface (IconLoader.paperPath);
                         SurfacePattern pattern = new SurfacePattern (background);
                         pattern.Extend = Extend.Repeat;
                         iContext.Pattern = pattern;
                         iContext.Paint ();
+                        iContext.Restore ();
                         pattern.Destroy ();
                 }
 
@@ -163,14 +166,29 @@ namespace Psycho
 
                 static void DrawConnection (Cairo.Context iContext, Topic iTopic)
                 {
-                        iTopic.Connection.Sketch (iContext);
+                        iContext.Save ();
                         iContext.Color = iTopic.Style.StrokeColor.ToCairoColor ();
                         iContext.LineWidth = iTopic.Style.StrokeWidth;
+
+                        int reminder = (int) System.Math.IEEERemainder (iContext.LineWidth, 2);
+                        if (reminder != 0) {
+                                iContext.Save ();
+                                iContext.Translate (0.5, 0.5);
+                        }
+
+                        iTopic.Connection.Sketch (iContext);
                         iContext.Stroke ();
+
+                        if (reminder != 0) {
+                                iContext.Restore ();
+                        }
+
+                        iContext.Restore ();
                 }
 
                 static void DrawFrame (Cairo.Context iContext, Topic iTopic)
                 {
+                        iContext.Save ();
                         Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
                         if (iTopic.IsCurrent)
                                 strokeColor = new Cairo.Color (0.75, 0.75, 0.75);
@@ -180,7 +198,22 @@ namespace Psycho
                         iContext.Color = fillColor;
                         iContext.FillPreserve ();
                         iContext.Color = strokeColor;
+                        iContext.LineWidth = iTopic.Style.StrokeWidth;
+
+                        int reminder = (int) System.Math.IEEERemainder (iContext.LineWidth, 2);
+                        if (reminder != 0) {
+                                //iContext.Save ();
+                                iContext.Translate (0.5, 0.5);
+                        }
+
                         iContext.Stroke ();
+
+                        if (reminder != 0) {
+                                iContext.Translate (-0.5, -0.5);
+                                //iContext.Restore ();
+                        }                       
+
+                        iContext.Restore ();
                 }
 
                 public void Update (IModel iModel)

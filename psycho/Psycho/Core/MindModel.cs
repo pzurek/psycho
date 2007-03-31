@@ -167,6 +167,7 @@ namespace Psycho
                                 SetCurrentXml (CurrentTopic.GUID);
                                 newTopics.Add (newTopic);
                                 UpdateToTop (newTopic);
+                                //UpdateAllOffsets ();
                                 NotifyObservers ();
                         }
                 }
@@ -181,6 +182,7 @@ namespace Psycho
                         SetCurrentXml (CurrentTopic.GUID);
                         newTopics.Add (newTopic);
                         UpdateToTop (newTopic);
+                        //UpdateAllOffsets ();
                         NotifyObservers ();
                 }
 
@@ -261,6 +263,7 @@ namespace Psycho
                 {
                         CurrentTopic.Text = (iTitle);
                         changedTopics.Add (CurrentTopic);
+                        UpdateToTop (CurrentTopic);
                         NotifyObservers ();
                 }
 
@@ -276,6 +279,8 @@ namespace Psycho
 
                 public void NotifyObservers ()
                 {
+                        UpdateAllOffsets ();
+
                         foreach (IView view in observerList) {
                                 view.Update (this);
                         }
@@ -326,6 +331,7 @@ namespace Psycho
                 {
                         CurrentTopic = iTopic;
                         ChangedTopics.Add (CurrentTopic);
+                        UpdateToTop (iTopic);
                         NotifyObservers ();
                 }
 
@@ -339,8 +345,6 @@ namespace Psycho
                         iTopic.Invalidate ();
                         if (iTopic.Parent != null)
                                 InvalidateToTop (iTopic.Parent);
-                        else
-                                return;
                 }
 
                 public static void UpdateToTop (Topic iTopic)
@@ -348,8 +352,21 @@ namespace Psycho
                         iTopic.Update ();
                         if (iTopic.Parent != null)
                                 UpdateToTop (iTopic.Parent);
-                        else
-                                return;
+                }
+
+                public static void UpdateOffsets (Topic iTopic)
+                {
+                        foreach (Topic TempTopic in iTopic.Subtopics) {
+                                TempTopic.Offset.Update (TempTopic);
+                                TempTopic.Connection.Update (TempTopic);
+                                if (TempTopic.IsExpanded)
+                                        UpdateOffsets (TempTopic);
+                        }
+                }
+
+                public void UpdateAllOffsets ()
+                {
+                        UpdateOffsets (this.CentralTopic);
                 }
         }
 }

@@ -36,7 +36,7 @@ namespace Psycho
                 TopicShape shape;
                 ConnectionPoint connectPoint;
                 ConnectionShape connectShape;
-                SubtopicDystributionDirection subbtopicDistribution;
+                SubtopicDystributionDirection subtopicDistribution;
                 Color fillColor;
                 Color strokeColor;
                 double strokeWidth;
@@ -58,8 +58,11 @@ namespace Psycho
                 public TopicStyle (Topic iTopic) //TODO: One big hack
                 {
                         this.topic = iTopic;
-                        this.StyleFont = (new Font ("Tahoma", 10)); // TODO: That of course has to be loaded from style
-                        this.StrokeWidth = 2;
+                        //this.SetColor ();
+
+                        // TODO: That all of course has to be loaded from a style
+                        this.StyleFont = (new Font ("Tahoma", 10));
+                        this.StrokeWidth = 1;
                         this.EqualMargins = true;
                         this.LeftMargin = 2;
                         this.RightMargin = 0;
@@ -76,6 +79,40 @@ namespace Psycho
                 public Topic Topic
                 {
                         get { return topic; }
+                }
+
+                void SetColor ()
+                {
+                        if (this.Topic.Level < 2) {
+                                switch (this.Topic.Number) {
+                                case "0":
+                                strokeColor = new Color (55, 55, 55);
+                                break;
+                                case "1":
+                                strokeColor = new Color (239, 41, 41);
+                                break;
+                                case "2":
+                                strokeColor = new Color (237, 212, 0);
+                                break;
+                                case "3":
+                                strokeColor = new Color (52, 101, 164);
+                                break;
+                                case "4":
+                                strokeColor = new Color (115, 210, 22);
+                                break;
+                                case "5":
+                                strokeColor = new Color (173, 127, 168);
+                                break;
+                                case "6":
+                                strokeColor = new Color (245, 121, 0);
+                                break;
+                                default:
+                                strokeColor = new Color (32, 74, 135);
+                                break;
+                                }
+                        }
+                        else
+                                strokeColor = this.Topic.Parent.Style.StrokeColor;
                 }
 
                 public Font StyleFont
@@ -122,19 +159,19 @@ namespace Psycho
                         {
                                 switch (this.Topic.Level) {
                                 case 0:
-                                connectShape = ConnectionShape.Curve;
+                                connectShape = ConnectionShape.Crank;// Curve;
                                 break;
                                 case 1:
-                                connectShape = ConnectionShape.RoundedCrank;
+                                connectShape = ConnectionShape.Crank;// RoundedCrank;
                                 break;
                                 case 2:
-                                connectShape = ConnectionShape.Arc;
+                                connectShape = ConnectionShape.Crank;// Arc;
                                 break;
                                 case 3:
-                                connectShape = ConnectionShape.RoundedAngleCrank;
+                                connectShape = ConnectionShape.Crank;// RoundedAngleCrank;
                                 break;
                                 case 4:
-                                connectShape = ConnectionShape.AngleCrank;
+                                connectShape = ConnectionShape.Crank;// AngleCrank;
                                 break;
                                 case 5:
                                 connectShape = ConnectionShape.ChamferedCrank;
@@ -150,8 +187,8 @@ namespace Psycho
 
                 public SubtopicDystributionDirection SubtopicDistribution
                 {
-                        get { return subbtopicDistribution; }
-                        set { subbtopicDistribution = value; }
+                        get { return subtopicDistribution; }
+                        set { subtopicDistribution = value; }
                 }
 
                 public Color FillColor
@@ -193,15 +230,31 @@ namespace Psycho
                                         }
                                 }
                                 else
-                                        strokeColor = this.Topic.Parent.Style.StrokeColor;
-                                return strokeColor;
+                                        strokeColor = this.Topic.Parent.Style.StrokeColor; return strokeColor;
                         }
                         set { strokeColor = value; }
                 }
 
                 public double StrokeWidth
                 {
-                        get { return strokeWidth; }
+                        get
+                        {
+                                switch (this.Topic.Level) {
+                                case 0:
+                                strokeWidth = 4;
+                                break;
+                                case 1:
+                                strokeWidth = 3;
+                                break;
+                                case 2:
+                                strokeWidth = 2;
+                                break;
+                                default:
+                                strokeWidth = 1;
+                                break;
+                                }
+                                return strokeWidth;
+                        }
                         set { strokeWidth = value; }
                 }
 

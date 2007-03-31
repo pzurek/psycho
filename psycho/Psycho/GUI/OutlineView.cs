@@ -74,27 +74,27 @@ namespace Psycho
                         titleColumn.AddAttribute (titleCell, "text", 0);
                         titleColumn.SetCellDataFunc (titleCell, new Gtk.TreeCellDataFunc (RenderTitle));
 
-                        guidColumn.Title = "Topic GUID";
-                        guidColumn.Clickable = false;
-                        CellRendererText guidCell = new CellRendererText ();
-                        guidCell.Mode = CellRendererMode.Inert;
-                        guidColumn.PackStart (guidCell, false);
-                        guidColumn.AddAttribute (guidCell, "text", 0);
-                        guidColumn.SetCellDataFunc (guidCell, new Gtk.TreeCellDataFunc (RenderGuid));
+                        //guidColumn.Title = "Topic GUID";
+                        //guidColumn.Clickable = false;
+                        //CellRendererText guidCell = new CellRendererText ();
+                        //guidCell.Mode = CellRendererMode.Inert;
+                        //guidColumn.PackStart (guidCell, false);
+                        //guidColumn.AddAttribute (guidCell, "text", 0);
+                        //guidColumn.SetCellDataFunc (guidCell, new Gtk.TreeCellDataFunc (RenderGuid));
 
-                        pathColumn.Title = "Topic path";
-                        CellRendererText pathCell = new CellRendererText ();
-                        pathCell.Mode = CellRendererMode.Inert;
-                        pathColumn.PackStart (pathCell, false);
-                        pathColumn.AddAttribute (pathCell, "text", 3);
-                        pathColumn.SetCellDataFunc (pathCell, new Gtk.TreeCellDataFunc (RenderPath));
+                        //pathColumn.Title = "Topic path";
+                        //CellRendererText pathCell = new CellRendererText ();
+                        //pathCell.Mode = CellRendererMode.Inert;
+                        //pathColumn.PackStart (pathCell, false);
+                        //pathColumn.AddAttribute (pathCell, "text", 3);
+                        //pathColumn.SetCellDataFunc (pathCell, new Gtk.TreeCellDataFunc (RenderPath));
 
-                        levelColumn.Title = "Topic level";
-                        CellRendererText levelCell = new CellRendererText ();
-                        levelCell.Mode = CellRendererMode.Inert;
-                        levelColumn.PackStart (levelCell, false);
-                        levelColumn.AddAttribute (levelCell, "text", 2);
-                        levelColumn.SetCellDataFunc (levelCell, new Gtk.TreeCellDataFunc (RenderLevel));
+                        //levelColumn.Title = "Topic level";
+                        //CellRendererText levelCell = new CellRendererText ();
+                        //levelCell.Mode = CellRendererMode.Inert;
+                        //levelColumn.PackStart (levelCell, false);
+                        //levelColumn.AddAttribute (levelCell, "text", 2);
+                        //levelColumn.SetCellDataFunc (levelCell, new Gtk.TreeCellDataFunc (RenderLevel));
 
                         notesColumn.Title = "Notes";
                         CellRendererPixbuf notesCell = new CellRendererPixbuf ();
@@ -104,9 +104,9 @@ namespace Psycho
                         notesColumn.SetCellDataFunc (notesCell, new Gtk.TreeCellDataFunc (RenderNotes));
 
                         outlineView.Model = store;
-                        outlineView.AppendColumn (pathColumn);
+                        //outlineView.AppendColumn (pathColumn);
                         outlineView.AppendColumn (titleColumn);
-                        outlineView.AppendColumn (levelColumn);
+                        //outlineView.AppendColumn (levelColumn);
                         outlineView.AppendColumn (notesColumn);
                         outlineView.ExpanderColumn = titleColumn;
 
@@ -177,23 +177,23 @@ namespace Psycho
                         (cell as CellRendererText).Text = topic.Text;
                 }
 
-                void RenderGuid (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
-                {
-                        Topic topic = (Topic) model.GetValue (iter, 0);
-                        (cell as CellRendererText).Text = topic.GUID;
-                }
+                //void RenderGuid (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+                //{
+                //        Topic topic = (Topic) model.GetValue (iter, 0);
+                //        (cell as CellRendererText).Text = topic.GUID;
+                //}
 
-                void RenderPath (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
-                {
-                        Topic topic = (Topic) model.GetValue (iter, 0);
-                        (cell as CellRendererText).Text = topic.Path;
-                }
+                //void RenderPath (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+                //{
+                //        Topic topic = (Topic) model.GetValue (iter, 0);
+                //        (cell as CellRendererText).Text = topic.Path;
+                //}
 
-                void RenderLevel (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
-                {
-                        Topic topic = (Topic) model.GetValue (iter, 0);
-                        (cell as CellRendererText).Text = topic.Level.ToString ();
-                }
+                //void RenderLevel (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+                //{
+                //        Topic topic = (Topic) model.GetValue (iter, 0);
+                //        (cell as CellRendererText).Text = topic.Level.ToString ();
+                //}
 
                 void RenderNotes (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
                 {
