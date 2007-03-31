@@ -30,17 +30,17 @@ namespace Psycho
 {
         public class Topics : List<Topic>
         {
-                int height;
-                int width;
-                int totalHeight;
-                int totalWidth;
+                double height;
+                double width;
+                double totalHeight;
+                double totalWidth;
                 Topic topic;
                 Topic first;
                 Topic last;
 
                 //TODO: The calculation below will have to be conditional if Org Chart is to be implemented
                 //For Org Chart width has to sum and height has to be max
-                public int Height
+                public double Height
                 {
                         get
                         {
@@ -51,7 +51,7 @@ namespace Psycho
                         }
                 }
 
-                public int Width
+                public double Width
                 {
                         get
                         {
@@ -67,7 +67,7 @@ namespace Psycho
                         }
                 }
 
-                public int TotalHeight
+                public double TotalHeight
                 {
                         get
                         {
@@ -78,7 +78,7 @@ namespace Psycho
                         }
                 }
 
-                public int TotalWidth  //TODO: This is bullshit...
+                public double TotalWidth  //TODO: This is bullshit...
                 {
                         get
                         {

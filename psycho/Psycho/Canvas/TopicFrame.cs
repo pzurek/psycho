@@ -30,52 +30,117 @@ namespace Psycho
         public class TopicFrame
         {
                 Cairo.Context context;
-                int frameHeight, frameWidth;
-                int leftOverhead, rightOverhead;
+                double frameHeight, frameWidth;
                 Cairo.PointD origin, center, left, right, top, bottom;
-                double octDist, octDistOrtho;
-                double hexDist, hexDistOrtho;
+                double octDist, octDistHor, octDistVer;
+                double hexDist, hexDistHor;
+                double radius;
                 Topic topic;
+                double sqrt2 = System.Math.Sqrt (2);
+                double sqrt3 = System.Math.Sqrt (3);
+                double PI = System.Math.PI;
 
-                public int Width
+                public TopicFrame (Topic iTopic)
+                {
+                        this.topic = iTopic;
+                }
+
+                public double Width
                 {
                         get
                         {
                                 frameWidth = this.topic.TextWidth +
                                              this.topic.Style.LeftMargin +
-                                             this.topic.Style.RightMargin;
+                                             this.topic.Style.RightMargin +
+                                             this.topic.Style.StrokeWidth;
                                 return frameWidth;
                         }
                 }
 
-                public int Height
+                public double Height
                 {
                         get
                         {
                                 frameHeight = this.topic.TextHeight +
-                                             this.topic.Style.TopMargin +
-                                             this.topic.Style.BottomMargin;
+                                              this.topic.Style.TopMargin +
+                                              this.topic.Style.BottomMargin +
+                                              this.topic.Style.StrokeWidth;
                                 return frameHeight;
                         }
                 }
 
-                double OctDist (int iHeight)
+                double OctDistHor
                 {
-                        octDist = new double ();
-                        octDist = iHeight / (System.Math.Sqrt (2) + 1);
-                        return octDist;
+                        get
+                        {
+                                octDistHor = new double ();
+                                if (this.topic.Style.Shape == TopicShape.Octagon)
+                                        octDistHor = this.Height / (2 + sqrt2);
+                                else
+                                        octDistHor = 0;
+                                return octDistHor;
+                        }
                 }
 
-                double OctDistOrtho (int iHeight)
+                double OctDistVer
                 {
-                        octDistOrtho = new double ();
-                        octDistOrtho = octDist / (System.Math.Sqrt (2));
-                        return octDistOrtho;
+                        get
+                        {
+                                octDistVer = new double ();
+                                if (this.topic.Style.Shape == TopicShape.Octagon)
+                                        octDistVer = (this.Height - OctDistHor) / 2;
+                                else
+                                        octDist = 0;
+                                return octDistVer;
+                        }
                 }
 
-                public TopicFrame (Topic iTopic)
+                double OctDist
                 {
-                        this.topic = iTopic;
+                        get
+                        {
+                                octDist = new double ();
+                                octDist = OctDistHor * sqrt2;
+                                return octDist;
+                        }
+                }
+
+                double HexDistHor
+                {
+                        get
+                        {
+                                hexDistHor = new double ();
+                                if (this.topic.Style.Shape == TopicShape.Hexagon) {
+                                        hexDistHor = this.Height / (2 * sqrt3);
+                                }
+                                else
+                                        hexDistHor = 0;
+                                return hexDistHor;
+                        }
+                }
+
+                double HexDist
+                {
+                        get
+                        {
+                                hexDist = new double ();
+                                hexDist = 2 * HexDistHor;
+                                return hexDist;
+                        }
+                }
+
+                double Radius
+                {
+                        get
+                        {
+                                radius = new double ();
+                                if (this.topic.Style.Shape == TopicShape.RoundedRectangle) {
+                                        radius = 6 /*this.topic.Style.MinMargin*/;
+                                }
+                                else
+                                        radius = 0;
+                                return radius;
+                        }
                 }
 
                 public Cairo.PointD Origin
@@ -95,9 +160,9 @@ namespace Psycho
                         get
                         {
                                 center.X = this.topic.Offset.X +
-                                           this.topic.TextWidth / 2;
+                                           this.Width / 2;
                                 center.Y = this.topic.Offset.Y +
-                                           this.topic.TextHeight / 2;
+                                           this.Height / 2;
                                 return center;
                         }
                 }
@@ -107,9 +172,16 @@ namespace Psycho
                         get
                         {
                                 left.X = this.topic.Offset.X -
-                                         this.topic.Style.LeftMargin;
-                                left.Y = this.topic.Offset.Y +
-                                         this.topic.TextHeight / 2;
+                                         this.topic.Style.LeftMargin -
+                                         this.HexDistHor -
+                                         this.OctDistHor -
+                                         this.Radius;
+                                if (topic.Style.Shape == TopicShape.Line)
+                                        left.Y = this.topic.Offset.Y +
+                                                  this.Height;
+                                else
+                                        left.Y = this.topic.Offset.Y +
+                                                  this.Height / 2;
                                 return left;
                         }
                 }
@@ -120,9 +192,16 @@ namespace Psycho
                         {
                                 right.X = this.topic.Offset.X +
                                           this.topic.TextWidth +
-                                          this.topic.Style.RightMargin;
-                                right.Y = this.topic.Offset.Y +
-                                          this.topic.TextHeight / 2;
+                                          this.topic.Style.RightMargin +
+                                          this.HexDistHor +
+                                          this.OctDistHor +
+                                          this.Radius;
+                                if (topic.Style.Shape == TopicShape.Line)
+                                        right.Y = this.topic.Offset.Y +
+                                                  this.topic.Frame.Height;
+                                else
+                                        right.Y = this.topic.Offset.Y +
+                                                  this.topic.Frame.Height / 2;
                                 return right;
                         }
                 }
@@ -152,12 +231,26 @@ namespace Psycho
                         }
                 }
 
-                public void Sketch (Cairo.Context iContext, Topic iTopic)
+                public void Sketch (Cairo.Context iContext)
                 {
                         context = iContext;
                         switch (this.topic.Style.Shape) {
                         case TopicShape.Rectangle:
                         sketchRectangle ();
+                        break;
+                        case TopicShape.Line:
+                        sketchLine ();
+                        break;
+                        case TopicShape.RoundedRectangle:
+                        sketchRoundedRectangle ();
+                        break;
+                        case TopicShape.Hexagon:
+                        sketchHexagon ();
+                        break;
+                        case TopicShape.Octagon:
+                        sketchOctagon ();
+                        break;
+                        case TopicShape.None:
                         break;
                         default:
                         sketchRectangle ();
@@ -168,27 +261,52 @@ namespace Psycho
                 void sketchRectangle ()
                 {
                         context.Rectangle (Origin, Width, Height);
-
                 }
 
                 void sketchLine ()
                 {
-                        context.MoveTo (origin);
+                        context.MoveTo (Origin);
+                        context.RelMoveTo (0, this.Height);
+                        context.RelLineTo (this.Width, 0);
                 }
 
                 void sketchRoundedRectangle ()
                 {
-                        context.MoveTo (origin);
+                        double angle1 = 0.0 * (PI / 180.0);
+                        double angle2 = 90.0 * (PI / 180.0);
+                        double angle3 = 180.0 * (PI / 180.0);
+                        double angle4 = 270.0 * (PI / 180.0);
+
+                        context.MoveTo (Origin);
+                        context.ArcNegative (Origin.X, (Origin.Y + radius), radius, angle4, angle3);
+                        context.ArcNegative (Origin.X, (Origin.Y + this.Height - radius), radius, angle3, angle2);
+                        context.ArcNegative ((Origin.X + this.Width), (Origin.Y + this.Height - radius), radius, angle2, angle1);
+                        context.ArcNegative ((Origin.X + this.Width), (Origin.Y + radius), radius, angle1, angle4);
+                        context.ClosePath ();
                 }
 
                 void sketchOctagon ()
                 {
-                        context.MoveTo (origin);
+                        context.MoveTo (Origin);
+                        context.RelLineTo (this.Width, 0);
+                        context.RelLineTo (this.OctDistHor, this.OctDistVer);
+                        context.RelLineTo (0, this.OctDist);
+                        context.RelLineTo (-this.OctDistHor, this.OctDistVer);
+                        context.RelLineTo (-this.Width, 0);
+                        context.RelLineTo (-this.OctDistHor, -this.OctDistVer);
+                        context.RelLineTo (0, -this.OctDist);
+                        context.ClosePath ();
                 }
 
                 void sketchHexagon ()
                 {
-                        context.MoveTo (origin);
+                        context.MoveTo (Origin);
+                        context.RelLineTo (this.Width, 0);
+                        context.RelLineTo (HexDistHor, this.Height / 2);
+                        context.RelLineTo (-HexDistHor, this.Height / 2);
+                        context.RelLineTo (-this.Width, 0);
+                        context.RelLineTo (-HexDistHor, -this.Height / 2);
+                        context.ClosePath ();
                 }
         }
 }

@@ -29,36 +29,73 @@ namespace Psycho
 {
         public class TopicConnection
         {
-                public TopicConnection (Topic topic, Cairo.Context context)
-                {
-                }
-
+                Topic topic;
                 Cairo.Context context;
 
-                public void DrawStraight (Cairo.PointD start, Cairo.PointD end)
+                public TopicConnection (Topic iTopic)
                 {
-                        context.MoveTo (start);
-                        context.LineTo (end);
+                        this.topic = iTopic;
                 }
 
-                public void DrawArc (Cairo.PointD start, Cairo.PointD end)
+                public void Sketch (Cairo.Context iContext)
                 {
+                        context = iContext;
+                        switch (this.topic.Parent.Style.ConnectShape) {
+                        case ConnectionShape.Straight:
+                        sketchStraight ();
+                        break;
+                        case ConnectionShape.Crank:
+                        sketchCrank ();
+                        break;
+                        case ConnectionShape.ChamferedCrank:
+                        sketchChamferedCrank ();
+                        break;
+                        case ConnectionShape.RoundedCrank:
+                        sketchRoundedCrank ();
+                        break;
+                        case ConnectionShape.Arc:
+                        sketchArc ();
+                        break;
+                        case ConnectionShape.Curve:
+                        sketchCurve ();
+                        break;
+                        case ConnectionShape.None:
+                        break;
+                        default:
+                        sketchStraight ();
+                        break;
+                        }
                 }
 
-                public void DrawCurve (Cairo.PointD start, Cairo.PointD end)
+                private void sketchCurve ()
                 {
+                        throw new Exception ("The method or operation is not implemented.");
                 }
 
-                public void DrawCrank (Cairo.PointD start, Cairo.PointD end)
+                private void sketchArc ()
                 {
+                        throw new Exception ("The method or operation is not implemented.");
                 }
 
-                public void DrawChamferedCrank (Cairo.PointD start, Cairo.PointD end)
+                private void sketchRoundedCrank ()
                 {
+                        throw new Exception ("The method or operation is not implemented.");
                 }
 
-                public void DrawFilletedCrank (Cairo.PointD start, Cairo.PointD end)
+                private void sketchChamferedCrank ()
                 {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                private void sketchCrank ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                private void sketchStraight ()
+                {
+                        context.MoveTo (this.topic.Frame.Left);
+                        context.LineTo (this.topic.Parent.Frame.Right);
                 }
         }
 }

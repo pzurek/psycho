@@ -27,10 +27,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho {
-
-        class CanvasModel {
-
-
+namespace Psycho
+{
+        class CanvasModel
+        {
         }
 }

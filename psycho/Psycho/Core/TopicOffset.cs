@@ -30,18 +30,18 @@ namespace Psycho
 
         public class TopicOffset
         {
+                double x;
+                double y;
+                bool isAuto;
+                Topic topic;
+
                 public TopicOffset (Topic iTopic)
                 {
                         this.topic = iTopic;
                         this.isAuto = true;
                 }
 
-                int x;
-                int y;
-                bool isAuto;
-                Topic topic;
-
-                public int X
+                public double X
                 {
                         get
                         {
@@ -49,7 +49,7 @@ namespace Psycho
                                         if (topic.IsCentral)
                                                 x = 10;
                                         else
-                                                x = topic.Parent.Offset.X + topic.Parent.Frame.Width + 28;
+                                                x = topic.Parent.Offset.X + topic.Parent.Frame.Width + 49;
                                         return x;
                                 }
                                 else
@@ -62,7 +62,7 @@ namespace Psycho
                         }
                 }
 
-                public int Y
+                public double Y
                 {
                         get
                         {
@@ -75,7 +75,8 @@ namespace Psycho
                                                 else
                                                         y = this.topic.Previous.Offset.Y +
                                                             this.topic.Previous.TotalHeight /*+
-                                                            this.topic.Style.Padding*/;
+                                                            this.topic.Style.Padding*/
+                                                                                      ;
                                         return y;
                                 }
                                 else
@@ -95,7 +96,7 @@ namespace Psycho
                         y = iYOffset;
                 }
 
-                public void GetOffset (out int outXOffset, out int outYOffset)
+                public void GetOffset (out double outXOffset, out double outYOffset)
                 {
                         outXOffset = x;
                         outYOffset = y;

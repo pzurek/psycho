@@ -57,7 +57,7 @@ namespace Psycho
 
                         titleEntry = new Entry ();
                         titleEntry.KeyReleaseEvent += new KeyReleaseEventHandler (titleEntry_KeyReleaseEvent);
-                        
+
                         addSiblingButton = new Button ();
                         addSiblingButton.Label = ("Add Sibling");
                         addSiblingButton.Clicked += new EventHandler (btnAddSibling_Click);
@@ -72,7 +72,7 @@ namespace Psycho
 
                         fontButton = new FontButton ();
                         fontButton.SetFontName ("Tahoma 10");
-                        
+
                         fontColor = new ColorButton ();
                         fontColor.Label = "Font color";
                         lineColor = new ColorButton ();

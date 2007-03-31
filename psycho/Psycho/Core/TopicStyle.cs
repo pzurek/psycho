@@ -43,6 +43,8 @@ namespace Psycho
                 int rightMargin;
                 int topMargin;
                 int bottomMargin;
+                int minMargin;
+                int maxMargin;
                 int padding;
                 bool fixedWidth;
                 int width;
@@ -51,22 +53,22 @@ namespace Psycho
 
                 public TopicStyle () //TODO: One big hack
                 {
-                        this.StyleFont = (new Font ("zurich lt bt", 12)); // TODO: That of course has to be loaded from style
+                        this.StyleFont = (new Font ("Verdana", 10)); // TODO: That of course has to be loaded from style
                         this.Shape = TopicShape.RoundedRectangle;
                         this.ConnectPoint = ConnectionPoint.Edge;
-                        this.ConnectShape = ConnectionShape.Curve;
+                        this.ConnectShape = ConnectionShape.Straight;
                         Color fcolor = (stylus.GetFirstColor (out fcolor));
                         this.FillColor = fcolor;
                         FillColor.SetAlfa (20);
                         this.StrokeColor = fillColor; // TODO: For now the stroke color is the same as fill color. To be changed later
                         this.StrokeWidth = 2;
                         this.EqualMargins = true;
-                        this.LeftMargin = 2;
+                        this.LeftMargin = 1;
                         this.RightMargin = 3;
                         this.TopMargin = 4;
-                        this.BottomMargin = 5;
+                        this.BottomMargin = 10;
                         this.Width = 100;
-                        this.Padding = 5;
+                        this.Padding = 20;
                 }
 
                 public Font StyleFont
@@ -163,6 +165,36 @@ namespace Psycho
                                         return bottomMargin;
                         }
                         set { bottomMargin = value; }
+                }
+
+                public int MinMargin
+                {
+                        get
+                        {
+                                minMargin = LeftMargin;
+                                if (RightMargin < minMargin)
+                                        minMargin = RightMargin;
+                                if (TopMargin < minMargin)
+                                        minMargin = TopMargin;
+                                if (BottomMargin < minMargin)
+                                        minMargin = BottomMargin;
+                                return minMargin;
+                        }
+                }
+
+                public int MaxMargin
+                {
+                        get
+                        {
+                                maxMargin = LeftMargin;
+                                if (RightMargin > minMargin)
+                                        maxMargin = RightMargin;
+                                if (TopMargin > minMargin)
+                                        maxMargin = TopMargin;
+                                if (BottomMargin > minMargin)
+                                        maxMargin = BottomMargin;
+                                return maxMargin;
+                        }
                 }
 
                 public int Padding

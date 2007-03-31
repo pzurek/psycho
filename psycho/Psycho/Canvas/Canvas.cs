@@ -78,7 +78,7 @@ namespace Psycho
                 void OnMapRealize (object sender, EventArgs e)
                 {
                         gc = new Gdk.GC (this.GdkWindow);
-                        
+
                         red = new Gdk.Color (0xff, 0, 0);
                         green = new Gdk.Color (0, 0xff, 0);
                         blue = new Gdk.Color (0, 0, 0xff);
@@ -115,6 +115,7 @@ namespace Psycho
                         Model.CentralTopic.ForEach (delegate (Topic topic)
                         {
                                 if (topic.IsVisible || topic.IsCentral) {
+                                        DrawConnection (cr, topic);
                                         DrawFrame (cr, topic);
                                         DrawText (cr, topic);
                                 }
@@ -126,12 +127,25 @@ namespace Psycho
                 {
                         gc.Foreground = black;
                         text = iTopic.TextLayout;
-                        this.mapArea.GdkWindow.DrawLayout (gc, iTopic.Offset.X, iTopic.Offset.Y, text);
+                        this.mapArea.GdkWindow.DrawLayout (gc, (int) iTopic.Offset.X, (int) iTopic.Offset.Y, text);
+                }
+
+                void DrawConnection (Cairo.Context iContext, Topic iTopic)
+                {
+                        foreach (Topic child in iTopic.Subtopics) {
+                                child.Connection.Sketch (iContext);
+                                Cairo.Color strokeColor;
+                                //Cairo.Color fillColor;
+                                strokeColor = new Cairo.Color (1, 0, 1);
+                                iContext.Color = strokeColor;
+                                iContext.LineWidth = iTopic.Style.StrokeWidth;
+                                iContext.Stroke ();
+                        }
                 }
 
                 void DrawFrame (Cairo.Context iContext, Topic iTopic)
                 {
-                        iTopic.Frame.Sketch (iContext, iTopic);
+                        iTopic.Frame.Sketch (iContext);
                         Cairo.Color strokeColor;
                         Cairo.Color fillColor;
                         if (iTopic.IsCurrent)

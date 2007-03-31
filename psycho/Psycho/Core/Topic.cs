@@ -98,12 +98,13 @@ namespace Psycho
                 Title topicTitle;
                 TopicType type;
                 int textWidth;
-                int totalWidth;
+                double totalWidth;
                 int textHeight;
-                int totalHeight;
+                double totalHeight;
                 Topics subtopics;
                 Pango.Layout textLayout;
                 TopicFrame frame;
+                TopicConnection connection;
                 bool isOnLeft;
                 bool isFirst;
                 bool isLast;
@@ -172,7 +173,7 @@ namespace Psycho
                         }
                 }
 
-                public int TotalHeight
+                public double TotalHeight
                 {
                         get
                         {
@@ -191,6 +192,16 @@ namespace Psycho
                                 if (this.frame == null)
                                         frame = new TopicFrame (this);
                                 return frame;
+                        }
+                }
+
+                public TopicConnection Connection
+                {
+                        get
+                        {
+                                if (this.connection == null)
+                                        connection = new TopicConnection (this);
+                                return connection;
                         }
                 }
 
