@@ -56,11 +56,10 @@ namespace Psycho
                 public TopicStyle (Topic iTopic) //TODO: One big hack
                 {
                         this.topic = iTopic;
-                        this.StyleFont = (new Font ("Verdana", 10)); // TODO: That of course has to be loaded from style
-                        this.ConnectPoint = ConnectionPoint.Edge;
+                        this.StyleFont = (new Font ("Verdana", 9)); // TODO: That of course has to be loaded from style
                         this.StrokeWidth = 2;
                         this.EqualMargins = true;
-                        this.LeftMargin = 2;
+                        this.LeftMargin = 1;
                         this.RightMargin = 0;
                         this.TopMargin = 0;
                         this.BottomMargin = 0;

@@ -33,6 +33,7 @@ namespace Psycho
                 double x;
                 double y;
                 bool isAuto;
+                bool isXValid, isYValid;
                 Topic topic;
 
                 public TopicOffset (Topic iTopic)
@@ -50,13 +51,14 @@ namespace Psycho
                 {
                         get
                         {
-                                if (isAuto) {
+                                if (!IsXValid) {
                                         if (this.Topic.IsCentral)
                                                 x = 20;
                                         else
                                                 x = this.Topic.Parent.Offset.X +
                                                     this.Topic.Parent.Frame.Width +
                                                     this.Topic.Style.HorChildDist;
+                                        IsXValid = true;
                                         return x;
                                 }
                                 else
@@ -64,7 +66,7 @@ namespace Psycho
                         }
                         set
                         {
-                                isAuto = false;
+                                IsAuto = false;
                                 x = value;
                         }
                 }
@@ -73,7 +75,7 @@ namespace Psycho
                 {
                         get
                         {
-                                if (isAuto) {
+                                if (!IsYValid) {
                                         if (this.Topic.IsCentral)
                                                 y = 20;
                                         else
@@ -82,6 +84,7 @@ namespace Psycho
                                                 else
                                                         y = this.Topic.Previous.Offset.Y +
                                                             this.Topic.Previous.TotalHeight;
+                                        IsYValid = true;
                                         return y;
                                 }
                                 else
@@ -89,7 +92,7 @@ namespace Psycho
                         }
                         set
                         {
-                                isAuto = false;
+                                IsAuto = false;
                                 y = value;
                         }
                 }
@@ -97,20 +100,32 @@ namespace Psycho
                 public void SetOffset (int iXOffset, int iYOffset)
                 {
                         isAuto = false;
-                        x = iXOffset;
-                        y = iYOffset;
+                        X = iXOffset;
+                        Y = iYOffset;
                 }
 
                 public void GetOffset (out double outXOffset, out double outYOffset)
                 {
-                        outXOffset = x;
-                        outYOffset = y;
+                        outXOffset = X;
+                        outYOffset = Y;
                 }
 
                 public bool IsAuto
                 {
                         get { return isAuto; }
                         set { isAuto = value; }
+                }
+
+                public bool IsXValid
+                {
+                        get { return isXValid; }
+                        set { isXValid = value; }
+                }
+
+                public bool IsYValid
+                {
+                        get { return isYValid; }
+                        set { isYValid = value; }
                 }
         }
 }

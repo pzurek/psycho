@@ -40,8 +40,11 @@ namespace Psycho
                 DrawingArea mapArea;
 
                 Gdk.GC gc;
-                Cairo.Context cr;
+                Cairo.Context mapContext;
                 Pango.Layout text;
+
+                int I = 0;
+                int N = 0;
 
                 public Canvas ()
                         : base ()
@@ -79,15 +82,16 @@ namespace Psycho
                         if ((mapArea.WidgetFlags & WidgetFlags.Realized) == 0)
                                 return;
 
-                        cr = Gdk.CairoHelper.Create (mapArea.GdkWindow);
-                        cr.Antialias = Antialias.Default;
+                        mapContext = Gdk.CairoHelper.Create (mapArea.GdkWindow);
+                        mapContext.Antialias = Antialias.Default;
                         int w, h;
                         mapArea.GdkWindow.GetSize (out w, out h);
-                        DrawBackground (cr);
+                        I = 0; N = 0; // TODO: Resetting coordiante values for speed testing
+                        DrawBackground (mapContext);
                         //cr.Translate (w / 2, h / 2);
-                        DrawTopics (cr);
-                        ((IDisposable) cr.Target).Dispose ();
-                        ((IDisposable) cr).Dispose ();
+                        DrawTopics (mapContext);
+                        ((IDisposable) mapContext.Target).Dispose ();
+                        ((IDisposable) mapContext).Dispose ();
                 }
 
                 private void DrawBackground (Context iContext)
@@ -102,6 +106,7 @@ namespace Psycho
 
                 void DrawTopics (Context iContext)
                 {
+                        //DrawRectangles (iContext, Model.CentralTopic);
                         DrawConnections (iContext, Model.CentralTopic);
                         DrawFrames (iContext, Model.CentralTopic);
                         DrawTexts (iContext, Model.CentralTopic);
@@ -109,12 +114,19 @@ namespace Psycho
                         DrawText (/*iContext,*/ Model.CentralTopic);
                 }
 
+                public void DrawRectangles (Cairo.Context iContext, Topic iTopic)
+                {
+                        foreach (Topic TempTopic in iTopic.Subtopics) {
+                                DrawRectangles (iContext, TempTopic);
+                                DrawRectangle (iContext, iTopic);
+                        }
+                }
+
                 public void DrawConnections (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.Subtopics) {
-                                if (TempTopic.IsExpanded) {
+                                if (TempTopic.IsExpanded)
                                         DrawConnections (iContext, TempTopic);
-                                }
                                 DrawConnection (iContext, TempTopic);
                         }
                 }
@@ -122,9 +134,8 @@ namespace Psycho
                 public void DrawFrames (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.Subtopics) {
-                                if (TempTopic.IsExpanded) {
+                                if (TempTopic.IsExpanded)
                                         DrawFrames (iContext, TempTopic);
-                                }
                                 DrawFrame (iContext, TempTopic);
                         }
                 }
@@ -132,11 +143,27 @@ namespace Psycho
                 public void DrawTexts (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.Subtopics) {
-                                if (TempTopic.IsExpanded) {
+                                if (TempTopic.IsExpanded)
                                         DrawTexts (iContext, TempTopic);
-                                }
                                 DrawText (/*iContext, */TempTopic);
                         }
+                }
+
+                void DrawRectangle (Cairo.Context iContext, Topic iTopic)
+                {
+                        I = I + 20;
+                        if (I / 1380 > 0) {
+                                I = 0;
+                                N = N + 12;
+                        }
+                        Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
+                        iContext.Rectangle (I, N, 16, 10);
+                        Cairo.Color fillColor = strokeColor;
+                        fillColor.A = 0.16;
+                        iContext.Color = fillColor;
+                        iContext.FillPreserve ();
+                        iContext.Color = strokeColor;
+                        iContext.Stroke ();
                 }
 
                 void DrawText (/*Cairo.Context iContext,*/ Topic iTopic)

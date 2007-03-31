@@ -148,7 +148,7 @@ namespace Psycho
                                 newTopic.Parent = iTopic;
                                 CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);
                                 iTopic.AddSubtopic (newTopic);
-                                if (newTopic.Level < 3)
+                                if (newTopic.Level < 5)
                                         AppendSomeNodes (newTopic);
                         }
                 }
