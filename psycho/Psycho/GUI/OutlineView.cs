@@ -216,29 +216,28 @@ namespace Psycho
 
                 public void Update (IModel iModel)
                 {
-                        updatePending = true;
+                        this.updatePending = true;
                         UpdateNew (iModel);
                         UpdateDeletedPath (iModel);
                         UpdateChanged (iModel);
                         workingTopic = iModel.CurrentTopic;
-                        updatePending = false;
+                        this.updatePending = false;
                 }
 
                 public void UpdateNew (IModel iModel)
                 {
-                        foreach (Topic topic in iModel.NewTopics) {
-                                TreeIter parent;
-                                TreePath parentPath = new TreePath (topic.Parent.Path);
-                                int position = topic.Parent.Subtopics.IndexOf (topic);
-                                store.GetIter (out parent, parentPath);
-                                TreeIter iter = store.InsertNode (parent, position);
-                                store.SetValue (iter, 0, topic);
-                                TreePath path = store.GetPath (iter);
-                                outlineView.ExpandToPath (path);
-                                outlineView.Selection.SelectIter (iter);
-                                outlineView.ScrollToCell (path, null, false, 1, 0);
-                                outlineView.SetCursor (path, titleColumn, false);
-                                outlineView.QueueDraw ();
+                        if (iModel.NewTopics.Count != 0) {
+                                foreach (Topic topic in iModel.NewTopics) {
+                                        TreeIter parent;
+                                        TreePath parentPath = new TreePath (topic.Parent.Path);
+                                        int position = topic.Parent.Subtopics.IndexOf (topic);
+                                        store.GetIter (out parent, parentPath);
+                                        TreeIter iter = store.InsertNode (parent, position);
+                                        store.SetValue (iter, 0, topic);
+                                        TreePath path = store.GetPath (iter);
+                                        SelectCurrentRow (iter, path);
+                                        //outlineView.ExpandToPath (path);
+                               }
                         }
                 }
 
@@ -252,30 +251,33 @@ namespace Psycho
                         TreePath deletedPath = new TreePath (deletedTopicPath);
                         this.store.GetIter (out deletedIter, deletedPath);
                         this.store.Remove (ref deletedIter);
-
                         TreePath path = new TreePath (iModel.CurrentTopic.Path);
                         TreeIter iter;
                         store.GetIter (out iter, path);
-                        outlineView.Selection.SelectIter (iter);
-                        outlineView.ScrollToCell (path, null, false, 1, 0);
-                        outlineView.SetCursor (path, titleColumn, false);
-                        outlineView.QueueDraw ();
+                        SelectCurrentRow (iter, path);
                 }
 
                 public void UpdateChanged (IModel iModel)
                 {
-
-                        foreach (Topic topic in iModel.ChangedTopics) {
-                                TreePath path = new TreePath (topic.Path);
-                                TreeIter iter;
-                                store.GetIter (out iter, path);
-                                store.SetValue (iter, 0, topic);
-                                outlineView.Selection.SelectIter (iter);
-                                outlineView.ScrollToCell (path, null, false, 1, 0);
-                                outlineView.SetCursor (path, titleColumn, false);
-                                outlineView.QueueDraw ();
+                        if (iModel.ChangedTopics.Count != 0) {
+                                foreach (Topic topic in iModel.ChangedTopics) {
+                                        TreePath path = new TreePath (topic.Path);
+                                        TreeIter iter;
+                                        store.GetIter (out iter, path);
+                                        store.SetValue (iter, 0, topic);
+                                        SelectCurrentRow (iter, path);
+                                }
                         }
                 }
+
+                void SelectCurrentRow (TreeIter iIter, TreePath iPath)
+                {
+                        outlineView.Selection.SelectIter (iIter);
+                        outlineView.ScrollToCell (iPath, titleColumn, false, 1, 0);
+                        outlineView.SetCursor (iPath, titleColumn, false);
+                        outlineView.QueueDraw ();
+                }
+                        
 
                 public void AddTopic ()
                 {

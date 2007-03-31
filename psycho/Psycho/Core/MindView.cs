@@ -34,7 +34,7 @@ using Cairo;
 
 namespace Psycho
 {
-        class MapView : ScrolledWindow, IView
+        class MindView : ScrolledWindow, IView
         {
                 IModel Model;
                 IControl Control;
@@ -46,7 +46,7 @@ namespace Psycho
                 Cairo.Context mapContext;
                 Pango.Layout text;
 
-                public MapView ()
+                public MindView ()
                         : base ()
                 {
                         mapArea = new DrawingArea ();
@@ -268,7 +268,7 @@ namespace Psycho
                         Control.RequestDelete ();
                 }
 
-                public void ExpandTopic ()
+                public void ExpandTopic (string iGuid, bool isExpanded)
                 {
                         Control.RequestExpand (this.Model.CurrentTopic.GUID, !this.Model.CurrentTopic.IsExpanded);
                 }
@@ -294,11 +294,6 @@ namespace Psycho
                 }
 
                 public void CommitChange (Topic iTopic)
-                {
-                        throw new Exception ("The method or operation is not implemented.");
-                }
-
-                public void ExpandTopic (string iGuid, bool isExpanded)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }

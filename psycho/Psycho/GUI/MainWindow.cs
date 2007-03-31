@@ -71,7 +71,7 @@ namespace Psycho
                         MindControl notesControl = new MindControl (model, notesView);
                         notesView.WireUp (notesControl, model);
 
-                        MapView mapView = new MapView ();
+                        MindView mapView = new MindView ();
                         MindControl mapControl = new MindControl (model, mapView);
                         mapView.WireUp (mapControl, model);
 
@@ -88,9 +88,10 @@ namespace Psycho
                         Notebook mainNotebook = new Notebook ();
                         mainNotebook.BorderWidth = 6;
 
-                        mainNotebook.InsertPage (mapView, new Label ("Map View"), /*new Label("Map View"),*/ 0);
-                        mainNotebook.InsertPage (nodeView, new Label ("Outline View"), /*new Label("Outline View"),*/ 1);
-                        mainNotebook.InsertPage (XMLPreview, new Label ("XML View"), /*new Label("XML View"),*/ 2);
+                        mainNotebook.InsertPage (nodeView, new Label ("Outline View"), 1);
+                        mainNotebook.InsertPage (XMLPreview, new Label ("XML View"), 2);
+                        mainNotebook.InsertPage (mapView, new Label ("Map View"), 0);
+                        mainNotebook.CurrentPage = 0;
 
                         mainNotebook.ShowBorder = true;
 

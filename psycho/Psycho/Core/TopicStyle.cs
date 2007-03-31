@@ -60,7 +60,7 @@ namespace Psycho
                         this.topic = iTopic;
 
                         // TODO: That all of course has to be loaded from a style
-                        this.StyleFont = (new Font ("Comic Sans MS", 10));
+                        this.StyleFont = (new Font ("Tahoma", 10));
                         this.StrokeWidth = 1;
                         this.EqualMargins = true;
                         this.LeftMargin = 2;

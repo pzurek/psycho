@@ -173,13 +173,13 @@ namespace Psycho
                 {
                         Topic newTopic = new Topic (centralTopic.TotalCount);
                         newTopic.Parent = CurrentTopic;
+                        CurrentTopic.IsExpanded = true;
                         CurrentTopic.AddSubtopic (newTopic);
                         CreateXMLSubtopic (newTopic);
                         SetCurrent (newTopic);
                         SetCurrentXml (CurrentTopic.GUID);
                         newTopics.Add (newTopic);
                         UpdateToTop (newTopic);
-                        //UpdateAllOffsets ();//Moved to NotifyObservers()
                         NotifyObservers ();
                 }
 
@@ -323,8 +323,10 @@ namespace Psycho
 
                 public void CurrentGoDown ()
                 {
-                        if (CurrentTopic.HasChildren)
+                        if (CurrentTopic.HasChildren) {
+                                CurrentTopic.IsExpanded = true;
                                 SetCurrent (CurrentTopic.Subtopics.First);
+                        }
                 }
 
                 public void CurrentGoBack ()
