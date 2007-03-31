@@ -28,10 +28,8 @@ using Gdk;
 
 namespace Psycho
 {
-
         static class IconLoader
         {
-
                 const string psychoIconFile = "Resources/psycho-small.png";
                 const string topicIconFile = "Resources/psycho-topic.png";
                 const string subtopicIconFile = "Resources/psycho-subtopic.png";
@@ -40,6 +38,7 @@ namespace Psycho
                 const string borderIconFile = "Resources/psycho-border.png";
                 const string relationIconFile = "Resources/psycho-relation.png";
                 const string notesIconFile = "Resources/psycho-notes-small.png";
+                const string paperFile = "Resources/paper.png";
 
                 public static Pixbuf psychoIcon;
                 public static Pixbuf topicIcon;
@@ -49,6 +48,7 @@ namespace Psycho
                 public static Pixbuf borderIcon;
                 public static Pixbuf relationIcon;
                 public static Pixbuf notesIcon;
+                public static Pixbuf paper;
 
                 static IconLoader ()
                 {
@@ -60,6 +60,7 @@ namespace Psycho
                         borderIcon = new Pixbuf (borderIconFile);
                         relationIcon = new Pixbuf (relationIconFile);
                         notesIcon = new Pixbuf (notesIconFile);
+                        paper = new Pixbuf (paperFile);
                 }
         }
 }

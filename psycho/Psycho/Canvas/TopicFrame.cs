@@ -29,13 +29,32 @@ namespace Psycho
 {
         public class TopicFrame
         {
+                Cairo.Context context;
+                int textWidth, textHeight, frameHeight, frameWidth;
+                int leftMargin, rightMargin, topMargin, bottomMargin;
+                Cairo.PointD center, left, right, top, bottom;
+                double octDist, octDistOrtho;
+                double hexDist, hexDistOrtho;
+
+                double OctDist (int paramHeight)
+                {
+                        octDist = new double ();
+                        octDist = paramHeight / (System.Math.Sqrt (2) + 1);
+                        return octDist;
+                }
+
+                double OctDistOrtho (int paramHeight)
+                {
+                        octDistOrtho = new double ();
+                        octDistOrtho = octDist / (System.Math.Sqrt (2));
+                        return octDistOrtho;
+                }
+
                 public TopicFrame (Topic topic, Cairo.Context context)
                 {
                 }
 
-                Cairo.Context context;
-
-                public void DrawCircle (Cairo.PointD origin, int width/*, int height - that seems redundant*/)
+                public void DrawCircle (Cairo.PointD origin, int width)
                 {
                 }
 

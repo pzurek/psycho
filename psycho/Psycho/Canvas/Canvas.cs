@@ -29,9 +29,91 @@ using System.Text;
 using Gtk;
 using Cairo;
 
-namespace Psycho {
+namespace Psycho
+{
+        class Canvas : DrawingArea, IView
+        {
+                IModel Model;
+                IControl Control;
 
-        class Canvas : DrawingArea {
+                public void WireUp (IControl paramControl, IModel paramModel)
+                {
+                        if (Model != null) {
+                                Model.RemoveObserver (this);
+                        }
 
+                        Model = paramModel;
+                        Control = paramControl;
+
+                        Control.SetModel (Model);
+                        Control.SetView (this);
+                        Model.AddObserver (this);
+                        Update (Model);
+                }
+
+                public void Update (IModel paramModel)
+                {
+                        this.QueueDraw ();
+                }
+
+                public void AddTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void AddSubtopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void DeleteTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void CommitChange (Topic paramTopic)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void ExpandTopic (string paramGuid, bool isExpanded)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EditTitle (string Title)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentTopic ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void TriggerEdit (bool editPending)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void DisableAddSibling ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void DisableDelete ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EnableAddSibling ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EnableDelete ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
         }
 }

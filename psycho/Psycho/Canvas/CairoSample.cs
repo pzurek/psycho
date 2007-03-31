@@ -45,7 +45,7 @@ namespace Psycho
 
                 void FillChecks (Context cr, int x, int y, int width, int height)
                 {
-                        int CHECK_SIZE = 32;
+                        int CHECK_SIZE = 16;
 
                         cr.Save ();
                         Surface check = cr.Target.CreateSimilar (Content.Color, 2 * CHECK_SIZE, 2 * CHECK_SIZE);
@@ -140,7 +140,7 @@ namespace Psycho
                         Draw3Circles (cr_circles, xc, yc, radius, 0.5);
                         cr_circles.Antialias = Antialias.Subpixel;
 
-                        cr_overlay.Operator = Operator.Add;
+                        cr_overlay.Operator = Operator.Over;
                         cr_overlay.SetSourceSurface (circles, 0, 0);
                         cr_overlay.Paint ();
 

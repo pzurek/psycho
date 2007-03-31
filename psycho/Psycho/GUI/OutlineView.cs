@@ -215,14 +215,14 @@ namespace Psycho
 
                 public void Update (IModel paramModel)
                 {
-                        if (editPending == false) {
-                                updatePending = true;
-                                UpdateNew (paramModel);
-                                UpdateDeletedPath (paramModel);
-                                UpdateChanged (paramModel);
-                                workingTopic = paramModel.CurrentTopic;
-                                updatePending = false;
-                        }
+                        //if (editPending == false) {
+                        updatePending = true;
+                        UpdateNew (paramModel);
+                        UpdateDeletedPath (paramModel);
+                        UpdateChanged (paramModel);
+                        workingTopic = paramModel.CurrentTopic;
+                        updatePending = false;
+                        //}
                 }
 
                 public void UpdateNew (IModel paramModel)
