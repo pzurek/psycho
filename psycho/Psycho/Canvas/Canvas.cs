@@ -40,6 +40,7 @@ namespace Psycho
                 IControl Control;
 
                 DrawingArea mapArea;
+                Viewport viewPort;
                 int mapAreaWidth, mapAreaHeight;
 
                 Gdk.GC gc;
@@ -52,9 +53,14 @@ namespace Psycho
                         mapArea = new DrawingArea ();
                         mapArea.ExposeEvent += OnMapExpose;
                         mapArea.Realized += OnMapRealize;
+                        this.ShadowType = ShadowType.EtchedIn;
                         this.HscrollbarPolicy = PolicyType.Always;
                         this.VscrollbarPolicy = PolicyType.Always;
-                        this.Add (mapArea);
+                        //viewPort = new Viewport ();
+                        //viewPort.ShadowType = ShadowType.EtchedIn;
+                        //viewPort.
+                        //viewPort.Add (mapArea);
+                        this.AddWithViewport (mapArea);
                 }
 
                 public void WireUp (IControl iControl, IModel iModel)
@@ -85,6 +91,7 @@ namespace Psycho
                         mapContext = Gdk.CairoHelper.Create (mapArea.GdkWindow);
                         mapContext.Antialias = Antialias.Default;
                         mapArea.GdkWindow.GetSize (out mapAreaWidth, out mapAreaHeight);
+                        mapArea.Allocation = new Gdk.Rectangle (200, 200, 2000, (int) (Model.CentralTopic.TotalHeight + 400)); 
                         DrawBackground (mapContext);
                         //cr.Translate (w / 2, h / 2);
                         DrawTopics (mapContext);
