@@ -27,10 +27,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class Color {
+        public class Color
+        {
 
+                string name;
                 ushort red;
                 ushort green;
                 ushort blue;
@@ -43,20 +46,71 @@ namespace Psycho {
                         set { isAuto = value; }
                 }
 
-                public void SetRGBA (ushort paramRed, ushort paramGreen, ushort paramBlue, ushort paramAlfa)
+                public void SetARGB (ushort paramAlfa, ushort paramRed, ushort paramGreen, ushort paramBlue)
                 {
+                        alfa = paramAlfa;
                         red = paramRed;
                         green = paramGreen;
                         blue = paramBlue;
-                        alfa = paramAlfa;
                 }
 
-                public void GetRGBA (out ushort outRed, out ushort outGreen, out ushort outBlue, out ushort outAlfa)
+                public void SetAlfa (ushort paramAlfa)
                 {
+                        this.alfa = paramAlfa;
+                }
+
+                public void GetARGB (out ushort outAlfa, out ushort outRed, out ushort outGreen, out ushort outBlue)
+                {
+                        outAlfa = alfa;
                         outRed = red;
                         outGreen = green;
                         outBlue = blue;
-                        outAlfa = alfa;
+                }
+
+                public string Name
+                {
+                        get { return name; }
+                        set { name = value; }
+                }
+
+                public Color ()
+                {
+                        this.name = "";
+                        this.alfa = 0;
+                        this.red = 0;
+                        this.green = 0;
+                        this.blue = 0;
+                }
+
+                public Color (string name, ushort paramAlfa, ushort paramRed, ushort paramGreen, ushort paramBlue)
+                {
+                        this.name = name;
+                        this.alfa = paramAlfa;
+                        this.red = paramRed;
+                        this.green = paramGreen;
+                        this.blue = paramBlue;
+                }
+
+                public Color (ushort paramAlfa, ushort paramRed, ushort paramGreen, ushort paramBlue)
+                {
+                        this.name = "";
+                        this.alfa = paramAlfa;
+                        this.red = paramRed;
+                        this.green = paramGreen;
+                        this.blue = paramBlue;
+                }
+
+                public Color (Color paramColor)
+                {
+                        ushort paramAlfa = new ushort ();
+                        ushort paramRed = new ushort ();
+                        ushort paramGreen = new ushort ();
+                        ushort paramBlue = new ushort ();
+                        paramColor.GetARGB (out paramAlfa, out paramRed, out paramGreen, out paramBlue);
+                        this.alfa = paramAlfa;
+                        this.red = paramRed;
+                        this.green = paramGreen;
+                        this.blue = paramBlue;
                 }
         }
 }

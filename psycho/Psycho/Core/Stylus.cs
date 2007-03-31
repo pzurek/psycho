@@ -29,12 +29,46 @@ using System.Text;
 
 namespace Psycho
 {
-
         public class Stylus
         {
+                List<TopicStyle> StyleStore = new List<TopicStyle> ();
+                List<Color> ColorStore = new List<Color> ();
 
-                static Stylus ()
+                public Color GetColorByBranchNo (int paramNumber, out Color outColor)
                 {
+                        Color color = ColorStore[paramNumber];
+                        if (color != null) {
+                                outColor = color;
+                                return outColor;
+                        }
+                        else {
+                                outColor = null;
+                                return outColor;
+                        }
+                }
+
+                public Color GetFirstColor (out Color outColor)
+                {
+                        Color color = ColorStore[0];
+                        if (color != null) {
+                                outColor = color;
+                                return outColor;
+                        }
+                        else {
+                                outColor = null;
+                                return outColor;
+                        }
+                }
+
+                public Stylus ()
+                {
+                        ColorStore.Add (new Color (255, 47, 77, 135));
+                        ColorStore.Add (new Color ("red", 255, 255, 0, 0));
+                        ColorStore.Add (new Color ("green", 255, 0, 255, 0));
+                        ColorStore.Add (new Color ("blue", 255, 0, 0, 255));
+                        ColorStore.Add (new Color ("alfared", 122, 255, 0, 0));
+                        ColorStore.Add (new Color ("alfagreen", 122, 0, 255, 0));
+                        ColorStore.Add (new Color ("alfablue", 122, 0, 0, 255));
                 }
         }
 }

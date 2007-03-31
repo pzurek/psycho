@@ -2,9 +2,11 @@ using System;
 using Gtk;
 using Cairo;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class Knockout : DrawingArea {
+        public class Knockout : DrawingArea
+        {
 
                 Pango.Layout text;
 
@@ -140,8 +142,10 @@ namespace Psycho {
                         int w, h;
                         e.Window.GetSize (out w, out h);
                         Draw (cr, w, h);
-                        text.Width = w;
-                        this.GdkWindow.DrawLayout (this.Style.TextAAGC (StateType.Normal), 10, 10, text);
+                        Gdk.Color textColor = new Gdk.Color (0, 0, 0);
+                        text.FontDescription.Family = "Courier New";
+                        text.FontDescription.Size = 10;
+                        this.GdkWindow.DrawLayout (this.Style.TextAAGC (StateType.Normal), 10, 200, text);
                         return true;
                 }
         }

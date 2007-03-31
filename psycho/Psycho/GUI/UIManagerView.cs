@@ -114,7 +114,6 @@ namespace Psycho
 
                         uiManager.InsertActionGroup (actions, 0);
                         uiManager.AddUiFromString (ui);
-                        uiManager.AddTearoffs = true;
                         Toolbar toolbar = (Toolbar) (uiManager.GetWidget ("/ToolBar"));
                         toolbar.IconSize = IconSize.LargeToolbar;
                 }

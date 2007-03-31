@@ -29,7 +29,6 @@ using System.Text;
 
 namespace Psycho
 {
-
         public class Topics : List<Topic>
         {
                 int height;

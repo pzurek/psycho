@@ -26,11 +26,14 @@
 using System;
 using System.Text;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class Font {
+        public class Font
+        {
 
-                string name;
+                string description;
+                string family;
                 Single size;
                 bool bold;
                 bool italic;
@@ -38,10 +41,29 @@ namespace Psycho {
                 bool strikethrough;
                 bool isAuto;
 
-                public string Name
+                public Font (string paramFamily, int paramSize)
                 {
-                        get { return name; }
-                        set { name = value; }
+                        this.family = paramFamily;
+                        this.size = paramSize;
+                        this.bold = false;
+                        this.italic = false;
+                        this.underline = false;
+                        this.strikethrough = false;
+                }
+
+                public string Description
+                {
+                        get
+                        {
+                                description = (family + " " + size.ToString ());
+                                return description;
+                        }
+                }
+
+                public string Family
+                {
+                        get { return family; }
+                        set { family = value; }
                 }
 
                 public Single Size

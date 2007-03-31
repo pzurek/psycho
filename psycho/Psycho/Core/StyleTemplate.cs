@@ -31,7 +31,7 @@ namespace Psycho {
         public class StyleTemplate {
 
                 int level;
-                Style baseStyle;
+                TopicStyle baseStyle;
 
                 public int Level
                 {
@@ -39,7 +39,7 @@ namespace Psycho {
                         set { level = value; }
                 }
 
-                public Style BaseStyle
+                public TopicStyle BaseStyle
                 {
                         get { return baseStyle; }
                         set { baseStyle = value; }

@@ -44,11 +44,11 @@ namespace Psycho
                 string GUID { get; }
                 Notes TopicNotes { get; set; }
                 bool IsExpanded { get; set; }
-                Style TopicStyle { get; set; }
+                TopicStyle Style { get; set; }
                 bool HasNotes { get;}
                 int TotalCount { get; }
                 string Path { get; }
-                string Number  { get; }
+                string Number { get; }
                 int Level { get; }
 
                 void AddSubtopic (Topic paramTopic);

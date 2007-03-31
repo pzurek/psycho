@@ -28,10 +28,8 @@ using System.Text;
 
 namespace Psycho
 {
-
-        public class Style
+        public class TopicStyle
         {
-
                 Font styleFont;
                 TopicShape shape;
                 ConnectionPoint connectPoint;
@@ -47,6 +45,23 @@ namespace Psycho
                 int bottomMargin;
                 bool fixedWidth;
                 int width;
+
+                Stylus stylus = new Stylus ();
+
+                public TopicStyle ()
+                {
+                        this.styleFont = (new Font ("Arial", 12));
+                        this.shape = TopicShape.RoundedRectangle;
+                        this.connectPoint = ConnectionPoint.Edge;
+                        this.connectShape = ConnectionShape.Curve;
+                        Color fcolor = (stylus.GetFirstColor (out fcolor));
+                        this.fillColor = fcolor;
+                        fillColor.SetAlfa (50);
+                        this.strokeColor = fillColor; //for now stroke color is by default the same as fill color
+                        this.StrokeWidth = 2;
+                        this.equalMargins = true;
+                        this.leftMargin = 10;
+                }
 
                 public Font StyleFont
                 {

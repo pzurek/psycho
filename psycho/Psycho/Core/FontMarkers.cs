@@ -27,10 +27,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho {
-
-        public class FontMarkers : List<FontMarker> {
-
+namespace Psycho
+{
+        public class FontMarkers : List<FontMarker>
+        {
                 public FontMarkers ()
                         : base ()
                 {

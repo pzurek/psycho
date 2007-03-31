@@ -39,11 +39,11 @@ namespace Psycho
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = ("Topic ");
-                        //this.TopicNotes.Text = ("Topic size: "
-                        //+ TextWidth.ToString ()
-                        //+ " x "
-                        //+ TextHeight.ToString ());
                         this.isExpanded = false;
+                        this.style = (new TopicStyle ());
+                        textLayout = new Layout (context);
+                        textLayout.SetText (this.text);
+                        textLayout.FontDescription = FontDescription.FromString (this.style.StyleFont.Description);
                 }
 
                 public Topic (int topic_number)
@@ -51,11 +51,11 @@ namespace Psycho
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = ("Topic " + topic_number.ToString ());
-                        //this.TopicNotes.Text = ("Topic size: "
-                        //+ TextWidth.ToString ()
-                        //+ " x "
-                        //+ TextHeight.ToString ());
                         this.isExpanded = false;
+                        this.style = (new TopicStyle ());
+                        textLayout = new Layout (context);
+                        textLayout.SetText (this.text);
+                        textLayout.FontDescription = FontDescription.FromString (this.style.StyleFont.Description);
                 }
 
                 string text;
@@ -67,13 +67,14 @@ namespace Psycho
                 string guid;
                 bool isExpanded;
                 Notes topicNotes;
-                Style topicStyle;
+                TopicStyle style;
                 Title topicTitle;
                 TopicType type;
                 Pango.Layout textLayout;
                 int textWidth;
                 int textHeight;
                 Topics subtopics = new Topics ();
+                Pango.Context context = new Pango.Context (new IntPtr ());
 
                 public Topics Subtopics
                 {
@@ -87,21 +88,16 @@ namespace Psycho
                         set { text = value; }
                 }
 
-                //public Pango.Layout TextLayout
-                //{
-                //        get {
-                //                textLayout.SetText (this.text);
-                //                string font = (topicTitle.TextFont.Name.ToString () + topicTitle.TextFont.Size.ToString ());
-                //                textLayout.FontDescription = FontDescription.FromString (font);
-                //                return textLayout;
-                //        }
-                //}
+                public Pango.Layout TextLayout
+                {
+                        get { return textLayout; }
+                }
 
                 public int TextWidth
                 {
                         get
                         {
-                                //TextLayout.GetSize (out textWidth, out textHeight);
+                                textLayout.GetPixelSize (out textWidth, out textHeight);
                                 return textWidth;
                         }
                 }
@@ -110,7 +106,7 @@ namespace Psycho
                 {
                         get
                         {
-                                //TextLayout.GetSize (out textWidth, out textHeight);
+                                TextLayout.GetPixelSize (out textWidth, out textHeight);
                                 return textHeight;
                         }
                 }
@@ -150,10 +146,10 @@ namespace Psycho
                         set { isExpanded = value; }
                 }
 
-                public Style TopicStyle
+                public TopicStyle Style
                 {
-                        get { return topicStyle; }
-                        set { topicStyle = value; }
+                        get { return Style; }
+                        set { Style = value; }
                 }
 
                 public bool HasNotes

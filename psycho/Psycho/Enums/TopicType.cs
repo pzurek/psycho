@@ -25,9 +25,11 @@
 
 using System;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public enum TopicType {
+        public enum TopicType
+        {
 
                 Standard,
                 Comment,

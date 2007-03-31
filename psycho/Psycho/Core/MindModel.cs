@@ -61,7 +61,7 @@ namespace Psycho
                         NotifyObservers ();
                 }
 
-                ArrayList observerList = new ArrayList ();
+                List<IView> observerList = new List<IView> ();
                 Topics newTopics = new Topics ();
                 Topics deletedTopics = new Topics ();
                 string deletedTopicPath = ("");
