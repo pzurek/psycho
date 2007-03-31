@@ -33,8 +33,8 @@ namespace Psycho
                 Line,
                 Rectangle,
                 RoundedRectangle,
-                Circle,
-                //Ellipse, - drawing an ellipse in cairo is a bitch. It has to wait.
+                //TODO: Circle, - not now. Maybe later.
+                //TODO: Ellipse, - drawing an ellipse in cairo is a bitch. It has to wait.
                 Hexagon,
                 Octagon
         }

@@ -79,7 +79,6 @@ namespace Psycho
 
                 void DrawTopics (Cairo.Context cr, int w, int h)
                 {
-                        this.QueueDraw ();
                         Model.CentralTopic.ForEach (delegate (Topic topic)
                         {
                                 DrawFrame (cr, topic);
@@ -106,6 +105,7 @@ namespace Psycho
 
                 public void Update (IModel iModel)
                 {
+                        this.QueueDraw();
                 }
 
                 public void AddTopic ()

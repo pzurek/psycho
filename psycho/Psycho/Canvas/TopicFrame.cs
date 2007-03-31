@@ -32,19 +32,32 @@ namespace Psycho
                 Cairo.Context context;
                 int textWidth, textHeight, frameHeight, frameWidth;
                 int leftMargin, rightMargin, topMargin, bottomMargin;
-                Cairo.PointD center, left, right, top, bottom;
+                int leftOverhead, rightOverhead;
+                Cairo.PointD origin, center, left, right, top, bottom;
                 double octDist, octDistOrtho;
                 double hexDist, hexDistOrtho;
                 Topic topic;
 
                 public int Width
                 {
-                        get { return frameWidth; }
+                        get
+                        {
+                                frameWidth = this.topic.TextWidth +
+                                             this.topic.Style.LeftMargin +
+                                             this.topic.Style.RightMargin;
+                                return frameWidth;
+                        }
                 }
 
                 public int Height
                 {
-                        get { return frameHeight; }
+                        get
+                        {
+                                frameHeight = this.topic.TextHeight +
+                                             this.topic.Style.TopMargin +
+                                             this.topic.Style.BottomMargin;
+                                return frameHeight;
+                        }
                 }
 
                 double OctDist (int iHeight)
@@ -64,12 +77,80 @@ namespace Psycho
                 public TopicFrame (Topic iTopic)
                 {
                         this.topic = iTopic;
-                        this.textWidth = this.topic.TextWidth;
-                        this.textHeight = this.topic.TextHeight;
-                        this.leftMargin = this.topic.Style.LeftMargin;
-                        this.rightMargin = this.topic.Style.RightMargin;
-                        this.topMargin = this.topic.Style.TopMargin;
-                        this.bottomMargin = this.topic.Style.BottomMargin;
+                }
+
+                public Cairo.PointD Origin
+                {
+                        get
+                        {
+                                origin.X = this.topic.Offset.X -
+                                           this.topic.Style.LeftMargin;
+                                origin.Y = this.topic.Offset.Y -
+                                           this.topic.Style.TopMargin;
+                                return origin;
+                        }
+                }
+
+                public Cairo.PointD Center
+                {
+                        get
+                        {
+                                center.X = this.topic.Offset.X +
+                                           this.topic.TextWidth / 2;
+                                center.Y = this.topic.Offset.Y +
+                                           this.topic.TextHeight / 2;
+                                return center;
+                        }
+                }
+
+                public Cairo.PointD Left
+                {
+                        get
+                        {
+                                left.X = this.topic.Offset.X -
+                                         this.topic.Style.LeftMargin;
+                                left.Y = this.topic.Offset.Y +
+                                         this.topic.TextHeight / 2;
+                                return left;
+                        }
+                }
+
+                public Cairo.PointD Right
+                {
+                        get
+                        {
+                                right.X = this.topic.Offset.X +
+                                          this.topic.TextWidth +
+                                          this.topic.Style.RightMargin;
+                                right.Y = this.topic.Offset.Y +
+                                          this.topic.TextHeight / 2;
+                                return right;
+                        }
+                }
+
+                public Cairo.PointD Top
+                {
+                        get
+                        {
+                                top.X = this.topic.Offset.X +
+                                         this.topic.TextWidth / 2;
+                                top.Y = this.topic.Offset.Y -
+                                        this.topic.Style.TopMargin;
+                                return top;
+                        }
+                }
+
+                public Cairo.PointD Bottom
+                {
+                        get
+                        {
+                                bottom.X = this.topic.Offset.X +
+                                         this.topic.TextWidth / 2;
+                                bottom.Y = this.topic.Offset.Y +
+                                          this.topic.TextHeight +
+                                           this.topic.Style.BottomMargin;
+                                return bottom;
+                        }
                 }
 
                 public void Draw (Cairo.Context cr, Topic iTopic)
@@ -84,17 +165,9 @@ namespace Psycho
                         }
                 }
 
-                public void DrawCircle (Cairo.PointD origin, int width)
-                {
-
-                }
-
                 public void DrawRectangle (Cairo.Context cr, Topic iTopic)
                 {
-                        this.frameWidth = this.topic.TextWidth + this.topic.Style.LeftMargin + this.topic.Style.RightMargin;
-                        this.frameHeight = this.topic.TextHeight + this.topic.Style.TopMargin + this.topic.Style.BottomMargin;
-                        Cairo.PointD origin = new Cairo.PointD (this.topic.Offset.X - this.topic.Style.LeftMargin, this.topic.Offset.Y - this.topic.Style.TopMargin);
-                        cr.Rectangle (origin, frameWidth, frameHeight);
+                        cr.Rectangle (Origin, Width, Height);
                         Cairo.Color strokeColor;
                         if (iTopic.IsCurrent)
                                 strokeColor = new Cairo.Color (1, 0, 0);
@@ -124,6 +197,5 @@ namespace Psycho
                 {
                         context.MoveTo (origin);
                 }
-
         }
 }
