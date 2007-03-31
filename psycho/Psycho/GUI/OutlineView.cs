@@ -30,10 +30,10 @@ using Gtk;
 
 namespace Psycho {
 
-    public class OutlineView : ScrolledWindow, IPsychoView {
+    public class OutlineView : ScrolledWindow, IView {
 
-        private IPsychoModel Model;
-        private IPsychoControl Control;
+        private IModel Model;
+        private IControl Control;
 
         private TreeStore store = new TreeStore(typeof(Topic));
         private TreeView outlineView = new TreeView();
@@ -166,7 +166,7 @@ namespace Psycho {
             (cell as CellRendererText).Text = topic.Level.ToString();
         }
 
-        public void Build (IPsychoModel paramModel)
+        public void Build (IModel paramModel)
         {
             store.Clear();
             TreeIter centralNode = store.AppendValues(paramModel.CentralTopic);
@@ -175,7 +175,7 @@ namespace Psycho {
             outlineView.ScrollToCell(store.GetPath(selectedNode), titleColumn, true, 0, 0);
         }
 
-        public void Update (IPsychoModel paramModel)
+        public void Update (IModel paramModel)
         {
             updatePending = true;
             UpdateNew(paramModel);
@@ -184,7 +184,7 @@ namespace Psycho {
             updatePending = false;
         }
 
-        public void UpdateNew (IPsychoModel paramModel)
+        public void UpdateNew (IModel paramModel)
         {
             foreach (Topic topic in paramModel.NewTopics) {
                 TreeIter parent;
@@ -200,7 +200,7 @@ namespace Psycho {
             }
         }
 
-        public void UpdateDeletedPath (IPsychoModel paramModel)
+        public void UpdateDeletedPath (IModel paramModel)
         {
             if (paramModel.DeletedTopicPath != "")
                 DeletedTopicPath = (paramModel.DeletedTopicPath);
@@ -219,7 +219,7 @@ namespace Psycho {
             outlineView.QueueDraw();
         }
 
-        public void UpdateChanged (IPsychoModel paramModel)
+        public void UpdateChanged (IModel paramModel)
         {
 
             foreach (Topic topic in paramModel.ChangedTopics) {
@@ -279,7 +279,7 @@ namespace Psycho {
         {
         }
 
-        public void WireUp (IPsychoControl paramControl, IPsychoModel paramModel)
+        public void WireUp (IControl paramControl, IModel paramModel)
         {
             if (Model != null) {
                 Model.RemoveObserver(this);

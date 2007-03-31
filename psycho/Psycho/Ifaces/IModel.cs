@@ -24,26 +24,36 @@
 //
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Psycho {
+    public interface IModel {
 
-        public interface IView {
+        #region properties
+        Topic CurrentTopic { get; set; }
+        Topic CentralTopic { get; set; }
+        Topics NewTopics { get; }
+        Topics DeletedTopics { get; }
+        string DeletedTopicPath { get; }
+        Topics ChangedTopics { get; }
+        int CurrentLevel { get; }
+        #endregion
 
-                #region Observer implementation
-                void Update(IModel paramModel);
-            void WireUp (IControl paramControl, IModel paramModel);
-                void AddTopic();
-                void AddSubtopic();
-                void DeleteTopic();
-                void ExpandTopic(string paramGuid, bool isExpanded);
-                void EditTitle(string Title);
-                void SetCurrentTopic();
-                void DisableAddSibling();
-                void DisableDelete();
-                void EnableAddSibling();
-                void EnableDelete();
-                #endregion
-        }
+        #region methods
+        void CreateTopic();
+        void CreateSubtopic();
+        void DeleteTopic();
+        void SetCurrent(string paramGuid, Topic paramTopic);
+        void SetTitle (string paramString);
+        void ExpandTopic(string paramGuid, bool isExpanded);
+        #endregion
+
+        #region Observer implementation
+        void AddObserver(IView paramView);
+        void RemoveObserver(IView paramView);
+        void NotifyObservers();
+        #endregion
+    }
 }

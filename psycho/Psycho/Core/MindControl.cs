@@ -27,24 +27,24 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Psycho {
-    class MindControl : IPsychoControl {
-        private IPsychoModel Model;
-        private IPsychoView View;
+    class MindControl : IControl {
+        private IModel Model;
+        private IView View;
 
-        public MindControl(IPsychoModel paramModel, IPsychoView paramView)
+        public MindControl(IModel paramModel, IView paramView)
         {
             Model = paramModel;
             View = paramView;
         }
 
-        #region IPsychoControl Members
+        #region IControl Members
 
-        public void SetModel(IPsychoModel paramModel)
+        public void SetModel(IModel paramModel)
         {
             Model = paramModel;
         }
 
-        public void SetView(IPsychoView paramView)
+        public void SetView(IView paramView)
         {
             View = paramView;
         }

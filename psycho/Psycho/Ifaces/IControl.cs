@@ -27,23 +27,18 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho {
+namespace Psycho
+{
+    public interface IControl
+    {
+        void RequestAddTopic();
+        void RequestAddSubtopic();
+        void RequestDelete();
+        void RequestSetTitle(string title);
+        void RequestSetCurrent (string paramGuid);
+        void RequestExpand (string paramGuid, bool expand);
 
-        public interface IView {
-
-                #region Observer implementation
-                void Update(IModel paramModel);
-            void WireUp (IControl paramControl, IModel paramModel);
-                void AddTopic();
-                void AddSubtopic();
-                void DeleteTopic();
-                void ExpandTopic(string paramGuid, bool isExpanded);
-                void EditTitle(string Title);
-                void SetCurrentTopic();
-                void DisableAddSibling();
-                void DisableDelete();
-                void EnableAddSibling();
-                void EnableDelete();
-                #endregion
-        }
+        void SetModel(IModel paramModel);
+        void SetView(IView paramView);
+    }
 }

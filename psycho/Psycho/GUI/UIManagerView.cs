@@ -27,10 +27,10 @@ using System;
 using Gtk;
 
 namespace Psycho {
-    public class UIManagerView : IPsychoView {
+    public class UIManagerView : IView {
 
-        private IPsychoModel Model;
-        private IPsychoControl Control;
+        private IModel Model;
+        private IControl Control;
 
         public UIManager uiManager = new UIManager();
 
@@ -102,9 +102,9 @@ namespace Psycho {
             Console.WriteLine("Action \"{0}\" activated", action.Name);
         }
 
-        #region IPsychoView Members
+        #region IView Members
 
-        public void WireUp (IPsychoControl paramControl, IPsychoModel paramModel)
+        public void WireUp (IControl paramControl, IModel paramModel)
         {
             if (Model != null) {
                 Model.RemoveObserver(this);
@@ -119,7 +119,7 @@ namespace Psycho {
             Update(Model);
         }
 
-        public void Update (IPsychoModel paramModel)
+        public void Update (IModel paramModel)
         {
         }
 

@@ -35,15 +35,15 @@ namespace Psycho {
     ///Buttons creating and deleting topics
     /// and a nodeview to show them and select the current.
     ///</summary>
-    public class ButtonView : VBox, IPsychoView {
+    public class ButtonView : VBox, IView {
         
         Entry titleEntry = new Entry();
         Button addSiblingButton = new Button();
         Button addChildButton = new Button();
         Button deleteButton = new Button();
 
-        private IPsychoModel Model;
-        private IPsychoControl Control;
+        private IModel Model;
+        private IControl Control;
 
 
         public ButtonView() : base() {
@@ -83,7 +83,7 @@ namespace Psycho {
             Console.WriteLine("Title edited: " + titleEntry.Text);
         }
 
-        public void WireUp(IPsychoControl paramControl, IPsychoModel paramModel)
+        public void WireUp(IControl paramControl, IModel paramModel)
         {
             if (Model != null) {
                 Model.RemoveObserver(this);
@@ -152,7 +152,7 @@ namespace Psycho {
         {
         }
 
-        public void Update(IPsychoModel paramModel)
+        public void Update(IModel paramModel)
         {
             titleEntry.Text = paramModel.CurrentTopic.Title;
             CheckButtonsLegal();

@@ -31,14 +31,14 @@ namespace Psycho {
     using Psycho;
 
     /// <summary>
-    /// Implementation of the IPsychoModel interface for the Topic object.
+    /// Implementation of the IModel interface for the Topic object.
     /// </summary>
-    public partial class MindModel : IPsychoModel {
+    public partial class MindModel : IModel {
 
         private Topic centralTopic = new Topic(1234);
         private Topic currentTopic;
 
-        #region IPsychoModel Members
+        #region IModel Members
         private ArrayList observerList = new ArrayList();
         private Topics newTopics = new Topics();
         private Topics deletedTopics = new Topics();
@@ -150,20 +150,20 @@ namespace Psycho {
             NotifyObservers();
         }
 
-        public void AddObserver(IPsychoView paramView)
+        public void AddObserver(IView paramView)
         {
             observerList.Add(paramView);
             Console.WriteLine("View: " + paramView.ToString() + " added to observer list");
         }
 
-        public void RemoveObserver(IPsychoView paramView)
+        public void RemoveObserver(IView paramView)
         {
             observerList.Remove(paramView);
         }
 
         public void NotifyObservers()
         {
-            foreach (IPsychoView view in observerList) {
+            foreach (IView view in observerList) {
                 view.Update(this);
             }
             ClearChanges();

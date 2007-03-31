@@ -51,12 +51,26 @@ namespace Psycho
 
             AddAccelGroup(UIView.uiManager.AccelGroup);
 
+            Expander buttonExpander = new Expander("Button View");
+            buttonExpander.Add(buttonView);
+
+            Notebook mainNotebook = new Notebook();
+            mainNotebook.BorderWidth = 6;
+
+            DrawingArea mapView = new DrawingArea();
+            TextView XMLView = new TextView();
+
+            mainNotebook.InsertPageMenu(mapView, new Label("Map View"), new Label("Map View"), 0);
+            mainNotebook.InsertPageMenu(nodeView, new Label("Outline View"), new Label("Outline View"), 1);
+            mainNotebook.InsertPageMenu(XMLView, new Label("XML View"), new Label("XML View"), 2); 
+
             mainVBox.Homogeneous = false;
 
             mainVBox.PackStart(UIView.uiManager.GetWidget("/MenuBar"), false, false, 0);
             mainVBox.PackStart(UIView.uiManager.GetWidget("/ToolBar"), false, false, 0);
-            mainVBox.PackStart(buttonView, false, false, 6);
-            mainVBox.PackStart(nodeView, true, true, 6);
+
+            mainVBox.PackStart(buttonExpander, false, false, 6);
+            mainVBox.PackStart(mainNotebook, true, true, 6);
             mainVBox.ShowAll();
 
             Add(mainVBox);
