@@ -67,13 +67,17 @@ namespace Psycho
                         get
                         {
                                 if (isAuto) {
-                                        if (topic.IsCentral)
-                                                y = 10;
+                                        if (this.topic.IsCentral)
+                                                y = this.topic.Subtopics.TotalHeight / 2;
                                         else
-                                                if (topic.IsFirst)
-                                                        y = topic.Parent.Offset.Y;
+                                                if (this.topic.IsFirst)
+                                                        y = this.topic.Parent.Offset.Y /*-
+                                                            (this.topic.Parent.Subtopics.TotalHeight)*/
+                                                                                                       ;
                                                 else
-                                                        y = topic.Previous.Offset.Y + topic.Previous.TotalHeight + topic.Style.Padding;
+                                                        y = this.topic.Previous.Offset.Y +
+                                                            this.topic.Previous.TotalHeight +
+                                                            this.topic.Style.Padding;
                                         return y;
                                 }
                                 else

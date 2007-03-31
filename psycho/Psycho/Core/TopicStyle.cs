@@ -61,7 +61,10 @@ namespace Psycho
                         this.StrokeColor = fillColor; // TODO: For now the stroke color is the same as fill color. To be changed later
                         this.StrokeWidth = 2;
                         this.EqualMargins = true;
-                        this.LeftMargin = 5;
+                        this.LeftMargin = 2;
+                        this.RightMargin = 3;
+                        this.TopMargin = 4;
+                        this.BottomMargin = 5;
                         this.Width = 100;
                         this.Padding = 5;
                 }

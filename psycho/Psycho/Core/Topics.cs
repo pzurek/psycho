@@ -32,7 +32,11 @@ namespace Psycho
         {
                 int height;
                 int width;
+                int totalHeight;
+                int totalWidth;
                 Topic topic;
+                Topic first;
+                Topic last;
 
                 //TODO: The calculation below will have to be conditional if Org Chart is to be implemented
                 //For Org Chart width has to sum and height has to be max
@@ -42,7 +46,7 @@ namespace Psycho
                         {
                                 height = 0;
                                 foreach (Topic child in this)
-                                        height += child.TotalHeight + child.Style.Padding;
+                                        height += child.Frame.Height + child.Style.Padding;
                                 return height;
                         }
                 }
@@ -63,6 +67,33 @@ namespace Psycho
                         }
                 }
 
+                public int TotalHeight
+                {
+                        get
+                        {
+                                totalHeight = 0;
+                                foreach (Topic child in this)
+                                        totalHeight += child.TotalHeight + child.Style.Padding;
+                                return totalHeight;
+                        }
+                }
+
+                public int TotalWidth  //TODO: This is bullshit for now.
+                {
+                        get
+                        {
+                                if (this.Count > 0) {
+                                        totalWidth = 0;
+                                        foreach (Topic child in this)
+                                                if (child.TextWidth > totalWidth)
+                                                        totalWidth = child.TextWidth;
+                                        return totalWidth;
+                                }
+                                else
+                                        return 0;
+                        }
+                }
+
                 public Topics (Topic iTopic)
                         : base ()
                 {
@@ -77,6 +108,26 @@ namespace Psycho
                 public Topic Parent
                 {
                         get { return topic; }
+                }
+
+                public Topic First
+                {
+                        get
+                        {
+                                if (this.Count > 0)
+                                        first = this[0];
+                                return first;
+                        }
+                }
+
+                public Topic Last
+                {
+                        get
+                        {
+                                if (this.Count > 0)
+                                        last = this[this.Count];
+                                return last;
+                        }
                 }
         }
 }

@@ -85,6 +85,7 @@ namespace Psycho
                 Topic parent;
                 Topic previous;
                 Topic next;
+                Topic firstAncestor;
                 int level;
                 int index;
                 int totalCount;
@@ -181,7 +182,7 @@ namespace Psycho
                                 totalHeight = this.Frame.Height;
                                 if (this.Subtopics.Count > 0
                                         && this.IsExpanded
-                                        && this.Subtopics.Height > this.totalHeight)
+                                        && this.Subtopics.Height > this.Frame.Height)
                                         totalHeight = Subtopics.Height;
                                 return totalHeight;
                         }
@@ -215,6 +216,26 @@ namespace Psycho
                         set { parent = value; }
                 }
 
+                public Topic FirstAncestor
+                {
+                        get
+                        {
+                                Queue<Topic> remaining = new Queue<Topic> ();
+
+                                if (this.Parent != null && !this.Parent.IsCentral) remaining.Enqueue (this.Parent);
+
+                                while (remaining.Count > 0) {
+                                        Topic topic = remaining.Dequeue ();
+                                        if (topic.Level == 1)
+                                                firstAncestor = topic;
+                                        else
+                                                remaining.Enqueue (topic.Parent);
+                                }
+                                return firstAncestor;
+                        }
+                }
+
+
                 public Topic Next
                 {
                         get
@@ -225,7 +246,6 @@ namespace Psycho
                                         next = null;
                                 return next;
                         }
-
                 }
 
                 public Topic Previous
