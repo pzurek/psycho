@@ -54,7 +54,7 @@ namespace Psycho
 
         #region public fields
 
-        public List<Topic> Subtopics = new List<Topic>();
+        public TopicCollection Subtopics = new TopicCollection();
 
 		public string Title
 		{
