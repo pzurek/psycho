@@ -73,6 +73,8 @@ namespace Psycho {
 
         public UIManagerView ()
         {
+            //BuildIcons();
+
             ActionEntry[] entries = new ActionEntry[] {
                 new ActionEntry ("FileMenu", null, "_File", null, null, null),
                 new ActionEntry ("EditMenu", null, "_Edit", null, null, null),
@@ -84,8 +86,8 @@ namespace Psycho {
                 new ActionEntry ("SaveAs", Stock.SaveAs, "Save _As", null, "Save to a file", new EventHandler (ActionActivated)),
                 new ActionEntry ("Quit", Stock.Quit, "_Quit", "<control>Q", "Quit", new EventHandler (ActionActivated)),
                 
-                new ActionEntry ("AddTopic", Stock.Add, "Add _Topic", "Return", "Add Topic", new EventHandler (ActionActivated)),
-                new ActionEntry ("AddSubtopic", Stock.GoDown, "Add _Subtopic", "Insert", "Add Subtopic", new EventHandler (ActionActivated)),
+                new ActionEntry ("AddTopic", Stock.GoDown, "Add _Topic", "Return", "Add Topic", new EventHandler (ActionActivated)),
+                new ActionEntry ("AddSubtopic", Stock.GoForward, "Add _Subtopic", "Insert", "Add Subtopic", new EventHandler (ActionActivated)),
                 new ActionEntry ("Delete", Stock.Delete, "_Delete Topic", "Delete", "Delete Topic", new EventHandler (ActionActivated)),
                 
                 new ActionEntry ("Copy", Stock.Copy, "Copy", "<control>C", "Copy to clipboard", new EventHandler (ActionActivated)),
@@ -95,7 +97,6 @@ namespace Psycho {
                 new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
             };
 
-            BuildIcons();
             ActionGroup actions = new ActionGroup("group");
             actions.Add(entries);
 
@@ -105,19 +106,19 @@ namespace Psycho {
 
         static void BuildIcons ()
         {
-            Gdk.Pixbuf topicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-topic.png");
-            Gdk.Pixbuf subtopicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-subtopic.png");
-            Gdk.Pixbuf deleteIcon = Gdk.Pixbuf.LoadFromResource ("psycho-delete.png");
+            Gdk.Pixbuf topicIcon = Gdk.Pixbuf.LoadFromResource("psycho-topic.png");
+            Gdk.Pixbuf subtopicIcon = Gdk.Pixbuf.LoadFromResource("psycho-subtopic.png");
+            Gdk.Pixbuf deleteIcon = Gdk.Pixbuf.LoadFromResource("psycho-delete.png");
 
             IconFactory factory = new IconFactory();
-            factory.Add("psycho-topic", new IconSet(topicIcon));
-            factory.Add("psycho-subtopic", new IconSet(subtopicIcon));
-            factory.Add("psycho-delete", new IconSet(deleteIcon));
+            factory.Add("psycho-topic", new IconSet());
+            factory.Add("psycho-subtopic", new IconSet());
+            factory.Add("psycho-delete", new IconSet());
             factory.AddDefault();
 
-            StockManager.Add(new StockItem("psycho-topic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add(new StockItem("psycho-subtopic", "Add Subtopic", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add(new StockItem("psycho-delete", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add(new StockItem("AddTopic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add(new StockItem("AddSubtopic", "Add Subtopic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add(new StockItem("DeleteTopic", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
         }
 
         private void ActionActivated (object sender, EventArgs a)
