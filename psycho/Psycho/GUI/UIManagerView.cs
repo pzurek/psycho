@@ -40,6 +40,7 @@ namespace Psycho
 
                 Widget currentWidget;
                 Toolbar toolbar;
+                ToolItem topicToolItem;
 
                 const string ui =
                 "<ui>" +
@@ -116,6 +117,8 @@ namespace Psycho
                         uiManager.InsertActionGroup (actions, 0);
                         uiManager.AddUiFromString (ui);
                         toolbar = (Toolbar) (uiManager.GetWidget ("/ToolBar"));
+                        topicToolItem = (ToolItem) (uiManager.GetWidget ("/ToolBar/addtopic"));
+                        topicToolItem.CanFocus = true;
                         uiManager.PreActivate += new PreActivateHandler (uiManager_PreActivate);
                         toolbar.ButtonPressEvent += new ButtonPressEventHandler (toolbar_ButtonPressEvent);
                         toolbar.IconSize = IconSize.Button;
@@ -123,22 +126,12 @@ namespace Psycho
 
                 void toolbar_ButtonPressEvent (object sender, ButtonPressEventArgs args)
                 {
-                        currentWidget = sender as ToolButton;
-                        Console.WriteLine (args.ToString ());
-                        if (currentWidget != null) {
-                                currentWidget.CanFocus = true;
-                                currentWidget.GrabFocus ();
-                        }
+                        topicToolItem.GrabFocus ();
                 }
 
                 void uiManager_PreActivate (object sender, PreActivateArgs args)
                 {
-                        //currentWidget = actions[args.Action.Name].Proxies[0].get;
-                        //Console.WriteLine (args.Action.Proxies[0].Name);
-                        //if (currentWidget != null) {
-                        //        currentWidget.CanFocus = true;
-                        //        currentWidget.GrabFocus ();
-                        //}
+                        topicToolItem.GrabFocus ();
                 }
 
                 void BuildIcons ()
