@@ -184,6 +184,7 @@ namespace Psycho
                         if (Model.CurrentTopic != null) {
                                 this.Sensitive = true;
                                 titleEntry.Text = iModel.CurrentTopic.Text;
+                                titleEntry.SelectRegion (0, titleEntry.Text.Length);
                         }
                         else
                                 this.Sensitive = false;
