@@ -42,7 +42,7 @@ namespace Psycho
                 if (topic.GUID != paramGuid) {
                     foreach (Topic child in topic.Subtopics) {
                         remaining.Enqueue(child);
-                        Console.WriteLine("Stepping through: " + child.Title);
+//                        Console.WriteLine("Stepping through: " + child.Title);
                     }
                 }
                 else

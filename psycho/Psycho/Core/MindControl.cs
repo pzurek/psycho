@@ -92,10 +92,10 @@ namespace Psycho
 			}
         }
 
-        public void RequestExpand (bool isExpanded)
+        public void RequestExpand (string paramGuid, bool isExpanded)
         {
             if (Model != null) {
-                Model.ExpandTopic(isExpanded);
+                Model.ExpandTopic(paramGuid, isExpanded);
             }
         }
         #endregion

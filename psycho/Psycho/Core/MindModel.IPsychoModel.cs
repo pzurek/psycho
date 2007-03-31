@@ -105,6 +105,7 @@ namespace Psycho
         public void SetTitle(string paramTitle)
         {
             CurrentTopic.Title = (paramTitle);
+            Console.WriteLine("Title for topic: " + CurrentTopic.GUID + " set to: " + CurrentTopic.Title);
         }
 
         public void AddObserver(IPsychoView paramView)
@@ -126,16 +127,19 @@ namespace Psycho
         
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
-            CurrentTopic = FindByGUID(paramGuid, centralTopic);
+            CurrentTopic = FindByGUID(paramGuid, CentralTopic);
 //            NotifyObservers();
             Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
         }
 
-        public void ExpandTopic (bool expand)
+        public void ExpandTopic (string paramGuid, bool expand)
         {
-            CurrentTopic.Expanded = expand;
-            //            NotifyObservers();
-            Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
+            Topic ExpandedTopic = FindByGUID(paramGuid, CentralTopic);
+            ExpandedTopic.Expanded = (expand);
+            if (expand) 
+                Console.WriteLine("Node: " + ExpandedTopic.GUID + " was expanded");
+            else
+                Console.WriteLine("Node: " + ExpandedTopic.GUID + " was collpsed");
         }
         #endregion
     }

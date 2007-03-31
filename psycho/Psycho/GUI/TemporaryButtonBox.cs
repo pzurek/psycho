@@ -27,6 +27,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gtk;
+using Gdk;
 
 namespace Psycho {
     ///<summary>
@@ -61,12 +62,12 @@ namespace Psycho {
             outlineView.NodeStore = (store);
             outlineView.NodeSelection.Mode = SelectionMode.Single;
 
-            Gtk.TreeViewColumn titleColumn = new Gtk.TreeViewColumn();
+            TreeViewColumn titleColumn = new TreeViewColumn();
             titleColumn.Title = "Topic title";
-            Gtk.CellRendererText titleCell = new Gtk.CellRendererText();
+            CellRendererText titleCell = new CellRendererText();
             titleColumn.PackStart(titleCell, true);
 
-            titleCell.Editable = true;
+            //titleCell.Editable = true;
             titleCell.Edited +=new EditedHandler(titleCell_Edited);
 
             outlineView.AppendColumn(titleColumn);
@@ -75,6 +76,7 @@ namespace Psycho {
             outlineView.Selection.Changed += new System.EventHandler(OnSelectionChanged);
             outlineView.RowCollapsed += new RowCollapsedHandler(outlineView_RowCollapsed);
             outlineView.RowExpanded += new RowExpandedHandler(outlineView_RowExpanded);
+            outlineView.KeyPressEvent += new KeyPressEventHandler(outlineView_KeyPressEvent);
             outlineView.ExpanderColumn.Expand = true;
             outlineContainer.Add(outlineView);
 
@@ -102,6 +104,20 @@ namespace Psycho {
             this.PackStart(outlineContainer, true, true, 6);
         }
 
+        void outlineView_KeyPressEvent (object o, KeyPressEventArgs args)
+        {
+            string key = args.Event.Key.ToString();
+            Console.WriteLine(key);
+            //switch (key) {
+            //    case "Insert":
+            //        AddSubtopic();
+            //    case "Return":
+            //        AddTopic();
+            //    default:
+            //        break;
+            //}
+        }
+
         public void WireUp (IPsychoControl paramControl, IPsychoModel paramModel)
         {
             if (Model != null) {
@@ -114,7 +130,7 @@ namespace Psycho {
             Control.SetModel(Model);
             Control.SetView(this);
             Model.AddObserver(this);
-            this.Update(Model);
+            Update(Model);
         }
 
         private void titleEntry_EditingDone(object sender, System.EventArgs e)
@@ -180,8 +196,8 @@ namespace Psycho {
             centralNode = new PsychoTreeNode(paramModel.CentralTopic.Title, paramModel.CentralTopic.GUID);
             store.AddNode(centralNode);
             AddNodesRecursively(centralNode, paramModel.CentralTopic);
-//            outlineView.ExpandAll();
-//            titleEntry.Text = paramModel.CurrentTopic.Title;
+            outlineView.ExpandAll();
+            titleEntry.Text = paramModel.CurrentTopic.Title;
         }
 
         private void AddNodesRecursively (PsychoTreeNode paramNode, Topic paramTopic)
@@ -215,23 +231,20 @@ namespace Psycho {
 
         private void titleCell_Edited (object sender, Gtk.EditedArgs args)
         {
-            //PsychoTreeNode node;
-            //store.GetNode(, new Gtk.TreePath(args.NewText));
+            EditTitle(args.NewText);
         }
 
         private void outlineView_RowCollapsed (object sender, Gtk.RowCollapsedArgs args)
         {
-            ExpandTopic(false);
         }
 
         private void outlineView_RowExpanded (object sender, Gtk.RowExpandedArgs args)
         {
-            ExpandTopic(true);
         }
 
-        public void ExpandTopic(bool isExpanded)
+        public void ExpandTopic(string paramGuid, bool isExpanded)
         {
-            Control.RequestExpand(isExpanded);
+            Control.RequestExpand(paramGuid, isExpanded);
         }
     }
 }
