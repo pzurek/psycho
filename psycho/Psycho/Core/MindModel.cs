@@ -166,6 +166,7 @@ namespace Psycho
                                 SetCurrent (newTopic);
                                 SetCurrentXml (CurrentTopic.GUID);
                                 newTopics.Add (newTopic);
+                                InvalidateToTop (CurrentTopic);
                                 NotifyObservers ();
                         }
                 }
@@ -179,6 +180,7 @@ namespace Psycho
                         SetCurrent (newTopic);
                         SetCurrentXml (CurrentTopic.GUID);
                         newTopics.Add (newTopic);
+                        InvalidateToTop (CurrentTopic);
                         NotifyObservers ();
                 }
 
@@ -227,9 +229,9 @@ namespace Psycho
                                 return;
 
                         Topic tempParent = this.CurrentTopic.Parent;
-                        Topic deletedTopic = (CurrentTopic);
+                        Topic deletedTopic = CurrentTopic;
 
-                        deletedTopicPath = (deletedTopic.Path);
+                        deletedTopicPath = deletedTopic.Path;
                         deletedTopics.Add (deletedTopic);
 
                         currentXmlParent = FindXmlByGuid (CurrentTopic.Parent.GUID);
@@ -251,6 +253,7 @@ namespace Psycho
                                 CurrentTopic = tempParent.Subtopics[newIndex];
                                 SetCurrentXml (CurrentTopic.GUID);
                         }
+                        InvalidateToTop (tempParent);
                         NotifyObservers ();
                 }
 
@@ -329,6 +332,15 @@ namespace Psycho
                 public XmlDocument XMLModel
                 {
                         get { return xmlModel; }
+                }
+
+                public static void InvalidateToTop (Topic iTopic)
+                {
+                        iTopic.Invalidate ();
+                        if (iTopic.Parent != null)
+                                InvalidateToTop (iTopic.Parent);
+                        else
+                                return;
                 }
         }
 }

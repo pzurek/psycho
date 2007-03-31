@@ -547,11 +547,12 @@ namespace Psycho
                 public bool IsValid
                 {
                         get { return isValid; }
+                        set { isValid = value; }
                 }
 
                 public void Invalidate ()
                 {
-                        ;
+                        this.IsValid = false;
                 }
         }
 }
