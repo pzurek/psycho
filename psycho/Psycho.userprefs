@@ -14,10 +14,10 @@
         <Node expanded="True">
           <Node name="Psycho" expanded="True">
             <Node name="References" expanded="True" />
-            <Node name="Core" expanded="True" />
-            <Node name="GUI" expanded="True">
-              <Node name="TemporaryButtonBox.cs" expanded="False" selected="True" />
+            <Node name="Core" expanded="True">
+              <Node name="MindModel.IPsychoModel.cs" expanded="False" selected="True" />
             </Node>
+            <Node name="GUI" expanded="True" />
             <Node name="Ifaces" expanded="True" />
           </Node>
         </Node>
@@ -55,7 +55,7 @@
   <Properties>
     <Properties>
       <Property key="ActiveConfiguration" value="Debug" />
-      <Property key="ActiveWindow" value="/home/piotr/Projects/Psycho/Psycho/GUI/TemporaryButtonBox.cs" />
+      <Property key="ActiveWindow" value="/home/piotr/Projects/Psycho/Psycho/Core/MindModel.IPsychoModel.cs" />
     </Properties>
   </Properties>
 </UserCombinePreferences>

@@ -49,6 +49,7 @@ namespace Psycho
         {
             while (paramTopic.Subtopics.Count < 5){
                 Topic newTopic = new Topic(this.centralTopic.TotalCount);
+                newTopic.Parent = paramTopic;
                 paramTopic.AddSubtopic(newTopic);
             }
 

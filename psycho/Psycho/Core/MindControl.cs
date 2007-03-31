@@ -79,7 +79,7 @@ namespace Psycho
         {
 			if (Model != null)
 			{
-            	Model.CurrentTopic.Delete();
+            	Model.DeleteTopic();
                 CheckAddSiblingButtonLegal();
 			}
         }

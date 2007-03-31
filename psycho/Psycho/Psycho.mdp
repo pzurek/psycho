@@ -23,7 +23,6 @@
     <File name="./Ifaces/IPsychoControl.cs" subtype="Code" buildaction="Compile" />
     <File name="./Ifaces/IPsychoModel.cs" subtype="Code" buildaction="Compile" />
     <File name="./Ifaces/IPsychoView.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Ifaces/ITopic.cs" subtype="Code" buildaction="Compile" />
     <File name="./GUI" subtype="Directory" buildaction="Compile" />
     <File name="./Enums" subtype="Directory" buildaction="Compile" />
     <File name="./Core" subtype="Directory" buildaction="Compile" />

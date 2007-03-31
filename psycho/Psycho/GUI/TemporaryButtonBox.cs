@@ -65,7 +65,7 @@ namespace Psycho {
             outlineView.AppendColumn("GUID", new CellRendererText(), "text", 1);
             outlineView.ShowAll();
             outlineView.Selection.Changed += new System.EventHandler(OnSelectionChanged);
-
+            outlineView.ExpanderColumn.Expand = true;
             outlineContainer.Add(outlineView);
 
             addSiblingButton.Label = ("Add Sibling");

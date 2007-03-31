@@ -82,14 +82,16 @@ namespace Psycho
         {
             int previousIndex;
             int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
+
             if (currentIndex > 0) {
                 previousIndex = currentIndex - 1;
             }
             else {
                 previousIndex = 0;
             }
+
             Topic tempParent = this.CurrentTopic.Parent;
-            CurrentTopic.Delete();
+            CurrentTopic.Parent.Subtopics.RemoveAt(currentIndex);
             CurrentTopic = tempParent.Subtopics[previousIndex];
             NotifyObservers();
         }
@@ -118,36 +120,27 @@ namespace Psycho
         
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
-            foreach (Topic child in paramTopic.Subtopics) {
-                if (child.GUID == paramGuid) {
-                    CurrentTopic = child;
+
+            foreach (Topic topic in paramTopic.Subtopics) {
+                if (topic.GUID == paramGuid) {
+                    CurrentTopic = topic;
                     break;
                 }
-                SetCurrent (paramGuid, child);
+                else SetCurrent(paramGuid, topic);
             }
-
-            //Queue<Topic> remaining = new Queue<Topic>();
-            //remaining.Enqueue(CentralTopic);
-            //CurrentTopic = CentralTopic;
-
-            //while (remaining.Count > 0) {
-            //    Topic topic = remaining.Dequeue();
-            //    if (currentTopic.GUID == paramGuid) break;
-            //    else {
-            //        if (topic.GUID == paramGuid) {
-            //            CurrentTopic = topic; break;
-            //        }
+            //if (paramTopic.GUID == paramGuid) {
+            //        CurrentTopic = paramTopic;
             //    }
-            //    foreach (Topic child in topic.Subtopics)
-            //    {
-            //        remaining.Enqueue(child);
-            //        if (child.GUID == paramGuid)
-            //            {CurrentTopic = child; break;};
+            //else {
+            //    foreach (Topic child in paramTopic.Subtopics) {
+            //        if (child.GUID == paramGuid) {
+            //            CurrentTopic = child;
+            //            break;
+            //        }
+            //        SetCurrent (paramGuid, child);
             //    }
             //}
-
             Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
-            NotifyObservers();
         }
         #endregion
     }
