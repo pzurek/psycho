@@ -29,6 +29,7 @@ using Gdk;
 using Gtk;
 
 namespace Psycho {
+
     public class UIManagerView : IView {
 
         private IModel Model;
@@ -94,7 +95,7 @@ namespace Psycho {
                 new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
             };
 
-            //BuildIcons();
+            BuildIcons();
             ActionGroup actions = new ActionGroup("group");
             actions.Add(entries);
 
@@ -102,20 +103,16 @@ namespace Psycho {
             uiManager.AddUiFromString(ui);
         }
 
-        public static void BuildIcons ()
+        static void BuildIcons ()
         {
-            Gdk.Pixbuf pixbufTopic = Gdk.Pixbuf.LoadFromResource("gtk-logo-rgb.gif");
-            Gdk.Pixbuf pixbufSubtopic = Gdk.Pixbuf.LoadFromResource("psycho-subtopic.gif");
-            Gdk.Pixbuf pixbufDelete = Gdk.Pixbuf.LoadFromResource("psycho-delete.gif");
-
-            Pixbuf transparentTopic = pixbufTopic.AddAlpha(true, 0xff, 0xff, 0xff);
-            Pixbuf transparentSubtopic = pixbufSubtopic.AddAlpha(true, 0xff, 0xff, 0xff);
-            Pixbuf transparentDelete = pixbufDelete.AddAlpha(true, 0xff, 0xff, 0xff);
+            Gdk.Pixbuf topicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-topic.png");
+            Gdk.Pixbuf subtopicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-subtopic.png");
+            Gdk.Pixbuf deleteIcon = Gdk.Pixbuf.LoadFromResource ("psycho-delete.png");
 
             IconFactory factory = new IconFactory();
-            factory.Add("psycho-topic", new IconSet(transparentTopic));
-            factory.Add("psycho-subtopic", new IconSet(transparentSubtopic));
-            factory.Add("psycho-delete", new IconSet(transparentDelete));
+            factory.Add("psycho-topic", new IconSet(topicIcon));
+            factory.Add("psycho-subtopic", new IconSet(subtopicIcon));
+            factory.Add("psycho-delete", new IconSet(deleteIcon));
             factory.AddDefault();
 
             StockManager.Add(new StockItem("psycho-topic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
@@ -198,12 +195,10 @@ namespace Psycho {
 
         public void DisableAddSibling ()
         {
-            throw new Exception("The method or operation is not implemented.");
         }
 
         public void DisableDelete ()
         {
-            throw new Exception("The method or operation is not implemented.");
         }
 
         public void EnableAddSibling ()
