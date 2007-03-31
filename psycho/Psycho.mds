@@ -1,0 +1,16 @@
+<Combine name="Psycho" fileversion="2.0">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="Psycho" configuration="Debug" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="Psycho" configuration="Debug" />
+    </Configuration>
+  </Configurations>
+  <StartMode startupentry="Psycho" single="True">
+    <Execute type="None" entry="Psycho" />
+  </StartMode>
+  <Entries>
+    <Entry filename="./Psycho/Psycho.mdp" />
+  </Entries>
+</Combine>
