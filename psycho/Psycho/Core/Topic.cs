@@ -151,15 +151,10 @@ namespace Psycho
                 double height;
                 double totalHeight;
                 TopicList subtopicList;
-                TopicList leftSubtopics;
-                TopicList rightSubtopics;
-                TopicList topSubtopics;
-                TopicList bottomSubtopics;
                 Pango.Layout textLayout;
                 TopicFrame frame;
                 TopicConnection connection;
-                bool isOnLeft;
-                bool isOnTop;
+                bool isOnOtherSide;
                 bool isFirst;
                 bool isLast;
                 bool hasChildren;
@@ -197,14 +192,14 @@ namespace Psycho
                         {
                                 switch (this.Parent.Style.SubLayout) {
                                         case SubtopicsLayout.Map: {
-                                                if (this.isOnLeft)
+                                                if (this.IsOnOtherSide)
                                                         inPoint = this.Frame.Right;
                                                 else
                                                         inPoint = this.Frame.Left;
                                         }
                                         break;
                                         case SubtopicsLayout.Root: {
-                                                if (this.isOnLeft)
+                                                if (this.IsOnOtherSide)
                                                         inPoint = this.Frame.Right;
                                                 else
                                                         inPoint = this.Frame.Left;
@@ -228,7 +223,7 @@ namespace Psycho
                                 else
                                         switch (this.Style.SubLayout) {
                                                 case SubtopicsLayout.Map: {
-                                                        if (this.isOnLeft)
+                                                        if (this.IsOnOtherSide)
                                                                 outPoint = this.Frame.Left;
                                                         else
                                                                 outPoint = this.Frame.Right;
@@ -601,16 +596,10 @@ namespace Psycho
                         }
                 }
 
-                public bool IsOnLeft
+                public bool IsOnOtherSide
                 {
-                        get { return isOnLeft; }
-                        set { isOnLeft = value; }
-                }
-
-                public bool IsOnTop
-                {
-                        get { return isOnTop; }
-                        set { isOnTop = value; }
+                        get { return IsOnOtherSide; }
+                        set { IsOnOtherSide = value; }
                 }
 
                 public bool IsCentral

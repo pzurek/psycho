@@ -1,3 +1,5 @@
+//------10--------20--------30--------40--------50--------60--------70--------80
+//
 // Copyright 2006 by:
 //
 // Author:
@@ -119,10 +121,10 @@ namespace Psycho
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
                         this.mapArea.SetSizeRequest ((int) Model.CentralTopic.GlobalWidth + 2 * margin, (int) Model.CentralTopic.GlobalHeight + 2 * margin);
-                        //Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 22 , (int) Model.CentralTopic.GlobalHeight + 22);
+                        //Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 20, (int) Model.CentralTopic.GlobalHeight + 20);
                         //Cairo.Context pictureContext = new Cairo.Context (image);
                         //DrawBackground (pictureContext);
-                        //pictureContext.Translate (System.Math.Floor (Model.CentralTopic.Width / 2), Model.CentralTopic.GlobalHeight / 2);
+                        //pictureContext.Translate (System.Math.Floor (Model.CentralTopic.Width / 2 + 10), Model.CentralTopic.GlobalHeight / 2 + 10);
                         //DrawTopics (pictureContext);
                         //pictureContext.Rectangle (Model.CentralTopic.Width / 2 - 10, Model.CentralTopic.GlobalHeight / 2 - 10, Model.CentralTopic.Width + 20, Model.CentralTopic.GlobalHeight + 20);
                         //image.WriteToPng ("psycho.png");
@@ -222,6 +224,7 @@ namespace Psycho
                         gc = mapArea.Style.TextAAGC (StateType.Normal);
                         gc.Foreground = new Gdk.Color (0, 0, 0);
                         text = iTopic.TextLayout;
+                        //text.Alignment = Pango.Alignment.Center;
                         mapArea.GdkWindow.DrawLayout (gc,
                                 (int) (iTopic.Offset.X - iTopic.TextWidth / 2 - Model.CentralTopic.Left + margin),
                                 (int) (iTopic.Offset.Y - iTopic.TextHeight / 2 - Model.CentralTopic.Top + margin),

@@ -43,6 +43,7 @@ namespace Psycho
                 Cairo.PointD arcControlStart, arcControlEnd;
                 Cairo.PointD curveControlStart, curveControlEnd;
                 Cairo.PointD roundedAngleCrankStart, roundedAngleCrankEnd;
+                Cairo.PointD rootCenter;
                 double crankRadius, crankChamfer;
                 bool mapExtenstion, orgChartExtension;
 
@@ -143,10 +144,10 @@ namespace Psycho
                         get
                         {
                                 crankRadius = this.Topic.Style.CrankRadius;
-                                if (System.Math.Abs (this.ConnectionVector.Dy) < crankRadius)
-                                        crankRadius = System.Math.Abs ((this.ConnectionVector.Dy) / 2 + 0.5);
-                                if (System.Math.Abs (this.ConnectionVector.Dx) < crankRadius)
-                                        crankRadius = System.Math.Abs ((this.ConnectionVector.Dx) / 2 + 0.5);
+                                if (System.Math.Abs (this.ConnectionVector.Dy / 2) < crankRadius)
+                                        crankRadius = System.Math.Abs (((this.ConnectionVector.Dy) / 3));
+                                if (System.Math.Abs (this.ConnectionVector.Dx / 2) < crankRadius)
+                                        crankRadius = System.Math.Abs (((this.ConnectionVector.Dx) / 3));
                                 return crankRadius;
                         }
                 }
@@ -155,10 +156,11 @@ namespace Psycho
                 {
                         get
                         {
-                                if (System.Math.Abs (this.ConnectionVector.Dy) > (2 * this.Topic.Style.CrankChamfer))
-                                        crankChamfer = this.Topic.Style.CrankChamfer;
-                                else
-                                        crankChamfer = System.Math.Abs (this.ConnectionVector.Dy) / 2;
+                                crankChamfer = this.Topic.Style.CrankChamfer;
+                                if (System.Math.Abs (this.ConnectionVector.Dy / 2) < crankChamfer)
+                                        crankChamfer = System.Math.Abs (((this.ConnectionVector.Dy) / 3));
+                                if (System.Math.Abs (this.ConnectionVector.Dx / 2) < crankChamfer)
+                                        crankChamfer = System.Math.Abs (((this.ConnectionVector.Dx) / 3));
                                 return crankChamfer;
                         }
                 }
@@ -179,7 +181,7 @@ namespace Psycho
                                         }
                                         break;
                                         case SubtopicsLayout.Root: {
-                                                middleStart.X = System.Math.Floor (this.End.X);
+                                                middleStart.X = System.Math.Floor (this.Start.X + this.ConnectionVector.Dx / 2 + 0.5);
                                                 middleStart.Y = System.Math.Floor (this.Start.Y);
                                         }
                                         break;
@@ -213,6 +215,17 @@ namespace Psycho
                         }
                 }
 
+                public Cairo.PointD RootCenter
+                {
+                        get
+                        {
+                                rootCenter.X = System.Math.Floor (this.End.X);
+                                rootCenter.Y = System.Math.Floor (this.Start.Y);
+                                return rootCenter;
+                        }
+                }
+
+
                 public Cairo.PointD CurveControlStart
                 {
                         get
@@ -242,8 +255,23 @@ namespace Psycho
                 {
                         get
                         {
-                                curveControlEnd.X = System.Math.Floor (this.End.X - ConnectionVector.Dx / 1.61);
-                                curveControlEnd.Y = System.Math.Floor (this.End.Y);
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                curveControlEnd.X = System.Math.Floor (this.End.X - ConnectionVector.Dx / 1.61);
+                                                curveControlEnd.Y = System.Math.Floor (this.End.Y);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                curveControlEnd.X = System.Math.Floor (this.End.X);
+                                                curveControlEnd.Y = System.Math.Floor (this.End.Y - ConnectionVector.Dy / 1.61);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root: {
+                                                curveControlEnd.X = System.Math.Floor (this.End.X - ConnectionVector.Dx / 1.61);
+                                                curveControlEnd.Y = System.Math.Floor (this.End.Y);
+                                        }
+                                        break;
+                                }
                                 return curveControlEnd;
                         }
                 }
@@ -302,22 +330,22 @@ namespace Psycho
                                         case SubtopicsLayout.Root: {
                                                 if (this.ConnectionVector.Dx * this.ConnectionVector.Dy > 0) {
                                                         if (this.ConnectionVector.Dx > 0) {
-                                                                roundedCrankCenterStart.X = System.Math.Floor (MiddleStart.X - CrankRadius);
-                                                                roundedCrankCenterStart.Y = System.Math.Floor (MiddleStart.Y + CrankRadius);
+                                                                roundedCrankCenterStart.X = System.Math.Floor (RootCenter.X - CrankRadius);
+                                                                roundedCrankCenterStart.Y = System.Math.Floor (RootCenter.Y + CrankRadius);
                                                         }
                                                         else {
-                                                                roundedCrankCenterStart.X = System.Math.Floor (MiddleStart.X + CrankRadius);
-                                                                roundedCrankCenterStart.Y = System.Math.Floor (MiddleStart.Y - CrankRadius);
+                                                                roundedCrankCenterStart.X = System.Math.Floor (RootCenter.X + CrankRadius);
+                                                                roundedCrankCenterStart.Y = System.Math.Floor (RootCenter.Y - CrankRadius);
                                                         }
                                                 }
                                                 else {
                                                         if (this.ConnectionVector.Dx < 0) {
-                                                                roundedCrankCenterStart.X = System.Math.Floor (MiddleStart.X + CrankRadius);
-                                                                roundedCrankCenterStart.Y = System.Math.Floor (MiddleStart.Y + CrankRadius);
+                                                                roundedCrankCenterStart.X = System.Math.Floor (RootCenter.X + CrankRadius);
+                                                                roundedCrankCenterStart.Y = System.Math.Floor (RootCenter.Y + CrankRadius);
                                                         }
                                                         else {
-                                                                roundedCrankCenterStart.X = System.Math.Floor (MiddleStart.X - CrankRadius);
-                                                                roundedCrankCenterStart.Y = System.Math.Floor (MiddleStart.Y - CrankRadius);
+                                                                roundedCrankCenterStart.X = System.Math.Floor (RootCenter.X - CrankRadius);
+                                                                roundedCrankCenterStart.Y = System.Math.Floor (RootCenter.Y - CrankRadius);
                                                         }
                                                 }
                                         }
@@ -389,8 +417,23 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankStart1.X = System.Math.Floor (this.MiddleStart.X - this.CrankRadius * System.Math.Sign (this.connectionVector.Dx));
-                                chamferedCrankStart1.Y = System.Math.Floor (this.MiddleStart.Y);
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                chamferedCrankStart1.X = System.Math.Floor (this.MiddleStart.X - this.CrankChamfer * System.Math.Sign (this.connectionVector.Dx));
+                                                chamferedCrankStart1.Y = System.Math.Floor (this.MiddleStart.Y);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                chamferedCrankStart1.X = System.Math.Floor (this.MiddleStart.X);
+                                                chamferedCrankStart1.Y = System.Math.Floor (this.MiddleStart.Y - this.CrankChamfer * System.Math.Sign (this.connectionVector.Dy));
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root: {
+                                                chamferedCrankStart1.X = System.Math.Floor (this.RootCenter.X - this.CrankChamfer * System.Math.Sign (this.connectionVector.Dx));
+                                                chamferedCrankStart1.Y = System.Math.Floor (this.RootCenter.Y);
+                                        }
+                                        break;
+                                }
                                 return chamferedCrankStart1;
                         }
                 }
@@ -399,8 +442,23 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankStart2.X = System.Math.Floor (this.MiddleStart.X);
-                                chamferedCrankStart2.Y = System.Math.Floor (this.MiddleStart.Y + this.CrankRadius * System.Math.Sign (this.connectionVector.Dy));
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                chamferedCrankStart2.X = System.Math.Floor (this.MiddleStart.X);
+                                                chamferedCrankStart2.Y = System.Math.Floor (this.MiddleStart.Y + this.CrankChamfer * System.Math.Sign (this.connectionVector.Dy));
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                chamferedCrankStart2.X = System.Math.Floor (this.MiddleStart.X + this.CrankChamfer * System.Math.Sign (this.connectionVector.Dx));
+                                                chamferedCrankStart2.Y = System.Math.Floor (this.MiddleStart.Y);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root: {
+                                                chamferedCrankStart2.X = System.Math.Floor (this.RootCenter.X);
+                                                chamferedCrankStart2.Y = System.Math.Floor (this.RootCenter.Y + this.CrankChamfer * System.Math.Sign (this.connectionVector.Dy));
+                                        }
+                                        break;
+                                }
                                 return chamferedCrankStart2;
                         }
                 }
@@ -409,8 +467,20 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankEnd1.X = System.Math.Floor (this.MiddleEnd.X + this.CrankChamfer * System.Math.Sign (this.connectionVector.Dx));
-                                chamferedCrankEnd1.Y = System.Math.Floor (this.MiddleEnd.Y);
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                chamferedCrankEnd1.X = System.Math.Floor (this.MiddleEnd.X + this.CrankChamfer * System.Math.Sign (this.connectionVector.Dx));
+                                                chamferedCrankEnd1.Y = System.Math.Floor (this.MiddleEnd.Y);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                chamferedCrankEnd1.X = System.Math.Floor (this.MiddleEnd.X);
+                                                chamferedCrankEnd1.Y = System.Math.Floor (this.MiddleEnd.Y + this.CrankChamfer * System.Math.Sign (this.connectionVector.Dy));
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root:
+                                        break;
+                                }
                                 return chamferedCrankEnd1;
                         }
                 }
@@ -419,8 +489,20 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankEnd2.X = System.Math.Floor (this.MiddleEnd.X);
-                                chamferedCrankEnd2.Y = System.Math.Floor (this.MiddleEnd.Y - this.CrankChamfer * System.Math.Sign (this.connectionVector.Dy));
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                chamferedCrankEnd2.X = System.Math.Floor (this.MiddleEnd.X);
+                                                chamferedCrankEnd2.Y = System.Math.Floor (this.MiddleEnd.Y - this.CrankChamfer * System.Math.Sign (this.connectionVector.Dy));
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                chamferedCrankEnd2.X = System.Math.Floor (this.MiddleEnd.X - this.CrankChamfer * System.Math.Sign (this.connectionVector.Dx));
+                                                chamferedCrankEnd2.Y = System.Math.Floor (this.MiddleEnd.Y);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root:
+                                        break;
+                                }
                                 return chamferedCrankEnd2;
                         }
                 }
@@ -479,8 +561,23 @@ namespace Psycho
                 {
                         get
                         {
-                                roundedAngleCrankStart.X = System.Math.Floor (this.Start.X + this.ConnectionVector.Dx / 8 + 0.5);
-                                roundedAngleCrankStart.Y = System.Math.Floor (this.Start.Y);
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                roundedAngleCrankStart.X = System.Math.Floor (this.Start.X + this.ConnectionVector.Dx / 8 + 0.5);
+                                                roundedAngleCrankStart.Y = System.Math.Floor (this.Start.Y);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                roundedAngleCrankStart.X = System.Math.Floor (this.Start.X);
+                                                roundedAngleCrankStart.Y = System.Math.Floor (this.Start.Y + this.ConnectionVector.Dy / 8 + 0.5);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root: {
+                                                roundedAngleCrankStart.X = System.Math.Floor (this.Start.X + this.ConnectionVector.Dx / 8 + 0.5);
+                                                roundedAngleCrankStart.Y = System.Math.Floor (this.Start.Y);
+                                        }
+                                        break;
+                                }
                                 return roundedAngleCrankStart;
                         }
                 }
@@ -489,8 +586,23 @@ namespace Psycho
                 {
                         get
                         {
-                                roundedAngleCrankEnd.X = System.Math.Floor (this.End.X - this.ConnectionVector.Dx / 8 + 0.5);
-                                roundedAngleCrankEnd.Y = System.Math.Floor (this.End.Y - this.ConnectionVector.Dy / 4 + 0.5);
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                roundedAngleCrankEnd.X = System.Math.Floor (this.End.X - this.ConnectionVector.Dx / 8 + 0.5);
+                                                roundedAngleCrankEnd.Y = System.Math.Floor (this.End.Y - this.ConnectionVector.Dy / 4 + 0.5);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                roundedAngleCrankEnd.X = System.Math.Floor (this.End.X - this.ConnectionVector.Dx / 4 + 0.5);
+                                                roundedAngleCrankEnd.Y = System.Math.Floor (this.End.Y - this.ConnectionVector.Dy / 8 + 0.5);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root: {
+                                                roundedAngleCrankEnd.X = System.Math.Floor (this.End.X - this.ConnectionVector.Dx / 8 + 0.5);
+                                                roundedAngleCrankEnd.Y = System.Math.Floor (this.End.Y - this.ConnectionVector.Dy / 4 + 0.5);
+                                        }
+                                        break;
+                                }
                                 return roundedAngleCrankEnd;
                         }
                 }
@@ -536,12 +648,14 @@ namespace Psycho
 
                 private void fillGap ()
                 {
-                        if (mapExtenstion || orgChartExtension) {
-                                context.MoveTo (extendedStart);
-                                context.LineTo (Start);
+                        if (this.shape != ConnectionShape.None) {
+                                if (mapExtenstion || orgChartExtension) {
+                                        context.MoveTo (extendedStart);
+                                        context.LineTo (Start);
+                                }
+                                else
+                                        context.MoveTo (Start);
                         }
-                        else
-                                context.MoveTo (Start);
                 }
 
                 private void sketchCurve ()
@@ -631,15 +745,21 @@ namespace Psycho
                 {
                         context.LineTo (ChamferedCrankStart1);
                         context.LineTo (ChamferedCrankStart2);
-                        context.LineTo (ChamferedCrankEnd2);
-                        context.LineTo (ChamferedCrankEnd1);
+                        if (this.Topic.Parent.Style.SubLayout != SubtopicsLayout.Root) {
+                                context.LineTo (ChamferedCrankEnd2);
+                                context.LineTo (ChamferedCrankEnd1);
+                        }
                         context.LineTo (End);
                 }
 
                 private void sketchCrank ()
                 {
-                        context.LineTo (MiddleStart);
-                        context.LineTo (MiddleEnd);
+                        if (this.Topic.Parent.Style.SubLayout == SubtopicsLayout.Root)
+                                context.LineTo (RootCenter);
+                        else {
+                                context.LineTo (MiddleStart);
+                                context.LineTo (MiddleEnd);
+                        }
                         context.LineTo (End);
                 }
 

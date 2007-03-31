@@ -94,21 +94,21 @@ namespace Psycho
                         get
                         {
                                 switch (this.Topic.Level) {
-                                case 0:
-                                shape = TopicShape.RoundedRectangle;
-                                break;
-                                case 1:
-                                shape = TopicShape.Hexagon;
-                                break;
-                                case 2:
-                                shape = TopicShape.Octagon;
-                                break;
-                                case 3:
-                                shape = TopicShape.Rectangle;
-                                break;
-                                default:
-                                shape = TopicShape.Line;
-                                break;
+                                        case 0:
+                                        shape = TopicShape.RoundedRectangle;
+                                        break;
+                                        case 1:
+                                        shape = TopicShape.Hexagon;
+                                        break;
+                                        case 2:
+                                        shape = TopicShape.Octagon;
+                                        break;
+                                        case 3:
+                                        shape = TopicShape.Rectangle;
+                                        break;
+                                        default:
+                                        shape = TopicShape.Hexagon;
+                                        break;
                                 }
                                 return shape;
                         }
@@ -123,7 +123,8 @@ namespace Psycho
 
                 public SubtopicsLayout SubLayout
                 {
-                        get {
+                        get
+                        {
                                 switch (this.Topic.Index) {
                                         case 0:
                                         subLayout = SubtopicsLayout.Map;
@@ -138,8 +139,9 @@ namespace Psycho
                                         subLayout = SubtopicsLayout.Map;
                                         break;
                                 }
-                                
-                                return subLayout; }
+
+                                return subLayout;
+                        }
                         set { subLayout = value; }
                 }
 
@@ -148,27 +150,30 @@ namespace Psycho
                         get
                         {
                                 switch (this.Topic.Level) {
-                                //case 0:
-                                //connectShape = ConnectionShape.Curve;
-                                //break;
-                                //case 1:
-                                //connectShape = ConnectionShape.RoundedCrank;
-                                //break;
-                                //case 2:
-                                //connectShape = ConnectionShape.Arc;
-                                //break;
-                                //case 3:
-                                //connectShape = ConnectionShape.RoundedAngleCrank;
-                                //break;
-                                //case 4:
-                                //connectShape = ConnectionShape.AngleCrank;
-                                //break;
-                                //case 5:
-                                //connectShape = ConnectionShape.ChamferedCrank;
-                                //break;
-                                default:
-                                connectShape = ConnectionShape.Crank;
-                                break;
+                                        case 0:
+                                        connectShape = ConnectionShape.Curve;
+                                        break;
+                                        case 1:
+                                        connectShape = ConnectionShape.RoundedCrank;
+                                        break;
+                                        case 2:
+                                        connectShape = ConnectionShape.Arc;
+                                        break;
+                                        case 3:
+                                        connectShape = ConnectionShape.RoundedAngleCrank;
+                                        break;
+                                        case 4:
+                                        connectShape = ConnectionShape.AngleCrank;
+                                        break;
+                                        case 5:
+                                        connectShape = ConnectionShape.ChamferedCrank;
+                                        break;
+                                        case 6:
+                                        connectShape = ConnectionShape.Crank;
+                                        break;
+                                        default:
+                                        connectShape = ConnectionShape.Straight;
+                                        break;
                                 }
                                 return connectShape;
                         }
@@ -188,30 +193,30 @@ namespace Psycho
                                 if (strokeColor == null) {
                                         if (this.Topic.Level < 2) {
                                                 switch (this.Topic.Number) {
-                                                case "0":
-                                                strokeColor = new Color (55, 55, 55);
-                                                break;
-                                                case "1":
-                                                strokeColor = new Color (52, 101, 164);// (239, 41, 41);
-                                                break;
-                                                case "2":
-                                                strokeColor = new Color (239, 41, 41);// (237, 212, 0);
-                                                break;
-                                                case "3":
-                                                strokeColor = new Color (237, 212, 0);
-                                                break;
-                                                case "4":
-                                                strokeColor = new Color (115, 210, 22);
-                                                break;
-                                                case "5":
-                                                strokeColor = new Color (173, 127, 168);
-                                                break;
-                                                case "6":
-                                                strokeColor = new Color (245, 121, 0);
-                                                break;
-                                                default:
-                                                strokeColor = new Color (32, 74, 135);
-                                                break;
+                                                        case "0":
+                                                        strokeColor = new Color (55, 55, 55);
+                                                        break;
+                                                        case "1":
+                                                        strokeColor = new Color (52, 101, 164);// (239, 41, 41);
+                                                        break;
+                                                        case "2":
+                                                        strokeColor = new Color (239, 41, 41);// (237, 212, 0);
+                                                        break;
+                                                        case "3":
+                                                        strokeColor = new Color (237, 212, 0);
+                                                        break;
+                                                        case "4":
+                                                        strokeColor = new Color (115, 210, 22);
+                                                        break;
+                                                        case "5":
+                                                        strokeColor = new Color (173, 127, 168);
+                                                        break;
+                                                        case "6":
+                                                        strokeColor = new Color (245, 121, 0);
+                                                        break;
+                                                        default:
+                                                        strokeColor = new Color (32, 74, 135);
+                                                        break;
                                                 }
                                         }
                                         else
@@ -227,18 +232,18 @@ namespace Psycho
                         get
                         {
                                 switch (this.Topic.Level) {
-                                case 0:
-                                strokeWidth = 3;
-                                break;
-                                case 1:
-                                strokeWidth = 2;
-                                break;
-                                case 2:
-                                strokeWidth = 2;
-                                break;
-                                default:
-                                strokeWidth = 1;
-                                break;
+                                        case 0:
+                                        strokeWidth = 5;
+                                        break;
+                                        case 1:
+                                        strokeWidth = 4;
+                                        break;
+                                        case 2:
+                                        strokeWidth = 3;
+                                        break;
+                                        default:
+                                        strokeWidth = 2;
+                                        break;
                                 }
                                 return strokeWidth;
                         }

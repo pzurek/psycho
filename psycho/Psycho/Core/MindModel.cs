@@ -43,6 +43,12 @@ namespace Psycho
                 XmlElement foundXmlTopic;
                 XmlDocument xmlModel = new XmlDocument ();
 
+                TopicList leftSubtopics;
+                TopicList rightSubtopics;
+                TopicList topSubtopics;
+                TopicList bottomSubtopics;
+
+
                 public MindModel ()
                 {
                         CentralTopic = new Topic ("Psycho - free mind mapping solution");
@@ -148,7 +154,7 @@ namespace Psycho
                                 newTopic.Parent = iTopic;
                                 CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);
                                 iTopic.AddSubtopic (newTopic);
-                                if (newTopic.Level < 4)
+                                if (newTopic.Level < 5)
                                         AppendSomeNodes (newTopic);
                         }
                 }
