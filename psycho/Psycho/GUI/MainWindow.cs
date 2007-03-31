@@ -25,13 +25,16 @@
 
 using System;
 using Gtk;
+using Psycho;
 
-namespace Psycho
-{
-	public class MainWindow : Window
-	{
-		public MainWindow () : base ("Psycho")
-		{
+namespace Psycho {
+    public class MainWindow : Window {
+        public MainWindow ()
+            : base("Psycho")
+        {
+            IconLoader iconLoader = new IconLoader();
+            Icon = iconLoader.topicIcon;
+
             VBox mainVBox = new VBox();
 
             MindModel model = new MindModel();
@@ -79,6 +82,6 @@ namespace Psycho
             mainVBox.ShowAll();
 
             Add(mainVBox);
-		}
-	}
+        }
+    }
 }

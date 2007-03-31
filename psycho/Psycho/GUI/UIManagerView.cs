@@ -73,7 +73,7 @@ namespace Psycho {
 
         public UIManagerView ()
         {
-            BuildIcons();
+            //BuildIcons();
 
             ActionEntry[] entries = new ActionEntry[] {
                 new ActionEntry ("FileMenu", null, "_File", null, null, null),
