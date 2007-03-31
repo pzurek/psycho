@@ -45,6 +45,7 @@ namespace Psycho
                 Topic workingTopic;
 
                 bool editPending;
+
                 string deletedTopicPath;
                 bool updatePending;
 

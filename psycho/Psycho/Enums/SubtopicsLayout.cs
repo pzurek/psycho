@@ -29,9 +29,11 @@ using System;
 
 namespace Psycho
 {
-        public enum ConnectionPoint
+        public enum SubtopicsLayout
         {
-                Center,
-                Edge,
+                Map,
+                OneSideMap,
+                Root,
+                OneSideRoot,
         }
 }

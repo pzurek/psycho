@@ -149,13 +149,50 @@ namespace Psycho
                 int textHeight;
                 double totalHeight;
                 Topics subtopics;
+                Topics leftSubtopics;
+                Topics rightSubtopics;
+                Topics topSubtopics;
+                Topics bottomSubtopics;
                 Pango.Layout textLayout;
                 TopicFrame frame;
                 TopicConnection connection;
                 bool isOnLeft;
+                bool isOnTop;
                 bool isFirst;
                 bool isLast;
                 bool hasChildren;
+                Cairo.PointD inPoint;
+
+                public Cairo.PointD InPoint
+                {
+                        get { return inPoint; }
+                        set { inPoint = value; }
+                }
+
+                Cairo.PointD outPoint;
+
+                public Cairo.PointD OutPoint
+                {
+                        get {
+                                if (this.Style.ConnectPoint == ConnectionPoint.Center)
+                                        outPoint = this.Frame.Center;
+                                else
+                                        switch (this.Style.SubLayout) {
+                                                case SubtopicsLayout.Map: {
+                                                if (this.isOnLeft)
+                                                        outPoint = this.Frame.Left;
+                                                else
+                                                        outPoint = this.Frame.Right;
+                                                }
+                                                        break;
+                                                case SubtopicsLayout.Root: {
+                                                                outPoint = this.Frame.Bottom;
+                                                        }
+                                                        break;
+                                        }
+
+                                return outPoint; }
+                }
 
                 public Topics Subtopics
                 {
@@ -190,7 +227,6 @@ namespace Psycho
                         }
                 }
 
-
                 public int Bottom
                 {
                         get
@@ -199,7 +235,6 @@ namespace Psycho
                         }
                 }
 
-
                 public int Left
                 {
                         get
@@ -207,7 +242,6 @@ namespace Psycho
                                 return left;
                         }
                 }
-
 
                 public int Right
                 {

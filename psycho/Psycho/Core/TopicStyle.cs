@@ -52,6 +52,8 @@ namespace Psycho
                 int polyDistance;
                 bool fixedWidth;
                 int width;
+                SubtopicDystributionDirection subDirection;
+                SubtopicsLayout subLayout;
 
                 Stylus stylus = new Stylus ();
 
@@ -116,6 +118,18 @@ namespace Psycho
                 {
                         get { return connectPoint; }
                         set { connectPoint = value; }
+                }
+
+                public SubtopicDystributionDirection SubDirection
+                {
+                        get { return subDirection; }
+                        set { subDirection = value; }
+                }
+
+                public SubtopicsLayout SubLayout
+                {
+                        get { return subLayout; }
+                        set { subLayout = value; }
                 }
 
                 public ConnectionShape ConnectShape
