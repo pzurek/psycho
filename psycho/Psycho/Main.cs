@@ -31,7 +31,7 @@ namespace Psycho
 	{
 		public static void Main()
 		{
-			Console.WriteLine("Hello World!");
+			Console.WriteLine("I'm going slightly mad...");
 			Application.Init ();
 
         	MainWindow mainWindow = new MainWindow();
