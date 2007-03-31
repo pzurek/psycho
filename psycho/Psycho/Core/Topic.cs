@@ -62,6 +62,7 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic ";
                         this.Parent = iParent;
+                        iParent.Subtopics.Add (this);
                         this.Style = new TopicStyle (this);
                         //this.Update ();
                 }
@@ -72,6 +73,7 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = iTitle;
                         this.Parent = iParent;
+                        iParent.Subtopics.Add (this);
                         this.Style = new TopicStyle (this);
                         //this.Update ();
                 }
@@ -81,6 +83,17 @@ namespace Psycho
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic " + topicNumber.ToString ();
+                        this.Style = new TopicStyle (this);
+                        //this.Update ();
+                }
+
+                public Topic (int topicNumber, Topic iParent)
+                {
+                        System.Guid newGuid = System.Guid.NewGuid ();
+                        this.guid = newGuid.ToString ();
+                        this.Text = "Topic " + topicNumber.ToString ();
+                        this.Parent = iParent;
+                        iParent.Subtopics.Add (this);
                         this.Style = new TopicStyle (this);
                         //this.Update ();
                 }
