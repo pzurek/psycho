@@ -120,26 +120,8 @@ namespace Psycho
         
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
+            CurrentTopic = FindByGUID(paramGuid, centralTopic);
 
-            foreach (Topic topic in paramTopic.Subtopics) {
-                if (topic.GUID == paramGuid) {
-                    CurrentTopic = topic;
-                    break;
-                }
-                else SetCurrent(paramGuid, topic);
-            }
-            //if (paramTopic.GUID == paramGuid) {
-            //        CurrentTopic = paramTopic;
-            //    }
-            //else {
-            //    foreach (Topic child in paramTopic.Subtopics) {
-            //        if (child.GUID == paramGuid) {
-            //            CurrentTopic = child;
-            //            break;
-            //        }
-            //        SetCurrent (paramGuid, child);
-            //    }
-            //}
             Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
         }
         #endregion

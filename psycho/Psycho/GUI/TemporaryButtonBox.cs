@@ -50,8 +50,7 @@ namespace Psycho {
         Button deleteButton = new Button();
         #endregion
 
-        public TemporaryButtonBox ()
-            : base()
+        public TemporaryButtonBox () : base()
         {
             this.Homogeneous = false;
             this.BorderWidth = 6;
@@ -145,7 +144,6 @@ namespace Psycho {
             store.AddNode(centralNode);
             AddNodesRecursively(centralNode, paramModel.CentralTopic);
             outlineView.ExpandAll();
-            //            this.SelectNodeByGUID(paramModel.CurrentTopic.GUID);
             titleEntry.Text = paramModel.CurrentTopic.Title;
         }
 
