@@ -99,11 +99,13 @@ namespace Psycho {
         void titleCell_EditingCanceled (object sender, EventArgs args)
         {
             isEdited = false;
+            Console.WriteLine("Editing cancelled");
         }
 
         void titleCell_EditingStarted (object sender, EditingStartedArgs args)
         {
             isEdited = true;
+            Console.WriteLine("Editing started");
         }
 
         void outlineView_KeyReleaseEvent (object sender, KeyReleaseEventArgs args)
@@ -181,7 +183,6 @@ namespace Psycho {
                 TreeIter iter;
                 TreePath path = new TreePath(topic.Path);
                 store.GetIter(out iter, path);
-                store.UnrefNode(iter);
                 store.Remove(ref iter);
                 outlineView.QueueDraw();
             }
