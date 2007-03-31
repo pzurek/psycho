@@ -59,6 +59,7 @@ namespace Psycho {
                 private Notes topicNotes;
                 private Style topicStyle;
                 private Title topicTitle;
+                private TopicType type;
 
                 public Topics Subtopics = new Topics ();
 
@@ -72,6 +73,12 @@ namespace Psycho {
                 {
                         get { return topicTitle; }
                         set { topicTitle = value; }
+                }
+
+                public TopicType Type
+                {
+                        get { return type; }
+                        set { type = value; }
                 }
 
                 public Topic Parent

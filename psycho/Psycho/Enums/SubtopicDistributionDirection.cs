@@ -29,13 +29,9 @@ namespace Psycho {
 
         public enum SubtopicDystributionDirection {
 
-                None,
-                Line,
-                Rectangle,
-                RoundedRectangle,
-                Circle,
-                Ellipse,
-                Hexagon,
-                Octagon
+                Center,
+                Top,
+                Bottom,
+                Outside,
         }
 }
