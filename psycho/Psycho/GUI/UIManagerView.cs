@@ -35,8 +35,6 @@ namespace Psycho {
                 private IModel Model;
                 private IControl Control;
 
-                IconLoader iconLoader = new IconLoader ();
-
                 public UIManager uiManager = new UIManager ();
                 ActionGroup actions = new ActionGroup ("group");
 
@@ -121,12 +119,12 @@ namespace Psycho {
 
                 private void BuildIcons ()
                 {
-                        Pixbuf topicIcon = iconLoader.topicIcon;
-                        Pixbuf subtopicIcon = iconLoader.subtopicIcon;
-                        Pixbuf deleteIcon = iconLoader.deleteIcon;
-                        Pixbuf calloutIcon = iconLoader.calloutIcon;
-                        Pixbuf borderIcon = iconLoader.borderIcon;
-                        Pixbuf relationIcon = iconLoader.relationIcon;
+                        Pixbuf topicIcon = IconLoader.topicIcon;
+                        Pixbuf subtopicIcon = IconLoader.subtopicIcon;
+                        Pixbuf deleteIcon = IconLoader.deleteIcon;
+                        Pixbuf calloutIcon = IconLoader.calloutIcon;
+                        Pixbuf borderIcon = IconLoader.borderIcon;
+                        Pixbuf relationIcon = IconLoader.relationIcon;
 
                         IconFactory factory = new IconFactory ();
                         factory.Add ("psycho-topic", new IconSet (topicIcon));

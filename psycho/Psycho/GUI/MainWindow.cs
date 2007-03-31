@@ -35,8 +35,7 @@ namespace Psycho {
                 public MainWindow ()
                         : base ("Psycho")
                 {
-                        IconLoader iconLoader = new IconLoader ();
-                        Icon = iconLoader.psychoIcon;
+                        Icon = IconLoader.psychoIcon;
 
                         VBox globalVBox = new VBox ();
                         VBox mainVBox = new VBox ();

@@ -46,8 +46,6 @@ namespace Psycho {
                 private string deletedTopicPath;
                 private bool updatePending;
 
-                IconLoader iconLoader = new IconLoader ();
-
                 public string DeletedTopicPath
                 {
                         get { return deletedTopicPath; }
@@ -184,7 +182,7 @@ namespace Psycho {
                 {
                         Topic topic = (Topic) model.GetValue (iter, 0);
                         if (topic.HasNotes)
-                                (cell as CellRendererPixbuf).Pixbuf = iconLoader.notesIcon;
+                                (cell as CellRendererPixbuf).Pixbuf = IconLoader.notesIcon;
                         else
                                 (cell as CellRendererPixbuf).Pixbuf = null;
                 }

@@ -28,7 +28,7 @@ using Gdk;
 
 namespace Psycho {
 
-        public class IconLoader {
+        static class IconLoader {
 
                 const string psychoIconFile = "Resources/psycho-small.png";
                 const string topicIconFile = "Resources/psycho-topic.png";
@@ -39,16 +39,16 @@ namespace Psycho {
                 const string relationIconFile = "Resources/psycho-relation.png";
                 const string notesIconFile = "Resources/psycho-notes-small.png";
 
-                public Pixbuf psychoIcon;
-                public Pixbuf topicIcon;
-                public Pixbuf subtopicIcon;
-                public Pixbuf deleteIcon;
-                public Pixbuf calloutIcon;
-                public Pixbuf borderIcon;
-                public Pixbuf relationIcon;
-                public Pixbuf notesIcon;
+                public static Pixbuf psychoIcon;
+                public static Pixbuf topicIcon;
+                public static Pixbuf subtopicIcon;
+                public static Pixbuf deleteIcon;
+                public static Pixbuf calloutIcon;
+                public static Pixbuf borderIcon;
+                public static Pixbuf relationIcon;
+                public static Pixbuf notesIcon;
 
-                public IconLoader ()
+                static IconLoader ()
                 {
                         psychoIcon = new Pixbuf (psychoIconFile);
                         topicIcon = new Pixbuf (topicIconFile);

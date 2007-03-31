@@ -31,7 +31,8 @@ namespace Psycho {
 
         public class Stylus {
 
-                List<Color> ColorOrder;
-
+                static Stylus ()
+                {
+                }
         }
 }

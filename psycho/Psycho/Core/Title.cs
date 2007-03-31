@@ -33,13 +33,19 @@ namespace Psycho {
 
                 string text;
                 Font textFont;
-                bool isPlainText;
+
                 private FontMarkers titleFontMarkers = new FontMarkers ();
 
                 public string Text
                 {
                         get { return text; }
                         set { text = value; }
+                }
+
+                public Font TextFont
+                {
+                        get { return textFont; }
+                        set { textFont = value; }
                 }
 
                 public bool IsPlainText
