@@ -53,6 +53,8 @@ namespace Psycho
                         : base ()
                 {
                         mapArea = new DrawingArea ();
+                        mapArea.CanFocus = true;
+                        mapArea.CanDefault = true;
                         mapViewPort = new Viewport ();
                         mapArea.ExposeEvent += OnMapExpose;
                         mapArea.Realized += OnMapRealize;
@@ -63,7 +65,6 @@ namespace Psycho
                                          | (int) EventMask.ButtonReleaseMask
                                          | (int) EventMask.KeyPressMask
                                          | (int) EventMask.PointerMotionMask);
-                        mapArea.CanFocus = true;
                         this.ShadowType = ShadowType.EtchedIn;
                         this.HscrollbarPolicy = PolicyType.Always;
                         this.VscrollbarPolicy = PolicyType.Always;

@@ -37,7 +37,7 @@ namespace Psycho
                 IModel Model;
                 IControl Control;
 
-                TreeStore store = new TreeStore (typeof (Topic));
+                TreeStore store = new TreeStore (typeof (Topic), typeof (Topic));
                 TreeView outlineView = new TreeView ();
 
                 TreeIter selectedNode;
@@ -79,7 +79,7 @@ namespace Psycho
                         titleCell.EditingCanceled += new EventHandler (titleCell_EditingCanceled);
                         titleCell.Mode = CellRendererMode.Editable;
                         titleColumn.PackStart (titleCell, true);
-                        titleColumn.AddAttribute (titleCell, "text", 0);
+                        //titleColumn.AddAttribute (titleCell, "text", 0);
                         titleColumn.SetCellDataFunc (titleCell, new Gtk.TreeCellDataFunc (RenderTitle));
 
                         //guidColumn.Title = "Topic GUID";
@@ -217,7 +217,9 @@ namespace Psycho
                         TreeIter centralNode = store.AppendValues (iModel.CentralTopic);
                         AddNodesRecursively (store, centralNode, iModel.CentralTopic);
                         outlineView.ExpandAll ();
-                        outlineView.ScrollToCell (store.GetPath (selectedNode), titleColumn, true, 0, 0);
+                        if (selectedNode.Stamp != 0) {
+                                outlineView.ScrollToCell (store.GetPath (selectedNode), titleColumn, true, 0, 0);
+                        }
                 }
 
                 public void Update (IModel iModel)
@@ -236,14 +238,14 @@ namespace Psycho
                         //        foreach (Topic topic in iModel.NewTopics) {
                         //                TreeIter parent;
                         //                TreePath parentPath = new TreePath (topic.Parent.Path);
-                        //                int position = topic.Parent.Subtopics.IndexOf (topic);
+                        //                int position = topic.Parent.SubtopicList.IndexOf (topic);
                         //                store.GetIter (out parent, parentPath);
                         //                TreeIter iter = store.InsertNode (parent, position);
                         //                store.SetValue (iter, 0, topic);
                         //                TreePath path = store.GetPath (iter);
                         //                SelectCurrentRow (iter, path);
                         //                outlineView.ExpandToPath (path);
-                        //       }
+                        //        }
                         //}
                 }
 
