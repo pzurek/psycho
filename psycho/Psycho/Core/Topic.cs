@@ -31,6 +31,7 @@ namespace Psycho
         using System.Collections;
         using System.Collections.Generic;
         using System.Xml;
+        using System.Diagnostics;
         using Gtk;
         using Pango;
         using Psycho;
@@ -86,15 +87,18 @@ namespace Psycho
 
                 void Update ()
                 {
-                        this.UpdateTextSize ();
+                        this.UpdateTextSize (this);
                         this.Offset.Update (this);
                         this.Frame.Update (this);
                         this.Connection.Update (this);
                 }
 
-                void UpdateTextSize ()
+                void UpdateTextSize (Topic iTopic)
                 {
-                        this.TextLayout.GetPixelSize (out textWidth, out textHeight);
+                        int w, h;
+                        iTopic.TextLayout.GetPixelSize (out w, out h);
+                        textWidth = w;
+                        textHeight = h;
                 }
 
                 string text;
@@ -426,11 +430,7 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.Notes != null && this.Notes.Text != "")
-                                        hasNotes = true;
-                                else
-                                        hasNotes = false;
-                                return hasNotes;
+                                return !String.IsNullOrEmpty (this.Notes.Text);
                         }
                 }
 

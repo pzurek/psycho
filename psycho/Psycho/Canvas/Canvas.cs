@@ -40,13 +40,11 @@ namespace Psycho
                 IControl Control;
 
                 DrawingArea mapArea;
+                int mapAreaWidth, mapAreaHeight;
 
                 Gdk.GC gc;
                 Cairo.Context mapContext;
                 Pango.Layout text;
-
-                int I = 0;
-                int N = 0;
 
                 public Canvas ()
                         : base ()
@@ -86,9 +84,7 @@ namespace Psycho
 
                         mapContext = Gdk.CairoHelper.Create (mapArea.GdkWindow);
                         mapContext.Antialias = Antialias.Default;
-                        int w, h;
-                        mapArea.GdkWindow.GetSize (out w, out h);
-                        I = 0; N = 0; // TODO: Resetting coordiante values for speed testing
+                        mapArea.GdkWindow.GetSize (out mapAreaWidth, out mapAreaHeight);
                         DrawBackground (mapContext);
                         //cr.Translate (w / 2, h / 2);
                         DrawTopics (mapContext);
@@ -108,20 +104,10 @@ namespace Psycho
 
                 void DrawTopics (Context iContext)
                 {
-                        //DrawRectangles (iContext, Model.CentralTopic);
                         DrawConnections (iContext, Model.CentralTopic);
                         DrawFrames (iContext, Model.CentralTopic);
-                        //DrawTexts (iContext, Model.CentralTopic);
                         DrawFrame (iContext, Model.CentralTopic);
                         DrawText (/*iContext,*/ Model.CentralTopic);
-                }
-
-                public void DrawRectangles (Cairo.Context iContext, Topic iTopic)
-                {
-                        foreach (Topic TempTopic in iTopic.Subtopics) {
-                                DrawRectangles (iContext, TempTopic);
-                                DrawRectangle (iContext, iTopic);
-                        }
                 }
 
                 public void DrawConnections (Cairo.Context iContext, Topic iTopic)
@@ -150,23 +136,6 @@ namespace Psycho
                                         DrawTexts (iContext, TempTopic);
                                 DrawText (/*iContext, */TempTopic);
                         }
-                }
-
-                void DrawRectangle (Cairo.Context iContext, Topic iTopic)
-                {
-                        I = I + 20;
-                        if (I / 1380 > 0) {
-                                I = 0;
-                                N = N + 12;
-                        }
-                        Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
-                        iContext.Rectangle (I, N, 16, 10);
-                        Cairo.Color fillColor = strokeColor;
-                        fillColor.A = 0.16;
-                        iContext.Color = fillColor;
-                        iContext.FillPreserve ();
-                        iContext.Color = strokeColor;
-                        iContext.Stroke ();
                 }
 
                 void DrawText (/*Cairo.Context iContext,*/ Topic iTopic)
@@ -202,7 +171,7 @@ namespace Psycho
 
                 public void Update (IModel iModel)
                 {
-                        this.QueueDraw ();
+                        this.QueueDrawArea (-mapAreaWidth / 2, -mapAreaHeight / 2, mapAreaWidth, mapAreaHeight);
                 }
 
                 public void AddTopic ()

@@ -51,7 +51,7 @@ namespace Psycho
                 public TopicFrame (Topic iTopic)
                 {
                         this.topic = iTopic;
-                        Update (iTopic);
+                        this.Update (iTopic);
                 }
 
                 public Topic Topic
@@ -99,11 +99,6 @@ namespace Psycho
                         polyDist = 0;
                         break;
                         }
-
-                        origin.X = iTopic.Offset.X -
-                                   iTopic.Style.LeftMargin;
-                        origin.Y = iTopic.Offset.Y -
-                                   iTopic.Style.TopMargin;
                 }
 
 
@@ -190,6 +185,10 @@ namespace Psycho
                 {
                         get
                         {
+                                origin.X = this.Topic.Offset.X -
+                                           this.Topic.Style.LeftMargin;
+                                origin.Y = this.Topic.Offset.Y -
+                                           this.Topic.Style.TopMargin;
                                 return origin;
                         }
                 }

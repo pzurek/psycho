@@ -35,14 +35,13 @@ namespace Psycho
                 double x;
                 double y;
                 bool isAuto;
-                bool isXValid, isYValid;
                 Topic topic;
 
                 public TopicOffset (Topic iTopic)
                 {
                         this.topic = iTopic;
                         this.isAuto = true;
-                        Update (iTopic);
+                        this.Update (iTopic);
                 }
 
                 public Topic Topic
@@ -112,18 +111,6 @@ namespace Psycho
                 {
                         get { return isAuto; }
                         set { isAuto = value; }
-                }
-
-                public bool IsXValid
-                {
-                        get { return isXValid; }
-                        set { isXValid = value; }
-                }
-
-                public bool IsYValid
-                {
-                        get { return isYValid; }
-                        set { isYValid = value; }
                 }
         }
 }
