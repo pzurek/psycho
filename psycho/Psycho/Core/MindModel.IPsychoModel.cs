@@ -37,7 +37,6 @@ namespace Psycho {
 
         private Topic centralTopic = new Topic(0);
         private Topic currentTopic;
-        private int currentLevel = 0;
 
         #region IPsychoModel Members
         private ArrayList observerList = new ArrayList();
@@ -74,8 +73,7 @@ namespace Psycho {
 
         public int CurrentLevel
         {
-            get { return currentLevel; }
-            set { currentLevel = value; }
+            get { return currentTopic.Level; }
         }
 
         public void CreateTopic()
@@ -107,7 +105,10 @@ namespace Psycho {
             int newIndex;
             int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
             Topic tempParent = this.CurrentTopic.Parent;
-            deletedTopics.Add(CurrentTopic);
+
+            Topic deletedTopic = new Topic(999);
+            deletedTopic =  currentTopic;
+            deletedTopics.Add(deletedTopic);
 
             if (CurrentTopic.Parent.Subtopics.Count == 1) {
                 CurrentTopic.Parent.Subtopics.Clear();

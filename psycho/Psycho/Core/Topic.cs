@@ -75,11 +75,11 @@ namespace Psycho {
             set { parent = value; }
         }
 
-        public int Level
-        {
-            get { return level; }
-            set { level = value; }
-        }
+        //public int Level
+        //{
+        //    get { return level; }
+        //    set { level = value; }
+        //}
 
         public bool IsExpanded
         {
@@ -101,6 +101,12 @@ namespace Psycho {
         {
             get { this.BuildPath(); return topicPath; }
         }
+
+        public int Level
+        {
+            get { this.CalculateLevel(); return level; }
+        }
+
 
         #endregion
 
@@ -146,6 +152,20 @@ namespace Psycho {
                 action(topic);
                 foreach (Topic child in topic.Subtopics)
                     remaining.Enqueue(child);
+            }
+        }
+
+        private void CalculateLevel ()
+        {
+            level = 0;
+            Queue<Topic> remaining = new Queue<Topic>();
+            if (this.Parent != null)
+                remaining.Enqueue(this.Parent);
+
+            while (remaining.Count > 0) {
+                Topic topic = remaining.Dequeue();
+                remaining.Enqueue(topic.Parent);
+                level++;
             }
         }
         #endregion

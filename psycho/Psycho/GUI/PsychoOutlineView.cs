@@ -80,11 +80,9 @@ namespace Psycho {
             outlineView.AppendColumn(guidColumn);
 
             outlineView.Selection.Changed += new System.EventHandler(OnSelectionChanged);
-            outlineView.Focused += new FocusedHandler(outlineView_Focused);
             outlineView.RowCollapsed += new RowCollapsedHandler(outlineView_RowCollapsed);
             outlineView.RowExpanded += new RowExpandedHandler(outlineView_RowExpanded);
             outlineView.KeyReleaseEvent += new KeyReleaseEventHandler(outlineView_KeyReleaseEvent);
-            outlineView.RowActivated += new RowActivatedHandler(outlineView_RowActivated);
 
             outlineView.ExpanderColumn.Expand = true;
             this.VscrollbarPolicy = PolicyType.Always;
@@ -123,20 +121,6 @@ namespace Psycho {
             }
         }
 
-        void outlineView_RowActivated (object sender, RowActivatedArgs args)
-        {
-            //store = (TreeStore) outlineView.Model;
-            //TreeIter iter;
-            //store.GetIter(out iter, args.Path);
-            //Topic iterTopic = (Topic) store.GetValue(iter, 0);
-            Console.WriteLine("Row activated");
-        }
-
-        void outlineView_Focused (object sender, FocusedArgs args)
-        {
-            Console.WriteLine("OutlineView Focused");
-        }
-
         private void RenderTitle (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
         {
             Topic topic = (Topic) model.GetValue(iter, 0);
@@ -159,7 +143,9 @@ namespace Psycho {
         }
 
         public void Update (IPsychoModel paraModel)
-        {
+        {   
+
+
             foreach (Topic topic in paraModel.NewTopics) {
                 TreeIter parentIter;
                 TreePath parentPath = new TreePath(topic.Parent.TopicPath);
@@ -169,10 +155,11 @@ namespace Psycho {
             }
 
             foreach (Topic topic in paraModel.DeletedTopics) {
-                TreeIter Iter;
-                TreePath Path = new TreePath(topic.TopicPath);
-                store.GetIter(out Iter, Path);
-                store.Remove(ref Iter);
+                TreeIter iter;
+                TreePath path = new TreePath(topic.TopicPath);
+                store.GetIter(out iter, path);
+                store.Remove(ref iter);
+                outlineView.QueueDraw();
             }
 
             foreach (Topic topic in paraModel.ChangedTopics) {
