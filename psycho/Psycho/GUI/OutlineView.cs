@@ -179,11 +179,9 @@ namespace Psycho {
         {
             updatePending = true;
             UpdateNew(paramModel);
-            //UpdateDeleted(paramModel);
             UpdateDeletedPath(paramModel);
             UpdateChanged(paramModel);
             updatePending = false;
-            SetCurrentTopic();
         }
 
         public void UpdateNew (IPsychoModel paramModel)
@@ -202,20 +200,6 @@ namespace Psycho {
             }
         }
 
-        //That will go eventually...
-        
-        //public void UpdateDeleted (IPsychoModel paramModel)
-        //{
-        //    foreach (Topic deletedTopic in paramModel.DeletedTopics) {
-        //        TreeIter deletedIter;
-        //        string topicPath = (deletedTopic.Path);
-        //        TreePath deletedPath = new TreePath(topicPath);
-        //        this.store.GetIter(out deletedIter, deletedPath);
-        //        this.store.Remove(ref deletedIter);
-        //        outlineView.QueueDraw();
-        //    }
-        //}
-
         public void UpdateDeletedPath (IPsychoModel paramModel)
         {
             if (paramModel.DeletedTopicPath != "")
@@ -226,6 +210,12 @@ namespace Psycho {
             TreePath deletedPath = new TreePath(deletedTopicPath);
             this.store.GetIter(out deletedIter, deletedPath);
             this.store.Remove(ref deletedIter);
+
+            TreePath path = new TreePath(paramModel.CurrentTopic.Path);
+            TreeIter iter;
+            store.GetIter(out iter, path);
+            outlineView.Selection.SelectIter(iter);
+
             outlineView.QueueDraw();
         }
 
