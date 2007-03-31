@@ -177,9 +177,9 @@ namespace Psycho
                         get
                         {
                                 if (this.IsExpanded && this.Subtopics.Height > this.Frame.Height)
-                                        totalHeight = Subtopics.Height;
+                                        totalHeight = Subtopics.TotalHeight;
                                 else
-                                        totalHeight = this.Frame.Height;
+                                        totalHeight = this.Frame.Height + this.Style.Padding;
                                 return totalHeight;
                         }
                 }

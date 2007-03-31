@@ -43,6 +43,7 @@ namespace Psycho
                 Gdk.Color red;
                 Gdk.Color green;
                 Gdk.Color blue;
+                Gdk.Color yellow;
                 Gdk.Color black;
 
                 Pango.Layout text;

@@ -73,7 +73,7 @@ namespace Psycho
                         {
                                 totalHeight = 0;
                                 foreach (Topic child in this)
-                                        totalHeight += child.TotalHeight + child.Style.Padding;
+                                        totalHeight += child.TotalHeight;
                                 return totalHeight;
                         }
                 }
