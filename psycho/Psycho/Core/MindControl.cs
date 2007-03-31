@@ -84,6 +84,13 @@ namespace Psycho {
             if (Model != null) 
                 Model.ExpandTopic(paramGuid, isExpanded);
         }
+
+        public void RequestEditFlag (bool editPending)
+        {
+            if (Model != null)
+                Model.EditPending = editPending;
+        }
+
         #endregion
     }
 }

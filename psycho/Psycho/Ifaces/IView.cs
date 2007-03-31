@@ -29,21 +29,22 @@ using System.Text;
 
 namespace Psycho {
 
-        public interface IView {
+    public interface IView {
 
-                #region Observer implementation
-                void Update(IModel paramModel);
-            void WireUp (IControl paramControl, IModel paramModel);
-                void AddTopic();
-                void AddSubtopic();
-                void DeleteTopic();
-                void ExpandTopic(string paramGuid, bool isExpanded);
-                void EditTitle(string Title);
-                void SetCurrentTopic();
-                void DisableAddSibling();
-                void DisableDelete();
-                void EnableAddSibling();
-                void EnableDelete();
-                #endregion
-        }
+        #region Observer implementation
+        void Update (IModel paramModel);
+        void WireUp (IControl paramControl, IModel paramModel);
+        void AddTopic ();
+        void AddSubtopic ();
+        void DeleteTopic ();
+        void ExpandTopic (string paramGuid, bool isExpanded);
+        void EditTitle (string Title);
+        void SetCurrentTopic ();
+        void TriggerEdit (bool editPending);
+        void DisableAddSibling ();
+        void DisableDelete ();
+        void EnableAddSibling ();
+        void EnableDelete ();
+        #endregion
+    }
 }

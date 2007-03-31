@@ -34,6 +34,7 @@ namespace Psycho {
         #region properties
         Topic CurrentTopic { get; set; }
         Topic CentralTopic { get; set; }
+        bool EditPending { get; set; }
         Topics NewTopics { get; }
         Topics DeletedTopics { get; }
         string DeletedTopicPath { get; }
@@ -48,6 +49,7 @@ namespace Psycho {
         void SetCurrent(string paramGuid, Topic paramTopic);
         void SetTitle (string paramString);
         void ExpandTopic(string paramGuid, bool isExpanded);
+        //void TriggerEdit (bool editPending);
         #endregion
 
         #region Observer implementation

@@ -64,6 +64,9 @@ namespace Psycho {
         "    <toolitem name='open' action='Open'/>" +
         "    <toolitem name='quit' action='Quit'/>" +
         "    <separator action='Sep1'/>" +
+        "    <toolitem name='addtopic' action='AddTopic'/>" +
+        "    <toolitem name='addsubtopic' action='AddSubtopic'/>" +
+        "    <toolitem name='delete' action='Delete'/>" +
         "  </toolbar>" +
         "</ui>";
 
@@ -82,7 +85,7 @@ namespace Psycho {
                 
                 new ActionEntry ("AddTopic", Stock.Add, "Add _Topic", "Return", "Add Topic", new EventHandler (ActionActivated)),
                 new ActionEntry ("AddSubtopic", Stock.GoDown, "Add _Subtopic", "Insert", "Add Subtopic", new EventHandler (ActionActivated)),
-                new ActionEntry ("Delete", Stock.Delete, "_Delete", "Delete", "Add Topic", new EventHandler (ActionActivated)),
+                new ActionEntry ("Delete", Stock.Delete, "_Delete Topic", "Delete", "Delete Topic", new EventHandler (ActionActivated)),
                 
                 new ActionEntry ("Copy", Stock.Copy, "Copy", "<control>C", "Copy to clipboard", new EventHandler (ActionActivated)),
                 new ActionEntry ("Cut", Stock.Cut, "Cut", "<control>X", "Cut to clipboard", new EventHandler (ActionActivated)),
@@ -91,7 +94,7 @@ namespace Psycho {
                 new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
             };
 
-            BuildIcons();
+            //BuildIcons();
             ActionGroup actions = new ActionGroup("group");
             actions.Add(entries);
 
@@ -99,11 +102,11 @@ namespace Psycho {
             uiManager.AddUiFromString(ui);
         }
 
-        public static void BuildIcons()
+        public static void BuildIcons ()
         {
-            Gdk.Pixbuf pixbufTopic = Gdk.Pixbuf.LoadFromResource("Resources/gtk-logo-rgb.gif");
-            Pixbuf pixbufSubtopic = Pixbuf.LoadFromResource("Resources/psycho-subtopic.gif");
-            Pixbuf pixbufDelete = Pixbuf.LoadFromResource("Resources/psycho-delete.gif");
+            Gdk.Pixbuf pixbufTopic = Gdk.Pixbuf.LoadFromResource("gtk-logo-rgb.gif");
+            Gdk.Pixbuf pixbufSubtopic = Gdk.Pixbuf.LoadFromResource("psycho-subtopic.gif");
+            Gdk.Pixbuf pixbufDelete = Gdk.Pixbuf.LoadFromResource("psycho-delete.gif");
 
             Pixbuf transparentTopic = pixbufTopic.AddAlpha(true, 0xff, 0xff, 0xff);
             Pixbuf transparentSubtopic = pixbufSubtopic.AddAlpha(true, 0xff, 0xff, 0xff);
@@ -126,14 +129,14 @@ namespace Psycho {
             Console.WriteLine("Action \"{0}\" activated", action.Name);
             switch (action.Name) {
             case "AddTopic":
-                AddTopic();
-                return;
+            AddTopic();
+            return;
             case "AddSubtopic":
-                AddSubtopic();
-                return;
+            AddSubtopic();
+            return;
             case "Delete":
-                DeleteTopic();
-                return;
+            DeleteTopic();
+            return;
             default: break;
             }
         }
@@ -187,6 +190,10 @@ namespace Psycho {
         public void SetCurrentTopic ()
         {
             throw new Exception("The method or operation is not implemented.");
+        }
+
+        public void TriggerEdit (bool editPending)
+        {
         }
 
         public void DisableAddSibling ()

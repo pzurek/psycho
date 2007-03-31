@@ -44,6 +44,7 @@ namespace Psycho {
         private Topics deletedTopics = new Topics();
         private string deletedTopicPath = ("");
         private Topics changedTopics = new Topics();
+        private bool editPending;
 
         public Topic CurrentTopic
         {
@@ -81,6 +82,12 @@ namespace Psycho {
         public int CurrentLevel
         {
             get { return currentTopic.Level; }
+        }
+
+        public bool EditPending
+        {
+            get { Console.WriteLine("Edit pending {0}", editPending.ToString());  return editPending; }
+            set { editPending = value; Console.WriteLine("Edit pending {0}", editPending.ToString()); }
         }
 
         public void CreateTopic()

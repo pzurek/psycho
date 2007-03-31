@@ -41,7 +41,7 @@ namespace Psycho {
         private TreeIter selectedNode;
         private Topic selectedTopic;
 
-        private bool isEdited;
+        private bool editPending;
         private string deletedTopicPath;
         private bool updatePending;
 
@@ -105,6 +105,8 @@ namespace Psycho {
             outlineView.KeyReleaseEvent += new KeyReleaseEventHandler(outlineView_KeyReleaseEvent);
 
             outlineView.ExpanderColumn.Expand = true;
+            outlineView.CanFocus = true;
+            outlineView.Settings.FontName = ("Bitstream Vera Sans");
             this.VscrollbarPolicy = PolicyType.Always;
             Add(outlineView);
             ShowAll();
@@ -112,14 +114,15 @@ namespace Psycho {
 
         void titleCell_EditingCanceled (object sender, EventArgs args)
         {
-            isEdited = false;
-            Console.WriteLine("Editing cancelled");
+            editPending = false;
+            TriggerEdit(editPending);
         }
 
         void titleCell_EditingStarted (object sender, EditingStartedArgs args)
         {
-            isEdited = true;
-            Console.WriteLine("Editing started");
+            editPending = true;
+            TriggerEdit(editPending);
+            outlineView.GrabFocus();
         }
 
         void outlineView_KeyReleaseEvent (object sender, KeyReleaseEventArgs args)
@@ -186,6 +189,10 @@ namespace Psycho {
             updatePending = false;
         }
 
+        /// <summary>
+        /// Updating all elements in model's list of new topics.
+        /// </summary>
+        /// <param name="paramModel"></param>
         public void UpdateNew (IModel paramModel)
         {
             foreach (Topic topic in paramModel.NewTopics) {
@@ -199,7 +206,7 @@ namespace Psycho {
                 outlineView.ExpandToPath(path);
                 outlineView.Selection.SelectIter(iter);
                 outlineView.ScrollToCell(path, null, false, 1, 0);
-                outlineView.ActivateRow(path, titleColumn);
+                outlineView.SetCursor(path, titleColumn, false);
                 outlineView.QueueDraw();
             }
         }
@@ -220,7 +227,7 @@ namespace Psycho {
             store.GetIter(out iter, path);
             outlineView.Selection.SelectIter(iter);
             outlineView.ScrollToCell(path, null, false, 1, 0);
-            outlineView.ActivateRow(path, titleColumn);
+            outlineView.SetCursor(path, titleColumn, false);
             outlineView.QueueDraw();
         }
 
@@ -234,7 +241,7 @@ namespace Psycho {
                 store.SetValue(iter, 0, topic);
                 outlineView.Selection.SelectIter(iter);
                 outlineView.ScrollToCell(path, null, false, 1, 0);
-                outlineView.ActivateRow(path, titleColumn);
+                outlineView.SetCursor(path, titleColumn, false);
                 outlineView.QueueDraw();
             }
         }
@@ -267,6 +274,11 @@ namespace Psycho {
         public void SetCurrentTopic ()
         {
             Control.RequestSetCurrent(selectedTopic.GUID);
+        }
+
+        public void TriggerEdit (bool editPending)
+        {
+            Control.RequestEditFlag(editPending);
         }
 
         public void DisableAddSibling ()

@@ -49,7 +49,11 @@ namespace Psycho
             MindControl uiManControl = new MindControl(model, UIView);
             UIView.WireUp(uiManControl, model);
 
-            AddAccelGroup(UIView.uiManager.AccelGroup);
+            StatusView statusView = new StatusView();
+            MindControl statusControl = new MindControl(model, statusView);
+            statusView.WireUp(statusControl, model);
+
+            //AddAccelGroup(UIView.uiManager.AccelGroup);
 
             Expander buttonExpander = new Expander("Button View");
             buttonExpander.Add(buttonView);
@@ -71,6 +75,7 @@ namespace Psycho
 
             mainVBox.PackStart(buttonExpander, false, false, 6);
             mainVBox.PackStart(mainNotebook, true, true, 6);
+            mainVBox.PackEnd(statusView, false, false, 0);
             mainVBox.ShowAll();
 
             Add(mainVBox);

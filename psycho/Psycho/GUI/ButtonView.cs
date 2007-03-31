@@ -45,7 +45,6 @@ namespace Psycho {
         private IModel Model;
         private IControl Control;
 
-
         public ButtonView() : base() {
 
             this.Homogeneous = false;
@@ -150,6 +149,11 @@ namespace Psycho {
 
         public void SetCurrentTopic()
         {
+        }
+
+        public void TriggerEdit (bool editPending)
+        {
+            Control.RequestEditFlag(editPending);
         }
 
         public void Update(IModel paramModel)
