@@ -49,6 +49,7 @@ namespace Psycho
                         : base ()
                 {
                         mapArea = new DrawingArea ();
+                        //mapArea.DoubleBuffered = true;
                         mapArea.ExposeEvent += OnMapExpose;
                         mapArea.Realized += OnMapRealize;
                         this.Vadjustment.ValueChanged += new EventHandler (Vadjustment_ValueChanged);
@@ -95,8 +96,8 @@ namespace Psycho
 
                 void OnMapExpose (object sender, ExposeEventArgs e)
                 {
-                        //Gdk.Rectangle mapRectangle = new Gdk.Rectangle (0, -200, mapArea.Allocation.Width, mapArea.Allocation.Height);
-                        mapContext = Gdk.CairoHelper.Create (mapArea.GdkWindow); // mapContext, mapRectangle);
+                        Gdk.Window mapWindow = e.Event.Window;
+                        mapContext = Gdk.CairoHelper.Create (mapWindow);
                         mapContext.Antialias = Antialias.Default;
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
