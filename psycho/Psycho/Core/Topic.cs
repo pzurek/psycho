@@ -40,10 +40,7 @@ namespace Psycho
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = ("Topic ");
-                        this.IsExpanded = false;
                         this.Style = (new TopicStyle ());
-                        this.TextLayout.FontDescription = Pango.FontDescription.FromString (this.Style.StyleFont.Description);
-                        this.TextLayout.SetText (this.Text);
                 }
 
                 public Topic (string iTitle)
@@ -51,22 +48,25 @@ namespace Psycho
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = iTitle;
-                        this.IsExpanded = false;
-                        this.Style = (new TopicStyle ());
-                        this.TextLayout.FontDescription = Pango.FontDescription.FromString (this.Style.StyleFont.Description);
-                        this.TextLayout.SetText (this.Text);
+                        this.Style = new TopicStyle ();
                 }
 
                 public Topic (Topic iParent)
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
-                        this.Text = ("Topic ");
+                        this.Text = "Topic ";
                         this.Parent = iParent;
-                        this.IsExpanded = false;
-                        this.Style = (new TopicStyle ());
-                        this.TextLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
-                        this.TextLayout.SetText (this.text);
+                        this.Style = new TopicStyle ();
+                }
+
+                public Topic (string iTitle, Topic iParent)
+                {
+                        System.Guid newGuid = System.Guid.NewGuid ();
+                        this.guid = newGuid.ToString ();
+                        this.Text = iTitle;
+                        this.Parent = iParent;
+                        this.Style = new TopicStyle ();
                 }
 
                 public Topic (int topicNumber)
@@ -76,8 +76,6 @@ namespace Psycho
                         this.Text = ("Topic " + topicNumber.ToString ());
                         this.IsExpanded = false;
                         this.Style = (new TopicStyle ());
-                        this.TextLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
-                        this.TextLayout.SetText (this.text);
                 }
 
                 string text;
@@ -147,10 +145,10 @@ namespace Psycho
                 {
                         get
                         {
-                                textLayout = new Pango.Layout (this.PangoContext);
-                                textLayout.SetText (this.text);
-                                textLayout.Width = Pango.Units.FromPixels (this.Style.Width);
-                                textLayout.FontDescription = Pango.FontDescription.FromString (this.Style.StyleFont.Description);
+                                this.textLayout = new Pango.Layout (this.PangoContext);
+                                this.textLayout.SetText (this.text);
+                                this.textLayout.Width = Pango.Units.FromPixels (this.Style.Width);
+                                this.textLayout.FontDescription = Pango.FontDescription.FromString (this.Style.StyleFont.Description);
                                 return textLayout;
                         }
                 }
@@ -297,16 +295,20 @@ namespace Psycho
                         get
                         {
                                 Queue<Topic> remaining = new Queue<Topic> ();
-                                if (this.Parent != null && !this.IsCentral) remaining.Enqueue (this.Parent);
+
+                                if (this.Parent != null && this.Parent.IsCentral && this.Parent.IsExpanded)
+                                        isVisible = true;
+                                else
+                                        if (this.Parent != null)
+                                                remaining.Enqueue (this.Parent);
 
                                 while (remaining.Count > 0) {
-                                        Topic topic = remaining.Dequeue ();
-                                        if (topic.IsExpanded || topic.Parent.IsVisible) {
-                                                isVisible = true;
-                                                //if (topic.Parent.IsCentral) break;
+                                        Topic parent = remaining.Dequeue ();
+                                        if (!parent.IsExpanded || !parent.IsVisible) {
+                                                isVisible = false;
                                         }
                                         else
-                                                isVisible = false;
+                                                isVisible = true;
                                 }
                                 return isVisible;
                         }
