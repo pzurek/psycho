@@ -36,14 +36,13 @@ namespace Psycho {
     /// and a nodeview to show them and select the current.
     ///</summary>
     public class TemporaryButtonBox : VBox, IPsychoView {
+        
         #region fields
         private IPsychoModel Model;
         private IPsychoControl Control;
 
-        public NodeStore store = new NodeStore(typeof(PsychoTreeNode));
-        public NodeView outlineView = new NodeView();
-        private PsychoTreeNode centralNode = new PsychoTreeNode("", "");
-        private PsychoTreeNode selectedNode = new PsychoTreeNode("", "");
+        private NodeStore store = new NodeStore(typeof(PsychoTreeNode));
+        private PsychoNodeView outlineView = new PsychoNodeView();
 
         Entry titleEntry = new Entry();
         Button addSiblingButton = new Button();
@@ -62,23 +61,8 @@ namespace Psycho {
 
             outlineView.NodeStore = (store);
             outlineView.NodeSelection.Mode = SelectionMode.Single;
-
-            TreeViewColumn titleColumn = new TreeViewColumn();
-            titleColumn.Title = "Topic title";
-            CellRendererText titleCell = new CellRendererText();
-            titleColumn.PackStart(titleCell, true);
-
-            //titleCell.Editable = true;
-            titleCell.Edited += new EditedHandler(titleCell_Edited);
-
-            outlineView.AppendColumn(titleColumn);
-            outlineView.AppendColumn("GUID", new CellRendererText(), "text", 1);
             outlineView.ShowAll();
-            outlineView.Selection.Changed += new System.EventHandler(OnSelectionChanged);
-            outlineView.RowCollapsed += new RowCollapsedHandler(outlineView_RowCollapsed);
-            outlineView.RowExpanded += new RowExpandedHandler(outlineView_RowExpanded);
-            outlineView.KeyPressEvent += new KeyPressEventHandler(outlineView_KeyPressEvent);
-            outlineView.ExpanderColumn.Expand = true;
+
             outlineContainer.Add(outlineView);
 
             titleEntry.EditingDone += new EventHandler(titleEntry_EditingDone);
@@ -103,20 +87,6 @@ namespace Psycho {
             this.PackStart(titleEntry, false, false, 6);
             this.PackStart(buttonBox, false, false, 6);
             this.PackStart(outlineContainer, true, true, 6);
-        }
-
-        void outlineView_KeyPressEvent(object o, KeyPressEventArgs args)
-        {
-            string key = args.Event.Key.ToString();
-            Console.WriteLine(key);
-            //switch (key) {
-            //    case "Insert":
-            //        AddSubtopic();
-            //    case "Return":
-            //        AddTopic();
-            //    default:
-            //        break;
-            //}
         }
 
         public void WireUp(IPsychoControl paramControl, IPsychoModel paramModel)
@@ -177,26 +147,17 @@ namespace Psycho {
             Control.RequestDelete();
         }
 
-        void OnSelectionChanged(object sender, System.EventArgs args)
-        {
-            if (this.outlineView.NodeSelection.SelectedNode != null) {
-                selectedNode = checked((Psycho.PsychoTreeNode) outlineView.NodeSelection.SelectedNode);
-                Console.WriteLine("Selection changed in the view: " + selectedNode.GUID);
-                SetCurrentTopic();
-            }
-        }
-
         public void SetCurrentTopic()
         {
-            Control.RequestSetCurrent(selectedNode.GUID);
+            Control.RequestSetCurrent(outlineView.selectedNode.GUID);
         }
 
         public void Update(IPsychoModel paramModel)
         {
             store.Clear();
-            centralNode = new PsychoTreeNode(paramModel.CentralTopic.Title, paramModel.CentralTopic.GUID);
-            store.AddNode(centralNode);
-            AddNodesRecursively(centralNode, paramModel.CentralTopic);
+            outlineView.centralNode = new PsychoTreeNode(paramModel.CentralTopic.Title, paramModel.CentralTopic.GUID);
+            store.AddNode(outlineView.centralNode);
+            AddNodesRecursively(outlineView.centralNode, paramModel.CentralTopic);
             outlineView.ExpandAll();
             titleEntry.Text = paramModel.CurrentTopic.Title;
         }
@@ -228,25 +189,6 @@ namespace Psycho {
         public void EnableAddSibling()
         {
             addSiblingButton.Visible = (true);
-        }
-
-        private void titleCell_Edited(object sender, Gtk.EditedArgs args)
-        {
-            EditTitle(args.NewText);
-        }
-
-        private void outlineView_RowCollapsed(object sender, Gtk.RowCollapsedArgs args)
-        {
-            TreePath path = args.Path;
-            PsychoTreeNode node = checked((Psycho.PsychoTreeNode) store.GetNode(path));
-            ExpandTopic(node.GUID, false);
-        }
-
-        private void outlineView_RowExpanded(object sender, Gtk.RowExpandedArgs args)
-        {
-            TreePath path = args.Path;
-            PsychoTreeNode node = checked((Psycho.PsychoTreeNode) store.GetNode(path));
-            ExpandTopic(node.GUID, true);
         }
 
         public void ExpandTopic(string paramGuid, bool isExpanded)
