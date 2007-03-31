@@ -163,12 +163,12 @@ namespace Psycho {
 
         public void DisableAddSibling()
         {
-            addSiblingButton.Visible = (false);
+            addSiblingButton.Sensitive = (false);
         }
 
         public void EnableAddSibling()
         {
-            addSiblingButton.Visible = (true);
+            addSiblingButton.Sensitive = (true);
         }
 
         public void ExpandTopic(string paramGuid, bool isExpanded)
