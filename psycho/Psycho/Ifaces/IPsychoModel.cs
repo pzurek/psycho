@@ -28,10 +28,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho
-{
-    public interface IPsychoModel
-    {
+namespace Psycho {
+    public interface IPsychoModel {
+
         #region properties
         Topic CurrentTopic { get; set; }
         Topic CentralTopic { get; set; }
@@ -39,11 +38,11 @@ namespace Psycho
         #endregion
 
         #region methods
-        void CreateTopic ();
-        void CreateSubtopic ();
+        void CreateTopic();
+        void CreateSubtopic();
         void DeleteTopic();
         void SetCurrent(string paramGuid, Topic paramTopic);
-        void ExpandTopic (string paramGuid, bool isExpanded);
+        void ExpandTopic(string paramGuid, bool isExpanded);
         #endregion
 
         #region Observer implementation
@@ -51,6 +50,5 @@ namespace Psycho
         void RemoveObserver(IPsychoView paramView);
         void NotifyObservers();
         #endregion
-
     }
 }

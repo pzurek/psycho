@@ -27,8 +27,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Psycho
-{
+namespace Psycho {
     //public partial class Topic : IEnumerable {
 
     //    IEnumerator<Topic> IEnumerable<Topic>.GetEnumerator ()

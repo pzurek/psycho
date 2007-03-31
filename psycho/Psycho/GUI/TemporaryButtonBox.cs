@@ -237,10 +237,16 @@ namespace Psycho {
 
         private void outlineView_RowCollapsed(object sender, Gtk.RowCollapsedArgs args)
         {
+            TreePath path = args.Path;
+            PsychoTreeNode node = checked((Psycho.PsychoTreeNode) store.GetNode(path));
+            ExpandTopic(node.GUID, false);
         }
 
         private void outlineView_RowExpanded(object sender, Gtk.RowExpandedArgs args)
         {
+            TreePath path = args.Path;
+            PsychoTreeNode node = checked((Psycho.PsychoTreeNode) store.GetNode(path));
+            ExpandTopic(node.GUID, true);
         }
 
         public void ExpandTopic(string paramGuid, bool isExpanded)

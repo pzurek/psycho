@@ -29,7 +29,8 @@ using System.Text;
 
 namespace Psycho {
     public class Topics : List<Topic> {
-        public Topics() : base()
+        public Topics()
+            : base()
         {
         }
     }
