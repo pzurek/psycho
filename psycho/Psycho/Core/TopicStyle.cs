@@ -58,10 +58,10 @@ namespace Psycho
                 public TopicStyle (Topic iTopic) //TODO: One big hack
                 {
                         this.topic = iTopic;
-                        this.StyleFont = (new Font ("Verdana", 10)); // TODO: That of course has to be loaded from style
+                        this.StyleFont = (new Font ("Verdana", 8)); // TODO: That of course has to be loaded from style
                         this.StrokeWidth = 2;
                         this.EqualMargins = true;
-                        this.LeftMargin = 1;
+                        this.LeftMargin = 2;
                         this.RightMargin = 0;
                         this.TopMargin = 0;
                         this.BottomMargin = 0;
@@ -69,8 +69,8 @@ namespace Psycho
                         this.CrankRadius = 8;
                         this.PolyDistance = 8;
                         this.Width = 150;
-                        this.Padding = 3;
-                        this.HorChildDist = 70;
+                        this.Padding = 4;
+                        this.HorChildDist = 49;
                 }
 
                 public Topic Topic
