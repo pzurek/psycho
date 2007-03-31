@@ -40,12 +40,7 @@ namespace Psycho
                 DrawingArea mapArea;
 
                 Gdk.GC gc;
-                Gdk.Color red;
-                Gdk.Color green;
-                Gdk.Color blue;
-                Gdk.Color yellow;
-                Gdk.Color black;
-
+                Cairo.Context cr;
                 Pango.Layout text;
 
                 public Canvas ()
@@ -85,66 +80,70 @@ namespace Psycho
                         if ((mapArea.WidgetFlags & WidgetFlags.Realized) == 0)
                                 return;
 
-                        Context cr = Gdk.CairoHelper.Create (mapArea.GdkWindow);
+                        cr = Gdk.CairoHelper.Create (mapArea.GdkWindow);
                         cr.Antialias = Antialias.Default;
                         int w, h;
                         mapArea.GdkWindow.GetSize (out w, out h);
                         DrawBackground (cr);
                         //cr.Translate (w / 2, h / 2);
                         DrawTopics (cr);
+                        ((IDisposable) cr.Target).Dispose ();
+                        ((IDisposable) cr).Dispose ();
                 }
 
-                private void DrawBackground (Context cr)
+                private void DrawBackground (Context iContext)
                 {
                         Surface background = new ImageSurface ("Resources/paper.png");
                         SurfacePattern pattern = new SurfacePattern (background);
                         pattern.Extend = Extend.Repeat;
-                        cr.Pattern = pattern;
-                        cr.Paint ();
+                        iContext.Pattern = pattern;
+                        iContext.Paint ();
                         pattern.Destroy ();
                 }
 
-                void DrawTopics (Cairo.Context cr)
+                void DrawTopics (Context iContext)
                 {
-                        Model.CentralTopic.ForEach (delegate (Topic topic)
+                        Model.CentralTopic.ForEach (delegate (Topic iTopic)
                         {
-                                if (topic.IsVisible || topic.IsCentral) {
-                                        DrawConnection (cr, topic);
-                                        DrawFrame (cr, topic);
-                                        DrawText (cr, topic);
+                                if (iTopic.IsVisible || iTopic.IsCentral) {
+                                        DrawConnection (iContext, iTopic);
+                                        DrawFrame (iContext, iTopic);
+                                        DrawText (iContext, iTopic);
                                 }
-                        }
-                        );
+                        });
                 }
 
                 void DrawText (Cairo.Context iContext, Topic iTopic)
                 {
                         gc = mapArea.Style.TextAAGC (StateType.Normal);
-                        gc.Foreground = black;
+                        gc.Foreground = new Gdk.Color (0, 0, 0);
                         text = iTopic.TextLayout;
                         this.mapArea.GdkWindow.DrawLayout (gc, (int) iTopic.Offset.X, (int) iTopic.Offset.Y, text);
+                        gc.Dispose ();
                 }
 
                 void DrawConnection (Cairo.Context iContext, Topic iTopic)
                 {
-                        iTopic.Connection.Sketch (iContext);
-                        Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
-                        iContext.Color = strokeColor;
-                        iContext.LineWidth = iTopic.Style.StrokeWidth;
-                        iContext.Stroke ();
+                        if (!iTopic.IsCentral) {
+                                iTopic.Connection.Sketch (iContext);
+                                iContext.Color = iTopic.Style.StrokeColor.ToCairoColor ();
+                                iContext.LineWidth = iTopic.Style.StrokeWidth;
+                                iContext.LineCap = LineCap.Round;
+                                iContext.LineJoin = LineJoin.Round;
+                                iContext.Stroke ();
+                        }
                 }
 
                 void DrawFrame (Cairo.Context iContext, Topic iTopic)
                 {
-                        iTopic.Frame.Sketch (iContext);
                         Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
-                        Cairo.Color fillColor = iTopic.Style.StrokeColor.ToCairoColor ();
                         if (iTopic.IsCurrent)
-                                strokeColor = new Cairo.Color (0.5, 0.5, 0.5);
+                                strokeColor = new Cairo.Color (0.75, 0.75, 0.75);
+                        Cairo.Color fillColor = strokeColor;
+                        iTopic.Frame.Sketch (iContext);
                         fillColor.A = 0.1;
                         iContext.Color = fillColor;
-                        iContext.Fill ();
-                        iTopic.Frame.Sketch (iContext);
+                        iContext.FillPreserve ();
                         iContext.Color = strokeColor;
                         iContext.LineWidth = iTopic.Style.StrokeWidth;
                         iContext.Stroke ();

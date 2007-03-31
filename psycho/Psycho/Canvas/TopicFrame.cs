@@ -264,11 +264,13 @@ namespace Psycho
 
                 void sketchRectangle ()
                 {
+                        context.NewPath ();
                         context.Rectangle (Origin, Width, Height);
                 }
 
                 void sketchLine ()
                 {
+                        context.NewPath ();
                         context.MoveTo (Origin);
                         context.RelMoveTo (0, this.Height);
                         context.RelLineTo (this.Width, 0);
@@ -281,6 +283,7 @@ namespace Psycho
                         double angle3 = 180.0 * (PI / 180.0);
                         double angle4 = 270.0 * (PI / 180.0);
 
+                        context.NewPath ();
                         context.MoveTo (Origin);
                         context.ArcNegative (Origin.X, (Origin.Y + radius), radius, angle4, angle3);
                         context.ArcNegative (Origin.X, (Origin.Y + this.Height - radius), radius, angle3, angle2);
@@ -291,6 +294,7 @@ namespace Psycho
 
                 void sketchOctagon ()
                 {
+                        context.NewPath ();
                         context.MoveTo (Origin);
                         context.RelLineTo (this.Width, 0);
                         context.RelLineTo (this.OctDistHor, this.OctDistVer);
@@ -304,6 +308,7 @@ namespace Psycho
 
                 void sketchHexagon ()
                 {
+                        context.NewPath ();
                         context.MoveTo (Origin);
                         context.RelLineTo (this.Width, 0);
                         context.RelLineTo (HexDistHor, this.Height / 2);
