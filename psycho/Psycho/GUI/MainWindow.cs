@@ -32,7 +32,34 @@ namespace Psycho
 	{
 		public MainWindow () : base ("Psycho")
 		{
+            VBox mainVBox = new VBox();
 
+            MindModel model = new MindModel();
+            model.AppendSomeNodes(model.CentralTopic);
+
+            ButtonView buttonView = new ButtonView();
+            MindControl buttonControl = new MindControl(model, buttonView);
+            buttonView.WireUp(buttonControl, model);
+
+            OutlineView nodeView = new OutlineView();
+            MindControl outlineControl = new MindControl(model, nodeView);
+            nodeView.WireUp(outlineControl, model);
+
+            UIManagerView UIView = new UIManagerView();
+            MindControl uiManControl = new MindControl(model, UIView);
+            UIView.WireUp(uiManControl, model);
+
+            AddAccelGroup(UIView.uiManager.AccelGroup);
+
+            mainVBox.Homogeneous = false;
+
+            mainVBox.PackStart(UIView.uiManager.GetWidget("/MenuBar"), false, false, 0);
+            mainVBox.PackStart(UIView.uiManager.GetWidget("/ToolBar"), false, false, 0);
+            mainVBox.PackStart(buttonView, false, false, 6);
+            mainVBox.PackStart(nodeView, true, true, 6);
+            mainVBox.ShowAll();
+
+            Add(mainVBox);
 		}
 	}
 }

@@ -50,7 +50,7 @@ namespace Psycho
                 Topic newTopic = new Topic(this.centralTopic.TotalCount);
                 newTopic.Parent = paramTopic;
                 paramTopic.AddSubtopic(newTopic);
-                Console.WriteLine(newTopic.TopicPath);
+                Console.WriteLine(newTopic.Path);
             }
 
             while (levelCounter < 3) {

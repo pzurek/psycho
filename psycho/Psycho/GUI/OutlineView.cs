@@ -30,7 +30,7 @@ using Gtk;
 
 namespace Psycho {
 
-    public class PsychoOutlineView : ScrolledWindow, IPsychoView {
+    public class OutlineView : ScrolledWindow, IPsychoView {
 
         private IPsychoModel Model;
         private IPsychoControl Control;
@@ -47,7 +47,7 @@ namespace Psycho {
         private TreeViewColumn levelColumn = new TreeViewColumn();
         private TreeViewColumn guidColumn = new TreeViewColumn();
 
-        public PsychoOutlineView ()
+        public OutlineView ()
             : base()
         {
             titleColumn.Title = "Topic title";
@@ -142,7 +142,7 @@ namespace Psycho {
         private void RenderPath (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
         {
             Topic topic = (Topic) model.GetValue(iter, 0);
-            (cell as CellRendererText).Text = topic.TopicPath;
+            (cell as CellRendererText).Text = topic.Path;
         }
 
         private void RenderLevel (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
@@ -166,7 +166,7 @@ namespace Psycho {
 
             foreach (Topic topic in paraModel.NewTopics) {
                 TreeIter parent;
-                TreePath parentPath = new TreePath(topic.Parent.TopicPath);
+                TreePath parentPath = new TreePath(topic.Parent.Path);
                 int position = topic.Parent.Subtopics.IndexOf(topic);
                 store.GetIter(out parent, parentPath);
                 TreeIter iter = store.InsertNode(parent, position);
@@ -179,15 +179,15 @@ namespace Psycho {
 
             foreach (Topic topic in paraModel.DeletedTopics) {
                 TreeIter iter;
-                TreePath path = new TreePath(topic.TopicPath);
+                TreePath path = new TreePath(topic.Path);
                 store.GetIter(out iter, path);
+                store.UnrefNode(iter);
                 store.Remove(ref iter);
                 outlineView.QueueDraw();
-                outlineView.ScrollToCell(path, titleColumn, true, 0, 0);
             }
 
             foreach (Topic topic in paraModel.ChangedTopics) {
-                TreePath path = new TreePath(topic.TopicPath);
+                TreePath path = new TreePath(topic.Path);
                 TreeIter iter;
                 store.GetIter(out iter, path);
                 store.SetValue(iter, 0, topic);

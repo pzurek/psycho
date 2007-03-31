@@ -32,14 +32,10 @@ namespace Psycho
 		public static void Main()
 		{
 			Application.Init ();
-
         	MainWindow mainWindow = new MainWindow();
             mainWindow.DeleteEvent += OnDelete;
             mainWindow.SetDefaultSize (640, 480);
             mainWindow.SetPosition(WindowPosition.Center);
-
-            MainVBox userInterface = new MainVBox();
-            mainWindow.Add(userInterface);
             mainWindow.Show();
 	        Application.Run ();
 		}

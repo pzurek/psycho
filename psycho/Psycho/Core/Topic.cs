@@ -48,7 +48,7 @@ namespace Psycho {
         private Topic parent;
         private int level;
         private int totalCount;
-        private string topicPath;
+        private string path;
         private string guid;
         private bool isExpanded;
         #endregion
@@ -91,9 +91,9 @@ namespace Psycho {
             get { this.CountDescendants(); return totalCount; }
         }
 
-        public string TopicPath
+        public string Path
         {
-            get { this.BuildPath(); return topicPath; }
+            get { this.BuildPath(); return path; }
         }
 
         public int Level
@@ -129,9 +129,9 @@ namespace Psycho {
         private void BuildPath ()
         {
             if (this.Parent == null)
-                this.topicPath = "0";
+                this.path = "0";
             else
-                this.topicPath = (this.Parent.topicPath + ":" + this.Parent.Subtopics.IndexOf(this).ToString());
+                this.path = (this.Parent.path + ":" + this.Parent.Subtopics.IndexOf(this).ToString());
         }
 
         public void ForEach(Action<Topic> action)

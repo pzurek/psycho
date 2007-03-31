@@ -33,6 +33,7 @@ namespace Psycho {
 
                 #region Observer implementation
                 void Update(IPsychoModel paramModel);
+            void WireUp (IPsychoControl paramControl, IPsychoModel paramModel);
                 void AddTopic();
                 void AddSubtopic();
                 void DeleteTopic();

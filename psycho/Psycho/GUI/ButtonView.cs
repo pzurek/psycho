@@ -35,7 +35,7 @@ namespace Psycho {
     ///Buttons creating and deleting topics
     /// and a nodeview to show them and select the current.
     ///</summary>
-    public class PsychoButtonView : VBox, IPsychoView {
+    public class ButtonView : VBox, IPsychoView {
         
         Entry titleEntry = new Entry();
         Button addSiblingButton = new Button();
@@ -46,7 +46,7 @@ namespace Psycho {
         private IPsychoControl Control;
 
 
-        public PsychoButtonView() : base() {
+        public ButtonView() : base() {
 
             this.Homogeneous = false;
             this.BorderWidth = 6;
