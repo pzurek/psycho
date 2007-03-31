@@ -37,14 +37,18 @@ namespace Psycho {
         private IModel Model;
         private IControl Control;
         private SourceView XmlPreview;
-        
+        private XmlWriterSettings xmlSettings;
+
         public XMLView ()
         {
             XmlPreview = new SourceView ();
             XmlPreview.AutoIndent = true;
             XmlPreview.Editable = false;
-            XmlPreview.Indent = 4;
             XmlPreview.RedrawOnAllocate = true;
+            xmlSettings = new XmlWriterSettings ();
+            xmlSettings.Indent = true;
+            xmlSettings.IndentChars = "        ";
+
             this.Add (XmlPreview);
             ShowAll ();
         }
@@ -52,8 +56,12 @@ namespace Psycho {
         #region IView Members
 
         public void Update (IModel paramModel)
-        {
-            this.XmlPreview.Buffer.Text = paramModel.XMLModel.InnerXml;
+        {   
+            StringBuilder builder = new StringBuilder();
+            XmlWriter writer = XmlWriter.Create(builder, xmlSettings);
+            paramModel.XMLModel.Save (writer);
+
+            this.XmlPreview.Buffer.Text = builder.ToString();
         }
 
         public void WireUp (IControl paramControl, IModel paramModel)

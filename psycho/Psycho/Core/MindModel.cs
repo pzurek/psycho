@@ -135,6 +135,7 @@ namespace Psycho {
             while (paramTopic.Subtopics.Count < 2) {
                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                 newTopic.Parent = paramTopic;
+                CreateXMLTopic (paramTopic.GUID, newTopic.GUID, newTopic.Title);
                 paramTopic.AddSubtopic (newTopic);
                 if (newTopic.Level < 4)
                     AppendSomeNodes (newTopic);
@@ -163,7 +164,6 @@ namespace Psycho {
             newXmlTitle.SetAttribute ("text", paramTitle);
             newXmlTopic.AppendChild (newXmlTitle);
             currentXmlTopic.AppendChild (newXmlTopic);
-            currentXmlTopic = newXmlTopic;
         }
 
         public void CreateSubtopic ()
