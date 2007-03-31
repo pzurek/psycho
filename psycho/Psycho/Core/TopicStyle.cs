@@ -51,7 +51,7 @@ namespace Psycho
 
                 public TopicStyle () //TODO: One big hack
                 {
-                        this.StyleFont = (new Font ("Tahoma", 10)); // TODO: That of course has to be loaded from style
+                        this.StyleFont = (new Font ("zurich lt bt", 12)); // TODO: That of course has to be loaded from style
                         this.Shape = TopicShape.RoundedRectangle;
                         this.ConnectPoint = ConnectionPoint.Edge;
                         this.ConnectShape = ConnectionShape.Curve;

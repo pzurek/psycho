@@ -78,7 +78,7 @@ namespace Psycho
                 void OnMapRealize (object sender, EventArgs e)
                 {
                         gc = new Gdk.GC (this.GdkWindow);
-
+                        
                         red = new Gdk.Color (0xff, 0, 0);
                         green = new Gdk.Color (0, 0xff, 0);
                         blue = new Gdk.Color (0, 0, 0xff);
@@ -133,8 +133,9 @@ namespace Psycho
                 {
                         iTopic.Frame.Sketch (iContext, iTopic);
                         Cairo.Color strokeColor;
+                        Cairo.Color fillColor;
                         if (iTopic.IsCurrent)
-                                strokeColor = new Cairo.Color (1, 0, 0);
+                                strokeColor = new Cairo.Color (0.5, 0.5, 0.5);
                         else
                                 strokeColor = new Cairo.Color (0, 0, 1);
                         iContext.Color = strokeColor;

@@ -46,10 +46,9 @@ namespace Psycho
                         MindModel model = new MindModel ();
                         model.AppendSomeNodes (model.CentralTopic);
 
-                        ButtonView buttonView = new ButtonView ();
+                        PropertyView buttonView = new PropertyView ();
                         MindControl buttonControl = new MindControl (model, buttonView);
                         buttonView.WireUp (buttonControl, model);
-                        //Utilities.MindWireUp (model, buttonView, buttonControl);
 
                         OutlineView nodeView = new OutlineView ();
                         MindControl outlineControl = new MindControl (model, nodeView);
@@ -108,7 +107,7 @@ namespace Psycho
                         notesFrame.Shadow = ShadowType.EtchedIn;
 
                         mainHPaned.Add1 (mainFrame);
-                        mainHPaned.Add2 (notesFrame); //TODO: No notes for now.
+                        //mainHPaned.Add2 (notesFrame); //TODO: No notes for now.
                         int windowWidth = new int ();
                         int windowHeight = new int ();
                         this.SetSizeRequest (640, 480);

@@ -31,17 +31,21 @@ using Gdk;
 
 namespace Psycho
 {
-        public class ButtonView : VBox, IView
+        public class PropertyView : VBox, IView
         {
-                Entry titleEntry = new Entry ();
-                Button addSiblingButton = new Button ();
-                Button addChildButton = new Button ();
-                Button deleteButton = new Button ();
+                Entry titleEntry;
+                Button addSiblingButton;
+                Button addChildButton;
+                Button deleteButton;
+                FontButton fontButton;
+                ColorButton fontColor;
+                ColorButton lineColor;
+                ColorButton fillColor;
 
                 IModel Model;
                 IControl Control;
 
-                public ButtonView ()
+                public PropertyView ()
                         : base ()
                 {
 
@@ -49,17 +53,32 @@ namespace Psycho
                         this.BorderWidth = 6;
 
                         HButtonBox buttonBox = new HButtonBox ();
+                        HButtonBox basicPropertyBox = new HButtonBox ();
 
+                        titleEntry = new Entry ();
                         titleEntry.KeyReleaseEvent += new KeyReleaseEventHandler (titleEntry_KeyReleaseEvent);
-
+                        
+                        addSiblingButton = new Button ();
                         addSiblingButton.Label = ("Add Sibling");
                         addSiblingButton.Clicked += new EventHandler (btnAddSibling_Click);
 
+                        addChildButton = new Button ();
                         addChildButton.Label = ("Add Child");
                         addChildButton.Clicked += new EventHandler (btnAddChild_Click);
 
+                        deleteButton = new Button ();
                         deleteButton.Label = ("Delete");
                         deleteButton.Clicked += new EventHandler (btnDelete_Click);
+
+                        fontButton = new FontButton ();
+                        fontButton.SetFontName ("Tahoma 10");
+                        
+                        fontColor = new ColorButton ();
+                        fontColor.Label = "Font color";
+                        lineColor = new ColorButton ();
+                        lineColor.Label = "Line color";
+                        fillColor = new ColorButton ();
+                        fillColor.Label = "Fill color";
 
                         buttonBox.Homogeneous = true;
                         buttonBox.Layout = (Gtk.ButtonBoxStyle.Start);
@@ -68,8 +87,17 @@ namespace Psycho
                         buttonBox.PackStart (addChildButton, false, true, 6);
                         buttonBox.PackStart (deleteButton, false, true, 6);
 
+                        basicPropertyBox.Homogeneous = false;
+                        basicPropertyBox.Layout = ButtonBoxStyle.Start;
+                        basicPropertyBox.Spacing = 6;
+                        basicPropertyBox.PackStart (fontButton, false, false, 6);
+                        basicPropertyBox.PackStart (fontColor, false, false, 6);
+                        basicPropertyBox.PackStart (lineColor, false, false, 6);
+                        basicPropertyBox.PackStart (fillColor, false, false, 6);
+
                         this.PackStart (titleEntry, false, false, 6);
                         this.PackStart (buttonBox, false, false, 6);
+                        this.PackStart (basicPropertyBox, false, false, 6);
                 }
 
                 void titleEntry_KeyReleaseEvent (object o, KeyReleaseEventArgs args)

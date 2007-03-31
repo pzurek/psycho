@@ -28,9 +28,11 @@ using System.Runtime.InteropServices;
 using Gtk;
 using Cairo;
 
-namespace Gdk {
+namespace Gdk
+{
 
-        public class Graphics {
+        public class Graphics
+        {
 
                 [DllImport ("libgdk-win32-2.0-0.dll")]
                 internal static extern IntPtr gdk_x11_drawable_get_xdisplay (IntPtr raw);
@@ -62,7 +64,6 @@ namespace Gdk {
 
                         x_drawable = drawable.Handle;
                         IntPtr visual = gdk_drawable_get_visual (x_drawable);
-
                         IntPtr Xdisplay = gdk_x11_drawable_get_xdisplay (x_drawable);
                         IntPtr Xvisual = gdk_x11_visual_get_xvisual (visual);
                         IntPtr Xdrawable = gdk_x11_drawable_get_xid (x_drawable);
