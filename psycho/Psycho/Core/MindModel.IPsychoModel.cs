@@ -163,9 +163,7 @@ namespace Psycho {
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
             Topic saughtTopic = FindByGUID(paramGuid);
-            //Console.WriteLine("Found topic: " + saughtTopic.Title);
             CurrentTopic = saughtTopic;
-            //Console.WriteLine("Current topic set to: " + CurrentTopic.Title);
             NotifyObservers();
         }
 
