@@ -95,8 +95,10 @@ namespace Psycho {
         {
             get
             {
-                if (this.topicNotes != null) return true;
-                else return false;
+                if (this.topicNotes != null && this.topicNotes.Text != "")
+                    return true;
+                else
+                    return false;
             }
         }
 

@@ -88,7 +88,6 @@ namespace Psycho {
             mainNotebook.InsertPage (XMLPreview, new Label ("XML View"), /*new Label("XML View"),*/ 2);
 
             mainNotebook.ShowBorder = true;
-            mainNotebook.HomogeneousTabs = true;
 
             globalVBox.Homogeneous = false;
             globalVBox.PackStart (UIView.uiManager.GetWidget ("/MenuBar"), false, false, 0);
