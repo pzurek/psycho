@@ -39,8 +39,8 @@ namespace Psycho
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
-                        this.Text = ("Topic ");
-                        this.Style = (new TopicStyle ());
+                        this.Text = "Topic ";
+                        this.Style = new TopicStyle ();
                 }
 
                 public Topic (string iTitle)
@@ -73,9 +73,8 @@ namespace Psycho
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
-                        this.Text = ("Topic " + topicNumber.ToString ());
-                        this.IsExpanded = false;
-                        this.Style = (new TopicStyle ());
+                        this.Text = "Topic " + topicNumber.ToString ();
+                        this.Style = new TopicStyle ();
                 }
 
                 string text;
