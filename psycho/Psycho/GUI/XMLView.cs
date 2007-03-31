@@ -38,6 +38,8 @@ namespace Psycho {
         private IControl Control;
         private SourceView XmlPreview;
         private XmlWriterSettings xmlSettings;
+        private StringBuilder builder;
+        private XmlWriter writer;
 
         public XMLView ()
         {
@@ -47,7 +49,6 @@ namespace Psycho {
             XmlPreview.RedrawOnAllocate = true;
             XmlPreview.ShowLineMarkers = true;
             XmlPreview.ShowLineNumbers = true;
-            //XmlPreview.
 
             xmlSettings = new XmlWriterSettings ();
             xmlSettings.Indent = true;
@@ -60,11 +61,10 @@ namespace Psycho {
         #region IView Members
 
         public void Update (IModel paramModel)
-        {   
-            StringBuilder builder = new StringBuilder();
-            XmlWriter writer = XmlWriter.Create(builder, xmlSettings);
+        {
+            builder = new StringBuilder ();
+            writer = XmlWriter.Create (builder, xmlSettings);
             paramModel.XMLModel.Save (writer);
-
             this.XmlPreview.Buffer.Text = builder.ToString();
         }
 

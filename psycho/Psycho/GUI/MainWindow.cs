@@ -43,7 +43,6 @@ namespace Psycho {
 
             MindModel model = new MindModel ();
             model.AppendSomeNodes (model.CentralTopic);
-            //model.BuildXML (model.CentralTopic);
 
             ButtonView buttonView = new ButtonView ();
             MindControl buttonControl = new MindControl (model, buttonView);

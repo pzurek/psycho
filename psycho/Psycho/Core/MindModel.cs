@@ -36,7 +36,10 @@ namespace Psycho {
         private Topic centralTopic = new Topic (1234);
         private Topic currentTopic;
         private XmlElement currentXmlTopic;
-        private XmlDocument xmlModel = new XmlDocument();
+        private XmlElement currentXmlParent;
+        private XmlElement currentXmlSibling;
+        private XmlElement foundXmlTopic;
+        private XmlDocument xmlModel = new XmlDocument ();
 
         public MindModel ()
         {
@@ -56,7 +59,6 @@ namespace Psycho {
             NotifyObservers ();
         }
 
-        #region IModel Members
         private ArrayList observerList = new ArrayList ();
         private Topics newTopics = new Topics ();
         private Topics deletedTopics = new Topics ();
@@ -86,6 +88,14 @@ namespace Psycho {
             }
             return found;
         }
+
+        public XmlElement FindXmlByGuid (string paramGuid)
+        {
+            string xPath = ("//Topic[@guid='" + paramGuid + "']");
+            foundXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
+            return foundXmlTopic;
+        }
+
 
         public Topic CurrentTopic
         {
@@ -135,7 +145,7 @@ namespace Psycho {
             while (paramTopic.Subtopics.Count < 2) {
                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                 newTopic.Parent = paramTopic;
-                CreateXMLTopic (paramTopic.GUID, newTopic.GUID, newTopic.Title);
+                CreateXMLSubtopic (paramTopic.GUID, newTopic.GUID, newTopic.Title);
                 paramTopic.AddSubtopic (newTopic);
                 if (newTopic.Level < 4)
                     AppendSomeNodes (newTopic);
@@ -149,7 +159,7 @@ namespace Psycho {
                 Topic newTopic = new Topic (centralTopic.TotalCount);
                 newTopic.Parent = CurrentTopic.Parent;
                 CurrentTopic.Parent.AddSubtopicAt ((currentIndex + 1), newTopic);
-                CreateXMLTopic (newTopic);
+                CreateXMLTopic (CurrentTopic, newTopic);
                 CurrentTopic = newTopic;
                 SetCurrentXml (CurrentTopic.GUID);
                 newTopics.Add (newTopic);
@@ -157,32 +167,50 @@ namespace Psycho {
             }
         }
 
-        public void CreateXMLTopic (string parentGuid, string paramGuid, string paramTitle)
+        public void CreateSubtopic ()
+        {
+            Topic newTopic = new Topic (centralTopic.TotalCount);
+            newTopic.Parent = CurrentTopic;
+            CurrentTopic.AddSubtopic (newTopic);
+            CreateXMLSubtopic (newTopic);
+            CurrentTopic = newTopic;
+            SetCurrentXml (CurrentTopic.GUID);
+            newTopics.Add (newTopic);
+            NotifyObservers ();
+        }
+
+        public void CreateXMLSubtopic (string parentGuid, string paramGuid, string paramTitle)
         {
             XmlElement newXmlTopic = xmlModel.CreateElement ("Topic");
             newXmlTopic.SetAttribute ("guid", paramGuid);
             XmlElement newXmlTitle = xmlModel.CreateElement ("Title");
             newXmlTitle.SetAttribute ("text", paramTitle);
             newXmlTopic.AppendChild (newXmlTitle);
-            currentXmlTopic.AppendChild (newXmlTopic);
+            currentXmlParent = FindXmlByGuid (parentGuid);
+            currentXmlParent.AppendChild (newXmlTopic);
         }
 
-        public void CreateXMLTopic (Topic paramTopic)
+        public void CreateXMLTopic (string parentGuid, string prevSiblingGuid, string paramGuid, string paramTitle)
         {
-            CreateXMLTopic (paramTopic.Parent.GUID, paramTopic.GUID, paramTopic.Title);
+            XmlElement newXmlTopic = xmlModel.CreateElement ("Topic");
+            newXmlTopic.SetAttribute ("guid", paramGuid);
+            XmlElement newXmlTitle = xmlModel.CreateElement ("Title");
+            newXmlTitle.SetAttribute ("text", paramTitle);
+            newXmlTopic.AppendChild (newXmlTitle);
+            currentXmlParent = FindXmlByGuid (parentGuid);
+            currentXmlSibling = FindXmlByGuid (prevSiblingGuid);
+            currentXmlParent.InsertAfter (newXmlTopic, currentXmlSibling);
         }
 
-        public void CreateSubtopic ()
+        public void CreateXMLSubtopic (Topic paramTopic)
         {
-            Topic newTopic = new Topic (centralTopic.TotalCount);
-            newTopic.Parent = CurrentTopic;
-            CurrentTopic.AddSubtopic (newTopic);
-            CreateXMLTopic (newTopic);
-            CurrentTopic = newTopic;
-            SetCurrentXml (CurrentTopic.GUID);
-            newTopics.Add (newTopic);
-            NotifyObservers ();
-       } 
+            CreateXMLSubtopic (paramTopic.Parent.GUID, paramTopic.GUID, paramTopic.Title);
+        }
+
+        public void CreateXMLTopic (Topic paramSibling, Topic paramTopic)
+        {
+            CreateXMLTopic (paramSibling.Parent.GUID, paramSibling.GUID, paramTopic.GUID, paramTopic.Title);
+        }
 
         public void DeleteTopic ()
         {
@@ -200,6 +228,10 @@ namespace Psycho {
 
             deletedTopicPath = (deletedTopic.Path);
             deletedTopics.Add (deletedTopic);
+
+            currentXmlParent = FindXmlByGuid (CurrentTopic.Parent.GUID);
+            currentXmlTopic = FindXmlByGuid (CurrentTopic.GUID);
+            currentXmlParent.RemoveChild (currentXmlTopic);
 
             if (CurrentTopic.Parent.Subtopics.Count == 1) {
                 CurrentTopic.Parent.Subtopics.Clear ();
@@ -260,7 +292,7 @@ namespace Psycho {
             NotifyObservers ();
         }
 
-        public void SetCurrentXml (string paramGuid/*, Topic paramTopic*/)
+        public void SetCurrentXml (string paramGuid)
         {
             string xPath = ("//Topic[@guid='" + paramGuid + "']");
             currentXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
@@ -272,34 +304,6 @@ namespace Psycho {
             Topic ExpandedTopic = FindByGUID (paramGuid);
             ExpandedTopic.IsExpanded = (isExpanded);
         }
-        #endregion
-
-        /*
-
-        public XmlNode declarationNode;
-        public XmlNode rootNode;
-        public XmlElement topicNode;
-        public XmlAttribute nodeGUID;
-        public XmlElement topicTitle;
-        public XmlAttribute titleText;
-        public XmlNodeList nodeSubtopics;
-
-        public void BuildXML (Topic paramTopic)
-        {
-            if (xmlModel != null) {
-
-                foreach (Topic subtopic in paramTopic.Subtopics) {
-                    topicNode = xmlModel.CreateElement ("Topic");
-                    topicNode.SetAttribute ("guid", subtopic.GUID);
-                    topicTitle = xmlModel.CreateElement ("Title");
-                    topicTitle.SetAttribute ("text", subtopic.Title);
-                    topicNode.AppendChild (topicTitle);
-                    BuildXML (subtopic);
-                }
-            }
-        }
-         
-        */
 
         public void ChangeTopic (Topic paramTopic)
         {
