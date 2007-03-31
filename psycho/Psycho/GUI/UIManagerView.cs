@@ -73,7 +73,7 @@ namespace Psycho {
 
         public UIManagerView ()
         {
-            //BuildIcons();
+            BuildIcons();
 
             ActionEntry[] entries = new ActionEntry[] {
                 new ActionEntry ("FileMenu", null, "_File", null, null, null),
@@ -106,9 +106,9 @@ namespace Psycho {
 
         static void BuildIcons ()
         {
-            Gdk.Pixbuf topicIcon = Gdk.Pixbuf.LoadFromResource("psycho-topic.png");
-            Gdk.Pixbuf subtopicIcon = Gdk.Pixbuf.LoadFromResource("psycho-subtopic.png");
-            Gdk.Pixbuf deleteIcon = Gdk.Pixbuf.LoadFromResource("psycho-delete.png");
+            Gdk.Pixbuf topicIcon = Gdk.Pixbuf.LoadFromResource("Icons/16x16/psycho-topic.png");
+            Gdk.Pixbuf subtopicIcon = Gdk.Pixbuf.LoadFromResource("Icons/16x16/psycho-subtopic.png");
+            Gdk.Pixbuf deleteIcon = Gdk.Pixbuf.LoadFromResource("Icons/16x16/psycho-delete.png");
 
             IconFactory factory = new IconFactory();
             factory.Add("psycho-topic", new IconSet());
