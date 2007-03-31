@@ -176,11 +176,12 @@ namespace Psycho {
             }
 
             foreach (Topic topic in paraModel.ChangedTopics) {
-                TreeIter parentIter;
-                TreePath parentPath = new TreePath(topic.Parent.TopicPath);
-                store.GetIter(out parentIter, parentPath);
-                TreeIter iter = store.AppendValues(parentIter, topic);
+                TreePath path = new TreePath(topic.TopicPath);
+                TreeIter iter;
+                store.GetIter(out iter, path);
+                store.SetValue(iter, 0, topic);
                 outlineView.Selection.SelectIter(iter);
+                outlineView.QueueDraw();
             }
         }
 
