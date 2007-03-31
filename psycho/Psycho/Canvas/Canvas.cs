@@ -51,8 +51,7 @@ namespace Psycho
                         mapArea = new DrawingArea ();
                         mapArea.ExposeEvent += OnMapExpose;
                         mapArea.Realized += OnMapRealize;
-                        this.ScrollEvent += new ScrollEventHandler (Canvas_ScrollEvent);
-                        this.Vadjustment.ValueChanged += new EventHandler (Vadjustment_ValueChanged);
+                        this.Vadjustment.Changed += new EventHandler (Vadjustment_Changed);
                         this.ShadowType = ShadowType.EtchedIn;
                         this.HscrollbarPolicy = PolicyType.Always;
                         this.VscrollbarPolicy = PolicyType.Always;
@@ -63,18 +62,9 @@ namespace Psycho
                         this.AddWithViewport (mapArea);
                 }
 
-                void Vadjustment_ValueChanged (object sender, EventArgs args)
+                void Vadjustment_Changed (object sender, EventArgs args)
                 {
-                        //int width, height;
-                        //mapArea.GdkWindow.GetSize (out width, out height);
-                        //mapArea.QueueDrawArea (0, (int) Vadjustment.Value, width, height);
-                }
-
-                void Canvas_ScrollEvent (object sender, ScrollEventArgs args)
-                {
-                        int width, height;
-                        mapArea.GdkWindow.GetSize (out width, out height);
-                        mapArea.QueueDrawArea (0, (int) Vadjustment.Value, width, height);
+                        QueueDrawArea (0, (int) Vadjustment.Value, mapArea.Allocation.Width, mapArea.Allocation.Height);
                 }
 
                 public void WireUp (IControl iControl, IModel iModel)
@@ -99,17 +89,11 @@ namespace Psycho
 
                 void OnMapExpose (object sender, ExposeEventArgs e)
                 {
-                        //if ((mapArea.WidgetFlags & WidgetFlags.Realized) == 0)
-                        //        return;
-
                         mapContext = Gdk.CairoHelper.Create (mapArea.GdkWindow);
                         mapContext.Antialias = Antialias.Default;
-                        //mapArea.GdkWindow.GetSize (out mapAreaWidth, out mapAreaHeight);
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
-                        this.Vadjustment.Lower = -150;
-                        this.Vadjustment.Upper = Model.CentralTopic.TotalHeight;
-                        //this.Vadjustment.Value = Model.CurrentTopic.Offset.Y - 10;
+                        this.Vadjustment.SetBounds (-200, Model.CentralTopic.TotalHeight, 10, 10, mapArea.Allocation.Height);
                         ((IDisposable) mapContext.Target).Dispose ();
                         ((IDisposable) mapContext).Dispose ();
                 }
@@ -194,7 +178,6 @@ namespace Psycho
                 public void Update (IModel iModel)
                 {
                         this.QueueDraw ();
-                        //this.QueueDrawArea (-mapAreaWidth / 2, -mapAreaHeight / 2, mapAreaWidth, mapAreaHeight);
                 }
 
                 public void AddTopic ()
