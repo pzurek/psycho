@@ -91,7 +91,7 @@ namespace Psycho {
                 new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
             };
 
-            //BuildIcons();
+            BuildIcons();
             ActionGroup actions = new ActionGroup("group");
             actions.Add(entries);
 
@@ -101,7 +101,7 @@ namespace Psycho {
 
         public static void BuildIcons()
         {
-            Pixbuf pixbufTopic = Pixbuf.LoadFromResource("Resources/gtk-logo-rgb.gif");
+            Gdk.Pixbuf pixbufTopic = Gdk.Pixbuf.LoadFromResource("Resources/gtk-logo-rgb.gif");
             Pixbuf pixbufSubtopic = Pixbuf.LoadFromResource("Resources/psycho-subtopic.gif");
             Pixbuf pixbufDelete = Pixbuf.LoadFromResource("Resources/psycho-delete.gif");
 
