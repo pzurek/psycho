@@ -33,13 +33,17 @@ namespace Psycho
         public Topic FindByGUID(string paramGuid, Topic paramTopic)
         {
             Topic found = new Topic(0);
+
             Queue<Topic> remaining = new Queue<Topic>();
             remaining.Enqueue(paramTopic);
 
             while (remaining.Count > 0) {
                 Topic topic = remaining.Dequeue();
                 if (topic.GUID != paramGuid) {
-                    foreach (Topic child in topic.Subtopics) remaining.Enqueue(child);
+                    foreach (Topic child in topic.Subtopics) {
+                        remaining.Enqueue(child);
+                        Console.WriteLine("Stepping through: " + child.Title);
+                    }
                 }
                 else
                     found = topic;

@@ -23,52 +23,13 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-namespace Psycho
-{
-	using System;
-    using System.Collections;
-    using System.Collections.Generic;
-	using Psycho;
-	
-	public partial class Task {
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-        public Task(Topic paramTopic) {
-            this.guid = paramTopic.GUID;
-        }
+namespace Psycho {
+    public interface IPsychoVisitor {
 
-        #region private fields
-        private string startDate;
-		private string dueDate;
-		private Topic topic;
-        private string guid;
-        #endregion
-
-        #region public fields
-
-    	public string StartDate
-		{
-			get { return startDate; }
-			set { startDate = value; }
-		}
-
-        public string DueDate
-        {
-            get { return dueDate; }
-            set { dueDate = value; }
-        }
-
-		public Topic Topic
-		{
-			get { return topic; }
-			set { topic = value; }
-		}
-		
-        public string GUID
-        {
-            get { return guid; }
-            set { guid = value; }
-        }
-
-        #endregion
+        void Visit (object visitable);
     }
 }

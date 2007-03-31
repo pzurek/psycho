@@ -80,25 +80,31 @@ namespace Psycho
 
         public void DeleteTopic()
         {
-            int previousIndex;
+            int newIndex;
             int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
+            Topic tempParent = this.CurrentTopic.Parent;
 
-            if (currentIndex > 0) {
-                previousIndex = currentIndex - 1;
+            if (CurrentTopic.Parent.Subtopics.Count == 1) {
+                CurrentTopic.Parent.Subtopics.Clear();
+                CurrentTopic = tempParent;
             }
             else {
-                previousIndex = 0;
+                if (currentIndex == (CurrentTopic.Parent.Subtopics.Count - 1)) {
+                    newIndex = currentIndex - 1;
+                }
+                else {
+                    newIndex = currentIndex;
+                }
+                CurrentTopic.Parent.Subtopics.RemoveAt(currentIndex);
+                CurrentTopic = tempParent.Subtopics[newIndex];
             }
 
-            Topic tempParent = this.CurrentTopic.Parent;
-            CurrentTopic.Parent.Subtopics.RemoveAt(currentIndex);
-            CurrentTopic = tempParent.Subtopics[previousIndex];
             NotifyObservers();
         }
 
         public void SetTitle(string paramTitle)
         {
-            this.CurrentTopic.Title = (paramTitle);
+            CurrentTopic.Title = (paramTitle);
         }
 
         public void AddObserver(IPsychoView paramView)
@@ -121,7 +127,7 @@ namespace Psycho
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
             CurrentTopic = FindByGUID(paramGuid, centralTopic);
-
+            NotifyObservers();
             Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
         }
         #endregion

@@ -60,7 +60,16 @@ namespace Psycho {
 
             outlineView.NodeStore = (store);
             outlineView.NodeSelection.Mode = SelectionMode.Single;
-            outlineView.AppendColumn("Title", new CellRendererText(), "text", 0);
+
+            Gtk.TreeViewColumn titleColumn = new Gtk.TreeViewColumn();
+            titleColumn.Title = "Topic title";
+            Gtk.CellRendererText titleCell = new Gtk.CellRendererText();
+            titleColumn.PackStart(titleCell, true);
+
+            titleCell.Editable = true;
+            titleCell.Edited += titleCell_Edited;
+
+            outlineView.AppendColumn(titleColumn);
             outlineView.AppendColumn("GUID", new CellRendererText(), "text", 1);
             outlineView.ShowAll();
             outlineView.Selection.Changed += new System.EventHandler(OnSelectionChanged);
@@ -112,7 +121,7 @@ namespace Psycho {
 
         public void AddSubtopic ()
         {
-            this.Control.RequestAddSubtopic();
+            Control.RequestAddSubtopic();
         }
 
         private void btnAddSibling_Click (object sender, System.EventArgs e)
@@ -123,7 +132,7 @@ namespace Psycho {
 
         public void AddTopic ()
         {
-            this.Control.RequestAddTopic();
+            Control.RequestAddTopic();
         }
 
         private void btnDelete_Click (object sender, System.EventArgs e)
@@ -134,7 +143,21 @@ namespace Psycho {
 
         public void DeleteTopic ()
         {
-            this.Control.RequestDelete();
+            Control.RequestDelete();
+        }
+
+        void OnSelectionChanged (object sender, System.EventArgs args)
+        {
+            if (this.outlineView.NodeSelection.SelectedNode != null) {
+                selectedNode = checked((Psycho.PsychoTreeNode) outlineView.NodeSelection.SelectedNode);
+                Console.WriteLine("Selection changed in the view: " + selectedNode.GUID);
+                SetCurrentTopic();
+            }
+        }
+
+        public void SetCurrentTopic ()
+        {
+            Control.RequestSetCurrent(selectedNode.GUID);
         }
 
         public void Update (IPsychoModel paramModel)
@@ -166,20 +189,6 @@ namespace Psycho {
             }
         }
 
-        public void SetCurrentTopic ()
-        {
-            this.Control.RequestSetCurrent(selectedNode.GUID);
-        }
-
-        void OnSelectionChanged (object sender, System.EventArgs args)
-        {
-            if (this.outlineView.NodeSelection.SelectedNode != null) {
-                selectedNode = checked((Psycho.PsychoTreeNode) outlineView.NodeSelection.SelectedNode);
-                Console.WriteLine("Selection changed in the view: " + selectedNode.GUID);
-                SetCurrentTopic();
-            }
-        }
-
         public void DisableAddSibling ()
         {
             addSiblingButton.Visible = (false);
@@ -188,6 +197,12 @@ namespace Psycho {
         public void EnableAddSibling ()
         {
             addSiblingButton.Visible = (true);
+        }
+
+        private void titleCell_Edited (object o, Gtk.EditedArgs args)
+        {
+            //PsychoTreeNode node;
+            //store.GetNode(, new Gtk.TreePath(args.NewText));
         }
     }
 }
