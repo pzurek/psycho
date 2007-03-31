@@ -29,10 +29,8 @@ using Psycho;
 
 namespace Psycho
 {
-	
 	public class MainVBox : VBox
 	{
-		
 		public MainVBox() : base()
 		{
 			TemporaryButtonBox temporaryControl = new TemporaryButtonBox();
@@ -41,5 +39,4 @@ namespace Psycho
 			this.BorderWidth = 6;
 		}
 	}
-	
 }
