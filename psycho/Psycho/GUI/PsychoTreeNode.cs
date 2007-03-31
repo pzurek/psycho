@@ -40,10 +40,6 @@ namespace Psycho
 		{
 			this.title = paramTitle;
 			this.guid = paramGuid;
-            if (Parent != null)
-                this.parentGuid = this.Parent.guid;
-            else
-                this.parentGuid = "No parent for central topic";
   		}
 
         [Gtk.TreeNodeValue (Column=0)]
@@ -56,12 +52,6 @@ namespace Psycho
         public string GUID
         {
         	get { return guid; }
-        }
-
-        [Gtk.TreeNodeValue(Column = 2)]
-        public string parentGUID
-        {
-            get { return this.Parent.guid; }
         }
     }
 }

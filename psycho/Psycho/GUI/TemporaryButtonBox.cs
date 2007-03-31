@@ -133,7 +133,7 @@ namespace Psycho {
             Update(Model);
         }
 
-        private void titleEntry_EditingDone(object sender, System.EventArgs e)
+        private void titleEntry_EditingDone(object sender, System.EventArgs args)
         {
             EditTitle(titleEntry.Text);
         }
@@ -143,7 +143,7 @@ namespace Psycho {
             Control.RequestSetTitle(paramString);
         }
 
-        private void btnAddChild_Click (object sender, System.EventArgs e)
+        private void btnAddChild_Click (object sender, System.EventArgs args)
         {
             Console.WriteLine("Add Child Button clicked");
             AddSubtopic();
@@ -154,7 +154,7 @@ namespace Psycho {
             Control.RequestAddSubtopic();
         }
 
-        private void btnAddSibling_Click (object sender, System.EventArgs e)
+        private void btnAddSibling_Click (object sender, System.EventArgs args)
         {
             Console.WriteLine("Add Sibling Button clicked");
             AddTopic();
@@ -165,7 +165,7 @@ namespace Psycho {
             Control.RequestAddTopic();
         }
 
-        private void btnDelete_Click (object sender, System.EventArgs e)
+        private void btnDelete_Click (object sender, System.EventArgs args)
         {
             Console.WriteLine("Delete Button clicked");
             DeleteTopic();
@@ -235,7 +235,7 @@ namespace Psycho {
         }
 
         private void outlineView_RowCollapsed (object sender, Gtk.RowCollapsedArgs args)
-        {
+        {   
         }
 
         private void outlineView_RowExpanded (object sender, Gtk.RowExpandedArgs args)
