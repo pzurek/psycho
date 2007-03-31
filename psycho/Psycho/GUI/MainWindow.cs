@@ -32,6 +32,7 @@ namespace Psycho
 	{
 		public MainWindow () : base ("Psycho")
 		{
+
 		}
 	}
 }

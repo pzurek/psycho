@@ -29,54 +29,67 @@ using Gtk;
 
 namespace Psycho {
 
-    public partial class PsychoNodeView : NodeView, IPsychoView{
-
+    public partial class PsychoNodeView : IPsychoView {
 
         #region IPsychoView Members
 
-        void Update(IPsychoModel paramModel)
+        private new IPsychoModel Model;
+        private IPsychoControl Control;
+
+        private PsychoTreeNode centralNode = new PsychoTreeNode("", "");
+        private PsychoTreeNode selectedNode = new PsychoTreeNode("", "");
+        public NodeStore store = new NodeStore(typeof(PsychoTreeNode));
+
+        public void Update(IPsychoModel paramModel)
         {
-            throw new Exception("The method or operation is not implemented.");
+            store.Clear();
+            centralNode = new PsychoTreeNode(paramModel.CentralTopic.Title, paramModel.CentralTopic.GUID);
+            store.AddNode(centralNode);
+            AddNodesRecursively(centralNode, paramModel.CentralTopic);
+            ExpandAll();
+            ListAllNodes();
+            Realize();
+            Show();
         }
 
-        void AddTopic()
+        public void AddTopic()
         {
-            throw new Exception("The method or operation is not implemented.");
         }
 
-        void AddSubtopic()
+        public void AddSubtopic()
         {
-            throw new Exception("The method or operation is not implemented.");
         }
 
-        void DeleteTopic()
+        public void DeleteTopic()
         {
-            throw new Exception("The method or operation is not implemented.");
         }
 
-        void ExpandTopic(string paramGuid, bool isExpanded)
+        public void ExpandTopic(string paramGuid, bool isExpanded)
         {
-            throw new Exception("The method or operation is not implemented.");
         }
 
-        void EditTitle(string Title)
+        public void EditTitle(string Title)
         {
-            throw new Exception("The method or operation is not implemented.");
         }
 
-        void SetCurrentTopic()
+        public void SetCurrentTopic()
         {
-            throw new Exception("The method or operation is not implemented.");
         }
 
-        void DisableAddSibling()
+        public void DisableAddSibling()
         {
-            throw new Exception("The method or operation is not implemented.");
         }
 
-        void EnableAddSibling()
+        public void EnableAddSibling()
         {
-            throw new Exception("The method or operation is not implemented.");
+        }
+
+        public void DisableDelete()
+        {
+        }
+
+        public void EnableDelete()
+        {
         }
 
         public void WireUp(IPsychoControl paramControl, IPsychoModel paramModel)
@@ -100,18 +113,23 @@ namespace Psycho {
                 PsychoTreeNode newNode = new PsychoTreeNode(child.Title, child.GUID);
                 paramNode.AddChild(newNode);
                 newNode.Parent = paramNode;
-
                 AddNodesRecursively(newNode, child);
             }
         }
 
         public void SelectNodeByGUID(string paramGuid)
         {
-            foreach (PsychoTreeNode node in outlineView) {
-                this.outlineView.NodeSelection.SelectNode(node);
+            foreach (PsychoTreeNode node in this) {
+                this.NodeSelection.SelectNode(node);
                 Console.WriteLine("Node found :" + node.GUID);
                 if (node.GUID == paramGuid) break;
             }
+        }
+
+        private void ListAllNodes()
+        {
+            foreach (PsychoTreeNode node in store)
+                Console.WriteLine(node.Title);
         }
 
         #endregion

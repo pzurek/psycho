@@ -31,20 +31,19 @@ namespace Psycho {
 
     public partial class PsychoNodeView : NodeView {
 
-        public PsychoTreeNode centralNode = new PsychoTreeNode("", "");
-        public PsychoTreeNode selectedNode = new PsychoTreeNode("", "");
-
         public PsychoNodeView() : base() {
 
-            TreeViewColumn titleColumn = new TreeViewColumn();
-            titleColumn.Title = "Topic title";
-            CellRendererText titleCell = new CellRendererText();
-            titleColumn.PackStart(titleCell, true);
+            //TreeViewColumn titleColumn = new TreeViewColumn();
+            //titleColumn.Title = "Topic title";
+            //CellRendererText titleCell = new CellRendererText();
+            //titleColumn.PackStart(titleCell, true);
 
             //titleCell.Editable = true;
-            titleCell.Edited += new EditedHandler(titleCell_Edited);
+            //titleCell.Edited += new EditedHandler(titleCell_Edited);
 
-            AppendColumn(titleColumn);
+//            AppendColumn(titleColumn);
+
+            AppendColumn("Title", new CellRendererText(), "text", 0);
             AppendColumn("GUID", new CellRendererText(), "text", 1);
 
             Selection.Changed += new System.EventHandler(OnSelectionChanged);
@@ -52,6 +51,9 @@ namespace Psycho {
             RowExpanded += new RowExpandedHandler(outlineView_RowExpanded);
             KeyPressEvent += new KeyPressEventHandler(outlineView_KeyPressEvent);
             ExpanderColumn.Expand = true;
+
+            NodeSelection.Mode = SelectionMode.Single;
+            ShowAll();
         }
 
         void outlineView_KeyPressEvent(object o, KeyPressEventArgs args)

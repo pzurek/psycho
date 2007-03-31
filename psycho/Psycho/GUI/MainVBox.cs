@@ -33,9 +33,31 @@ namespace Psycho
 	{
 		public MainVBox() : base()
 		{
-			TemporaryButtonBox temporaryControl = new TemporaryButtonBox();
+            MindModel model = new MindModel();
+            Console.WriteLine("Creating model");
+            model.AppendSomeNodes(model.CentralTopic);
+
+            TemporaryButtonBox buttonView = new TemporaryButtonBox();
+            PsychoNodeView outlineView = new PsychoNodeView();
+            ScrolledWindow outlineContainer = new ScrolledWindow();
+
+            Console.WriteLine("Creating button view");
+            MindControl buttonControl = new MindControl(model, buttonView);
+            Console.WriteLine("Creating controller");
+            buttonView.WireUp(buttonControl, model);
+            Console.WriteLine("The button view connected to the model and controller");
+
+            Console.WriteLine("Creating outline view");
+            MindControl outlineControl = new MindControl(model, outlineView);
+            Console.WriteLine("Creating controller");
+            outlineContainer.Add(outlineView);
+            outlineView.WireUp(outlineControl, model);
+            Console.WriteLine("The outline view connected to the model and controller");
+            ShowAll();
+
 			this.Homogeneous = false;
-			this.PackStart(temporaryControl);
+			this.PackStart(buttonView, false, false, 6);
+            this.PackStart(outlineContainer, true, true, 6);
 			this.BorderWidth = 6;
 		}
 	}

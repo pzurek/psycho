@@ -37,18 +37,14 @@ namespace Psycho {
     ///</summary>
     public class TemporaryButtonBox : VBox, IPsychoView {
         
-        #region fields
-        private IPsychoModel Model;
-        private IPsychoControl Control;
-
-        private NodeStore store = new NodeStore(typeof(PsychoTreeNode));
-        private PsychoNodeView outlineView = new PsychoNodeView();
-
         Entry titleEntry = new Entry();
         Button addSiblingButton = new Button();
         Button addChildButton = new Button();
         Button deleteButton = new Button();
-        #endregion
+
+        private IPsychoModel Model;
+        private IPsychoControl Control;
+
 
         public TemporaryButtonBox() : base() {
 
@@ -56,25 +52,17 @@ namespace Psycho {
             this.BorderWidth = 6;
 
             HButtonBox buttonBox = new HButtonBox();
-            ScrolledWindow outlineContainer = new ScrolledWindow();
-
-            outlineView.NodeStore = (store);
-            outlineView.NodeSelection.Mode = SelectionMode.Single;
-            outlineView.ShowAll();
-
-            outlineContainer.Add(outlineView);
 
             titleEntry.EditingDone += new EventHandler(titleEntry_EditingDone);
-            Console.WriteLine("Title editing done");
 
             addSiblingButton.Label = ("Add Sibling");
             addSiblingButton.Clicked += new EventHandler(btnAddSibling_Click);
+            
             addChildButton.Label = ("Add Child");
             addChildButton.Clicked += new EventHandler(btnAddChild_Click);
-            Console.WriteLine("Add Child Button");
+            
             deleteButton.Label = ("Delete");
             deleteButton.Clicked += new EventHandler(btnDelete_Click);
-            Console.WriteLine("Delete Button");
 
             buttonBox.Homogeneous = true;
             buttonBox.Layout = (Gtk.ButtonBoxStyle.End);
@@ -85,7 +73,6 @@ namespace Psycho {
 
             this.PackStart(titleEntry, false, false, 6);
             this.PackStart(buttonBox, false, false, 6);
-            this.PackStart(outlineContainer, true, true, 6);
         }
 
         public void WireUp(IPsychoControl paramControl, IPsychoModel paramModel)
@@ -148,16 +135,10 @@ namespace Psycho {
 
         public void SetCurrentTopic()
         {
-            Control.RequestSetCurrent(outlineView.selectedNode.GUID);
         }
 
         public void Update(IPsychoModel paramModel)
         {
-            store.Clear();
-            outlineView.centralNode = new PsychoTreeNode(paramModel.CentralTopic.Title, paramModel.CentralTopic.GUID);
-            store.AddNode(outlineView.centralNode);
-            AddNodesRecursively(outlineView.centralNode, paramModel.CentralTopic);
-            outlineView.ExpandAll();
             titleEntry.Text = paramModel.CurrentTopic.Title;
         }
 
@@ -169,6 +150,16 @@ namespace Psycho {
         public void EnableAddSibling()
         {
             addSiblingButton.Sensitive = (true);
+        }
+
+        public void DisableDelete()
+        {
+            deleteButton.Sensitive = (false);
+        }
+
+        public void EnableDelete()
+        {
+            deleteButton.Sensitive = (true);
         }
 
         public void ExpandTopic(string paramGuid, bool isExpanded)

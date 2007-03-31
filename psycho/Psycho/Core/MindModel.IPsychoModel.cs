@@ -33,6 +33,7 @@ namespace Psycho {
     /// Implementation of the IPsychoModel interface for the Topic object.
     /// </summary>
     public partial class MindModel : IPsychoModel {
+
         private Topic centralTopic = new Topic(0);
         private Topic currentTopic;
         private int currentLevel = 0;
@@ -109,6 +110,7 @@ namespace Psycho {
         public void AddObserver(IPsychoView paramView)
         {
             observerList.Add(paramView);
+            Console.WriteLine("View: " + paramView.ToString() + " added to observer list");
         }
 
         public void RemoveObserver(IPsychoView paramView)
@@ -120,13 +122,14 @@ namespace Psycho {
         {
             foreach (IPsychoView view in observerList) {
                 view.Update(this);
+                Console.WriteLine("Updated: " + view.ToString());
             }
         }
 
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
             CurrentTopic = FindByGUID(paramGuid, CentralTopic);
-            //            NotifyObservers();
+            NotifyObservers();
             Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
         }
 

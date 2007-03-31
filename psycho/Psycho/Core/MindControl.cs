@@ -33,33 +33,34 @@ namespace Psycho {
 
         public MindControl(IPsychoModel paramModel, IPsychoView paramView)
         {
-            this.Model = paramModel;
-            this.View = paramView;
-            CheckAddSiblingButtonLegal();
+            Model = paramModel;
+            View = paramView;
+            CheckButtonsLegal();
         }
 
         #region IPsychoControl Members
 
         public void SetModel(IPsychoModel paramModel)
         {
-            this.Model = paramModel;
+            Model = paramModel;
         }
 
         public void SetView(IPsychoView paramView)
         {
-            this.View = paramView;
+            View = paramView;
         }
 
         public void RequestSetCurrent(string paramGuid)
         {
             Model.SetCurrent(paramGuid, Model.CentralTopic);
+            CheckButtonsLegal();
         }
 
         public void RequestAddSubtopic()
         {
             if (Model != null) {
                 Model.CreateSubtopic();
-                CheckAddSiblingButtonLegal();
+                CheckButtonsLegal();
             }
         }
 
@@ -67,7 +68,7 @@ namespace Psycho {
         {
             if (Model != null) {
                 Model.CreateTopic();
-                CheckAddSiblingButtonLegal();
+                CheckButtonsLegal();
             }
         }
 
@@ -75,7 +76,7 @@ namespace Psycho {
         {
             if (Model != null) {
                 Model.DeleteTopic();
-                CheckAddSiblingButtonLegal();
+                CheckButtonsLegal();
             }
         }
 
@@ -94,13 +95,15 @@ namespace Psycho {
         }
         #endregion
 
-        public void CheckAddSiblingButtonLegal()
+        public void CheckButtonsLegal()
         {
             if (Model.CurrentTopic == Model.CentralTopic) {
                 View.DisableAddSibling();
+                View.DisableDelete();
             }
             else {
                 View.EnableAddSibling();
+                View.EnableDelete();
             }
         }
     }

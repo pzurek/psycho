@@ -38,24 +38,14 @@ namespace Psycho
             mainWindow.DeleteEvent += OnDelete;
             mainWindow.SetDefaultSize (640, 480);
             mainWindow.SetPosition(WindowPosition.Center);
-            
-            MindModel model = new MindModel();
-            Console.WriteLine("Creating model", 3);
-            model.AppendSomeNodes(model.CentralTopic);
-            TemporaryButtonBox view = new TemporaryButtonBox();
-            Console.WriteLine("Creating view");
-            MindControl control = new MindControl(model, view);
-            Console.WriteLine("Creating controller");
-            view.WireUp(control, model);
-            Console.WriteLine("The view connected to the model and controller");
 
-			mainWindow.Add(view);
+            MainVBox userInterface = new MainVBox();
+            mainWindow.Add(userInterface);
             mainWindow.ShowAll ();
-            Console.WriteLine("Small break");
 	        Application.Run ();
 		}
 		
-		static void OnDelete (object o, DeleteEventArgs e)
+		static void OnDelete (object sender, DeleteEventArgs args)
 	    {
 	        Application.Quit ();
 	    }     

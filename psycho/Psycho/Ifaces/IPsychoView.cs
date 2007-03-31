@@ -28,18 +28,21 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Psycho {
-    public interface IPsychoView {
 
-        #region Observer implementation
-        void Update(IPsychoModel paramModel);
-        void AddTopic();
-        void AddSubtopic();
-        void DeleteTopic();
-        void ExpandTopic(string paramGuid, bool isExpanded);
-        void EditTitle(string Title);
-        void SetCurrentTopic();
-        void DisableAddSibling();
-        void EnableAddSibling();
-        #endregion
-    }
+        public interface IPsychoView {
+
+                #region Observer implementation
+                void Update(IPsychoModel paramModel);
+                void AddTopic();
+                void AddSubtopic();
+                void DeleteTopic();
+                void ExpandTopic(string paramGuid, bool isExpanded);
+                void EditTitle(string Title);
+                void SetCurrentTopic();
+                void DisableAddSibling();
+                void DisableDelete();
+                void EnableAddSibling();
+                void EnableDelete();
+                #endregion
+        }
 }
