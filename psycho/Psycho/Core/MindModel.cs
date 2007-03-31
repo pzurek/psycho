@@ -35,17 +35,23 @@ namespace Psycho {
 
         private Topic centralTopic = new Topic (1234);
         private Topic currentTopic;
-        private XmlDocument XMLmodel = new XmlDocument();
-        public XmlElement RootNode;
+        private XmlElement currentXmlTopic;
+        private XmlDocument xmlModel = new XmlDocument();
 
         public MindModel ()
         {
             this.currentTopic = this.centralTopic;
             centralTopic.Title = "Central Topic";
 
-            declarationNode = XMLModel.CreateNode (XmlNodeType.XmlDeclaration,"","");
-            //RootNode = new XmlElement ("", "", "", XMLmodel);
-            //xmlModel.AppendChild (RootNode);
+            XmlDeclaration declarationNode = XMLModel.CreateXmlDeclaration ("1.0", "UTF-8", "");
+            xmlModel.AppendChild (declarationNode);
+            XmlElement rootNode = xmlModel.CreateElement ("Topic");
+            rootNode.SetAttribute ("guid", CentralTopic.GUID);
+            XmlElement rootTitle = xmlModel.CreateElement ("Title");
+            rootTitle.SetAttribute ("text", CentralTopic.Title);
+            rootNode.AppendChild (rootTitle);
+            xmlModel.AppendChild (rootNode);
+            currentXmlTopic = rootNode;
 
             NotifyObservers ();
         }
@@ -142,14 +148,22 @@ namespace Psycho {
                 Topic newTopic = new Topic (centralTopic.TotalCount);
                 newTopic.Parent = CurrentTopic.Parent;
                 CurrentTopic.Parent.AddSubtopicAt ((currentIndex + 1), newTopic);
+                CreateXMLTopic (CurrentTopic.Parent.GUID, newTopic.GUID, newTopic.Title);
                 CurrentTopic = newTopic;
                 newTopics.Add (newTopic);
                 NotifyObservers ();
-                //rootNode = xmlModel.CreateNode (XmlNodeType.Element, "RootTopic", "");
-                //xmlModel.AppendChild (rootNode);
-                //BuildXML (centralTopic, rootNode);
-                //xmlModel.Save ("content.xml");
             }
+        }
+
+        public void CreateXMLTopic (string parentGuid, string paramGuid, string paramTitle)
+        {
+            XmlElement newXmlTopic = xmlModel.CreateElement ("Topic");
+            newXmlTopic.SetAttribute ("guid", paramGuid);
+            XmlElement newXmlTitle = xmlModel.CreateElement ("Title");
+            newXmlTitle.SetAttribute ("text", paramTitle);
+            newXmlTopic.AppendChild (newXmlTitle);
+            currentXmlTopic.AppendChild (newXmlTopic);
+            currentXmlTopic = newXmlTopic;
         }
 
         public void CreateSubtopic ()
@@ -157,6 +171,7 @@ namespace Psycho {
             Topic newTopic = new Topic (centralTopic.TotalCount);
             newTopic.Parent = CurrentTopic;
             CurrentTopic.AddSubtopic (newTopic);
+            CreateXMLTopic (CurrentTopic.GUID, newTopic.GUID, newTopic.Title);
             CurrentTopic = newTopic;
             newTopics.Add (newTopic);
             NotifyObservers ();
@@ -233,6 +248,7 @@ namespace Psycho {
         {
             Topic saughtTopic = FindByGUID (paramGuid);
             CurrentTopic = saughtTopic;
+            currentXmlTopic = xmlModel.GetElementById (paramGuid);
             NotifyObservers ();
         }
 
@@ -243,7 +259,8 @@ namespace Psycho {
         }
         #endregion
 
-        public XmlDocument xmlModel;
+        /*
+
         public XmlNode declarationNode;
         public XmlNode rootNode;
         public XmlElement topicNode;
@@ -262,14 +279,12 @@ namespace Psycho {
                     topicTitle = xmlModel.CreateElement ("Title");
                     topicTitle.SetAttribute ("text", subtopic.Title);
                     topicNode.AppendChild (topicTitle);
-                    XMLModel.LastChild.AppendChild (topicNode);
                     BuildXML (subtopic);
                 }
             }
         }
-
-        #region IModel Members
-
+         
+        */
 
         public void ChangeTopic (Topic paramTopic)
         {
@@ -278,16 +293,9 @@ namespace Psycho {
             NotifyObservers ();
         }
 
-        #endregion
-
-        #region IModel Members
-
-
         public XmlDocument XMLModel
         {
-            get { return XMLmodel; }
+            get { return xmlModel; }
         }
-
-        #endregion
     }
 }

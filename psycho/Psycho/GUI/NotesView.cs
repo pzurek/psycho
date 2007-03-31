@@ -24,6 +24,7 @@ namespace Psycho {
             notesBuffer.Changed += new EventHandler (notesBuffer_Changed);
 
             this.ShadowType = ShadowType.EtchedIn;
+            notesView.RedrawOnAllocate = true;
             this.Add (notesView);
         }
 

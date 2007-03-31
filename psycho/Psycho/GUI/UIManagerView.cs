@@ -225,22 +225,20 @@ namespace Psycho {
 
         public void DisableDelete ()
         {
-            if (uiManager.GetAction ("/group/Delete") != null)
-                uiManager.GetAction("/group/Delete").Sensitive = false;
+            if (uiManager.GetAction ("<Actions>/group/Delete") != null) {
+                Action deleteAction = uiManager.GetAction ("<Actions>/group/Delete");
+                deleteAction.Sensitive = false;
+            }
+                
         }
 
         public void EnableAddSibling ()
         {
-            
         }
 
         public void EnableDelete ()
         {
         }
-        #endregion
-
-        #region IView Members
-
 
         public void CommitChange (Topic paramTopic)
         {

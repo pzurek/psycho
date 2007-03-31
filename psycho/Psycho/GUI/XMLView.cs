@@ -36,16 +36,16 @@ namespace Psycho {
 
         private IModel Model;
         private IControl Control;
-
-        private SourceView XMLPreview;
-        //private SourceLanguage XMLLang;
-        //private SourceBuffer XMLBuffer;
-        //private SourceTagTable XMLTagTable;
-
+        private SourceView XmlPreview;
+        
         public XMLView ()
         {
-            XMLPreview = new SourceView ();
-            this.Add (XMLPreview);
+            XmlPreview = new SourceView ();
+            XmlPreview.AutoIndent = true;
+            XmlPreview.Editable = false;
+            XmlPreview.Indent = 4;
+            XmlPreview.RedrawOnAllocate = true;
+            this.Add (XmlPreview);
             ShowAll ();
         }
 
@@ -53,7 +53,7 @@ namespace Psycho {
 
         public void Update (IModel paramModel)
         {
-            this.XMLPreview.Buffer.Text = paramModel.XMLModel.InnerXml;
+            this.XmlPreview.Buffer.Text = paramModel.XMLModel.InnerXml;
         }
 
         public void WireUp (IControl paramControl, IModel paramModel)
