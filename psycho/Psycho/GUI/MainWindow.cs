@@ -49,6 +49,7 @@ namespace Psycho
                         ButtonView buttonView = new ButtonView ();
                         MindControl buttonControl = new MindControl (model, buttonView);
                         buttonView.WireUp (buttonControl, model);
+                        //Utilities.MindWireUp (model, buttonView, buttonControl);
 
                         OutlineView nodeView = new OutlineView ();
                         MindControl outlineControl = new MindControl (model, nodeView);

@@ -26,6 +26,28 @@
 namespace Psycho
 {
         using System;
-        using System.Collections;
         using Psycho;
+
+        static class Utilities
+        {
+                public static void MindWireUp (IModel paramModel, IView paramView, IControl paramControl)
+                {
+                        IModel Model;
+                        IControl Control;
+                        IView View;
+
+                        View = paramView;
+
+                        //if (View.Model != null)
+                        //        Model.RemoveObserver (paramView);
+
+                        Model = paramModel;
+                        Control = paramControl;
+
+                        Control.SetModel (Model);
+                        Control.SetView (paramView);
+                        Model.AddObserver (paramView);
+                        View.Update (Model);
+                }
+        }
 }

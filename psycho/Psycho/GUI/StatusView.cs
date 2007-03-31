@@ -45,11 +45,13 @@ namespace Psycho
                         this.PackStart (mapTitle);
                         this.PackStart (topicNumber);
                         this.PackStart (currentTitle);
+                        this.Homogeneous = true;
                 }
 
                 public void Update (IModel paramModel)
                 {
                         if (Model != null) {
+
                                 mapTitle.Text = ("Map title: " + Model.CentralTopic.Text);
                                 topicNumber.Text = ("Topics in the map: " + Model.CentralTopic.TotalCount.ToString ());
                                 currentTitle.Text = ("Current topic title: " + Model.CurrentTopic.Text);
@@ -58,9 +60,8 @@ namespace Psycho
 
                 public void WireUp (IControl paramControl, IModel paramModel)
                 {
-                        if (Model != null) {
+                        if (Model != null)
                                 Model.RemoveObserver (this);
-                        }
 
                         Model = paramModel;
                         Control = paramControl;

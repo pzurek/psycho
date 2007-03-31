@@ -114,6 +114,8 @@ namespace Psycho
                         outlineView.RowCollapsed += new RowCollapsedHandler (outlineView_RowCollapsed);
                         outlineView.RowExpanded += new RowExpandedHandler (outlineView_RowExpanded);
                         outlineView.KeyReleaseEvent += new KeyReleaseEventHandler (outlineView_KeyReleaseEvent);
+                        outlineView.FocusInEvent += new FocusInEventHandler (outlineView_FocusInEvent);
+                        outlineView.FocusOutEvent += new FocusOutEventHandler (outlineView_FocusOutEvent);
 
                         outlineView.ExpanderColumn.Expand = true;
                         outlineView.CanFocus = true;
@@ -122,17 +124,27 @@ namespace Psycho
                         ShowAll ();
                 }
 
-                void titleCell_EditingCanceled (object sender, EventArgs args)
+                void outlineView_FocusOutEvent (object o, FocusOutEventArgs args)
                 {
                         editPending = false;
-                        TriggerEdit (editPending);
+                        Update (Model);
+                }
+
+                void outlineView_FocusInEvent (object o, FocusInEventArgs args)
+                {
+                        editPending = true;
+                }
+
+                void titleCell_EditingCanceled (object sender, EventArgs args)
+                {
+                        //editPending = false;
+                        //TriggerEdit (editPending);
                 }
 
                 void titleCell_EditingStarted (object sender, EditingStartedArgs args)
                 {
-                        editPending = true;
-                        TriggerEdit (editPending);
-                        outlineView.GrabFocus ();
+                        //editPending = true;
+                        //TriggerEdit (editPending);
                 }
 
                 void outlineView_KeyReleaseEvent (object sender, KeyReleaseEventArgs args)
@@ -183,6 +195,7 @@ namespace Psycho
                 void RenderNotes (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
                 {
                         Topic topic = (Topic) model.GetValue (iter, 0);
+
                         if (topic.HasNotes)
                                 (cell as CellRendererPixbuf).Pixbuf = IconLoader.notesIcon;
                         else
@@ -200,12 +213,14 @@ namespace Psycho
 
                 public void Update (IModel paramModel)
                 {
-                        updatePending = true;
-                        UpdateNew (paramModel);
-                        UpdateDeletedPath (paramModel);
-                        UpdateChanged (paramModel);
-                        workingTopic = paramModel.CurrentTopic;
-                        updatePending = false;
+                        if (editPending == false) {
+                                updatePending = true;
+                                UpdateNew (paramModel);
+                                UpdateDeletedPath (paramModel);
+                                UpdateChanged (paramModel);
+                                workingTopic = paramModel.CurrentTopic;
+                                updatePending = false;
+                        }
                 }
 
                 public void UpdateNew (IModel paramModel)

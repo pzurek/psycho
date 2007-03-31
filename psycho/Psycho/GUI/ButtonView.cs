@@ -83,9 +83,8 @@ namespace Psycho
 
                 public void WireUp (IControl paramControl, IModel paramModel)
                 {
-                        if (Model != null) {
+                        if (Model != null)
                                 Model.RemoveObserver (this);
-                        }
 
                         Model = paramModel;
                         Control = paramControl;

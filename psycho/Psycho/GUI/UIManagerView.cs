@@ -86,28 +86,28 @@ namespace Psycho
                         BuildIcons ();
 
                         ActionEntry[] entries = new ActionEntry[] {
-                new ActionEntry ("FileMenu", null, "_File", null, null, null),
-                new ActionEntry ("EditMenu", null, "_Edit", null, null, null),
-                new ActionEntry ("HelpMenu", null, "_Help", null, null, null),
+                                new ActionEntry ("FileMenu", null, "_File", null, null, null),
+                                new ActionEntry ("EditMenu", null, "_Edit", null, null, null),
+                                new ActionEntry ("HelpMenu", null, "_Help", null, null, null),
 
-                new ActionEntry ("New", Stock.New, "_New", "<control>N", "Create a new file", new EventHandler (ActionActivated)),
-                new ActionEntry ("Open", Stock.Open, "_Open", "<control>O", "Open a file", new EventHandler (ActionActivated)),
-                new ActionEntry ("Save", Stock.Save, "_Save", "<control>S", "Save current file", new EventHandler (ActionActivated)),
-                new ActionEntry ("SaveAs", Stock.SaveAs, "Save _As", null, "Save to a file", new EventHandler (ActionActivated)),
-                new ActionEntry ("Quit", Stock.Quit, "_Quit", "<control>Q", "Quit", new EventHandler (ActionActivated)),
-                
-                new ActionEntry ("AddTopic", "psycho-topic", "_Topic", "Return", "Create a new topic on a current level", new EventHandler (ActionActivated)),
-                new ActionEntry ("AddSubtopic", "psycho-subtopic", "_Subtopic", "Insert", "Create a new topic as a child for currently selected topic", new EventHandler (ActionActivated)),
-                new ActionEntry ("Delete", "psycho-delete", "_Delete", "Delete", "Delete currently selected topic", new EventHandler (ActionActivated)),
-                new ActionEntry ("Relation", "psycho-relation", "_Relation", "", "Create a relation between two existing elements", new EventHandler (ActionActivated)),
-                new ActionEntry ("Callout", "psycho-callout", "_Callout", "", "Create a callout topic for currently selected element", new EventHandler (ActionActivated)),
-                new ActionEntry ("Border", "psycho-border", "_Border", "", "Add Border", new EventHandler (ActionActivated)),
-                
-                new ActionEntry ("Copy", Stock.Copy, "Copy", "<control>C", "Copy to clipboard", new EventHandler (ActionActivated)),
-                new ActionEntry ("Cut", Stock.Cut, "Cut", "<control>X", "Cut to clipboard", new EventHandler (ActionActivated)),
-                new ActionEntry ("Paste", Stock.Paste, "Paste", "<control>V", "Paste from clipboard", new EventHandler (ActionActivated)),
-                
-                new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
+                                new ActionEntry ("New", Stock.New, "_New", "<control>N", "Create a new file", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Open", Stock.Open, "_Open", "<control>O", "Open a file", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Save", Stock.Save, "_Save", "<control>S", "Save current file", new EventHandler (ActionActivated)),
+                                new ActionEntry ("SaveAs", Stock.SaveAs, "Save _As", null, "Save to a file", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Quit", Stock.Quit, "_Quit", "<control>Q", "Quit", new EventHandler (ActionActivated)),
+                                
+                                new ActionEntry ("AddTopic", "psycho-topic", "_Topic", "Return", "Create a new topic on a current level", new EventHandler (ActionActivated)),
+                                new ActionEntry ("AddSubtopic", "psycho-subtopic", "_Subtopic", "Insert", "Create a new topic as a child for currently selected topic", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Delete", "psycho-delete", "_Delete", "Delete", "Delete currently selected topic", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Relation", "psycho-relation", "_Relation", "", "Create a relation between two existing elements", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Callout", "psycho-callout", "_Callout", "", "Create a callout topic for currently selected element", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Border", "psycho-border", "_Border", "", "Add Border", new EventHandler (ActionActivated)),
+                                
+                                new ActionEntry ("Copy", Stock.Copy, "Copy", "<control>C", "Copy to clipboard", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Cut", Stock.Cut, "Cut", "<control>X", "Cut to clipboard", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Paste", Stock.Paste, "Paste", "<control>V", "Paste from clipboard", new EventHandler (ActionActivated)),
+                                
+                                new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
             };
 
                         actions.Add (entries);
@@ -165,9 +165,8 @@ namespace Psycho
 
                 public void WireUp (IControl paramControl, IModel paramModel)
                 {
-                        if (Model != null) {
+                        if (Model != null)
                                 Model.RemoveObserver (this);
-                        }
 
                         Model = paramModel;
                         Control = paramControl;

@@ -49,22 +49,36 @@ namespace Psycho
                         notesView.WrapMode = WrapMode.Word;
                         notesBuffer = notesView.Buffer;
                         notesTagTable = notesBuffer.TagTable;
-                        editPending = false;
                         notesBuffer.Changed += new EventHandler (notesBuffer_Changed);
+                        notesView.FocusOutEvent += new FocusOutEventHandler (notesView_FocusOutEvent);
+                        notesView.FocusInEvent += new FocusInEventHandler (notesView_FocusInEvent);
 
                         this.ShadowType = ShadowType.EtchedIn;
                         notesView.RedrawOnAllocate = true;
                         this.Add (notesView);
+                        editPending = false;
+                }
+
+                void notesView_FocusInEvent (object sender, FocusInEventArgs args)
+                {
+                        editPending = true;
+                }
+
+                void notesView_FocusOutEvent (object sender, FocusOutEventArgs args)
+                {
+                        editPending = false;
+                        Update (Model);
                 }
 
                 void notesBuffer_Changed (object sender, EventArgs args)
                 {
-                        editPending = true;
-                        if (workingTopic.TopicNotes == null)
-                                workingTopic.TopicNotes = new Notes (workingTopic);
-                        workingTopic.TopicNotes.Text = notesBuffer.Text;
-                        CommitChange (workingTopic);
-                        editPending = false;
+                        if (notesView.HasFocus) {
+                                if (workingTopic.TopicNotes == null)
+                                        workingTopic.TopicNotes = new Notes (workingTopic);
+                                workingTopic.TopicNotes.Text = notesBuffer.Text;
+                                CommitChange (workingTopic);
+                        }
+
                 }
 
                 public void Update (IModel paramModel)
@@ -80,9 +94,8 @@ namespace Psycho
 
                 public void WireUp (IControl paramControl, IModel paramModel)
                 {
-                        if (Model != null) {
+                        if (Model != null)
                                 Model.RemoveObserver (this);
-                        }
 
                         Model = paramModel;
                         Control = paramControl;
