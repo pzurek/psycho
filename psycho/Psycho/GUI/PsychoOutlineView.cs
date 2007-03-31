@@ -41,19 +41,10 @@ namespace Psycho {
         private TreeIter selectedNode;
         private Topic selectedTopic;
 
-        //private Topic SelectedTopic {
-        //    get {
-        //        TreeModel model;
-        //        Topic selected;
-        //        if (outlineView.Selection.GetSelected(out model, out selectedNode)) {
-        //            selected = (Topic) model.GetValue(selectedNode, 0);
-        //            return selected;
-        //        }
-        //    }
-        //}
-
         private bool isEdited;
+        private TreeViewColumn pathColumn = new TreeViewColumn();
         private TreeViewColumn titleColumn = new TreeViewColumn();
+        private TreeViewColumn levelColumn = new TreeViewColumn();
         private TreeViewColumn guidColumn = new TreeViewColumn();
 
         public PsychoOutlineView ()
@@ -66,18 +57,33 @@ namespace Psycho {
             titleCell.EditingStarted += new EditingStartedHandler(titleCell_EditingStarted);
             titleCell.EditingCanceled += new EventHandler(titleCell_EditingCanceled);
             titleColumn.PackStart(titleCell, true);
-            titleColumn.AddAttribute(titleCell, "text", 0);
+            titleColumn.AddAttribute(titleCell, "text", 1);
             titleColumn.SetCellDataFunc(titleCell, new Gtk.TreeCellDataFunc(RenderTitle));
 
             guidColumn.Title = "Topic GUID";
             CellRendererText guidCell = new CellRendererText();
             guidColumn.PackStart(guidCell, false);
-            guidColumn.AddAttribute(guidCell, "text", 1);
+            guidColumn.AddAttribute(guidCell, "text", 0);
             guidColumn.SetCellDataFunc(guidCell, new Gtk.TreeCellDataFunc(RenderGuid));
 
+            pathColumn.Title = "Topic path";
+            CellRendererText pathCell = new CellRendererText();
+            pathColumn.PackStart(pathCell, false);
+            pathColumn.AddAttribute(pathCell, "text", 3);
+            pathColumn.SetCellDataFunc(pathCell, new Gtk.TreeCellDataFunc(RenderPath));
+
+            levelColumn.Title = "Topic level";
+            CellRendererText levelCell = new CellRendererText();
+            levelColumn.PackStart(levelCell, false);
+            levelColumn.AddAttribute(levelCell, "text", 2);
+            levelColumn.SetCellDataFunc(levelCell, new Gtk.TreeCellDataFunc(RenderLevel));
+
             outlineView.Model = store;
+            outlineView.AppendColumn(pathColumn);
             outlineView.AppendColumn(titleColumn);
+            outlineView.AppendColumn(levelColumn);
             outlineView.AppendColumn(guidColumn);
+            outlineView.ExpanderColumn = titleColumn;
 
             outlineView.Selection.Changed += new System.EventHandler(OnSelectionChanged);
             outlineView.RowCollapsed += new RowCollapsedHandler(outlineView_RowCollapsed);
@@ -131,6 +137,18 @@ namespace Psycho {
         {
             Topic topic = (Topic) model.GetValue(iter, 0);
             (cell as CellRendererText).Text = topic.GUID;
+        }
+
+        private void RenderPath (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+        {
+            Topic topic = (Topic) model.GetValue(iter, 0);
+            (cell as CellRendererText).Text = topic.TopicPath;
+        }
+
+        private void RenderLevel (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+        {
+            Topic topic = (Topic) model.GetValue(iter, 0);
+            (cell as CellRendererText).Text = topic.Level.ToString();
         }
 
         public void Build (IPsychoModel paramModel)

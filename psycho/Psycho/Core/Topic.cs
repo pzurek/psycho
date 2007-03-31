@@ -75,12 +75,6 @@ namespace Psycho {
             set { parent = value; }
         }
 
-        //public int Level
-        //{
-        //    get { return level; }
-        //    set { level = value; }
-        //}
-
         public bool IsExpanded
         {
             get { return isExpanded; }
@@ -145,6 +139,7 @@ namespace Psycho {
         public void ForEach(Action<Topic> action)
         {
             Queue<Topic> remaining = new Queue<Topic>();
+            
             remaining.Enqueue(this);
 
             while (remaining.Count > 0) {
@@ -159,12 +154,12 @@ namespace Psycho {
         {
             level = 0;
             Queue<Topic> remaining = new Queue<Topic>();
-            if (this.Parent != null)
-                remaining.Enqueue(this.Parent);
 
+            if (this.Parent != null) remaining.Enqueue(this.Parent);
+            
             while (remaining.Count > 0) {
                 Topic topic = remaining.Dequeue();
-                remaining.Enqueue(topic.Parent);
+                if (topic.Parent != null) remaining.Enqueue(topic.Parent);
                 level++;
             }
         }
