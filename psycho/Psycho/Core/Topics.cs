@@ -78,7 +78,7 @@ namespace Psycho
                         }
                 }
 
-                public int TotalWidth  //TODO: This is bullshit for now.
+                public int TotalWidth  //TODO: This is bullshit...
                 {
                         get
                         {

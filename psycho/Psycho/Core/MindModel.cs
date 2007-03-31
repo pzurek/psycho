@@ -143,7 +143,7 @@ namespace Psycho
 
                 public void AppendSomeNodes (Topic iTopic)
                 {
-                        while (iTopic.Subtopics.Count < 2) {
+                        while (iTopic.Subtopics.Count < 3) {
                                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                                 newTopic.Parent = iTopic;
                                 CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);

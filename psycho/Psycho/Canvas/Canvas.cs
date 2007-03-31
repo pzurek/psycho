@@ -113,8 +113,10 @@ namespace Psycho
                 {
                         Model.CentralTopic.ForEach (delegate (Topic topic)
                         {
-                                DrawFrame (cr, topic);
-                                DrawText (cr, topic);
+                                if (topic.IsVisible || topic.IsCentral) {
+                                        DrawFrame (cr, topic);
+                                        DrawText (cr, topic);
+                                }
                         }
                         );
                 }

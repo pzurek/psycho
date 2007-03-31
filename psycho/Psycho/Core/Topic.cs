@@ -95,7 +95,7 @@ namespace Psycho
                 bool isExpanded;
                 bool isVisible;
                 bool hasNotes;
-                Notes topicNotes;
+                TopicNotes notes;
                 TopicStyle style;
                 TopicOffset offset;
                 Title topicTitle;
@@ -179,11 +179,10 @@ namespace Psycho
                 {
                         get
                         {
-                                totalHeight = this.Frame.Height;
-                                if (this.Subtopics.Count > 0
-                                        && this.IsExpanded
-                                        && this.Subtopics.Height > this.Frame.Height)
+                                if (this.IsExpanded && this.Subtopics.Height > this.Frame.Height)
                                         totalHeight = Subtopics.Height;
+                                else
+                                        totalHeight = this.Frame.Height;
                                 return totalHeight;
                         }
                 }
@@ -222,7 +221,8 @@ namespace Psycho
                         {
                                 Queue<Topic> remaining = new Queue<Topic> ();
 
-                                if (this.Parent != null && !this.Parent.IsCentral) remaining.Enqueue (this.Parent);
+                                if (this.Parent != null && !this.Parent.IsCentral)
+                                        remaining.Enqueue (this.Parent);
 
                                 while (remaining.Count > 0) {
                                         Topic topic = remaining.Dequeue ();
@@ -235,12 +235,11 @@ namespace Psycho
                         }
                 }
 
-
                 public Topic Next
                 {
                         get
                         {
-                                if (this.Parent != null && this.Parent.Subtopics.Count > this.Index)
+                                if (this.Parent != null && !this.IsLast)
                                         next = this.Parent.Subtopics[(this.Index + 1)];
                                 else
                                         next = null;
@@ -265,19 +264,19 @@ namespace Psycho
                         get { return guid; }
                 }
 
-                public Notes TopicNotes
+                public TopicNotes Notes
                 {
                         get
                         {
-                                if (this.topicNotes == null)
-                                        topicNotes = new Notes (this);
-                                return topicNotes;
+                                if (this.notes == null)
+                                        notes = new TopicNotes (this);
+                                return notes;
                         }
                         set
                         {
-                                if (this.topicNotes == null)
-                                        topicNotes = new Notes (this);
-                                topicNotes = value;
+                                if (this.notes == null)
+                                        notes = new TopicNotes (this);
+                                notes = value;
                         }
                 }
 
@@ -298,13 +297,13 @@ namespace Psycho
                         get
                         {
                                 Queue<Topic> remaining = new Queue<Topic> ();
-                                if (this.Parent != null) remaining.Enqueue (this.Parent);
+                                if (this.Parent != null && !this.IsCentral) remaining.Enqueue (this.Parent);
 
                                 while (remaining.Count > 0) {
                                         Topic topic = remaining.Dequeue ();
-                                        if (topic.IsExpanded && topic.Parent.IsVisible) {
+                                        if (topic.IsExpanded || topic.Parent.IsVisible) {
                                                 isVisible = true;
-                                                if (topic.Parent.IsCentral) break;
+                                                //if (topic.Parent.IsCentral) break;
                                         }
                                         else
                                                 isVisible = false;
@@ -397,7 +396,7 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.TopicNotes != null && this.TopicNotes.Text != "")
+                                if (this.Notes != null && this.Notes.Text != "")
                                         hasNotes = true;
                                 else
                                         hasNotes = false;

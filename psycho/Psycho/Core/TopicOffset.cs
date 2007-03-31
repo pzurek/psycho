@@ -49,7 +49,7 @@ namespace Psycho
                                         if (topic.IsCentral)
                                                 x = 10;
                                         else
-                                                x = topic.Parent.Offset.X + topic.Parent.TextWidth + 28;
+                                                x = topic.Parent.Offset.X + topic.Parent.Frame.Width + 28;
                                         return x;
                                 }
                                 else
@@ -68,12 +68,10 @@ namespace Psycho
                         {
                                 if (isAuto) {
                                         if (this.topic.IsCentral)
-                                                y = this.topic.Subtopics.TotalHeight / 2;
+                                                y = this.topic.Subtopics.TotalHeight;
                                         else
                                                 if (this.topic.IsFirst)
-                                                        y = this.topic.Parent.Offset.Y /*-
-                                                            (this.topic.Parent.Subtopics.TotalHeight)*/
-                                                                                                       ;
+                                                        y = this.topic.Parent.Offset.Y;
                                                 else
                                                         y = this.topic.Previous.Offset.Y +
                                                             this.topic.Previous.TotalHeight +

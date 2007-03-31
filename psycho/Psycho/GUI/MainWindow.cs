@@ -71,7 +71,6 @@ namespace Psycho
                         MindControl notesControl = new MindControl (model, notesView);
                         notesView.WireUp (notesControl, model);
 
-                        //Knockout mapView = new Knockout ();
                         Canvas mapView = new Canvas ();
                         MindControl mapControl = new MindControl (model, mapView);
                         mapView.WireUp (mapControl, model);
@@ -109,7 +108,7 @@ namespace Psycho
                         notesFrame.Shadow = ShadowType.EtchedIn;
 
                         mainHPaned.Add1 (mainFrame);
-                        //mainHPaned.Add2 (notesFrame); //TODO: No notes for now.
+                        mainHPaned.Add2 (notesFrame); //TODO: No notes for now.
                         int windowWidth = new int ();
                         int windowHeight = new int ();
                         this.SetSizeRequest (640, 480);

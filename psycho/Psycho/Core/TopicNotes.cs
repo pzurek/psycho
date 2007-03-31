@@ -30,15 +30,25 @@ namespace Psycho
         using System.Collections.Generic;
         using Psycho;
 
-        public class Notes
+        public class TopicNotes
         {
                 string text;
                 Topic topic;
 
-                public Notes (Topic iTopic)
+                public TopicNotes (Topic iTopic)
                 {
                         this.topic = iTopic;
                         this.text = "";
+                        //string previousText, nextText, firstAncestorText;
+                        //if (this.Topic.Previous != null) previousText = this.Topic.Previous.Text;
+                        //else previousText = "";
+                        //if (this.Topic.Next != null) nextText = this.Topic.Next.Text;
+                        //else nextText = "";
+                        //if (this.Topic.FirstAncestor != null) firstAncestorText = this.Topic.FirstAncestor.Text;
+                        //else firstAncestorText = "";
+                        //this.Text = ("Previous: " + previousText + " /n " +
+                        //                   "Next: " + nextText + " /n " +
+                        //                   "First Ancestor: " + firstAncestorText);
                 }
 
                 public string Text
