@@ -149,8 +149,9 @@ namespace Psycho {
                 Topic newTopic = new Topic (centralTopic.TotalCount);
                 newTopic.Parent = CurrentTopic.Parent;
                 CurrentTopic.Parent.AddSubtopicAt ((currentIndex + 1), newTopic);
-                CreateXMLTopic (CurrentTopic.Parent.GUID, newTopic.GUID, newTopic.Title);
+                CreateXMLTopic (newTopic);
                 CurrentTopic = newTopic;
+                SetCurrentXml (CurrentTopic.GUID);
                 newTopics.Add (newTopic);
                 NotifyObservers ();
             }
@@ -166,16 +167,22 @@ namespace Psycho {
             currentXmlTopic.AppendChild (newXmlTopic);
         }
 
+        public void CreateXMLTopic (Topic paramTopic)
+        {
+            CreateXMLTopic (paramTopic.Parent.GUID, paramTopic.GUID, paramTopic.Title);
+        }
+
         public void CreateSubtopic ()
         {
             Topic newTopic = new Topic (centralTopic.TotalCount);
             newTopic.Parent = CurrentTopic;
             CurrentTopic.AddSubtopic (newTopic);
-            CreateXMLTopic (CurrentTopic.GUID, newTopic.GUID, newTopic.Title);
+            CreateXMLTopic (newTopic);
             CurrentTopic = newTopic;
+            SetCurrentXml (CurrentTopic.GUID);
             newTopics.Add (newTopic);
             NotifyObservers ();
-        }
+       } 
 
         public void DeleteTopic ()
         {
@@ -207,6 +214,7 @@ namespace Psycho {
                 }
                 CurrentTopic.Parent.Subtopics.RemoveAt (currentIndex);
                 CurrentTopic = tempParent.Subtopics[newIndex];
+                SetCurrentXml (CurrentTopic.GUID);
             }
             NotifyObservers ();
         }
@@ -244,11 +252,18 @@ namespace Psycho {
             changedTopics.Clear ();
         }
 
-        public void SetCurrent (string paramGuid, Topic paramTopic)
+        public void SetCurrent (string paramGuid, Topic paramTopic5)
         {
             Topic saughtTopic = FindByGUID (paramGuid);
             CurrentTopic = saughtTopic;
-            currentXmlTopic = xmlModel.GetElementById (paramGuid);
+            SetCurrentXml (CurrentTopic.GUID);
+            NotifyObservers ();
+        }
+
+        public void SetCurrentXml (string paramGuid/*, Topic paramTopic*/)
+        {
+            string xPath = ("//Topic[@guid='" + paramGuid + "']");
+            currentXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
             NotifyObservers ();
         }
 

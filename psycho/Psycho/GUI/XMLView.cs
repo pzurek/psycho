@@ -45,6 +45,10 @@ namespace Psycho {
             XmlPreview.AutoIndent = true;
             XmlPreview.Editable = false;
             XmlPreview.RedrawOnAllocate = true;
+            XmlPreview.ShowLineMarkers = true;
+            XmlPreview.ShowLineNumbers = true;
+            //XmlPreview.
+
             xmlSettings = new XmlWriterSettings ();
             xmlSettings.Indent = true;
             xmlSettings.IndentChars = "        ";
