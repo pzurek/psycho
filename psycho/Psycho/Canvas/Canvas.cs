@@ -47,7 +47,6 @@ namespace Psycho
                         : base ()
                 {
                         mapArea = new DrawingArea ();
-
                         mapArea.ExposeEvent += OnMapExpose;
                         mapArea.Realized += OnMapRealize;
                         this.HscrollbarPolicy = PolicyType.Always;
@@ -164,11 +163,10 @@ namespace Psycho
                                 strokeColor = new Cairo.Color (0.75, 0.75, 0.75);
                         Cairo.Color fillColor = strokeColor;
                         iTopic.Frame.Sketch (iContext);
-                        fillColor.A = 0.1;
+                        fillColor.A = 0.16;
                         iContext.Color = fillColor;
                         iContext.FillPreserve ();
                         iContext.Color = strokeColor;
-                        iContext.LineWidth = iTopic.Style.StrokeWidth;
                         iContext.Stroke ();
                 }
 

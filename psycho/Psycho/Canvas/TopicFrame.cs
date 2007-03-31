@@ -32,13 +32,19 @@ namespace Psycho
                 Cairo.Context context;
                 double frameHeight, frameWidth;
                 Cairo.PointD origin, center, left, right, top, bottom;
-                double octDist, octDistHor, octDistVer, polyDist;
+                double polyDist;
+                double octDist, octDistHor, octDistVer;
                 double hexDist, hexDistHor;
                 double radius;
                 Topic topic;
-                double sqrt2 = System.Math.Sqrt (2);
-                double sqrt3 = System.Math.Sqrt (3);
-                double PI = System.Math.PI;
+
+                static double sqrt2 = System.Math.Sqrt (2);
+                static double sqrt3 = System.Math.Sqrt (3);
+                static double PI = System.Math.PI;
+                static double angle1 = 0.0 * (PI / 180.0);
+                static double angle2 = 90.0 * (PI / 180.0);
+                static double angle3 = 180.0 * (PI / 180.0);
+                static double angle4 = 270.0 * (PI / 180.0);
 
                 public TopicFrame (Topic iTopic)
                 {
@@ -143,13 +149,13 @@ namespace Psycho
                                         polyDist = 0.25 * this.Height;
                                 else
                                         polyDist = this.Topic.Style.PolyDistance;
-                                                break;
+                                break;
                                 case TopicShape.Hexagon:
-                                        polyDist = this.Topic.Style.PolyDistance;
-                                        break;
+                                polyDist = this.Topic.Style.PolyDistance;
+                                break;
                                 default:
-                                        polyDist = 0;
-                                        break;
+                                polyDist = 0;
+                                break;
                                 }
                                 return polyDist;
                         }
@@ -285,41 +291,32 @@ namespace Psycho
 
                 void sketchRectangle ()
                 {
-                        context.NewPath ();
                         context.Rectangle (Origin, Width, Height);
                 }
 
                 void sketchLine ()
                 {
-                        context.NewPath ();
                         context.MoveTo (Origin);
-                        context.RelMoveTo (0, this.Height);
-                        context.RelLineTo (this.Width, 0);
+                        context.RelMoveTo (0, Height);
+                        context.RelLineTo (Width, 0);
                 }
 
                 void sketchRoundedRectangle ()
                 {
-                        double angle1 = 0.0 * (PI / 180.0);
-                        double angle2 = 90.0 * (PI / 180.0);
-                        double angle3 = 180.0 * (PI / 180.0);
-                        double angle4 = 270.0 * (PI / 180.0);
-
-                        context.NewPath ();
                         context.MoveTo (Origin);
-                        context.ArcNegative (Origin.X, (Origin.Y + radius), radius, angle4, angle3);
-                        context.ArcNegative (Origin.X, (Origin.Y + this.Height - radius), radius, angle3, angle2);
-                        context.ArcNegative ((Origin.X + this.Width), (Origin.Y + this.Height - radius), radius, angle2, angle1);
-                        context.ArcNegative ((Origin.X + this.Width), (Origin.Y + radius), radius, angle1, angle4);
+                        context.Arc ((Origin.X + Width), (Origin.Y + Radius), Radius, angle4, angle1);
+                        context.Arc ((Origin.X + Width), (Origin.Y + Height - Radius), Radius, angle1, angle2);
+                        context.Arc (Origin.X, (Origin.Y + Height - Radius), Radius, angle2, angle3);
+                        context.Arc (Origin.X, (Origin.Y + Radius), Radius, angle3, angle4);
                         context.ClosePath ();
                 }
 
                 void sketchOctagon ()
                 {
-                        context.NewPath ();
                         context.MoveTo (Origin);
                         context.RelLineTo (this.Width, 0);
                         context.RelLineTo (this.PolyDist, this.PolyDist);
-                        context.RelLineTo (0, this.Height - (2*this.PolyDist));
+                        context.RelLineTo (0, this.Height - (2 * this.PolyDist));
                         context.RelLineTo (-this.PolyDist, this.PolyDist);
                         context.RelLineTo (-this.Width, 0);
                         context.RelLineTo (-this.PolyDist, -this.PolyDist);
@@ -329,7 +326,6 @@ namespace Psycho
 
                 void sketchHexagon ()
                 {
-                        context.NewPath ();
                         context.MoveTo (Origin);
                         context.RelLineTo (this.Width, 0);
                         context.RelLineTo (this.PolyDist, this.Height / 2);

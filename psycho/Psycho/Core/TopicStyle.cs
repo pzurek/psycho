@@ -64,8 +64,8 @@ namespace Psycho
                         this.RightMargin = 0;
                         this.TopMargin = 0;
                         this.BottomMargin = 0;
-                        this.CrankChamfer = 12;
-                        this.CrankRadius = 12;
+                        this.CrankChamfer = 8;
+                        this.CrankRadius = 8;
                         this.PolyDistance = 8;
                         this.Width = 150;
                         this.Padding = 7;
