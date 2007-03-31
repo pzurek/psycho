@@ -83,7 +83,7 @@ namespace Psycho {
         public void RequestSetTitle(string paramTitle)
         {
             if (Model != null) {
-                Model.CurrentTopic.Title = (paramTitle);
+                Model.SetTitle (paramTitle);
             }
         }
 

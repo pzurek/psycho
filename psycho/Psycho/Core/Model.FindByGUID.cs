@@ -30,12 +30,12 @@ namespace Psycho {
 
     public partial class MindModel {
 
-        public Topic FindByGUID(string paramGuid, Topic paramTopic)
+        public Topic FindByGUID (string paramGuid/*, Topic paramTopic*/)
         {
             Topic found = new Topic(0);
 
             Queue<Topic> remaining = new Queue<Topic>();
-            remaining.Enqueue(paramTopic);
+            remaining.Enqueue(this.CentralTopic);
 
             while (remaining.Count > 0) {
                 Topic topic = remaining.Dequeue();
@@ -44,8 +44,10 @@ namespace Psycho {
                         remaining.Enqueue(child);
                     }
                 }
-                else
+                else {
                     found = topic;
+                    break;
+                }
             }
             return found;
         }

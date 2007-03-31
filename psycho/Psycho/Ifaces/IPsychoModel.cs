@@ -42,6 +42,7 @@ namespace Psycho {
         void CreateSubtopic();
         void DeleteTopic();
         void SetCurrent(string paramGuid, Topic paramTopic);
+        void SetTitle (string paramString);
         void ExpandTopic(string paramGuid, bool isExpanded);
         #endregion
 

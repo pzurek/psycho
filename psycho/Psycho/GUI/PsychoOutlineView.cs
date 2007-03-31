@@ -35,17 +35,29 @@ namespace Psycho {
         private IPsychoModel Model;
         private IPsychoControl Control;
 
-        private TreeStore store = new TreeStore(typeof(PsychoTreeNode));
+        private TreeStore store = new TreeStore(typeof(Topic));
         private TreeView outlineView = new TreeView();
 
-        //private TreeIter centralNode;
         private TreeIter selectedNode;
         private Topic selectedTopic;
+
+        //private Topic SelectedTopic {
+        //    get {
+        //        TreeModel model;
+        //        Topic selected;
+        //        if (outlineView.Selection.GetSelected(out model, out selectedNode)) {
+        //            selected = (Topic) model.GetValue(selectedNode, 0);
+        //            return selected;
+        //        }
+        //    }
+        //}
+
+        private TreeViewColumn titleColumn = new TreeViewColumn();
+        private TreeViewColumn guidColumn = new TreeViewColumn();
 
         public PsychoOutlineView ()
             : base()
         {
-            TreeViewColumn titleColumn = new TreeViewColumn();
             titleColumn.Title = "Topic title";
             CellRendererText titleCell = new CellRendererText();
             titleCell.Editable = true;
@@ -53,7 +65,6 @@ namespace Psycho {
             titleColumn.AddAttribute(titleCell, "text", 0);
             titleColumn.SetCellDataFunc(titleCell, new Gtk.TreeCellDataFunc(RenderTitle));
 
-            TreeViewColumn guidColumn = new TreeViewColumn();
             guidColumn.Title = "Topic GUID";
             CellRendererText guidCell = new CellRendererText();
             guidColumn.PackStart(guidCell, false);
@@ -69,6 +80,7 @@ namespace Psycho {
             outlineView.RowCollapsed += new RowCollapsedHandler(outlineView_RowCollapsed);
             outlineView.RowExpanded += new RowExpandedHandler(outlineView_RowExpanded);
             outlineView.KeyPressEvent += new KeyPressEventHandler(outlineView_KeyPressEvent);
+            outlineView.RowActivated += new RowActivatedHandler(outlineView_RowActivated);
 
             outlineView.ExpanderColumn.Expand = true;
             //outlineView.ExpandAll();
@@ -77,9 +89,18 @@ namespace Psycho {
             ShowAll();
         }
 
+        void outlineView_RowActivated (object sender, RowActivatedArgs args)
+        {
+            //store = (TreeStore) outlineView.Model;
+            //TreeIter iter;
+            //store.GetIter(out iter, args.Path);
+            //Topic iterTopic = (Topic) store.GetValue(iter, 0);
+            Console.WriteLine("Row activated") ;
+        }
+
         void outlineView_Focused (object sender, FocusedArgs args)
         {
-            Update(Model);
+            Console.WriteLine("OutlineView Focused");
         }
 
         private void RenderTitle (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
@@ -100,6 +121,7 @@ namespace Psycho {
             TreeIter centralNode = store.AppendValues(paramModel.CentralTopic);
             AddNodesRecursively(store, centralNode, paramModel.CentralTopic);
             outlineView.ExpandAll();
+            outlineView.ScrollToCell(store.GetPath(selectedNode), titleColumn, true, 0, 0);
         }
 
         public void AddTopic ()
@@ -122,12 +144,12 @@ namespace Psycho {
 
         public void EditTitle (string Title)
         {
+            Control.RequestSetTitle(Title);
         }
 
         public void SetCurrentTopic ()
         {
             this.Control.RequestSetCurrent(selectedTopic.GUID);
-            Console.WriteLine("Slection request: " + selectedTopic.GUID);
         }
 
         public void DisableAddSibling ()
@@ -166,7 +188,18 @@ namespace Psycho {
 
             foreach (Topic child in paramTopic.Subtopics) {
                 TreeIter kid = paramStore.AppendValues(paramParent, child);
-                if (paramTopic.IsExpanded == true) outlineView.ExpandRow(paramStore.GetPath(paramParent), true);
+
+                //if (paramTopic.IsExpanded) {
+                //    outlineView.ExpandRow(paramStore.GetPath(paramParent), true);
+                //}
+                //else
+                //    outlineView.ExpandRow(paramStore.GetPath(paramParent), false);
+
+                if (Model.CurrentTopic == child) {
+                    selectedNode = kid;
+                    Console.WriteLine("Current iter set to: " + child.Title);
+                }
+
                 AddNodesRecursively(paramStore, kid, child);
             }
         }

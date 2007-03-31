@@ -62,9 +62,11 @@ namespace Psycho {
         public void CreateTopic()
         {
             Topic newTopic = new Topic(centralTopic.TotalCount);
-            newTopic.Parent = CurrentTopic.Parent;
-            CurrentTopic.Parent.AddSubtopic(newTopic);
-            CurrentTopic = newTopic;
+            if (CurrentTopic.Parent != null) {
+                newTopic.Parent = CurrentTopic.Parent;
+                CurrentTopic.Parent.AddSubtopic(newTopic);
+                CurrentTopic = newTopic;
+            }
             NotifyObservers();
         }
 
@@ -97,14 +99,14 @@ namespace Psycho {
                 CurrentTopic.Parent.Subtopics.RemoveAt(currentIndex);
                 CurrentTopic = tempParent.Subtopics[newIndex];
             }
-
             NotifyObservers();
         }
 
         public void SetTitle(string paramTitle)
         {
             CurrentTopic.Title = (paramTitle);
-            Console.WriteLine("Title for topic: " + CurrentTopic.GUID + " set to: " + CurrentTopic.Title);
+            Console.WriteLine("Title for topic: " + CurrentTopic.Title + " set to: " + CurrentTopic.Title);
+            NotifyObservers();
         }
 
         public void AddObserver(IPsychoView paramView)
@@ -127,19 +129,17 @@ namespace Psycho {
 
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
-            CurrentTopic = FindByGUID(paramGuid, CentralTopic);
+            Topic saughtTopic = FindByGUID(paramGuid);
+            Console.WriteLine("Found topic: " + saughtTopic.Title);
+            CurrentTopic = saughtTopic;
+            Console.WriteLine("Current topic set to: " + CurrentTopic.Title);
             NotifyObservers();
-            Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
         }
 
         public void ExpandTopic(string paramGuid, bool isExpanded)
         {
-            Topic ExpandedTopic = FindByGUID(paramGuid, CentralTopic);
+            Topic ExpandedTopic = FindByGUID(paramGuid);
             ExpandedTopic.IsExpanded = (isExpanded);
-            if (isExpanded)
-                Console.WriteLine("Node: " + ExpandedTopic.GUID + " was expanded");
-            else
-                Console.WriteLine("Node: " + ExpandedTopic.GUID + " was collpsed");
         }
         #endregion
     }

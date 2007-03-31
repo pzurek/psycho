@@ -47,7 +47,7 @@ namespace Psycho
 
         public void AppendSomeNodes(Topic paramTopic)
         {
-            while (paramTopic.Subtopics.Count < 4){
+            while (paramTopic.Subtopics.Count < 2){
                 Topic newTopic = new Topic(this.centralTopic.TotalCount);
                 newTopic.Parent = paramTopic;
                 paramTopic.AddSubtopic(newTopic);

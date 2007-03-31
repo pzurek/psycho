@@ -53,7 +53,8 @@ namespace Psycho {
 
             HButtonBox buttonBox = new HButtonBox();
 
-            titleEntry.EditingDone += new EventHandler(titleEntry_EditingDone);
+            titleEntry.Changed +=new EventHandler(titleEntry_Changed); /*+= new EventHandler(titleEntry_EditingDone);*/
+            titleEntry.KeyReleaseEvent += new KeyReleaseEventHandler (titleEntry_KeyReleaseEvent);
 
             addSiblingButton.Label = ("Add Sibling");
             addSiblingButton.Clicked += new EventHandler(btnAddSibling_Click);
@@ -75,6 +76,18 @@ namespace Psycho {
             this.PackStart(buttonBox, false, false, 6);
         }
 
+        void titleEntry_KeyReleaseEvent (object o, KeyReleaseEventArgs args)
+        {
+            string key = args.Event.Key.ToString();
+            EditTitle(titleEntry.Text);
+            Console.WriteLine("Title edited: " + titleEntry.Text);
+        }
+
+        void titleEntry_Changed (object sender, EventArgs args)
+        {
+            //EditTitle(titleEntry.Text);
+        }
+
         public void WireUp(IPsychoControl paramControl, IPsychoModel paramModel)
         {
             if (Model != null) {
@@ -92,8 +105,8 @@ namespace Psycho {
 
         private void titleEntry_EditingDone(object sender, System.EventArgs args)
         {
-            EditTitle(titleEntry.Text);
-            Console.WriteLine("Title edited: " + titleEntry.Text);
+            //EditTitle(titleEntry.Text);
+            //Console.WriteLine("Title edited: " + titleEntry.Text);
         }
 
         public void EditTitle(string paramString)
