@@ -18,6 +18,7 @@ namespace Psycho {
         public NotesView ()
         {
             notesView = new TextView ();
+            notesView.WrapMode = WrapMode.Word;
             notesBuffer = notesView.Buffer;
             notesTagTable = notesBuffer.TagTable;
             editPending = false;
