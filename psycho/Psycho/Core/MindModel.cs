@@ -36,6 +36,7 @@ namespace Psycho {
         private Topic centralTopic = new Topic (1234);
         private Topic currentTopic;
         private XmlDocument XMLmodel = new XmlDocument();
+        public XmlElement RootNode;
 
         public MindModel ()
         {
@@ -43,6 +44,8 @@ namespace Psycho {
             centralTopic.Title = "Central Topic";
 
             declarationNode = XMLModel.CreateNode (XmlNodeType.XmlDeclaration,"","");
+            //RootNode = new XmlElement ("", "", "", XMLmodel);
+            //xmlModel.AppendChild (RootNode);
 
             NotifyObservers ();
         }
@@ -55,17 +58,6 @@ namespace Psycho {
         private Topics changedTopics = new Topics ();
         private bool editPending;
         public int levelCounter;
-
-        public void AppendSomeNodes (Topic paramTopic)
-        {
-            while (paramTopic.Subtopics.Count < 2) {
-                Topic newTopic = new Topic (this.centralTopic.TotalCount);
-                newTopic.Parent = paramTopic;
-                paramTopic.AddSubtopic (newTopic);
-                if (newTopic.Level < 4)
-                    AppendSomeNodes (newTopic);
-            }
-        }
 
         public Topic FindByGUID (string paramGuid/*, Topic paramTopic*/)
         {
@@ -130,6 +122,17 @@ namespace Psycho {
         {
             get { Console.WriteLine ("Edit pending {0}", editPending.ToString ()); return editPending; }
             set { editPending = value; Console.WriteLine ("Edit pending {0}", editPending.ToString ()); }
+        }
+
+        public void AppendSomeNodes (Topic paramTopic)
+        {
+            while (paramTopic.Subtopics.Count < 2) {
+                Topic newTopic = new Topic (this.centralTopic.TotalCount);
+                newTopic.Parent = paramTopic;
+                paramTopic.AddSubtopic (newTopic);
+                if (newTopic.Level < 4)
+                    AppendSomeNodes (newTopic);
+            }
         }
 
         public void CreateTopic ()
@@ -249,7 +252,7 @@ namespace Psycho {
         public XmlAttribute titleText;
         public XmlNodeList nodeSubtopics;
 
-        public void BuildXML (Topic paramTopic, XmlNode paramNode)
+        public void BuildXML (Topic paramTopic)
         {
             if (xmlModel != null) {
 
@@ -259,8 +262,8 @@ namespace Psycho {
                     topicTitle = xmlModel.CreateElement ("Title");
                     topicTitle.SetAttribute ("text", subtopic.Title);
                     topicNode.AppendChild (topicTitle);
-                    paramNode.AppendChild (topicNode);
-                    BuildXML (subtopic, topicNode);
+                    XMLModel.LastChild.AppendChild (topicNode);
+                    BuildXML (subtopic);
                 }
             }
         }

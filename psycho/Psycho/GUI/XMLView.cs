@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using Gtk;
+using GtkSourceView;
 
 namespace Psycho {
 
@@ -36,25 +37,23 @@ namespace Psycho {
         private IModel Model;
         private IControl Control;
 
-        private TextView XMLPreview;
-        private TextBuffer XMLBuffer;
-        private TextTagTable XMLTagTable;
+        private SourceView XMLPreview;
+        //private SourceLanguage XMLLang;
+        //private SourceBuffer XMLBuffer;
+        //private SourceTagTable XMLTagTable;
 
         public XMLView ()
         {
-            XMLPreview = new TextView ();
-            XMLBuffer = XMLPreview.Buffer;
-            XMLTagTable = XMLBuffer.TagTable;
-
-            //XMLPreview.Editable = false;
-
+            XMLPreview = new SourceView ();
             this.Add (XMLPreview);
+            ShowAll ();
         }
 
         #region IView Members
 
         public void Update (IModel paramModel)
         {
+            this.XMLPreview.Buffer.Text = paramModel.XMLModel.InnerXml;
         }
 
         public void WireUp (IControl paramControl, IModel paramModel)
