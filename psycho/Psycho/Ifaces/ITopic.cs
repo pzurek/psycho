@@ -26,9 +26,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public interface ITopic {
+        public interface ITopic
+        {
 
                 string Title { get; set; }
                 ITopic Parent { get; set; }
@@ -37,9 +39,9 @@ namespace Psycho {
                 string Path { get; }
                 string GUID { get; }
                 bool IsExpanded { get; set; }
-                Topics Subtopics { get; set; }
+                Topics subtopics { get; set; }
 
-                void AddSubtopicAt (int paramIndex, ITopic paramTopic);
+                void AddSubtopic (int paramIndex, ITopic paramTopic);
                 void AddSubtopic (ITopic paramTopic);
                 void Delete ();
         }

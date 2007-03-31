@@ -28,18 +28,20 @@ using System.Collections.Generic;
 using System.Text;
 using Gtk;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        class NotesView : ScrolledWindow, IView {
+        class NotesView : ScrolledWindow, IView
+        {
 
-                private IModel Model;
-                private IControl Control;
+                IModel Model;
+                IControl Control;
 
-                private Topic workingTopic;
-                private TextView notesView;
-                private TextBuffer notesBuffer;
-                private TextTagTable notesTagTable;
-                private bool editPending;
+                Topic workingTopic;
+                TextView notesView;
+                TextBuffer notesBuffer;
+                TextTagTable notesTagTable;
+                bool editPending;
 
                 public NotesView ()
                 {

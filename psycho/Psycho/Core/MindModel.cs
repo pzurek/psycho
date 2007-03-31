@@ -23,7 +23,8 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-namespace Psycho {
+namespace Psycho
+{
 
         using System;
         using System.Collections;
@@ -31,15 +32,16 @@ namespace Psycho {
         using System.Xml;
         using Psycho;
 
-        public class MindModel : IModel {
+        public class MindModel : IModel
+        {
 
-                private Topic centralTopic = new Topic (1234);
-                private Topic currentTopic;
-                private XmlElement currentXmlTopic;
-                private XmlElement currentXmlParent;
-                private XmlElement currentXmlSibling;
-                private XmlElement foundXmlTopic;
-                private XmlDocument xmlModel = new XmlDocument ();
+                Topic centralTopic = new Topic (1234);
+                Topic currentTopic;
+                XmlElement currentXmlTopic;
+                XmlElement currentXmlParent;
+                XmlElement currentXmlSibling;
+                XmlElement foundXmlTopic;
+                XmlDocument xmlModel = new XmlDocument ();
 
                 public MindModel ()
                 {
@@ -59,12 +61,12 @@ namespace Psycho {
                         NotifyObservers ();
                 }
 
-                private ArrayList observerList = new ArrayList ();
-                private Topics newTopics = new Topics ();
-                private Topics deletedTopics = new Topics ();
-                private string deletedTopicPath = ("");
-                private Topics changedTopics = new Topics ();
-                private bool editPending;
+                ArrayList observerList = new ArrayList ();
+                Topics newTopics = new Topics ();
+                Topics deletedTopics = new Topics ();
+                string deletedTopicPath = ("");
+                Topics changedTopics = new Topics ();
+                bool editPending;
                 public int levelCounter;
 
                 public Topic FindByGUID (string paramGuid/*, Topic paramTopic*/)
@@ -142,7 +144,7 @@ namespace Psycho {
 
                 public void AppendSomeNodes (Topic paramTopic)
                 {
-                        while (paramTopic.Subtopics.Count < 2) {
+                        while (paramTopic.Subtopics.Count < 3) {
                                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                                 newTopic.Parent = paramTopic;
                                 CreateXMLSubtopic (paramTopic.GUID, newTopic.GUID, newTopic.Text);
@@ -158,7 +160,7 @@ namespace Psycho {
                                 int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf (CurrentTopic);
                                 Topic newTopic = new Topic (centralTopic.TotalCount);
                                 newTopic.Parent = CurrentTopic.Parent;
-                                CurrentTopic.Parent.AddSubtopicAt ((currentIndex + 1), newTopic);
+                                CurrentTopic.Parent.AddSubtopic ((currentIndex + 1), newTopic);
                                 CreateXMLTopic (CurrentTopic, newTopic);
                                 CurrentTopic = newTopic;
                                 SetCurrentXml (CurrentTopic.GUID);
@@ -276,7 +278,7 @@ namespace Psycho {
                         ClearChanges ();
                 }
 
-                private void ClearChanges ()
+                void ClearChanges ()
                 {
                         newTopics.Clear ();
                         deletedTopicPath = ("");

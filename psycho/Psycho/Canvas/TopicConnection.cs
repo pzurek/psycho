@@ -24,41 +24,41 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Psycho
 {
-
-        public class Title
+        public class TopicConnection
         {
-
-                string text;
-                Font textFont;
-
-                FontMarkers titleFontMarkers = new FontMarkers ();
-
-                public string Text
+                public TopicConnection (Topic topic, Cairo.Context context)
                 {
-                        get { return text; }
-                        set { text = value; }
                 }
 
-                public Font TextFont
+                Cairo.Context context;
+
+                public void DrawStraight (Cairo.PointD start, Cairo.PointD end)
                 {
-                        get { return textFont; }
-                        set { textFont = value; }
+                        context.MoveTo (start);
+                        context.LineTo (end);
                 }
 
-                public bool IsPlainText
+                public void DrawArc (Cairo.PointD start, Cairo.PointD end)
                 {
-                        get
-                        {
-                                if (titleFontMarkers.Count == 0)
-                                        return true;
-                                else
-                                        return false;
-                        }
+                }
+
+                public void DrawCurve (Cairo.PointD start, Cairo.PointD end)
+                {
+                }
+
+                public void DrawCrank (Cairo.PointD start, Cairo.PointD end)
+                {
+                }
+
+                public void DrawChamferedCrank (Cairo.PointD start, Cairo.PointD end)
+                {
+                }
+
+                public void DrawFilletedCrank (Cairo.PointD start, Cairo.PointD end)
+                {
                 }
         }
 }

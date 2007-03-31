@@ -28,12 +28,14 @@ using System.IO;
 using Gdk;
 using Gtk;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class UIManagerView : IView {
+        public class UIManagerView : IView
+        {
 
-                private IModel Model;
-                private IControl Control;
+                IModel Model;
+                IControl Control;
 
                 public UIManager uiManager = new UIManager ();
                 ActionGroup actions = new ActionGroup ("group");
@@ -117,7 +119,7 @@ namespace Psycho {
                         toolbar.IconSize = IconSize.LargeToolbar;
                 }
 
-                private void BuildIcons ()
+                void BuildIcons ()
                 {
                         Pixbuf topicIcon = IconLoader.topicIcon;
                         Pixbuf subtopicIcon = IconLoader.subtopicIcon;
@@ -143,7 +145,7 @@ namespace Psycho {
                         StockManager.Add (new StockItem ("psycho-relation", "Create Relation", 0, Gdk.ModifierType.Button1Mask, ""));
                 }
 
-                private void ActionActivated (object sender, EventArgs args)
+                void ActionActivated (object sender, EventArgs args)
                 {
                         Action action = sender as Action;
                         Console.WriteLine ("Action \"{0}\" activated", action.AccelPath);

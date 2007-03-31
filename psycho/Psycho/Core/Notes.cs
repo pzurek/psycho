@@ -23,17 +23,19 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-namespace Psycho {
+namespace Psycho
+{
 
         using System;
         using System.Collections;
         using System.Collections.Generic;
         using Psycho;
 
-        public class Notes {
+        public class Notes
+        {
 
-                private string text;
-                private Topic topic;
+                string text;
+                Topic topic;
 
                 public Notes (Topic paramTopic)
                 {

@@ -28,9 +28,11 @@ using Gtk;
 using Gdk;
 using Psycho;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class MainWindow : Gtk.Window {
+        public class MainWindow : Gtk.Window
+        {
 
                 public MainWindow ()
                         : base ("Psycho")

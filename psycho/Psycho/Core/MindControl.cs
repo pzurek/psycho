@@ -26,12 +26,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        class MindControl : IControl {
+        class MindControl : IControl
+        {
 
-                private IModel Model;
-                private IView View;
+                IModel Model;
+                IView View;
 
                 public MindControl (IModel paramModel, IView paramView)
                 {

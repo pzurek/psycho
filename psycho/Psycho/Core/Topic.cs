@@ -23,20 +23,26 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-namespace Psycho {
+namespace Psycho
+{
         using System;
         using System.Collections;
         using System.Collections.Generic;
         using System.Xml;
+        using Pango;
         using Psycho;
 
-        public class Topic {
-
+        public class Topic
+        {
                 public Topic ()
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = ("Topic ");
+                        //this.TopicNotes.Text = ("Topic size: "
+                        //+ TextWidth.ToString ()
+                        //+ " x "
+                        //+ TextHeight.ToString ());
                         this.isExpanded = false;
                 }
 
@@ -45,29 +51,69 @@ namespace Psycho {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = ("Topic " + topic_number.ToString ());
+                        //this.TopicNotes.Text = ("Topic size: "
+                        //+ TextWidth.ToString ()
+                        //+ " x "
+                        //+ TextHeight.ToString ());
                         this.isExpanded = false;
                 }
 
-                private string text;
-                private string number;
-                private Topic parent;
-                private int level;
-                private int totalCount;
-                private string path;
-                private string guid;
-                private bool isExpanded;
-                private Notes topicNotes;
-                private Style topicStyle;
-                private Title topicTitle;
-                private TopicType type;
+                string text;
+                string number;
+                Topic parent;
+                int level;
+                int totalCount;
+                string path;
+                string guid;
+                bool isExpanded;
+                Notes topicNotes;
+                Style topicStyle;
+                Title topicTitle;
+                TopicType type;
+                Pango.Layout textLayout;
+                int textWidth;
+                int textHeight;
+                Topics subtopics = new Topics ();
 
-                public Topics Subtopics = new Topics ();
+                public Topics Subtopics
+                {
+                        get { return subtopics; }
+                        set { subtopics = value; }
+                }
 
                 public string Text
                 {
                         get { return text; }
                         set { text = value; }
                 }
+
+                //public Pango.Layout TextLayout
+                //{
+                //        get {
+                //                textLayout.SetText (this.text);
+                //                string font = (topicTitle.TextFont.Name.ToString () + topicTitle.TextFont.Size.ToString ());
+                //                textLayout.FontDescription = FontDescription.FromString (font);
+                //                return textLayout;
+                //        }
+                //}
+
+                //public int TextWidth
+                //{
+                //        get
+                //        {
+                //                TextLayout.GetSize (out textWidth, out textHeight);
+                //                return textWidth;
+                //        }
+                //}
+
+                //public int TextHeight
+                //{
+                //        get
+                //        {
+                //                TextLayout.GetSize(out textWidth, out textHeight);
+                //                return textHeight;
+                //        }
+                //}
 
                 public Title TopicTitle
                 {
@@ -123,7 +169,18 @@ namespace Psycho {
 
                 public int TotalCount
                 {
-                        get { this.CountDescendants (); return totalCount; }
+                        get
+                        {
+                                totalCount = 0;
+                                Queue<Topic> remaining = new Queue<Topic> ();
+                                remaining.Enqueue (this);
+                                while (remaining.Count > 0) {
+                                        Topic topic = remaining.Dequeue ();
+                                        foreach (Topic child in topic.Subtopics) remaining.Enqueue (child);
+                                        totalCount++;
+                                }
+                                return totalCount;
+                        }
                 }
 
                 public string Path
@@ -140,7 +197,8 @@ namespace Psycho {
 
                 public string Number
                 {
-                        get {
+                        get
+                        {
                                 if (this.Parent == null)
                                         this.number = "0";
                                 else
@@ -154,7 +212,20 @@ namespace Psycho {
 
                 public int Level
                 {
-                        get { this.CalculateLevel (); return level; }
+                        get
+                        {
+                                level = 0;
+                                Queue<Topic> remaining = new Queue<Topic> ();
+
+                                if (this.Parent != null) remaining.Enqueue (this.Parent);
+
+                                while (remaining.Count > 0) {
+                                        Topic topic = remaining.Dequeue ();
+                                        if (topic.Parent != null) remaining.Enqueue (topic.Parent);
+                                        level++;
+                                }
+                                return level;
+                        }
                 }
 
                 public void AddSubtopic (Topic paramTopic)
@@ -162,7 +233,7 @@ namespace Psycho {
                         this.Subtopics.Add (paramTopic);
                 }
 
-                public void AddSubtopicAt (int paramIndex, Topic paramTopic)
+                public void AddSubtopic (int paramIndex, Topic paramTopic)
                 {
                         this.Subtopics.Insert (paramIndex, paramTopic);
                 }
@@ -171,14 +242,6 @@ namespace Psycho {
                 {
                         if (this.Parent != null)
                                 this.Parent.Subtopics.Remove (this);
-                }
-
-                private void BuildPath ()
-                {
-                        if (this.Parent == null)
-                                this.path = "0";
-                        else
-                                this.path = (this.Parent.path + ":" + this.Parent.Subtopics.IndexOf (this).ToString ());
                 }
 
                 public void ForEach (Action<Topic> action)
@@ -192,32 +255,6 @@ namespace Psycho {
                                 action (topic);
                                 foreach (Topic child in topic.Subtopics)
                                         remaining.Enqueue (child);
-                        }
-                }
-
-                private void CountDescendants ()
-                {
-                        totalCount = 0;
-                        Queue<Topic> remaining = new Queue<Topic> ();
-                        remaining.Enqueue (this);
-                        while (remaining.Count > 0) {
-                                Topic topic = remaining.Dequeue ();
-                                foreach (Topic child in topic.Subtopics) remaining.Enqueue (child);
-                                totalCount++;
-                        }
-                }
-
-                private void CalculateLevel ()
-                {
-                        level = 0;
-                        Queue<Topic> remaining = new Queue<Topic> ();
-
-                        if (this.Parent != null) remaining.Enqueue (this.Parent);
-
-                        while (remaining.Count > 0) {
-                                Topic topic = remaining.Dequeue ();
-                                if (topic.Parent != null) remaining.Enqueue (topic.Parent);
-                                level++;
                         }
                 }
         }

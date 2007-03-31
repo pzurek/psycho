@@ -26,9 +26,11 @@
 using System;
 using System.Text;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class Style {
+        public class Style
+        {
 
                 Font styleFont;
                 TopicShape shape;
@@ -69,7 +71,7 @@ namespace Psycho {
                         get { return connectShape; }
                         set { connectShape = value; }
                 }
-                
+
                 public SubtopicDystributionDirection SubtopicDistribution
                 {
                         get { return subbtopicDistribution; }

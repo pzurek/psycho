@@ -26,9 +26,11 @@
 using System;
 using System.Text;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class FontMarker {
+        public class FontMarker
+        {
 
                 Font textFont;
                 int startIndex;

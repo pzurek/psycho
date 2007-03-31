@@ -28,23 +28,25 @@ using System.Collections.Generic;
 using System.Text;
 using Gtk;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class OutlineView : ScrolledWindow, IView {
+        public class OutlineView : ScrolledWindow, IView
+        {
 
-                private IModel Model;
-                private IControl Control;
+                IModel Model;
+                IControl Control;
 
-                private TreeStore store = new TreeStore (typeof (Topic));
-                private TreeView outlineView = new TreeView ();
+                TreeStore store = new TreeStore (typeof (Topic));
+                TreeView outlineView = new TreeView ();
 
-                private TreeIter selectedNode;
-                private Topic selectedTopic;
-                private Topic workingTopic;
+                TreeIter selectedNode;
+                Topic selectedTopic;
+                Topic workingTopic;
 
-                private bool editPending;
-                private string deletedTopicPath;
-                private bool updatePending;
+                bool editPending;
+                string deletedTopicPath;
+                bool updatePending;
 
                 public string DeletedTopicPath
                 {
@@ -52,11 +54,11 @@ namespace Psycho {
                         set { deletedTopicPath = value; }
                 }
 
-                private TreeViewColumn pathColumn = new TreeViewColumn ();
-                private TreeViewColumn titleColumn = new TreeViewColumn ();
-                private TreeViewColumn levelColumn = new TreeViewColumn ();
-                private TreeViewColumn guidColumn = new TreeViewColumn ();
-                private TreeViewColumn notesColumn = new TreeViewColumn ();
+                TreeViewColumn pathColumn = new TreeViewColumn ();
+                TreeViewColumn titleColumn = new TreeViewColumn ();
+                TreeViewColumn levelColumn = new TreeViewColumn ();
+                TreeViewColumn guidColumn = new TreeViewColumn ();
+                TreeViewColumn notesColumn = new TreeViewColumn ();
 
                 public OutlineView ()
                         : base ()
@@ -154,31 +156,31 @@ namespace Psycho {
                         //}
                 }
 
-                private void RenderTitle (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+                void RenderTitle (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
                 {
                         Topic topic = (Topic) model.GetValue (iter, 0);
                         (cell as CellRendererText).Text = topic.Text;
                 }
 
-                private void RenderGuid (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+                void RenderGuid (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
                 {
                         Topic topic = (Topic) model.GetValue (iter, 0);
                         (cell as CellRendererText).Text = topic.GUID;
                 }
 
-                private void RenderPath (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+                void RenderPath (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
                 {
                         Topic topic = (Topic) model.GetValue (iter, 0);
                         (cell as CellRendererText).Text = topic.Path;
                 }
 
-                private void RenderLevel (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+                void RenderLevel (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
                 {
                         Topic topic = (Topic) model.GetValue (iter, 0);
                         (cell as CellRendererText).Text = topic.Level.ToString ();
                 }
 
-                private void RenderNotes (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+                void RenderNotes (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
                 {
                         Topic topic = (Topic) model.GetValue (iter, 0);
                         if (topic.HasNotes)
@@ -325,7 +327,7 @@ namespace Psycho {
                         Build (Model);
                 }
 
-                private void AddNodesRecursively (TreeStore paramStore, TreeIter paramParent, Topic paramTopic)
+                void AddNodesRecursively (TreeStore paramStore, TreeIter paramParent, Topic paramTopic)
                 {
 
                         foreach (Topic child in paramTopic.Subtopics) {
@@ -343,20 +345,20 @@ namespace Psycho {
                         if (!updatePending) SetCurrentTopic ();
                 }
 
-                private void titleCell_Edited (object sender, Gtk.EditedArgs args)
+                void titleCell_Edited (object sender, Gtk.EditedArgs args)
                 {
                         string titleText = args.NewText;
                         EditTitle (titleText);
                 }
 
-                private void outlineView_RowCollapsed (object sender, Gtk.RowCollapsedArgs args)
+                void outlineView_RowCollapsed (object sender, Gtk.RowCollapsedArgs args)
                 {
                         TreeIter expanded = args.Iter;
                         Topic expandedTopic = (Topic) store.GetValue (expanded, 0);
                         ExpandTopic (expandedTopic.GUID, false);
                 }
 
-                private void outlineView_RowExpanded (object sender, Gtk.RowExpandedArgs args)
+                void outlineView_RowExpanded (object sender, Gtk.RowExpandedArgs args)
                 {
                         TreeIter expanded = args.Iter;
                         Topic expandedTopic = (Topic) store.GetValue (expanded, 0);

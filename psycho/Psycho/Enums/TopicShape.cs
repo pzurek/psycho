@@ -25,16 +25,16 @@
 
 using System;
 
-namespace Psycho {
-
-        public enum TopicShape {
-
+namespace Psycho
+{
+        public enum TopicShape
+        {
                 None,
                 Line,
                 Rectangle,
                 RoundedRectangle,
                 Circle,
-                Ellipse,
+                //Ellipse, - drawing an ellipse in cairo is a bitch. It has to wait.
                 Hexagon,
                 Octagon
         }

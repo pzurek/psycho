@@ -27,23 +27,23 @@ using Gtk;
 
 namespace Psycho
 {
-	class MainClass
-	{
-		public static void Main()
-		{
-			Application.Init ();
-        	MainWindow mainWindow = new MainWindow();
-            mainWindow.DeleteEvent += OnDelete;
-            mainWindow.SetDefaultSize (640, 480);
-            mainWindow.SetPosition(WindowPosition.Center);
-            mainWindow.Show();
-	        Application.Run ();
-		}
-		
-		static void OnDelete (object sender, DeleteEventArgs args)
-	    {
-	        Application.Quit ();
-            return;
-	    }     
-	}
+        class MainClass
+        {
+                public static void Main ()
+                {
+                        Application.Init ();
+                        MainWindow mainWindow = new MainWindow ();
+                        mainWindow.DeleteEvent += OnDelete;
+                        mainWindow.SetDefaultSize (640, 480);
+                        mainWindow.SetPosition (WindowPosition.Center);
+                        mainWindow.Show ();
+                        Application.Run ();
+                }
+
+                static void OnDelete (object sender, DeleteEventArgs args)
+                {
+                        Application.Quit ();
+                        return;
+                }
+        }
 }

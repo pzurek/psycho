@@ -23,7 +23,8 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-namespace Psycho {
+namespace Psycho
+{
         using System;
         using System.Collections;
         using Psycho;
@@ -37,7 +38,7 @@ namespace Psycho {
 
         //public class TopicCounter
         //{
-        //    private int _count;
+        //     int _count;
 
         //    public int Count
         //    {

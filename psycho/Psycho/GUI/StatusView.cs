@@ -26,16 +26,18 @@
 using System;
 using Gtk;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        class StatusView : Statusbar, IView {
+        class StatusView : Statusbar, IView
+        {
 
-                private IModel Model;
-                private IControl Control;
+                IModel Model;
+                IControl Control;
 
-                private Label mapTitle = new Label ();
-                private Label topicNumber = new Label ();
-                private Label currentTitle = new Label ();
+                Label mapTitle = new Label ();
+                Label topicNumber = new Label ();
+                Label currentTitle = new Label ();
 
                 public StatusView ()
                         : base ()

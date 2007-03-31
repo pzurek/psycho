@@ -30,16 +30,18 @@ using System.Xml;
 using Gtk;
 using GtkSourceView;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class XMLView : ScrolledWindow, IView {
+        public class XMLView : ScrolledWindow, IView
+        {
 
-                private IModel Model;
-                private IControl Control;
-                private SourceView XmlPreview;
-                private XmlWriterSettings xmlSettings;
-                private StringBuilder builder;
-                private XmlWriter writer;
+                IModel Model;
+                IControl Control;
+                SourceView XmlPreview;
+                XmlWriterSettings xmlSettings;
+                StringBuilder builder;
+                XmlWriter writer;
 
                 public XMLView ()
                 {

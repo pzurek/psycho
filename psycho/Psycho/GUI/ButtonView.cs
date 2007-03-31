@@ -29,17 +29,19 @@ using System.Collections.Generic;
 using Gtk;
 using Gdk;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class ButtonView : VBox, IView {
+        public class ButtonView : VBox, IView
+        {
 
                 Entry titleEntry = new Entry ();
                 Button addSiblingButton = new Button ();
                 Button addChildButton = new Button ();
                 Button deleteButton = new Button ();
 
-                private IModel Model;
-                private IControl Control;
+                IModel Model;
+                IControl Control;
 
                 public ButtonView ()
                         : base ()
@@ -111,7 +113,7 @@ namespace Psycho {
                         Control.RequestSetTitle (paramString);
                 }
 
-                private void btnAddChild_Click (object sender, System.EventArgs args)
+                void btnAddChild_Click (object sender, System.EventArgs args)
                 {
                         AddSubtopic ();
                 }
@@ -121,7 +123,7 @@ namespace Psycho {
                         Control.RequestAddSubtopic ();
                 }
 
-                private void btnAddSibling_Click (object sender, System.EventArgs args)
+                void btnAddSibling_Click (object sender, System.EventArgs args)
                 {
                         AddTopic ();
                 }
@@ -131,7 +133,7 @@ namespace Psycho {
                         Control.RequestAddTopic ();
                 }
 
-                private void btnDelete_Click (object sender, System.EventArgs args)
+                void btnDelete_Click (object sender, System.EventArgs args)
                 {
                         DeleteTopic ();
                 }

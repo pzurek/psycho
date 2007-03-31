@@ -27,9 +27,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class Stylus {
+        public class Stylus
+        {
 
                 static Stylus ()
                 {

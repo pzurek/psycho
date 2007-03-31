@@ -24,41 +24,45 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Psycho
 {
-
-        public class Title
+        public class TopicFrame
         {
-
-                string text;
-                Font textFont;
-
-                FontMarkers titleFontMarkers = new FontMarkers ();
-
-                public string Text
+                public TopicFrame (Topic topic, Cairo.Context context)
                 {
-                        get { return text; }
-                        set { text = value; }
                 }
 
-                public Font TextFont
+                Cairo.Context context;
+
+                public void DrawCircle (Cairo.PointD origin, int width/*, int height - that seems redundant*/)
                 {
-                        get { return textFont; }
-                        set { textFont = value; }
                 }
 
-                public bool IsPlainText
+                public void DrawRectangle (Cairo.PointD origin, int width, int height)
                 {
-                        get
-                        {
-                                if (titleFontMarkers.Count == 0)
-                                        return true;
-                                else
-                                        return false;
-                        }
+                        context.MoveTo (origin);
                 }
+
+                public void DrawLine (Cairo.PointD origin, int width, int height)
+                {
+                        context.MoveTo (origin);
+                }
+
+                public void DrawRoundedRectangle (Cairo.PointD origin, int width, int height)
+                {
+                        context.MoveTo (origin);
+                }
+
+                public void DrawOctagon (Cairo.PointD origin, int width, int height)
+                {
+                        context.MoveTo (origin);
+                }
+
+                public void DrawHexagon (Cairo.PointD origin, int width, int height)
+                {
+                        context.MoveTo (origin);
+                }
+
         }
 }

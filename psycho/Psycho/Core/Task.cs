@@ -23,38 +23,45 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-namespace Psycho {
+namespace Psycho
+{
 
         using System;
         using System.Collections;
         using System.Collections.Generic;
         using Psycho;
 
-        public class Task {
+        public class Task
+        {
 
-                public Task (Topic paramTopic) {
+                public Task (Topic paramTopic)
+                {
                         this.topic = paramTopic;
                 }
 
-                private string startDate;
-                private string dueDate;
-                private Topic topic;
+                string startDate;
+                string dueDate;
+                Topic topic;
 
-                public string StartDate {
+                public string StartDate
+                {
                         get { return startDate; }
                         set { startDate = value; }
                 }
 
-                public string DueDate {
+                public string DueDate
+                {
                         get { return dueDate; }
                         set { dueDate = value; }
                 }
 
-                public Topic Topic {
+                public Topic Topic
+                {
                         get { return topic; }
                 }
 
-                public string GUID {
+                public string GUID
+                {
                         get { return this.topic.GUID; }
                 }
         }

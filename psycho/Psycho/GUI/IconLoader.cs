@@ -26,9 +26,11 @@
 using System;
 using Gdk;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        static class IconLoader {
+        static class IconLoader
+        {
 
                 const string psychoIconFile = "Resources/psycho-small.png";
                 const string topicIconFile = "Resources/psycho-topic.png";
