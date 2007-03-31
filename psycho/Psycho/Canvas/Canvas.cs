@@ -171,7 +171,8 @@ namespace Psycho
 
                 public void Update (IModel iModel)
                 {
-                        this.QueueDrawArea (-mapAreaWidth / 2, -mapAreaHeight / 2, mapAreaWidth, mapAreaHeight);
+                        this.QueueDraw ();
+                        //this.QueueDrawArea (-mapAreaWidth / 2, -mapAreaHeight / 2, mapAreaWidth, mapAreaHeight);
                 }
 
                 public void AddTopic ()
