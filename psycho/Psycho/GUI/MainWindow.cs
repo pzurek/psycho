@@ -97,8 +97,15 @@ namespace Psycho {
             globalVBox.PackStart (buttonExpander, false, false, 6);
 
             mainVBox.PackStart (mainNotebook, true, true, 0);
-            mainHPaned.Add1 (mainVBox);
-            mainHPaned.Add2 (notesExpander);
+            Frame mainFrame = new Frame ();
+            mainFrame.Add (mainVBox);
+            mainFrame.Shadow = ShadowType.EtchedIn;
+            Frame notesFrame = new Frame ();
+            notesFrame.Add (notesExpander);
+            notesFrame.Shadow = ShadowType.EtchedIn;
+
+            mainHPaned.Add1 (mainFrame);
+            mainHPaned.Add2 (notesFrame);
             mainHPaned.Position = 500;
 
             
