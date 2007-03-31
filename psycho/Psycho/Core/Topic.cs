@@ -97,23 +97,23 @@ namespace Psycho
                 //        }
                 //}
 
-                //public int TextWidth
-                //{
-                //        get
-                //        {
-                //                TextLayout.GetSize (out textWidth, out textHeight);
-                //                return textWidth;
-                //        }
-                //}
+                public int TextWidth
+                {
+                        get
+                        {
+                                //TextLayout.GetSize (out textWidth, out textHeight);
+                                return textWidth;
+                        }
+                }
 
-                //public int TextHeight
-                //{
-                //        get
-                //        {
-                //                TextLayout.GetSize(out textWidth, out textHeight);
-                //                return textHeight;
-                //        }
-                //}
+                public int TextHeight
+                {
+                        get
+                        {
+                                //TextLayout.GetSize (out textWidth, out textHeight);
+                                return textHeight;
+                        }
+                }
 
                 public Title TopicTitle
                 {

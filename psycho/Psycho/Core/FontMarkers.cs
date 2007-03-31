@@ -29,9 +29,9 @@ using System.Text;
 
 namespace Psycho {
 
-        public class Topics : List<Topic> {
+        public class FontMarkers : List<FontMarker> {
 
-                public Topics ()
+                public FontMarkers ()
                         : base ()
                 {
                 }

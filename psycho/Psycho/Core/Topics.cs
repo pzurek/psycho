@@ -27,11 +27,49 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public class FontMarkers : List<FontMarker> {
+        public class Topics : List<Topic>
+        {
+                int height;
+                int width;
 
-                public FontMarkers ()
+                //The calculation below will have to be conditional if Org Chart is to be implemented
+                //For Org Chart width has to sum and height has to be max
+
+                public int Height
+                {
+                        get
+                        {
+                                if (this.Count > 0) {
+                                        height = 0;
+                                        foreach (Topic child in this)
+                                                height += child.TextHeight;
+                                        return height;
+                                }
+                                else
+                                        return 0;
+                        }
+                }
+
+                public int Width
+                {
+                        get
+                        {
+                                if (this.Count > 0) {
+                                        width = 0;
+                                        foreach (Topic child in this)
+                                                if (child.TextWidth > width)
+                                                        width = child.TextWidth;
+                                        return width;
+                                }
+                                else
+                                        return 0;
+                        }
+                }
+
+                public Topics ()
                         : base ()
                 {
                 }
