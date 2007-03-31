@@ -351,6 +351,8 @@ namespace Psycho
                 {
                         Topic ExpandedTopic = FindByGUID (iGuid);
                         ExpandedTopic.IsExpanded = (isExpanded);
+                        UpdateToTop (ExpandedTopic);
+                        NotifyObservers ();
                 }
 
                 public void ChangeTopic (Topic iTopic)
