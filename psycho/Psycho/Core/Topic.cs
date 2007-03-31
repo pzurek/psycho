@@ -145,8 +145,10 @@ namespace Psycho
                 Title topicTitle;
                 TopicType type;
                 int textWidth;
+                double width;
                 double totalWidth;
                 int textHeight;
+                double height;
                 double totalHeight;
                 TopicList subtopicList;
                 TopicList leftSubtopics;
@@ -193,7 +195,7 @@ namespace Psycho
                 {
                         get
                         {
-                                switch (this.Style.SubLayout) {
+                                switch (this.Parent.Style.SubLayout) {
                                         case SubtopicsLayout.Map: {
                                                 if (this.isOnLeft)
                                                         inPoint = this.Frame.Right;
@@ -424,14 +426,51 @@ namespace Psycho
                         }
                 }
 
+                public double Width
+                {
+                        get {
+                                width = this.Frame.Width + this.Style.Padding + this.Style.StrokeWidth;
+                                return width;
+                        }
+                }
+
+                public double Height
+                {
+                        get {
+                                height = this.Frame.Height + this.Style.Padding + this.Style.StrokeWidth;
+                                return height;
+                        }
+                }
+
                 public double TotalHeight
                 {
                         get
                         {
-                                if (this.IsExpanded && this.SubtopicList.Height > this.Frame.Height)
-                                        totalHeight = SubtopicList.Height;
+                                if (this.IsExpanded && this.SubtopicList.Count > 0)
+                                        switch (this.Style.SubLayout) {
+                                                case SubtopicsLayout.Map:
+                                                if (this.SubtopicList.Height > this.Height)
+                                                        totalHeight = this.SubtopicList.Height;
+                                                break;
+                                                case SubtopicsLayout.OneSideMap:
+                                                if (this.SubtopicList.Height > this.Height)
+                                                        totalHeight = this.SubtopicList.Height;
+                                                break;
+                                                case SubtopicsLayout.Root:
+                                                totalHeight = this.Height + this.SubtopicList.Height + this.Style.VerChildDist;
+                                                break;
+                                                case SubtopicsLayout.OneSideRoot:
+                                                totalHeight = this.Height + this.SubtopicList.Height + this.Style.VerChildDist;
+                                                break;
+                                                case SubtopicsLayout.OrgChart:
+                                                totalHeight = this.Height + this.SubtopicList.Height + this.Style.OrgChartVertDist;
+                                                break;
+                                                case SubtopicsLayout.DoubleOrgChart:
+                                                totalHeight = this.Height + this.SubtopicList.Height + this.Style.OrgChartVertDist;
+                                                break;
+                                        }
                                 else
-                                        totalHeight = this.Frame.Height + this.Style.Padding + this.Style.StrokeWidth;
+                                        totalHeight = this.Height;
                                 return totalHeight;
                         }
                 }
@@ -440,10 +479,31 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.IsExpanded && this.SubtopicList.Width > this.Frame.Width)
-                                        totalWidth = SubtopicList.Width;
-                                else
-                                        totalWidth = this.Frame.Width + this.Style.Padding + this.Style.StrokeWidth;
+                                        if (this.IsExpanded && this.SubtopicList.Count > 0)
+                                                switch (this.Style.SubLayout) {
+                                                        case SubtopicsLayout.Map:
+                                                        totalWidth = this.Width + this.SubtopicList.Width + this.Style.HorChildDist;
+                                                        break;
+                                                        case SubtopicsLayout.OneSideMap:
+                                                        totalWidth = this.Width + this.SubtopicList.Width + this.Style.HorChildDist;
+                                                        break;
+                                                        case SubtopicsLayout.Root:
+                                                        totalWidth = this.Width / 2  + this.SubtopicList.Width + this.Style.HorChildDist / 2;
+                                                        break;
+                                                        case SubtopicsLayout.OneSideRoot:
+                                                        totalWidth = this.Width / 2 + this.SubtopicList.Width + this.Style.HorChildDist / 2;
+                                                        break;
+                                                        case SubtopicsLayout.OrgChart:
+                                                        if (this.SubtopicList.Width > this.Width)
+                                                                totalWidth = this.SubtopicList.Width;
+                                                        break;
+                                                        case SubtopicsLayout.DoubleOrgChart:
+                                                        if (this.SubtopicList.Width > this.Width)
+                                                                totalWidth = this.SubtopicList.Width;
+                                                        break;
+                                                }
+                                        else
+                                        totalWidth = this.Width;
                                 return totalWidth;
                         }
                 }

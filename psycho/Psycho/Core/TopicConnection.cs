@@ -60,8 +60,8 @@ namespace Psycho
                 public void Update (Topic iTopic)
                 {
                         if (iTopic.Parent != null) {
-                                this.start = iTopic.Frame.Left;
-                                this.end = iTopic.Parent.Frame.Right;
+                                this.start = iTopic.InPoint;
+                                this.end = iTopic.Parent.OutPoint;
                         }
                         this.connectionVector.Dx = this.End.X - this.Start.X;
                         this.connectionVector.Dy = this.End.Y - this.Start.Y;

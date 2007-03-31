@@ -32,7 +32,7 @@ namespace Psycho
         public class TopicFrame
         {
                 Cairo.Context context;
-                double frameHeight, frameWidth;
+                double frameHeight, frameWidth, recWidth;
                 Cairo.PointD origin, center, left, right, top, bottom;
                 double polyDist;
                 double octDist, octDistHor, octDistVer;
@@ -61,15 +61,15 @@ namespace Psycho
 
                 public void Update (Topic iTopic)
                 {
-                        frameWidth = iTopic.TextWidth +
-                                     iTopic.Style.LeftMargin +
-                                     iTopic.Style.RightMargin +
-                                     iTopic.Style.StrokeWidth;
-
                         frameHeight = iTopic.TextHeight +
                                       iTopic.Style.TopMargin +
                                       iTopic.Style.BottomMargin +
                                       iTopic.Style.StrokeWidth;
+
+                        recWidth = iTopic.TextWidth +
+                                   iTopic.Style.LeftMargin +
+                                   iTopic.Style.RightMargin +
+                                   iTopic.Style.StrokeWidth;
 
                         if (this.Topic.Style.Shape == TopicShape.Octagon)
                                 octDistHor = this.Height / (2 + sqrt2);
@@ -100,6 +100,18 @@ namespace Psycho
                         default:
                         polyDist = 0;
                         break;
+                        }
+
+                        frameWidth = this.RecWidth +
+                                     2 * this.Radius +
+                                     2 * this.PolyDist;
+                }
+
+                public double RecWidth
+                {
+                        get
+                        {
+                                return recWidth;
                         }
                 }
 
@@ -215,11 +227,9 @@ namespace Psycho
                                          this.Radius);
 
                                 if (this.Topic.Style.Shape == TopicShape.Line)
-                                        left.Y = System.Math.Floor (this.Origin.Y +
-                                                  this.Height);
+                                        left.Y = System.Math.Floor (this.Origin.Y + this.Height);
                                 else
-                                        left.Y = System.Math.Floor (this.Origin.Y +
-                                                 this.Height / 2);
+                                        left.Y = System.Math.Floor (this.Origin.Y + this.Height / 2);
                                 return left;
                         }
                 }
@@ -229,16 +239,14 @@ namespace Psycho
                         get
                         {
                                 right.X = System.Math.Floor (this.Origin.X +
-                                          this.Width +
+                                          this.RecWidth +
                                           this.PolyDist +
                                           this.Radius);
 
                                 if (this.Topic.Style.Shape == TopicShape.Line)
-                                        right.Y = System.Math.Floor (this.Origin.Y +
-                                                  this.Height);
+                                        right.Y = System.Math.Floor (this.Origin.Y + this.Height);
                                 else
-                                        right.Y = System.Math.Floor (this.Origin.Y +
-                                                  this.Height / 2);
+                                        right.Y = System.Math.Floor (this.Origin.Y + this.Height / 2);
                                 return right;
                         }
                 }
@@ -247,14 +255,8 @@ namespace Psycho
                 {
                         get
                         {
-                                top.X = System.Math.Floor (this.Origin.X +
-                                         this.Width / 2);
-
-                                //if (this.Topic.Style.Shape == TopicShape.Line)
-                                //        top.Y = System.Math.Floor (this.Origin.Y -
-                                //                  this.Height);
-                                //else
-                                        top.Y = this.Origin.Y;
+                                top.X = System.Math.Floor (this.Origin.X + this.RecWidth / 2);
+                                top.Y = this.Origin.Y;
                                 return top;
                         }
                 }
@@ -263,13 +265,8 @@ namespace Psycho
                 {
                         get
                         {
-                                bottom.X = System.Math.Floor (this.Origin.X +
-                                         this.Width / 2);
-                                //if (this.Topic.Style.Shape == TopicShape.Line)
-                                //        bottom.Y = System.Math.Floor (this.Origin.Y);
-                                //else
-                                        bottom.Y = System.Math.Floor (this.Origin.Y +
-                                                  this.Height);
+                                bottom.X = System.Math.Floor (this.Origin.X + this.RecWidth / 2);
+                                bottom.Y = System.Math.Floor (this.Origin.Y + this.Height);
                                 return bottom;
                         }
                 }
@@ -304,21 +301,21 @@ namespace Psycho
 
                 void sketchRectangle ()
                 {
-                        context.Rectangle (Origin, Width, Height);
+                        context.Rectangle (Origin, RecWidth, Height);
                 }
 
                 void sketchLine ()
                 {
                         context.MoveTo (Origin);
                         context.RelMoveTo (0, Height);
-                        context.RelLineTo (Width, 0);
+                        context.RelLineTo (RecWidth, 0);
                 }
 
                 void sketchRoundedRectangle ()
                 {
                         context.MoveTo (Origin);
-                        context.Arc ((Origin.X + Width), (Origin.Y + Radius), Radius, angle4, angle1);
-                        context.Arc ((Origin.X + Width), (Origin.Y + Height - Radius), Radius, angle1, angle2);
+                        context.Arc ((Origin.X + RecWidth), (Origin.Y + Radius), Radius, angle4, angle1);
+                        context.Arc ((Origin.X + RecWidth), (Origin.Y + Height - Radius), Radius, angle1, angle2);
                         context.Arc (Origin.X, (Origin.Y + Height - Radius), Radius, angle2, angle3);
                         context.Arc (Origin.X, (Origin.Y + Radius), Radius, angle3, angle4);
                         context.ClosePath ();
@@ -327,11 +324,11 @@ namespace Psycho
                 void sketchOctagon ()
                 {
                         context.MoveTo (Origin);
-                        context.RelLineTo (this.Width, 0);
+                        context.RelLineTo (this.RecWidth, 0);
                         context.RelLineTo (this.PolyDist, this.PolyDist);
                         context.RelLineTo (0, this.Height - (2 * this.PolyDist));
                         context.RelLineTo (-this.PolyDist, this.PolyDist);
-                        context.RelLineTo (-this.Width, 0);
+                        context.RelLineTo (-this.RecWidth, 0);
                         context.RelLineTo (-this.PolyDist, -this.PolyDist);
                         context.RelLineTo (0, -(this.Height - (2 * this.PolyDist)));
                         context.ClosePath ();
@@ -340,10 +337,10 @@ namespace Psycho
                 void sketchHexagon ()
                 {
                         context.MoveTo (Origin);
-                        context.RelLineTo (this.Width, 0);
+                        context.RelLineTo (this.RecWidth, 0);
                         context.RelLineTo (this.PolyDist, this.Height / 2);
                         context.RelLineTo (-this.PolyDist, this.Height / 2);
-                        context.RelLineTo (-this.Width, 0);
+                        context.RelLineTo (-this.RecWidth, 0);
                         context.RelLineTo (-this.PolyDist, -this.Height / 2);
                         context.ClosePath ();
                 }

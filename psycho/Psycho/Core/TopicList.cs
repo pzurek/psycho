@@ -65,13 +65,13 @@ namespace Psycho
                                 width = 0;
                                 if (this.Count > 0) {
                                         if (this.Orientation == TopicListOrientation.Horizontal) {
-                                        foreach (Topic child in this)
-                                                width += child.TotalWidth;
-                                }
-                                else
-                                        foreach (Topic child in this)
-                                                if (child.TextWidth > width)
-                                                        width = child.TotalWidth;
+                                                foreach (Topic child in this)
+                                                        width += child.TotalWidth;
+                                        }
+                                        else
+                                                foreach (Topic child in this)
+                                                        if (child.TotalWidth > width)
+                                                                width = child.TotalWidth;
                                 }
                                 return width;
                         }

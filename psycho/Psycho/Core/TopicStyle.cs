@@ -46,7 +46,7 @@ namespace Psycho
                 int bottomMargin;
                 int minMargin;
                 int maxMargin;
-                int padding, horChildDist;
+                int padding, horChildDist, verChildDist, orgChartVertDist;
                 int crankRadius, crankChamfer;
                 int polyDistance;
                 bool fixedWidth;
@@ -71,9 +71,11 @@ namespace Psycho
                         this.CrankRadius = 7;
                         this.PolyDistance = 7;
                         this.Width = 140;
-                        this.Padding = 2;
+                        this.Padding = 4;
                         this.HorChildDist = 42;
-                        this.SubLayout = SubtopicsLayout.OneSideMap;
+                        this.VerChildDist = 7;
+                        this.OrgChartVertDist = 21;
+                        this.ConnectPoint = ConnectionPoint.Center;
                 }
 
                 public Topic Topic
@@ -121,7 +123,23 @@ namespace Psycho
 
                 public SubtopicsLayout SubLayout
                 {
-                        get { return subLayout; }
+                        get {
+                                switch (this.Topic.Index) {
+                                        case 0:
+                                        subLayout = SubtopicsLayout.Map;
+                                        break;
+                                        case 1:
+                                        subLayout = SubtopicsLayout.Root;
+                                        break;
+                                        case 2:
+                                        subLayout = SubtopicsLayout.OrgChart;
+                                        break;
+                                        default:
+                                        subLayout = SubtopicsLayout.OneSideMap;
+                                        break;
+                                }
+                                
+                                return subLayout; }
                         set { subLayout = value; }
                 }
 
@@ -333,6 +351,18 @@ namespace Psycho
                 {
                         get { return horChildDist; }
                         set { horChildDist = value; }
+                }
+
+                public int VerChildDist
+                {
+                        get { return verChildDist; }
+                        set { verChildDist = value; }
+                }
+
+                public int OrgChartVertDist
+                {
+                        get { return orgChartVertDist; }
+                        set { orgChartVertDist = value; }
                 }
 
                 public bool FixedWidth

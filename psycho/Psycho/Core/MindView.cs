@@ -172,7 +172,7 @@ namespace Psycho
 
                 void DrawTopics (Context iContext)
                 {
-                        DrawConnections (iContext, Model.CentralTopic);
+                        //DrawConnections (iContext, Model.CentralTopic);
                         DrawFrames (iContext, Model.CentralTopic);
                         DrawFrame (iContext, Model.CentralTopic);
                         DrawText (/*iContext,*/ Model.CentralTopic);
@@ -190,8 +190,10 @@ namespace Psycho
                 public void DrawFrames (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.SubtopicList) {
-                                if (TempTopic.IsExpanded)
+                                DrawRegion (iContext, iTopic);
+                                if (TempTopic.IsExpanded) {
                                         DrawFrames (iContext, TempTopic);
+                                }
                                 DrawFrame (iContext, TempTopic);
                                 DrawText (/*iContext, */TempTopic);
                         }
@@ -259,6 +261,28 @@ namespace Psycho
                         iContext.Color = fillColor;
                         iContext.FillPreserve ();
                         iContext.Color = strokeColor;
+                        iContext.Stroke ();
+                        iContext.Restore ();
+                }
+
+                static void DrawRegion (Cairo.Context iContext, Topic iTopic)
+                {
+                        iContext.Save ();
+                        Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
+                        strokeColor = new Cairo.Color (0, 0, 0);
+                        iContext.LineWidth = 1;
+                        iContext.Translate (0.5, 0.5);
+                        if (iTopic.IsCentral)
+                                iContext.Rectangle (iTopic.Left,
+                                                    iTopic.Top,
+                                                    iTopic.GlobalWidth,
+                                                    iTopic.GlobalHeight);
+                        else
+                                iContext.Rectangle (System.Math.Floor (iTopic.Offset.BaseX),
+                                            System.Math.Floor (iTopic.Offset.BaseY),
+                                            System.Math.Floor (iTopic.TotalWidth),
+                                            System.Math.Floor (iTopic.TotalHeight));
+
                         iContext.Stroke ();
                         iContext.Restore ();
                 }
