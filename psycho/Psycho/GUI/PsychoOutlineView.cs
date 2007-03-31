@@ -174,6 +174,7 @@ namespace Psycho {
                 TreePath path = store.GetPath(iter);
                 outlineView.ExpandToPath(path);
                 outlineView.Selection.SelectIter(iter);
+                outlineView.ScrollToCell(path, titleColumn, true, 0, 0);
             }
 
             foreach (Topic topic in paraModel.DeletedTopics) {
@@ -182,6 +183,7 @@ namespace Psycho {
                 store.GetIter(out iter, path);
                 store.Remove(ref iter);
                 outlineView.QueueDraw();
+                outlineView.ScrollToCell(path, titleColumn, true, 0, 0);
             }
 
             foreach (Topic topic in paraModel.ChangedTopics) {
@@ -191,6 +193,7 @@ namespace Psycho {
                 store.SetValue(iter, 0, topic);
                 outlineView.Selection.SelectIter(iter);
                 outlineView.QueueDraw();
+                outlineView.ScrollToCell(path, titleColumn, true, 0, 0);
             }
         }
 
