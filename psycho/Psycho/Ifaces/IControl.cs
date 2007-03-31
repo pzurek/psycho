@@ -32,6 +32,7 @@ namespace Psycho {
         void RequestAddTopic ();
         void RequestAddSubtopic ();
         void RequestDelete ();
+        void RequestChange (Topic paramTopic);
         void RequestSetTitle (string title);
         void RequestSetCurrent (string paramGuid);
         void RequestExpand (string paramGuid, bool expand);

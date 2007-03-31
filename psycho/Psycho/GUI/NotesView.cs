@@ -1,60 +1,53 @@
-// Copyright (C) 2006 by:
-//
-// Author:
-//   Piotr Zurek
-//
-// Permission is hereby granted, free of charge, to any person obtaining
-// a copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to
-// permit persons to whom the Software is furnished to do so, subject to
-// the following conditions:
-// 
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
-
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Xml;
 using Gtk;
 
 namespace Psycho {
-
-    public class XMLView : ScrolledWindow, IView {
+    class NotesView : ScrolledWindow, IView {
 
         private IModel Model;
         private IControl Control;
 
-        private TextView XMLPreview;
-        private TextBuffer XMLBuffer;
-        private TextTagTable XMLTagTable;
+        private Topic workingTopic;
+        private TextView notesView;
+        private TextBuffer notesBuffer;
+        private TextTagTable notesTagTable;
+        private bool editPending;
 
-        public XMLView ()
+        public NotesView ()
         {
-            XMLPreview = new TextView ();
-            XMLBuffer = XMLPreview.Buffer;
-            XMLTagTable = XMLBuffer.TagTable;
+            notesView = new TextView ();
+            notesBuffer = notesView.Buffer;
+            notesTagTable = notesBuffer.TagTable;
+            editPending = false;
+            notesBuffer.Changed += new EventHandler (notesBuffer_Changed);
 
-            //XMLPreview.Editable = false;
+            this.ShadowType = ShadowType.EtchedIn;
+            this.Add (notesView);
+        }
 
-            this.Add (XMLPreview);
+        void notesBuffer_Changed (object sender, EventArgs args)
+        {
+            editPending = true;
+            if (workingTopic.TopicNotes == null)
+                workingTopic.TopicNotes = new Notes (workingTopic);
+            workingTopic.TopicNotes.Text = notesBuffer.Text;
+            CommitChange (workingTopic);
+            editPending = false;
         }
 
         #region IView Members
 
         public void Update (IModel paramModel)
         {
+            if (editPending == false) {
+                workingTopic = paramModel.CurrentTopic;
+                if (workingTopic.TopicNotes != null)
+                    notesBuffer.Text = workingTopic.TopicNotes.Text;
+                else
+                    notesBuffer.Clear ();
+            }
         }
 
         public void WireUp (IControl paramControl, IModel paramModel)
@@ -74,7 +67,7 @@ namespace Psycho {
 
         public void AddTopic ()
         {
-            throw new Exception ("The method or operation is not implemented.");
+            throw new Exception ("The method is not implemented for Notes View.");
         }
 
         public void AddSubtopic ()
@@ -127,14 +120,9 @@ namespace Psycho {
             throw new Exception ("The method or operation is not implemented.");
         }
 
-        #endregion
-
-        #region IView Members
-
-
         public void CommitChange (Topic paramTopic)
         {
-            throw new Exception ("The method or operation is not implemented.");
+            Control.RequestChange(paramTopic);
         }
 
         #endregion

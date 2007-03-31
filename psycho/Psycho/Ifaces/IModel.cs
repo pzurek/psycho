@@ -27,6 +27,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 
 namespace Psycho {
     public interface IModel {
@@ -40,12 +41,14 @@ namespace Psycho {
         string DeletedTopicPath { get; }
         Topics ChangedTopics { get; }
         int CurrentLevel { get; }
+        XmlDocument XMLModel { get; }
         #endregion
 
         #region methods
         void CreateTopic ();
         void CreateSubtopic ();
         void DeleteTopic ();
+        void ChangeTopic (Topic paramTopic);
         void SetCurrent (string paramGuid, Topic paramTopic);
         void SetTitle (string paramString);
         void ExpandTopic (string paramGuid, bool isExpanded);

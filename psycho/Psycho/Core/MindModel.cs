@@ -29,22 +29,20 @@ namespace Psycho {
     using System.Collections;
     using System.Collections.Generic;
     using System.Xml;
-    using System.Xml.Serialization;
     using Psycho;
 
     public class MindModel : IModel {
 
         private Topic centralTopic = new Topic (1234);
         private Topic currentTopic;
-
+        private XmlDocument XMLmodel = new XmlDocument();
 
         public MindModel ()
         {
             this.currentTopic = this.centralTopic;
             centralTopic.Title = "Central Topic";
 
-            xmlModel = new XmlDocument ();
-            declarationNode = xmlModel.CreateNode (XmlNodeType.XmlDeclaration,"","");
+            declarationNode = XMLModel.CreateNode (XmlNodeType.XmlDeclaration,"","");
 
             NotifyObservers ();
         }
@@ -267,5 +265,26 @@ namespace Psycho {
             }
         }
 
+        #region IModel Members
+
+
+        public void ChangeTopic (Topic paramTopic)
+        {
+            CurrentTopic = paramTopic;
+            ChangedTopics.Add (CurrentTopic);
+            NotifyObservers ();
+        }
+
+        #endregion
+
+        #region IModel Members
+
+
+        public XmlDocument XMLModel
+        {
+            get { return XMLmodel; }
+        }
+
+        #endregion
     }
 }

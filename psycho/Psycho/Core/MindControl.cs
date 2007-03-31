@@ -91,6 +91,12 @@ namespace Psycho {
                 Model.EditPending = editPending;
         }
 
+        public void RequestChange (Topic paramTopic)
+        {
+            if (Model != null)
+                Model.ChangeTopic (paramTopic);
+        }
+
         #endregion
     }
 }

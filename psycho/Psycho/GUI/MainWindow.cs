@@ -37,7 +37,9 @@ namespace Psycho {
             //IconLoader iconLoader = new IconLoader ();
             //Icon = iconLoader.topicIcon;
 
+            VBox globalVBox = new VBox ();
             VBox mainVBox = new VBox ();
+            HPaned mainHPaned = new HPaned ();
 
             MindModel model = new MindModel ();
             model.AppendSomeNodes (model.CentralTopic);
@@ -58,32 +60,55 @@ namespace Psycho {
             MindControl statusControl = new MindControl (model, statusView);
             statusView.WireUp (statusControl, model);
 
+            XMLView XMLPreview = new XMLView ();
+            MindControl XMLControl = new MindControl (model, XMLPreview);
+            XMLPreview.WireUp (XMLControl, model);
+
+            NotesView notesView = new NotesView ();
+            MindControl notesControl = new MindControl (model, notesView);
+            notesView.WireUp (notesControl, model);
+
             //AddAccelGroup(UIView.uiManager.AccelGroup);
 
             Expander buttonExpander = new Expander ("Button View");
             buttonExpander.Add (buttonView);
 
+            Expander notesExpander = new Expander ("Notes");
+            notesView.BorderWidth = 6;
+            notesExpander.Add (notesView);
+            notesExpander.Expanded = true;
+
             Notebook mainNotebook = new Notebook ();
             mainNotebook.BorderWidth = 6;
 
             DrawingArea mapView = new DrawingArea ();
-            TextView XMLView = new TextView ();
 
             mainNotebook.InsertPage (mapView, new Label ("Map View"), /*new Label("Map View"),*/ 0);
             mainNotebook.InsertPage (nodeView, new Label ("Outline View"), /*new Label("Outline View"),*/ 1);
-            mainNotebook.InsertPage (XMLView, new Label ("XML View"), /*new Label("XML View"),*/ 2);
+            mainNotebook.InsertPage (XMLPreview, new Label ("XML View"), /*new Label("XML View"),*/ 2);
 
-            mainVBox.Homogeneous = false;
+            mainNotebook.ShowBorder = true;
+            mainNotebook.HomogeneousTabs = true;
 
-            mainVBox.PackStart (UIView.uiManager.GetWidget ("/MenuBar"), false, false, 0);
-            mainVBox.PackStart (UIView.uiManager.GetWidget ("/ToolBar"), false, false, 0);
+            globalVBox.Homogeneous = false;
+            globalVBox.PackStart (UIView.uiManager.GetWidget ("/MenuBar"), false, false, 0);
+            globalVBox.PackStart (UIView.uiManager.GetWidget ("/ToolBar"), false, false, 0);
             
-            mainVBox.PackStart (buttonExpander, false, false, 6);
-            mainVBox.PackStart (mainNotebook, true, true, 6);
-            mainVBox.PackEnd (statusView, false, false, 0);
-            mainVBox.ShowAll ();
+            globalVBox.PackStart (buttonExpander, false, false, 6);
 
-            Add (mainVBox);
+            mainVBox.PackStart (mainNotebook, true, true, 0);
+            mainHPaned.Add1 (mainVBox);
+            mainHPaned.Add2 (notesExpander);
+            mainHPaned.Position = 500;
+
+            
+            globalVBox.PackStart (mainHPaned, true, true, 0);
+
+
+            globalVBox.PackEnd (statusView, false, false, 0);
+            globalVBox.ShowAll ();
+
+            Add (globalVBox);
         }
     }
 }

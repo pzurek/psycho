@@ -28,10 +28,8 @@ namespace Psycho {
     using System.Collections;
     using System.Collections.Generic;
     using System.Xml;
-    using System.Xml.Serialization;
     using Psycho;
 
-    [Serializable]
     public class Topic {
 
         public Topic (int topic_number)
@@ -51,14 +49,13 @@ namespace Psycho {
         private string path;
         private string guid;
         private bool isExpanded;
+        private Notes topicNotes;
         #endregion
 
         #region public fields
         
-        [XmlElement("Subtopics")]
         public Topics Subtopics = new Topics ();
 
-        [XmlElement("Title")]
         public string Title
         {
             get { return title; }
@@ -77,16 +74,30 @@ namespace Psycho {
             set { parent = value; }
         }
 
+        public string GUID
+        {
+            get { return guid; }
+        }
+
+        public Notes TopicNotes
+        {
+            get { return topicNotes; }
+            set { topicNotes = value; }
+        }
+
         public bool IsExpanded
         {
             get { return isExpanded; }
             set { isExpanded = value; }
         }
 
-        [XmlAttribute ("GUID")]
-        public string GUID
+        public bool HasNotes
         {
-            get { return guid; }
+            get
+            {
+                if (this.topicNotes != null) return true;
+                else return false;
+            }
         }
 
         public int TotalCount

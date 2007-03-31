@@ -112,6 +112,7 @@ namespace Psycho {
 
             uiManager.InsertActionGroup (actions, 0);
             uiManager.AddUiFromString (ui);
+            uiManager.AddTearoffs = true;
         }
 
         static void BuildIcons ()
@@ -131,20 +132,21 @@ namespace Psycho {
             StockManager.Add (new StockItem ("psycho-delete", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
         }
 
-        private void ActionActivated (object sender, EventArgs a)
+        private void ActionActivated (object sender, EventArgs args)
         {
             Action action = sender as Action;
-            Console.WriteLine ("Action \"{0}\" activated", action.Name);
+            Console.WriteLine ("Action \"{0}\" activated", action.AccelPath);
+            
             switch (action.Name) {
             case "AddTopic":
-            AddTopic ();
-            return;
+                AddTopic ();
+                return;
             case "AddSubtopic":
-            AddSubtopic ();
-            return;
+                AddSubtopic ();
+                return;
             case "Delete":
-            DeleteTopic ();
-            return;
+                DeleteTopic ();
+                return;
             default: break;
             }
         }
@@ -166,8 +168,21 @@ namespace Psycho {
             Update (Model);
         }
 
+        public void CheckButtonsLegal ()
+        {
+            if (Model.CurrentTopic == Model.CentralTopic) {
+                DisableAddSibling ();
+                DisableDelete ();
+            }
+            else {
+                EnableAddSibling ();
+                EnableDelete ();
+            }
+        }
+
         public void Update (IModel paramModel)
         {
+            CheckButtonsLegal ();
         }
 
         public void AddTopic ()
@@ -210,17 +225,28 @@ namespace Psycho {
 
         public void DisableDelete ()
         {
+            if (uiManager.GetAction ("/group/Delete") != null)
+                uiManager.GetAction("/group/Delete").Sensitive = false;
         }
 
         public void EnableAddSibling ()
         {
-            throw new Exception ("The method or operation is not implemented.");
+            
         }
 
         public void EnableDelete ()
         {
+        }
+        #endregion
+
+        #region IView Members
+
+
+        public void CommitChange (Topic paramTopic)
+        {
             throw new Exception ("The method or operation is not implemented.");
         }
+
         #endregion
     }
 }

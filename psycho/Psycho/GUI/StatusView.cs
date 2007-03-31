@@ -127,5 +127,15 @@ namespace Psycho {
         }
 
         #endregion
+
+        #region IView Members
+
+
+        public void CommitChange (Topic paramTopic)
+        {
+            throw new Exception ("The method or operation is not implemented.");
+        }
+
+        #endregion
     }
 }

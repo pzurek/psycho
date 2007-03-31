@@ -81,7 +81,6 @@ namespace Psycho {
             string key = args.Event.Key.ToString ();
             if (args.Event.Key == Gdk.Key.Return)
                 EditTitle (titleEntry.Text);
-            Console.WriteLine ("Title edited: " + titleEntry.Text);
         }
 
         public void WireUp (IControl paramControl, IModel paramModel)
@@ -188,5 +187,15 @@ namespace Psycho {
         {
             Control.RequestExpand (paramGuid, isExpanded);
         }
+
+        #region IView Members
+
+
+        public void CommitChange (Topic paramTopic)
+        {
+            throw new Exception ("The method or operation is not implemented.");
+        }
+
+        #endregion
     }
 }

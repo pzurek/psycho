@@ -37,6 +37,7 @@ namespace Psycho {
         void AddTopic ();
         void AddSubtopic ();
         void DeleteTopic ();
+        void CommitChange (Topic paramTopic);
         void ExpandTopic (string paramGuid, bool isExpanded);
         void EditTitle (string Title);
         void SetCurrentTopic ();

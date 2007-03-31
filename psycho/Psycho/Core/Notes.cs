@@ -32,15 +32,16 @@ namespace Psycho
 	
 	public class Notes {
 
-        public Notes(Topic paramTopic) {
-        	this.guid = paramTopic.GUID;
-        }
-
         #region private fields
         private string text;
-		private Topic topic;
+        private Topic topic;
         private string guid;
         #endregion
+
+        public Notes(Topic paramTopic) {
+            this.topic = paramTopic;
+        	this.guid = paramTopic.GUID;
+        }
 
         #region public fields
 
@@ -53,7 +54,6 @@ namespace Psycho
 		public Topic Topic
 		{
 			get { return topic; }
-			set { topic = value; }
 		}
 		
         public string GUID

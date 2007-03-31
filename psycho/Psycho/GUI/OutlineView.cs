@@ -37,9 +37,10 @@ namespace Psycho {
 
         private TreeStore store = new TreeStore(typeof(Topic));
         private TreeView outlineView = new TreeView();
-
+        
         private TreeIter selectedNode;
         private Topic selectedTopic;
+        private Topic workingTopic;
 
         private bool editPending;
         private string deletedTopicPath;
@@ -55,6 +56,7 @@ namespace Psycho {
         private TreeViewColumn titleColumn = new TreeViewColumn();
         private TreeViewColumn levelColumn = new TreeViewColumn();
         private TreeViewColumn guidColumn = new TreeViewColumn();
+        private TreeViewColumn notesColumn = new TreeViewColumn ();
 
         public OutlineView ()
             : base()
@@ -92,11 +94,18 @@ namespace Psycho {
             levelColumn.AddAttribute(levelCell, "text", 2);
             levelColumn.SetCellDataFunc(levelCell, new Gtk.TreeCellDataFunc(RenderLevel));
 
+            notesColumn.Title = "Notes";
+            CellRendererToggle notesCell = new CellRendererToggle ();
+            notesColumn.PackStart (notesCell, false);
+            notesColumn.AddAttribute (notesCell, "toggle" , 2);
+            notesColumn.SetCellDataFunc (notesCell, new Gtk.TreeCellDataFunc (RenderNotes));
+
+
             outlineView.Model = store;
             outlineView.AppendColumn(pathColumn);
             outlineView.AppendColumn(titleColumn);
             outlineView.AppendColumn(levelColumn);
-            outlineView.AppendColumn(guidColumn);
+            outlineView.AppendColumn(notesColumn);
             outlineView.ExpanderColumn = titleColumn;
 
             outlineView.Selection.Changed += new System.EventHandler(OnSelectionChanged);
@@ -106,7 +115,6 @@ namespace Psycho {
 
             outlineView.ExpanderColumn.Expand = true;
             outlineView.CanFocus = true;
-            outlineView.Settings.FontName = ("Bitstream Vera Sans");
             this.VscrollbarPolicy = PolicyType.Always;
             Add(outlineView);
             ShowAll();
@@ -170,6 +178,12 @@ namespace Psycho {
             (cell as CellRendererText).Text = topic.Level.ToString();
         }
 
+        private void RenderNotes (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+        {
+            Topic topic = (Topic) model.GetValue (iter, 0);
+            (cell as CellRendererToggle).Active = topic.HasNotes;
+        }
+
         public void Build (IModel paramModel)
         {
             store.Clear();
@@ -185,7 +199,7 @@ namespace Psycho {
             UpdateNew(paramModel);
             UpdateDeletedPath(paramModel);
             UpdateChanged(paramModel);
-
+            workingTopic = paramModel.CurrentTopic;
             updatePending = false;
         }
 
@@ -349,5 +363,15 @@ namespace Psycho {
             Topic expandedTopic = (Topic) store.GetValue(expanded, 0);
             ExpandTopic(expandedTopic.GUID, true);
         }
+
+        #region IView Members
+
+
+        public void CommitChange (Topic paramTopic)
+        {
+            throw new Exception ("The method or operation is not implemented.");
+        }
+
+        #endregion
     }
 }
