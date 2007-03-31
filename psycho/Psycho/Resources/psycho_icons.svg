@@ -17,12 +17,12 @@
    sodipodi:version="0.32"
    inkscape:version="0.43"
    sodipodi:docname="psycho_icons.svg"
-   sodipodi:docbase="/home/piotr/Projects/Psycho/Psycho/Resources"><metadata
+   sodipodi:docbase="C:\Documents and Settings\Piotr.CADPRO\My Documents\Visual Studio 2005\Projects\Psycho\Psycho\Resources"><metadata
    id="metadata1792"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
          rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
-   inkscape:window-height="975"
-   inkscape:window-width="1400"
+   inkscape:window-height="964"
+   inkscape:window-width="1280"
    inkscape:pageshadow="2"
    inkscape:pageopacity="0.0"
    borderopacity="1.0"
@@ -30,11 +30,11 @@
    pagecolor="#ffffff"
    id="base"
    fill="#cc0000"
-   inkscape:zoom="0.64679839"
-   inkscape:cx="939.69137"
-   inkscape:cy="2642.9198"
-   inkscape:window-x="0"
-   inkscape:window-y="25"
+   inkscape:zoom="0.49132392"
+   inkscape:cx="722.39325"
+   inkscape:cy="2602.0225"
+   inkscape:window-x="-4"
+   inkscape:window-y="-4"
    inkscape:current-layer="svg1567" />
  <defs
    id="defs1569">
@@ -111,7 +111,7 @@
  </defs>
  <g
    id="g1779"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2332.911,-461.3325)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-callout-small.png"
    inkscape:export-xdpi="4.1242309"
@@ -123,7 +123,7 @@
    class="fil0 str3" />
   </g><g
    id="g1711"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-1932.477,-481.4318)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-delete-smallpng"
    inkscape:export-xdpi="4.1241837"
@@ -135,7 +135,7 @@
    class="fil0 str4" />
   </g><g
    id="g1719"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-1932.477,-481.4318)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-delete-smallpng"
    inkscape:export-xdpi="4.1241837"
@@ -147,7 +147,7 @@
    class="fil0 str4" />
   </g><g
    id="g1727"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-1932.477,-481.4318)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-delete-smallpng"
    inkscape:export-xdpi="4.1241837"
@@ -159,7 +159,7 @@
    class="fil0 str4" />
   </g><g
    id="g1735"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-1932.477,-481.4318)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-delete-smallpng"
    inkscape:export-xdpi="4.1241837"
@@ -171,7 +171,7 @@
    class="fil0 str3" />
   </g><g
    id="g1699"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3214.174,-34.6156)"
    style="fill:#cc0000;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-boundary-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -183,7 +183,7 @@
    class="fil0 str3" />
   </g><g
    id="g1619"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3656.352,-65.53714)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-topic-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -195,7 +195,7 @@
    class="fil0 str4" />
   </g><g
    id="g1627"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3656.352,-65.53714)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-topic-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -207,7 +207,7 @@
    class="fil0 str4" />
   </g><g
    id="g1635"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3656.352,-65.53714)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-topic-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -219,7 +219,7 @@
    class="fil0 str4" />
   </g><g
    id="g1787"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2795.188,415.2928)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-relation-small.png"
    inkscape:export-xdpi="4.1135802"
@@ -231,7 +231,7 @@
    class="fil0 str3" />
   </g><g
    id="g1575"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2773.543,-492.2543)"
    style="stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-small.png"
    inkscape:export-xdpi="4.1242642"
@@ -243,7 +243,7 @@
    class="fil0 str0" />
   </g><g
    id="g1591"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2773.543,-492.2543)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-small.png"
    inkscape:export-xdpi="4.1242642"
@@ -255,7 +255,7 @@
    class="fil0 str4" />
   </g><g
    id="g1595"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2773.543,-492.2543)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-small.png"
    inkscape:export-xdpi="4.1242642"
@@ -267,7 +267,7 @@
    class="fil0 str4" />
   </g><g
    id="g1599"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2773.543,-492.2543)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-small.png"
    inkscape:export-xdpi="4.1242642"
@@ -279,7 +279,7 @@
    class="fil0 str4" />
   </g><g
    id="g1607"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2773.543,-492.2543)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-small.png"
    inkscape:export-xdpi="4.1242642"
@@ -291,7 +291,7 @@
    class="fil0 str4" />
   </g><g
    id="g1579"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2773.543,-492.2543)"
    style="fill:#3465a4;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-small.png"
    inkscape:export-xdpi="4.1242642"
@@ -299,11 +299,12 @@
    <path
    style="fill:#3465a4;fill-rule:nonzero;stroke:none;stroke-width:0.89988601"
    id="path1581"
-   d="M 3441.97,1110.05 L 3446.4694,1092.3522 L 3451.8687,1071.0549 L 3458.1679,1052.1573 L 3465.9669,1038.959 L 3475.5657,1034.1596 L 3475.5657,1041.3587 C 3475.5657,1053.3572 3485.1645,1063.2559 3497.4629,1063.2559 L 3497.4629,1063.2559 L 3570.0537,1063.2559 C 3582.0522,1063.2559 3591.9509,1053.3572 3591.9509,1041.3587 L 3591.9509,1041.3587 L 3591.9509,997.5643 C 3591.9509,985.5658 3582.0522,975.967 3570.0537,975.967 L 3570.0537,975.967 L 3497.4629,975.967 C 3485.1645,975.967 3475.5657,985.56578 3475.5657,997.5643 L 3475.5657,997.5643 L 3475.5657,1005.0634 L 3457.568,1011.3626 L 3445.8695,1027.8605 L 3439.2704,1050.9576 L 3435.6708,1077.6542 L 3433.2711,1104.3508 L 3432.6712,1107.9503 L 3441.97,1110.05 L 3441.97,1110.05 z "
-   class="fil0 str1" />
+   d="M 3467.6828,1111.0995 L 3454.3407,1087.6294 L 3455.0172,1067.9064 L 3458.1679,1052.1573 L 3463.3431,1032.1372 L 3474.5162,1025.7636 L 3475.5657,1041.3587 C 3475.5657,1053.3572 3485.1645,1063.2559 3497.4629,1063.2559 L 3497.4629,1063.2559 L 3570.0537,1063.2559 C 3582.0522,1063.2559 3591.9509,1053.3572 3591.9509,1041.3587 L 3591.9509,1041.3587 L 3591.9509,997.5643 C 3591.9509,985.5658 3582.0522,975.967 3570.0537,975.967 L 3570.0537,975.967 L 3497.4629,975.967 C 3485.1645,975.967 3475.5657,985.56578 3475.5657,997.5643 L 3475.5657,997.5643 L 3474.5162,1012.9347 L 3457.0432,1019.7586 L 3447.4438,1031.5338 L 3439.2704,1050.9576 L 3429.3738,1078.7037 L 3396.5386,1108.5488 L 3401.7109,1120.0196 L 3441.97,1110.05 L 3467.6828,1111.0995 z "
+   class="fil0 str1"
+   sodipodi:nodetypes="ccccccccccccccccccccccccccc" />
   </g><g
    id="g1583"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2773.543,-492.2543)"
    style="fill:#edd400;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-small.png"
    inkscape:export-xdpi="4.1242642"
@@ -311,11 +312,12 @@
    <path
    style="fill:#edd400;fill-rule:nonzero;stroke:none;stroke-width:0.89988601"
    id="path1585"
-   d="M 3482.47,1146.34 L 3490.8689,1145.4401 L 3504.3672,1144.2403 L 3520.5651,1143.6403 L 3540.9625,1143.3404 L 3540.9625,1150.5395 C 3540.9625,1162.538 3550.8613,1172.4367 3562.8597,1172.4367 L 3562.8597,1172.4367 L 3635.4505,1172.4367 C 3647.449,1172.4367 3657.3477,1162.5379 3657.3477,1150.5395 L 3657.3477,1150.5395 L 3657.3477,1106.7451 C 3657.3477,1094.7466 3647.449,1085.1478 3635.4505,1085.1478 L 3635.4505,1085.1478 L 3562.8597,1085.1478 C 3550.8612,1085.1478 3540.9625,1094.7465 3540.9625,1106.7451 L 3540.9625,1106.7451 L 3540.9625,1114.2441 L 3520.5651,1115.7439 L 3504.3672,1119.6434 L 3490.8689,1125.6427 L 3479.1704,1132.2418 L 3477.3707,1133.4417 L 3482.47,1146.3401 L 3482.47,1146.34 z "
-   class="fil0 str2" />
+   d="M 3482.47,1146.34 L 3490.8689,1145.4401 L 3492.2979,1177.8243 L 3523.1889,1141.5413 L 3541.4873,1133.8949 L 3540.9625,1145.292 C 3540.9625,1157.2905 3550.8613,1172.4367 3562.8597,1172.4367 L 3562.8597,1172.4367 L 3635.4505,1172.4367 C 3647.449,1172.4367 3657.3477,1162.5379 3657.3477,1150.5395 L 3657.3477,1150.5395 L 3657.3477,1106.7451 C 3657.3477,1094.7466 3647.449,1085.1478 3635.4505,1085.1478 L 3635.4505,1085.1478 L 3562.8597,1085.1478 C 3550.8612,1085.1478 3540.9625,1094.7465 3540.9625,1106.7451 L 3540.9625,1106.7451 L 3540.9625,1124.7391 L 3523.1889,1125.1894 L 3504.3672,1119.6434 L 3467.7799,1107.2764 L 3479.1704,1132.2418 L 3477.3707,1133.4417 L 3482.47,1146.3401 L 3482.47,1146.34 z "
+   class="fil0 str2"
+   sodipodi:nodetypes="ccccccccccccccccccccccccc" />
   </g><g
    id="g1587"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2773.543,-492.2543)"
    style="fill:#cc0000;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-small.png"
    inkscape:export-xdpi="4.1242642"
@@ -323,11 +325,12 @@
    <path
    style="fill:#cc0000;fill-rule:nonzero;stroke:none;stroke-width:0.89988601"
    id="path1589"
-   d="M 3451.87,1187.74 L 3457.2693,1201.5382 L 3465.0683,1220.1358 L 3473.4672,1236.3337 L 3483.9659,1248.0322 L 3497.4642,1252.2317 L 3497.4642,1259.7307 C 3497.4642,1271.7292 3507.063,1281.328 3519.0615,1281.328 L 3519.0615,1281.328 L 3591.9522,1281.328 C 3603.9507,1281.328 3613.8494,1271.7292 3613.8494,1259.7307 L 3613.8494,1259.7307 L 3613.8494,1215.9363 C 3613.8494,1203.9378 3603.9507,1194.0391 3591.9522,1194.0391 L 3591.9522,1194.0391 L 3519.0615,1194.0391 C 3507.063,1194.0391 3497.4642,1203.9379 3497.4642,1215.9363 L 3497.4642,1215.9363 L 3497.4642,1223.1354 L 3483.9659,1220.1358 L 3473.4672,1211.7369 L 3465.0683,1200.3383 L 3457.2693,1186.84 L 3456.6694,1185.3401 L 3451.87,1187.7398 L 3451.87,1187.74 z "
-   class="fil0 str3" />
+   d="M 3408.3157,1199.2845 L 3438.903,1209.9342 L 3453.5237,1217.512 L 3468.2197,1233.1852 L 3480.8174,1241.2104 L 3496.9394,1248.5584 L 3497.4642,1259.7307 C 3497.4642,1271.7292 3507.063,1281.328 3519.0615,1281.328 L 3519.0615,1281.328 L 3591.9522,1281.328 C 3603.9507,1281.328 3613.8494,1271.7292 3613.8494,1259.7307 L 3613.8494,1259.7307 L 3613.8494,1215.9363 C 3613.8494,1203.9378 3603.9507,1194.0391 3591.9522,1194.0391 L 3591.9522,1194.0391 L 3519.0615,1194.0391 C 3507.063,1194.0391 3497.4642,1203.9379 3497.4642,1215.9363 L 3497.4642,1215.9363 L 3497.989,1239.9274 L 3486.5897,1230.1061 L 3480.289,1214.3607 L 3483.9593,1192.9918 L 3498.7246,1171.0975 L 3483.9564,1174.8451 L 3421.9592,1198.7596 L 3408.3157,1199.2845 z "
+   class="fil0 str3"
+   sodipodi:nodetypes="cccccccccccccccccccccccccc" />
   </g><g
    id="g1603"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2773.543,-492.2543)"
    style="fill:#eeeeec;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-small.png"
    inkscape:export-xdpi="4.1242642"
@@ -351,7 +354,7 @@
    class="fil0 str0" />
   </g><g
    id="g1615"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3656.352,-65.53714)"
    style="fill:#729fcf;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-topic-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -363,7 +366,7 @@
    class="fil0 str5" />
   </g><g
    id="g1623"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3656.352,-65.53714)"
    style="fill:#cc0000;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-topic-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -375,7 +378,7 @@
    class="fil0 str3" />
   </g><g
    id="g1631"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3656.352,-65.53714)"
    style="fill:#3465a4;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-topic-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -387,7 +390,7 @@
    class="fil0 str1" />
   </g><g
    id="g1639"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2789.003,-476.7936)"
    style="stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-subtopic-small.png"
    inkscape:export-xdpi="4.1241212"
@@ -399,7 +402,7 @@
    class="fil0 str0" />
   </g><g
    id="g1647"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2789.003,-476.7936)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-subtopic-small.png"
    inkscape:export-xdpi="4.1241212"
@@ -411,7 +414,7 @@
    class="fil0 str4" />
   </g><g
    id="g1659"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2789.003,-476.7936)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-subtopic-small.png"
    inkscape:export-xdpi="4.1241212"
@@ -423,7 +426,7 @@
    class="fil0 str4" />
   </g><g
    id="g1663"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2789.003,-476.7936)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-subtopic-small.png"
    inkscape:export-xdpi="4.1241212"
@@ -447,7 +450,7 @@
    class="fil0 str0" />
   </g><g
    id="g1695"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3214.174,-34.6156)"
    style="fill:#eeeeec;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-boundary-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -459,7 +462,7 @@
    class="fil0 str0" />
   </g><g
    id="g1675"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3214.174,-34.6156)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-boundary-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -471,7 +474,7 @@
    class="fil0 str4" />
   </g><g
    id="g1683"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3214.174,-34.6156)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-boundary-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -483,7 +486,7 @@
    class="fil0 str4" />
   </g><g
    id="g1691"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3214.174,-34.6156)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-boundary-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -495,7 +498,7 @@
    class="fil0 str4" />
   </g><g
    id="g1703"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-1932.477,-481.4318)"
    style="stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-delete-smallpng"
    inkscape:export-xdpi="4.1241837"
@@ -507,7 +510,7 @@
    class="fil0 str0" />
   </g><g
    id="g1739"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2795.188,415.2928)"
    style="stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-relation-small.png"
    inkscape:export-xdpi="4.1135802"
@@ -519,7 +522,7 @@
    class="fil0 str0" />
   </g><g
    id="g1747"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2795.188,415.2928)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-relation-small.png"
    inkscape:export-xdpi="4.1135802"
@@ -531,7 +534,7 @@
    class="fil0 str4" />
   </g><g
    id="g1755"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2795.188,415.2928)"
    style="fill:#2e3436;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-relation-small.png"
    inkscape:export-xdpi="4.1135802"
@@ -543,7 +546,7 @@
    class="fil0 str4" />
   </g><g
    id="g1763"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2795.188,415.2928)"
    style="stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-relation-small.png"
    inkscape:export-xdpi="4.1135802"
@@ -555,7 +558,7 @@
    class="fil0 str4" />
   </g><g
    id="g1751"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2795.188,415.2928)"
    style="fill:#729fcf;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-relation-small.png"
    inkscape:export-xdpi="4.1135802"
@@ -567,7 +570,7 @@
    class="fil0 str5" />
   </g><g
    id="g1743"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2795.188,415.2928)"
    style="fill:#729fcf;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-relation-small.png"
    inkscape:export-xdpi="4.1135802"
@@ -579,7 +582,7 @@
    class="fil0 str5" />
   </g><g
    id="g1759"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2795.188,415.2928)"
    style="fill:#3465a4;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-relation-small.png"
    inkscape:export-xdpi="4.1135802"
@@ -591,7 +594,7 @@
    class="fil0 str1" />
   </g><g
    id="g1767"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2795.188,415.2928)"
    style="fill:#ef2929;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-relation-small.png"
    inkscape:export-xdpi="4.1135802"
@@ -603,7 +606,7 @@
    class="fil0 str3" />
   </g><g
    id="g1771"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2332.911,-461.3325)"
    style="stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-callout-small.png"
    inkscape:export-xdpi="4.1242309"
@@ -615,7 +618,7 @@
    class="fil0 str0" />
   </g><g
    id="g1775"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2332.911,-461.3325)"
    style="fill:#3465a4;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-callout-small.png"
    inkscape:export-xdpi="4.1242309"
@@ -628,7 +631,7 @@
   </g>
 <g
    id="g1671"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3214.174,-34.6156)"
    style="fill:#3465a4;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-boundary-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -640,7 +643,7 @@
    class="fil0 str1" />
   </g><g
    id="g1679"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3214.174,-34.6156)"
    style="fill:#729fcf;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-boundary-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -652,7 +655,7 @@
    class="fil0 str5" />
   </g><g
    id="g1687"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-3214.174,-34.6156)"
    style="fill:#729fcf;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-boundary-small.png"
    inkscape:export-xdpi="4.1241841"
@@ -664,7 +667,7 @@
    class="fil0 str5" />
   </g><g
    id="g1643"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2789.003,-476.7936)"
    style="fill:#3465a4;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-subtopic-small.png"
    inkscape:export-xdpi="4.1241212"
@@ -676,7 +679,7 @@
    class="fil0 str1" />
   </g><g
    id="g1655"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2789.003,-476.7936)"
    style="fill:#729fcf;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-subtopic-small.png"
    inkscape:export-xdpi="4.1241212"
@@ -688,7 +691,7 @@
    class="fil0 str5" />
   </g><g
    id="g1651"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2789.003,-476.7936)"
    style="fill:#cc0000;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-subtopic-small.png"
    inkscape:export-xdpi="4.1241212"
@@ -700,7 +703,7 @@
    class="fil0 str5" />
   </g><g
    id="g1707"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-1932.477,-481.4318)"
    style="fill:#3465a4;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-delete-smallpng"
    inkscape:export-xdpi="4.1241837"
@@ -712,7 +715,7 @@
    class="fil0 str1" />
   </g><g
    id="g1715"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-1932.477,-481.4318)"
    style="fill:#729fcf;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-delete-smallpng"
    inkscape:export-xdpi="4.1241837"
@@ -724,7 +727,7 @@
    class="fil0 str1" />
   </g><g
    id="g1723"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-1932.477,-481.4318)"
    style="fill:#729fcf;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-delete-smallpng"
    inkscape:export-xdpi="4.1241837"
@@ -736,7 +739,7 @@
    class="fil0 str1" />
   </g><g
    id="g1731"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-1932.477,-481.4318)"
    style="fill:#cc0000;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-delete-smallpng"
    inkscape:export-xdpi="4.1241837"
@@ -748,7 +751,7 @@
    class="fil0 str3" />
   </g><g
    id="g1783"
-   transform="translate(-2802.918,-861.7667)"
+   transform="translate(-2332.911,-461.3325)"
    style="fill:#eeeeec;stroke:none"
    inkscape:export-filename="/home/piotr/Projects/Psycho/Psycho/Resources/psycho-callout-small.png"
    inkscape:export-xdpi="4.1242309"
