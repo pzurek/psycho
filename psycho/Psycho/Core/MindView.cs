@@ -121,13 +121,19 @@ namespace Psycho
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
                         this.mapArea.SetSizeRequest ((int) Model.CentralTopic.GlobalWidth + 2 * margin, (int) Model.CentralTopic.GlobalHeight + 2 * margin);
-                        //Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 20, (int) Model.CentralTopic.GlobalHeight + 20);
-                        //Cairo.Context pictureContext = new Cairo.Context (image);
-                        //DrawBackground (pictureContext);
-                        //pictureContext.Translate (System.Math.Floor (Model.CentralTopic.Width / 2 + 10), Model.CentralTopic.GlobalHeight / 2 + 10);
-                        //DrawTopics (pictureContext);
-                        //pictureContext.Rectangle (Model.CentralTopic.Width / 2 - 10, Model.CentralTopic.GlobalHeight / 2 - 10, Model.CentralTopic.Width + 20, Model.CentralTopic.GlobalHeight + 20);
-                        //image.WriteToPng ("psycho.png");
+                        
+                        // Temporary code used to draw to png file. That has to be a separate method called by the user.
+                        Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 20, (int) Model.CentralTopic.GlobalHeight + 20);
+                        Cairo.Context pictureContext = new Cairo.Context (image);
+                        DrawBackground (pictureContext);
+                        pictureContext.Translate (System.Math.Floor (Model.CentralTopic.Width / 2 + 10), Model.CentralTopic.GlobalHeight / 2 + 10);
+                        DrawTopics (pictureContext);
+                        pictureContext.Rectangle (Model.CentralTopic.Width / 2 - 10, Model.CentralTopic.GlobalHeight / 2 - 10, Model.CentralTopic.Width + 20, Model.CentralTopic.GlobalHeight + 20);
+                        image.WriteToPng ("psycho.png");
+                        ((IDisposable) pictureContext.Target).Dispose ();
+                        ((IDisposable) pictureContext).Dispose ();
+                        // End of that hack...
+
                         ((IDisposable) mapContext.Target).Dispose ();
                         ((IDisposable) mapContext).Dispose ();
                 }
@@ -186,7 +192,7 @@ namespace Psycho
                         DrawConnections (iContext, Model.CentralTopic);
                         DrawFrames (iContext, Model.CentralTopic);
                         DrawFrame (iContext, Model.CentralTopic);
-                        DrawText (/*iContext,*/ Model.CentralTopic);
+                        DrawText (iContext, Model.CentralTopic);
                 }
 
                 public void DrawConnections (Cairo.Context iContext, Topic iTopic)
@@ -206,7 +212,7 @@ namespace Psycho
                                         DrawFrames (iContext, TempTopic);
                                 }
                                 DrawFrame (iContext, TempTopic);
-                                DrawText (/*iContext, */TempTopic);
+                                DrawText (iContext, TempTopic);
                         }
                 }
 
@@ -215,21 +221,34 @@ namespace Psycho
                         foreach (Topic TempTopic in iTopic.SubtopicList) {
                                 if (TempTopic.IsExpanded)
                                         DrawTexts (iContext, TempTopic);
-                                DrawText (/*iContext, */TempTopic);
+                                DrawText (iContext, TempTopic);
                         }
                 }
 
-                void DrawText (/*Cairo.Context iContext,*/ Topic iTopic)
+                void DrawText (Cairo.Context iContext, Topic iTopic)
                 {
+                        // Original Pango drawing
+                        /*
                         gc = mapArea.Style.TextAAGC (StateType.Normal);
                         gc.Foreground = new Gdk.Color (0, 0, 0);
                         text = iTopic.TextLayout;
-                        //text.Alignment = Pango.Alignment.Center;
                         mapArea.GdkWindow.DrawLayout (gc,
                                 (int) (iTopic.Offset.X - iTopic.TextWidth / 2 - Model.CentralTopic.Left + margin),
                                 (int) (iTopic.Offset.Y - iTopic.TextHeight / 2 - Model.CentralTopic.Top + margin),
                                 text);
                         gc.Dispose ();
+                         */
+
+                        // Using Pango.CairoHelper to draw the text to Cairo surface
+                        iContext.Save ();
+                        iContext.MoveTo (
+                                (int) (iTopic.Offset.X - iTopic.TextWidth / 2),
+                                (int) (iTopic.Offset.Y - iTopic.TextHeight / 2)
+                                );
+                        Pango.Layout layout = Pango.CairoHelper.CreateLayout (iContext);
+                        layout = iTopic.TextLayout;
+                        Pango.CairoHelper.ShowLayout (iContext, layout);
+                        iContext.Restore ();
                 }
 
                 static void DrawConnection (Cairo.Context iContext, Topic iTopic)
