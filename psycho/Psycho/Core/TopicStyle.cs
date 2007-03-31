@@ -58,10 +58,9 @@ namespace Psycho
                 public TopicStyle (Topic iTopic) //TODO: One big hack
                 {
                         this.topic = iTopic;
-                        //this.SetColor ();
 
                         // TODO: That all of course has to be loaded from a style
-                        this.StyleFont = (new Font ("Tahoma", 10));
+                        this.StyleFont = (new Font ("Comic Sans MS", 10));
                         this.StrokeWidth = 1;
                         this.EqualMargins = true;
                         this.LeftMargin = 2;
@@ -81,39 +80,6 @@ namespace Psycho
                         get { return topic; }
                 }
 
-                void SetColor ()
-                {
-                        if (this.Topic.Level < 2) {
-                                switch (this.Topic.Number) {
-                                case "0":
-                                strokeColor = new Color (55, 55, 55);
-                                break;
-                                case "1":
-                                strokeColor = new Color (239, 41, 41);
-                                break;
-                                case "2":
-                                strokeColor = new Color (237, 212, 0);
-                                break;
-                                case "3":
-                                strokeColor = new Color (52, 101, 164);
-                                break;
-                                case "4":
-                                strokeColor = new Color (115, 210, 22);
-                                break;
-                                case "5":
-                                strokeColor = new Color (173, 127, 168);
-                                break;
-                                case "6":
-                                strokeColor = new Color (245, 121, 0);
-                                break;
-                                default:
-                                strokeColor = new Color (32, 74, 135);
-                                break;
-                                }
-                        }
-                        else
-                                strokeColor = this.Topic.Parent.Style.StrokeColor;
-                }
 
                 public Font StyleFont
                 {
@@ -139,7 +105,7 @@ namespace Psycho
                                 shape = TopicShape.Rectangle;
                                 break;
                                 default:
-                                shape = TopicShape.Hexagon;
+                                shape = TopicShape.Line;
                                 break;
                                 }
                                 return shape;
@@ -201,36 +167,39 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.Topic.Level < 2) {
-                                        switch (this.Topic.Number) {
-                                        case "0":
-                                        strokeColor = new Color (55, 55, 55);
-                                        break;
-                                        case "1":
-                                        strokeColor = new Color (52, 101, 164);// (239, 41, 41);
-                                        break;
-                                        case "2":
-                                        strokeColor = new Color (239, 41, 41);// (237, 212, 0);
-                                        break;
-                                        case "3":
-                                        strokeColor = new Color (237, 212, 0);
-                                        break;
-                                        case "4":
-                                        strokeColor = new Color (115, 210, 22);
-                                        break;
-                                        case "5":
-                                        strokeColor = new Color (173, 127, 168);
-                                        break;
-                                        case "6":
-                                        strokeColor = new Color (245, 121, 0);
-                                        break;
-                                        default:
-                                        strokeColor = new Color (32, 74, 135);
-                                        break;
+                                if (strokeColor == null) {
+                                        if (this.Topic.Level < 2) {
+                                                switch (this.Topic.Number) {
+                                                case "0":
+                                                strokeColor = new Color (55, 55, 55);
+                                                break;
+                                                case "1":
+                                                strokeColor = new Color (52, 101, 164);// (239, 41, 41);
+                                                break;
+                                                case "2":
+                                                strokeColor = new Color (239, 41, 41);// (237, 212, 0);
+                                                break;
+                                                case "3":
+                                                strokeColor = new Color (237, 212, 0);
+                                                break;
+                                                case "4":
+                                                strokeColor = new Color (115, 210, 22);
+                                                break;
+                                                case "5":
+                                                strokeColor = new Color (173, 127, 168);
+                                                break;
+                                                case "6":
+                                                strokeColor = new Color (245, 121, 0);
+                                                break;
+                                                default:
+                                                strokeColor = new Color (32, 74, 135);
+                                                break;
+                                                }
                                         }
+                                        else
+                                                strokeColor = this.Topic.Parent.Style.StrokeColor;
                                 }
-                                else
-                                        strokeColor = this.Topic.Parent.Style.StrokeColor; return strokeColor;
+                                return strokeColor;
                         }
                         set { strokeColor = value; }
                 }

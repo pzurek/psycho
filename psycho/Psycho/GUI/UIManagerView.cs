@@ -104,9 +104,9 @@ namespace Psycho
                                 new ActionEntry ("SaveAs", Stock.SaveAs, "Save _As", null, "Save to a file", new EventHandler (ActionActivated)),
                                 new ActionEntry ("Quit", Stock.Quit, "_Quit", "<control>Q", "Quit", new EventHandler (ActionActivated)),
                                 
-                                new ActionEntry ("AddTopic", "psycho-topic", "_Topic", "Return", "Create a new topic on a current level", new EventHandler (ActionActivated)),
-                                new ActionEntry ("AddSubtopic", "psycho-subtopic", "_Subtopic", "Insert", "Create a new topic as a child for currently selected topic", new EventHandler (ActionActivated)),
-                                new ActionEntry ("Delete", "psycho-delete", "_Delete", "Delete", "Delete currently selected topic", new EventHandler (ActionActivated)),
+                                new ActionEntry ("AddTopic", "psycho-topic", "_Topic", "", "Create a new topic on a current level", new EventHandler (ActionActivated)),
+                                new ActionEntry ("AddSubtopic", "psycho-subtopic", "_Subtopic", "", "Create a new topic as a child for currently selected topic", new EventHandler (ActionActivated)),
+                                new ActionEntry ("Delete", "psycho-delete", "_Delete", "", "Delete currently selected topic", new EventHandler (ActionActivated)),
                                 new ActionEntry ("Relation", "psycho-relation", "_Relation", "", "Create a relation between two existing elements", new EventHandler (ActionActivated)),
                                 new ActionEntry ("Callout", "psycho-callout", "_Callout", "", "Create a callout topic for currently selected element", new EventHandler (ActionActivated)),
                                 new ActionEntry ("Border", "psycho-border", "_Border", "", "Add Border", new EventHandler (ActionActivated)),
@@ -131,7 +131,7 @@ namespace Psycho
                         topicToolItem.ButtonPressEvent += new ButtonPressEventHandler (topicToolItem_ButtonPressEvent);
                         uiManager.PreActivate += new PreActivateHandler (uiManager_PreActivate);
                         toolbar.ButtonPressEvent += new ButtonPressEventHandler (toolbar_ButtonPressEvent);
-                        toolbar.IconSize = IconSize.SmallToolbar;
+                        toolbar.IconSize = IconSize.LargeToolbar;
                 }
 
                 void topicToolItem_ButtonPressEvent (object o, ButtonPressEventArgs args)

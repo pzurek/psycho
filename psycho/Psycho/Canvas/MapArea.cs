@@ -53,14 +53,13 @@ namespace Psycho
                         mapViewPort = new Viewport ();
                         mapArea.ExposeEvent += OnMapExpose;
                         mapArea.Realized += OnMapRealize;
-                        this.Vadjustment.ValueChanged += new EventHandler (Vadjustment_ValueChanged);
+                        mapArea.KeyPressEvent += OnKeyPressEvent;
+                        mapArea.FocusInEvent += OnFocusInEvent;
+                        mapArea.CanFocus = true;
+                        //this.Vadjustment.ValueChanged += new EventHandler (Vadjustment_ValueChanged);
                         this.ShadowType = ShadowType.EtchedIn;
                         this.HscrollbarPolicy = PolicyType.Always;
                         this.VscrollbarPolicy = PolicyType.Always;
-                        this.Vadjustment.StepIncrement = 10;
-                        this.Vadjustment.PageIncrement = 200;
-                        this.Hadjustment.StepIncrement = 10;
-                        this.Hadjustment.PageIncrement = 50;
                         this.mapViewPort.Add (mapArea);
                         this.Add (mapViewPort);
                 }
@@ -101,9 +100,45 @@ namespace Psycho
                         mapContext = Gdk.CairoHelper.Create (args.Event.Window);
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
-                        this.mapArea.SetSizeRequest (2000, (int) Model.CentralTopic.TotalHeight);
+                        this.mapArea.SetSizeRequest (2000, (int) Model.CentralTopic.TotalHeight + 100);
                         ((IDisposable) mapContext.Target).Dispose ();
                         ((IDisposable) mapContext).Dispose ();
+                }
+
+                void OnFocusInEvent (object sender, FocusInEventArgs args)
+                {
+                        mapArea.GrabFocus ();
+                        mapArea.GrabDefault ();
+                }
+
+                void OnKeyPressEvent (object sender, KeyPressEventArgs args)
+                {
+                        string key = args.Event.Key.ToString ();
+                        switch (key) {
+                        case "Return":
+                        AddTopic ();
+                        return;
+                        case "Insert":
+                        AddSubtopic ();
+                        return;
+                        case "Delete":
+                        DeleteTopic ();
+                        return;
+                        case "Left":            //At the moment it's Right-Child Down-Next but that should
+                        SetCurrentUp ();        //be Subtopic layout dependent
+                        return;
+                        case "Right":
+                        SetCurrentDown ();
+                        return;
+                        case "Up":
+                        SetCurrentBack ();
+                        args.RetVal = true;
+                        return;
+                        case "Down":
+                        SetCurrentForward ();
+                        return;
+                        default: break;
+                        }
                 }
 
                 private void DrawBackground (Context iContext)
@@ -220,17 +255,42 @@ namespace Psycho
 
                 public void AddTopic ()
                 {
-                        throw new Exception ("The method or operation is not implemented.");
+                        Control.RequestAddTopic ();
                 }
 
                 public void AddSubtopic ()
                 {
-                        throw new Exception ("The method or operation is not implemented.");
+                        Control.RequestAddSubtopic ();
                 }
 
                 public void DeleteTopic ()
                 {
-                        throw new Exception ("The method or operation is not implemented.");
+                        Control.RequestDelete ();
+                }
+
+                public void ExpandTopic ()
+                {
+                        Control.RequestExpand (this.Model.CurrentTopic.GUID, !this.Model.CurrentTopic.IsExpanded);
+                }
+
+                public void SetCurrentForward ()
+                {
+                        Control.RequestCurrentForward ();
+                }
+
+                public void SetCurrentBack ()
+                {
+                        Control.RequestCurrentBack ();
+                }
+
+                public void SetCurrentUp ()
+                {
+                        Control.RequestCurrentUp ();
+                }
+
+                public void SetCurrentDown ()
+                {
+                        Control.RequestCurrentDown ();
                 }
 
                 public void CommitChange (Topic iTopic)
@@ -274,26 +334,6 @@ namespace Psycho
                 }
 
                 public void EnableDelete ()
-                {
-                        throw new Exception ("The method or operation is not implemented.");
-                }
-
-                public void SetCurrentForward ()
-                {
-                        throw new Exception ("The method or operation is not implemented.");
-                }
-
-                public void SetCurrentBack ()
-                {
-                        throw new Exception ("The method or operation is not implemented.");
-                }
-
-                public void SetCurrentUp ()
-                {
-                        throw new Exception ("The method or operation is not implemented.");
-                }
-
-                public void SetCurrentDown ()
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
