@@ -30,8 +30,7 @@ namespace Psycho
         public class TopicFrame
         {
                 Cairo.Context context;
-                int textWidth, textHeight, frameHeight, frameWidth;
-                int leftMargin, rightMargin, topMargin, bottomMargin;
+                int frameHeight, frameWidth;
                 int leftOverhead, rightOverhead;
                 Cairo.PointD origin, center, left, right, top, bottom;
                 double octDist, octDistOrtho;
@@ -153,47 +152,41 @@ namespace Psycho
                         }
                 }
 
-                public void Draw (Cairo.Context cr, Topic iTopic)
+                public void Sketch (Cairo.Context iContext, Topic iTopic)
                 {
+                        context = iContext;
                         switch (this.topic.Style.Shape) {
                         case TopicShape.Rectangle:
-                        DrawRectangle (cr, iTopic);
+                        sketchRectangle ();
                         break;
                         default:
-                        DrawRectangle (cr, iTopic);
+                        sketchRectangle ();
                         break;
                         }
                 }
 
-                public void DrawRectangle (Cairo.Context cr, Topic iTopic)
+                void sketchRectangle ()
                 {
-                        cr.Rectangle (Origin, Width, Height);
-                        Cairo.Color strokeColor;
-                        if (iTopic.IsCurrent)
-                                strokeColor = new Cairo.Color (1, 0, 0);
-                        else
-                                strokeColor = new Cairo.Color (0, 0, 1);
-                        cr.Color = strokeColor;
-                        cr.LineWidth = iTopic.Style.StrokeWidth;
-                        cr.Stroke ();
+                        context.Rectangle (Origin, Width, Height);
+
                 }
 
-                public void DrawLine (Cairo.PointD origin, int width, int height)
+                void sketchLine ()
                 {
                         context.MoveTo (origin);
                 }
 
-                public void DrawRoundedRectangle (Cairo.PointD origin, int width, int height)
+                void sketchRoundedRectangle ()
                 {
                         context.MoveTo (origin);
                 }
 
-                public void DrawOctagon (Cairo.PointD origin, int width, int height)
+                void sketchOctagon ()
                 {
                         context.MoveTo (origin);
                 }
 
-                public void DrawHexagon (Cairo.PointD origin, int width, int height)
+                void sketchHexagon ()
                 {
                         context.MoveTo (origin);
                 }

@@ -131,7 +131,15 @@ namespace Psycho
 
                 void DrawFrame (Cairo.Context iContext, Topic iTopic)
                 {
-                        iTopic.Frame.Draw (iContext, iTopic);
+                        iTopic.Frame.Sketch (iContext, iTopic);
+                        Cairo.Color strokeColor;
+                        if (iTopic.IsCurrent)
+                                strokeColor = new Cairo.Color (1, 0, 0);
+                        else
+                                strokeColor = new Cairo.Color (0, 0, 1);
+                        iContext.Color = strokeColor;
+                        iContext.LineWidth = iTopic.Style.StrokeWidth;
+                        iContext.Stroke ();
                 }
 
                 public void Update (IModel iModel)
