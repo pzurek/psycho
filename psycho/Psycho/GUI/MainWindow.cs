@@ -30,58 +30,58 @@ using Psycho;
 namespace Psycho {
     public class MainWindow : Window {
         public MainWindow ()
-            : base("Psycho")
+            : base ("Psycho")
         {
-            IconLoader iconLoader = new IconLoader();
+            IconLoader iconLoader = new IconLoader ();
             Icon = iconLoader.topicIcon;
 
-            VBox mainVBox = new VBox();
+            VBox mainVBox = new VBox ();
 
-            MindModel model = new MindModel();
-            model.AppendSomeNodes(model.CentralTopic);
+            MindModel model = new MindModel ();
+            model.AppendSomeNodes (model.CentralTopic);
 
-            ButtonView buttonView = new ButtonView();
-            MindControl buttonControl = new MindControl(model, buttonView);
-            buttonView.WireUp(buttonControl, model);
+            ButtonView buttonView = new ButtonView ();
+            MindControl buttonControl = new MindControl (model, buttonView);
+            buttonView.WireUp (buttonControl, model);
 
-            OutlineView nodeView = new OutlineView();
-            MindControl outlineControl = new MindControl(model, nodeView);
-            nodeView.WireUp(outlineControl, model);
+            OutlineView nodeView = new OutlineView ();
+            MindControl outlineControl = new MindControl (model, nodeView);
+            nodeView.WireUp (outlineControl, model);
 
-            UIManagerView UIView = new UIManagerView();
-            MindControl uiManControl = new MindControl(model, UIView);
-            UIView.WireUp(uiManControl, model);
+            UIManagerView UIView = new UIManagerView ();
+            MindControl uiManControl = new MindControl (model, UIView);
+            UIView.WireUp (uiManControl, model);
 
-            StatusView statusView = new StatusView();
-            MindControl statusControl = new MindControl(model, statusView);
-            statusView.WireUp(statusControl, model);
+            StatusView statusView = new StatusView ();
+            MindControl statusControl = new MindControl (model, statusView);
+            statusView.WireUp (statusControl, model);
 
             //AddAccelGroup(UIView.uiManager.AccelGroup);
 
-            Expander buttonExpander = new Expander("Button View");
-            buttonExpander.Add(buttonView);
+            Expander buttonExpander = new Expander ("Button View");
+            buttonExpander.Add (buttonView);
 
-            Notebook mainNotebook = new Notebook();
+            Notebook mainNotebook = new Notebook ();
             mainNotebook.BorderWidth = 6;
 
-            DrawingArea mapView = new DrawingArea();
-            TextView XMLView = new TextView();
+            DrawingArea mapView = new DrawingArea ();
+            TextView XMLView = new TextView ();
 
-            mainNotebook.InsertPage(mapView, new Label("Map View"), /*new Label("Map View"),*/ 0);
-            mainNotebook.InsertPage(nodeView, new Label("Outline View"), /*new Label("Outline View"),*/ 1);
-            mainNotebook.InsertPage(XMLView, new Label("XML View"), /*new Label("XML View"),*/ 2);
+            mainNotebook.InsertPage (mapView, new Label ("Map View"), /*new Label("Map View"),*/ 0);
+            mainNotebook.InsertPage (nodeView, new Label ("Outline View"), /*new Label("Outline View"),*/ 1);
+            mainNotebook.InsertPage (XMLView, new Label ("XML View"), /*new Label("XML View"),*/ 2);
 
             mainVBox.Homogeneous = false;
 
-            mainVBox.PackStart(UIView.uiManager.GetWidget("/MenuBar"), false, false, 0);
-            mainVBox.PackStart(UIView.uiManager.GetWidget("/ToolBar"), false, false, 0);
+            mainVBox.PackStart (UIView.uiManager.GetWidget ("/MenuBar"), false, false, 0);
+            mainVBox.PackStart (UIView.uiManager.GetWidget ("/ToolBar"), false, false, 0);
 
-            mainVBox.PackStart(buttonExpander, false, false, 6);
-            mainVBox.PackStart(mainNotebook, true, true, 6);
-            mainVBox.PackEnd(statusView, false, false, 0);
-            mainVBox.ShowAll();
+            mainVBox.PackStart (buttonExpander, false, false, 6);
+            mainVBox.PackStart (mainNotebook, true, true, 6);
+            mainVBox.PackEnd (statusView, false, false, 0);
+            mainVBox.ShowAll ();
 
-            Add(mainVBox);
+            Add (mainVBox);
         }
     }
 }

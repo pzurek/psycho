@@ -36,155 +36,157 @@ namespace Psycho {
     /// and a nodeview to show them and select the current.
     ///</summary>
     public class ButtonView : VBox, IView {
-        
-        Entry titleEntry = new Entry();
-        Button addSiblingButton = new Button();
-        Button addChildButton = new Button();
-        Button deleteButton = new Button();
+
+        Entry titleEntry = new Entry ();
+        Button addSiblingButton = new Button ();
+        Button addChildButton = new Button ();
+        Button deleteButton = new Button ();
 
         private IModel Model;
         private IControl Control;
 
-        public ButtonView() : base() {
+        public ButtonView ()
+            : base ()
+        {
 
             this.Homogeneous = false;
             this.BorderWidth = 6;
 
-            HButtonBox buttonBox = new HButtonBox();
+            HButtonBox buttonBox = new HButtonBox ();
 
             titleEntry.KeyReleaseEvent += new KeyReleaseEventHandler (titleEntry_KeyReleaseEvent);
 
             addSiblingButton.Label = ("Add Sibling");
-            addSiblingButton.Clicked += new EventHandler(btnAddSibling_Click);
-            
+            addSiblingButton.Clicked += new EventHandler (btnAddSibling_Click);
+
             addChildButton.Label = ("Add Child");
-            addChildButton.Clicked += new EventHandler(btnAddChild_Click);
-            
+            addChildButton.Clicked += new EventHandler (btnAddChild_Click);
+
             deleteButton.Label = ("Delete");
-            deleteButton.Clicked += new EventHandler(btnDelete_Click);
+            deleteButton.Clicked += new EventHandler (btnDelete_Click);
 
             buttonBox.Homogeneous = true;
             buttonBox.Layout = (Gtk.ButtonBoxStyle.Start);
             buttonBox.Spacing = 6;
-            buttonBox.PackStart(addSiblingButton, false, true, 6);
-            buttonBox.PackStart(addChildButton, false, true, 6);
-            buttonBox.PackStart(deleteButton, false, true, 6);
+            buttonBox.PackStart (addSiblingButton, false, true, 6);
+            buttonBox.PackStart (addChildButton, false, true, 6);
+            buttonBox.PackStart (deleteButton, false, true, 6);
 
-            this.PackStart(titleEntry, false, false, 6);
-            this.PackStart(buttonBox, false, false, 6);
+            this.PackStart (titleEntry, false, false, 6);
+            this.PackStart (buttonBox, false, false, 6);
         }
 
         void titleEntry_KeyReleaseEvent (object o, KeyReleaseEventArgs args)
         {
-            string key = args.Event.Key.ToString();
+            string key = args.Event.Key.ToString ();
             if (args.Event.Key == Gdk.Key.Return)
-            EditTitle(titleEntry.Text);
-            Console.WriteLine("Title edited: " + titleEntry.Text);
+                EditTitle (titleEntry.Text);
+            Console.WriteLine ("Title edited: " + titleEntry.Text);
         }
 
-        public void WireUp(IControl paramControl, IModel paramModel)
+        public void WireUp (IControl paramControl, IModel paramModel)
         {
             if (Model != null) {
-                Model.RemoveObserver(this);
+                Model.RemoveObserver (this);
             }
 
             Model = paramModel;
             Control = paramControl;
 
-            Control.SetModel(Model);
-            Control.SetView(this);
-            Model.AddObserver(this);
-            Update(Model);
+            Control.SetModel (Model);
+            Control.SetView (this);
+            Model.AddObserver (this);
+            Update (Model);
         }
 
         public void CheckButtonsLegal ()
         {
             if (Model.CurrentTopic == Model.CentralTopic) {
-                DisableAddSibling();
-                DisableDelete();
+                DisableAddSibling ();
+                DisableDelete ();
             }
             else {
-                EnableAddSibling();
-                EnableDelete();
+                EnableAddSibling ();
+                EnableDelete ();
             }
         }
 
-        public void EditTitle(string paramString)
+        public void EditTitle (string paramString)
         {
-            Control.RequestSetTitle(paramString);
+            Control.RequestSetTitle (paramString);
         }
 
-        private void btnAddChild_Click(object sender, System.EventArgs args)
+        private void btnAddChild_Click (object sender, System.EventArgs args)
         {
-            Console.WriteLine("Add Child Button clicked");
-            AddSubtopic();
+            Console.WriteLine ("Add Child Button clicked");
+            AddSubtopic ();
         }
 
-        public void AddSubtopic()
+        public void AddSubtopic ()
         {
-            Control.RequestAddSubtopic();
+            Control.RequestAddSubtopic ();
         }
 
-        private void btnAddSibling_Click(object sender, System.EventArgs args)
+        private void btnAddSibling_Click (object sender, System.EventArgs args)
         {
-            Console.WriteLine("Add Sibling Button clicked");
-            AddTopic();
+            Console.WriteLine ("Add Sibling Button clicked");
+            AddTopic ();
         }
 
-        public void AddTopic()
+        public void AddTopic ()
         {
-            Control.RequestAddTopic();
+            Control.RequestAddTopic ();
         }
 
-        private void btnDelete_Click(object sender, System.EventArgs args)
+        private void btnDelete_Click (object sender, System.EventArgs args)
         {
-            Console.WriteLine("Delete Button clicked");
-            DeleteTopic();
+            Console.WriteLine ("Delete Button clicked");
+            DeleteTopic ();
         }
 
-        public void DeleteTopic()
+        public void DeleteTopic ()
         {
-            Control.RequestDelete();
+            Control.RequestDelete ();
         }
 
-        public void SetCurrentTopic()
+        public void SetCurrentTopic ()
         {
         }
 
         public void TriggerEdit (bool editPending)
         {
-            Control.RequestEditFlag(editPending);
+            Control.RequestEditFlag (editPending);
         }
 
-        public void Update(IModel paramModel)
+        public void Update (IModel paramModel)
         {
             titleEntry.Text = paramModel.CurrentTopic.Title;
-            CheckButtonsLegal();
+            CheckButtonsLegal ();
         }
 
-        public void DisableAddSibling()
+        public void DisableAddSibling ()
         {
             addSiblingButton.Sensitive = (false);
         }
 
-        public void EnableAddSibling()
+        public void EnableAddSibling ()
         {
             addSiblingButton.Sensitive = (true);
         }
 
-        public void DisableDelete()
+        public void DisableDelete ()
         {
             deleteButton.Sensitive = (false);
         }
 
-        public void EnableDelete()
+        public void EnableDelete ()
         {
             deleteButton.Sensitive = (true);
         }
 
-        public void ExpandTopic(string paramGuid, bool isExpanded)
+        public void ExpandTopic (string paramGuid, bool isExpanded)
         {
-            Control.RequestExpand(paramGuid, isExpanded);
+            Control.RequestExpand (paramGuid, isExpanded);
         }
     }
 }

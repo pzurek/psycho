@@ -35,7 +35,7 @@ namespace Psycho {
         private IModel Model;
         private IControl Control;
 
-        public UIManager uiManager = new UIManager();
+        public UIManager uiManager = new UIManager ();
 
         const string ui =
         "<ui>" +
@@ -73,7 +73,7 @@ namespace Psycho {
 
         public UIManagerView ()
         {
-            //BuildIcons();
+            BuildIcons ();
 
             ActionEntry[] entries = new ActionEntry[] {
                 new ActionEntry ("FileMenu", null, "_File", null, null, null),
@@ -86,9 +86,9 @@ namespace Psycho {
                 new ActionEntry ("SaveAs", Stock.SaveAs, "Save _As", null, "Save to a file", new EventHandler (ActionActivated)),
                 new ActionEntry ("Quit", Stock.Quit, "_Quit", "<control>Q", "Quit", new EventHandler (ActionActivated)),
                 
-                new ActionEntry ("AddTopic", Stock.GoDown, "Add _Topic", "Return", "Add Topic", new EventHandler (ActionActivated)),
-                new ActionEntry ("AddSubtopic", Stock.GoForward, "Add _Subtopic", "Insert", "Add Subtopic", new EventHandler (ActionActivated)),
-                new ActionEntry ("Delete", Stock.Delete, "_Delete Topic", "Delete", "Delete Topic", new EventHandler (ActionActivated)),
+                new ActionEntry ("AddTopic", "psycho-topic", "Add _Topic", "Return", "Add Topic", new EventHandler (ActionActivated)),
+                new ActionEntry ("AddSubtopic", "psycho-subtopic", "Add _Subtopic", "Insert", "Add Subtopic", new EventHandler (ActionActivated)),
+                new ActionEntry ("Delete", "psycho-delete", "_Delete Topic", "Delete", "Delete Topic", new EventHandler (ActionActivated)),
                 
                 new ActionEntry ("Copy", Stock.Copy, "Copy", "<control>C", "Copy to clipboard", new EventHandler (ActionActivated)),
                 new ActionEntry ("Cut", Stock.Cut, "Cut", "<control>X", "Cut to clipboard", new EventHandler (ActionActivated)),
@@ -97,43 +97,43 @@ namespace Psycho {
                 new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
             };
 
-            ActionGroup actions = new ActionGroup("group");
-            actions.Add(entries);
+            ActionGroup actions = new ActionGroup ("group");
+            actions.Add (entries);
 
-            uiManager.InsertActionGroup(actions, 0);
-            uiManager.AddUiFromString(ui);
+            uiManager.InsertActionGroup (actions, 0);
+            uiManager.AddUiFromString (ui);
         }
 
         static void BuildIcons ()
         {
-            Gdk.Pixbuf topicIcon = Gdk.Pixbuf.LoadFromResource("Icons/16x16/psycho-topic.png");
-            Gdk.Pixbuf subtopicIcon = Gdk.Pixbuf.LoadFromResource("Icons/16x16/psycho-subtopic.png");
-            Gdk.Pixbuf deleteIcon = Gdk.Pixbuf.LoadFromResource("Icons/16x16/psycho-delete.png");
+            Gdk.Pixbuf topicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-topic.png");
+            Gdk.Pixbuf subtopicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-subtopic.png");
+            Gdk.Pixbuf deleteIcon = Gdk.Pixbuf.LoadFromResource ("psycho-delete.png");
 
-            IconFactory factory = new IconFactory();
-            factory.Add("psycho-topic", new IconSet());
-            factory.Add("psycho-subtopic", new IconSet());
-            factory.Add("psycho-delete", new IconSet());
-            factory.AddDefault();
+            IconFactory factory = new IconFactory ();
+            factory.Add ("psycho-topic", new IconSet (topicIcon));
+            factory.Add ("psycho-subtopic", new IconSet (subtopicIcon));
+            factory.Add ("psycho-delete", new IconSet (deleteIcon));
+            factory.AddDefault ();
 
-            StockManager.Add(new StockItem("AddTopic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add(new StockItem("AddSubtopic", "Add Subtopic", 0, Gdk.ModifierType.Button1Mask, ""));
-            StockManager.Add(new StockItem("DeleteTopic", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add (new StockItem ("psycho-topic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add (new StockItem ("psycho-subtopic", "Add Subtopic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add (new StockItem ("psyhco-delete", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
         }
 
         private void ActionActivated (object sender, EventArgs a)
         {
             Action action = sender as Action;
-            Console.WriteLine("Action \"{0}\" activated", action.Name);
+            Console.WriteLine ("Action \"{0}\" activated", action.Name);
             switch (action.Name) {
             case "AddTopic":
-            AddTopic();
+            AddTopic ();
             return;
             case "AddSubtopic":
-            AddSubtopic();
+            AddSubtopic ();
             return;
             case "Delete":
-            DeleteTopic();
+            DeleteTopic ();
             return;
             default: break;
             }
@@ -144,16 +144,16 @@ namespace Psycho {
         public void WireUp (IControl paramControl, IModel paramModel)
         {
             if (Model != null) {
-                Model.RemoveObserver(this);
+                Model.RemoveObserver (this);
             }
 
             Model = paramModel;
             Control = paramControl;
 
-            Control.SetModel(Model);
-            Control.SetView(this);
-            Model.AddObserver(this);
-            Update(Model);
+            Control.SetModel (Model);
+            Control.SetView (this);
+            Model.AddObserver (this);
+            Update (Model);
         }
 
         public void Update (IModel paramModel)
@@ -162,32 +162,32 @@ namespace Psycho {
 
         public void AddTopic ()
         {
-            Control.RequestAddTopic();
+            Control.RequestAddTopic ();
         }
 
         public void AddSubtopic ()
         {
-            Control.RequestAddSubtopic();
+            Control.RequestAddSubtopic ();
         }
 
         public void DeleteTopic ()
         {
-            Control.RequestDelete();
+            Control.RequestDelete ();
         }
 
         public void ExpandTopic (string paramGuid, bool isExpanded)
         {
-            throw new Exception("The method or operation is not implemented.");
+            throw new Exception ("The method or operation is not implemented.");
         }
 
         public void EditTitle (string Title)
         {
-            throw new Exception("The method or operation is not implemented.");
+            throw new Exception ("The method or operation is not implemented.");
         }
 
         public void SetCurrentTopic ()
         {
-            throw new Exception("The method or operation is not implemented.");
+            throw new Exception ("The method or operation is not implemented.");
         }
 
         public void TriggerEdit (bool editPending)
@@ -204,12 +204,12 @@ namespace Psycho {
 
         public void EnableAddSibling ()
         {
-            throw new Exception("The method or operation is not implemented.");
+            throw new Exception ("The method or operation is not implemented.");
         }
 
         public void EnableDelete ()
         {
-            throw new Exception("The method or operation is not implemented.");
+            throw new Exception ("The method or operation is not implemented.");
         }
         #endregion
     }

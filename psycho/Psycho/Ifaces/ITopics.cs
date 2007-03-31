@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Psycho {
+
     public interface ITopics : ICollection,
-                               ICollection<ITopic>, 
-                               IEnumerable, 
+                               ICollection<ITopic>,
+                               IEnumerable,
                                IEnumerable<ITopic>,
                                IList,
-                               IList<ITopic>
-    {
+                               IList<ITopic> {
     }
 }

@@ -40,10 +40,9 @@ namespace Psycho {
 
         public IconLoader ()
         {
-            topicIcon = Gdk.Pixbuf.LoadFromResource("Icons/16x16/psycho-topic.png");
-            subtopicIcon = Gdk.Pixbuf.LoadFromResource("Icons/16x16/psycho-subtopic.png");
-            deleteIcon = Gdk.Pixbuf.LoadFromResource("Icons/16x16/psycho-delete.png");
-
+            topicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-topic.png");
+            subtopicIcon = Gdk.Pixbuf.LoadFromResource ("psycho-subtopic.png");
+            deleteIcon = Gdk.Pixbuf.LoadFromResource ("psycho-delete.png");
         }
     }
 }

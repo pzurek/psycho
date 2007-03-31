@@ -43,19 +43,19 @@ namespace Psycho {
         #endregion
 
         #region methods
-        void CreateTopic();
-        void CreateSubtopic();
-        void DeleteTopic();
-        void SetCurrent(string paramGuid, Topic paramTopic);
+        void CreateTopic ();
+        void CreateSubtopic ();
+        void DeleteTopic ();
+        void SetCurrent (string paramGuid, Topic paramTopic);
         void SetTitle (string paramString);
-        void ExpandTopic(string paramGuid, bool isExpanded);
+        void ExpandTopic (string paramGuid, bool isExpanded);
         //void TriggerEdit (bool editPending);
         #endregion
 
         #region Observer implementation
-        void AddObserver(IView paramView);
-        void RemoveObserver(IView paramView);
-        void NotifyObservers();
+        void AddObserver (IView paramView);
+        void RemoveObserver (IView paramView);
+        void NotifyObservers ();
         #endregion
     }
 }
