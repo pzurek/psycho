@@ -117,7 +117,6 @@ namespace Psycho {
 
         private void btnAddChild_Click (object sender, System.EventArgs args)
         {
-            Console.WriteLine ("Add Child Button clicked");
             AddSubtopic ();
         }
 
@@ -128,7 +127,6 @@ namespace Psycho {
 
         private void btnAddSibling_Click (object sender, System.EventArgs args)
         {
-            Console.WriteLine ("Add Sibling Button clicked");
             AddTopic ();
         }
 
@@ -139,7 +137,6 @@ namespace Psycho {
 
         private void btnDelete_Click (object sender, System.EventArgs args)
         {
-            Console.WriteLine ("Delete Button clicked");
             DeleteTopic ();
         }
 

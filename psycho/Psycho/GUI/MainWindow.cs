@@ -70,7 +70,7 @@ namespace Psycho {
 
             //AddAccelGroup(UIView.uiManager.AccelGroup);
 
-            Expander buttonExpander = new Expander ("Button View");
+            Expander buttonExpander = new Expander ("Property View");
             buttonExpander.Add (buttonView);
 
             Expander notesExpander = new Expander ("Notes");
