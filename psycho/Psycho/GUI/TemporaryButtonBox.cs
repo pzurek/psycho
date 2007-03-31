@@ -224,7 +224,7 @@ namespace Psycho {
             ExpandTopic(false);
         }
 
-        private void outlineView_RowExpanded (object sender, Gtk.RowCollapsedArgs args)
+        private void outlineView_RowExpanded (object sender, Gtk.RowExpandedArgs args)
         {
             ExpandTopic(true);
         }
