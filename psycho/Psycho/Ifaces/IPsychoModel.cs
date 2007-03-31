@@ -43,6 +43,7 @@ namespace Psycho
         void CreateSubtopic ();
         void DeleteTopic();
         void SetCurrent(string paramGuid, Topic paramTopic);
+        void ExpandTopic (bool isExpanded);
         #endregion
 
         #region Observer implementation
@@ -50,5 +51,6 @@ namespace Psycho
         void RemoveObserver(IPsychoView paramView);
         void NotifyObservers();
         #endregion
+
     }
 }

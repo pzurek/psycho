@@ -67,18 +67,22 @@ namespace Psycho {
             titleColumn.PackStart(titleCell, true);
 
             titleCell.Editable = true;
-            titleCell.Edited += titleCell_Edited;
+            titleCell.Edited +=new EditedHandler(titleCell_Edited);
 
             outlineView.AppendColumn(titleColumn);
             outlineView.AppendColumn("GUID", new CellRendererText(), "text", 1);
             outlineView.ShowAll();
             outlineView.Selection.Changed += new System.EventHandler(OnSelectionChanged);
+            outlineView.RowCollapsed += new RowCollapsedHandler(outlineView_RowCollapsed);
+            outlineView.RowExpanded += new RowExpandedHandler(outlineView_RowExpanded);
             outlineView.ExpanderColumn.Expand = true;
             outlineContainer.Add(outlineView);
 
+            titleEntry.EditingDone += new EventHandler(titleEntry_EditingDone);
+            Console.WriteLine("Title editing done");
+            
             addSiblingButton.Label = ("Add Sibling");
             addSiblingButton.Clicked += new EventHandler(btnAddSibling_Click);
-
             addChildButton.Label = ("Add Child");
             addChildButton.Clicked += new EventHandler(btnAddChild_Click);
             Console.WriteLine("Add Child Button");
@@ -111,6 +115,16 @@ namespace Psycho {
             Control.SetView(this);
             Model.AddObserver(this);
             this.Update(Model);
+        }
+
+        private void titleEntry_EditingDone(object sender, System.EventArgs e)
+        {
+            EditTitle(titleEntry.Text);
+        }
+
+        public void EditTitle (string paramString)
+        {
+            Control.RequestSetTitle(paramString);
         }
 
         private void btnAddChild_Click (object sender, System.EventArgs e)
@@ -166,8 +180,8 @@ namespace Psycho {
             centralNode = new PsychoTreeNode(paramModel.CentralTopic.Title, paramModel.CentralTopic.GUID);
             store.AddNode(centralNode);
             AddNodesRecursively(centralNode, paramModel.CentralTopic);
-            outlineView.ExpandAll();
-            titleEntry.Text = paramModel.CurrentTopic.Title;
+//            outlineView.ExpandAll();
+//            titleEntry.Text = paramModel.CurrentTopic.Title;
         }
 
         private void AddNodesRecursively (PsychoTreeNode paramNode, Topic paramTopic)
@@ -199,10 +213,26 @@ namespace Psycho {
             addSiblingButton.Visible = (true);
         }
 
-        private void titleCell_Edited (object o, Gtk.EditedArgs args)
+        private void titleCell_Edited (object sender, Gtk.EditedArgs args)
         {
             //PsychoTreeNode node;
             //store.GetNode(, new Gtk.TreePath(args.NewText));
         }
+
+        private void outlineView_RowCollapsed (object sender, Gtk.RowCollapsedArgs args)
+        {
+            ExpandTopic(false);
+        }
+
+        private void outlineView_RowExpanded (object sender, Gtk.RowCollapsedArgs args)
+        {
+            ExpandTopic(true);
+        }
+
+        public void ExpandTopic(bool isExpanded)
+        {
+            Control.RequestExpand(isExpanded);
+        }
+
     }
 }

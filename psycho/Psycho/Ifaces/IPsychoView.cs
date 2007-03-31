@@ -36,7 +36,8 @@ namespace Psycho
         void AddTopic();
         void AddSubtopic();
         void DeleteTopic();
-        //void SetTopicTitle(string Title);
+        void ExpandTopic(bool isExpanded);
+        void EditTitle(string Title);
         void SetCurrentTopic();
         void DisableAddSibling();
         void EnableAddSibling();

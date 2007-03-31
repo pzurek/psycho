@@ -54,7 +54,7 @@ namespace Psycho
 	
 		public void RequestSetCurrent(string paramGuid)
 		{
-	    	this.Model.SetCurrent(paramGuid, Model.CentralTopic);
+	    	Model.SetCurrent(paramGuid, Model.CentralTopic);
 		}
         
 		public void RequestAddSubtopic()
@@ -90,6 +90,13 @@ namespace Psycho
 			{
 	            Model.CurrentTopic.Title = (paramTitle);
 			}
+        }
+
+        public void RequestExpand (bool isExpanded)
+        {
+            if (Model != null) {
+                Model.ExpandTopic(isExpanded);
+            }
         }
         #endregion
     	

@@ -35,7 +35,8 @@ namespace Psycho
         void RequestAddSubtopic();
         void RequestDelete();
         void RequestSetTitle(string title);
-        void RequestSetCurrent(string paramGuid);
+        void RequestSetCurrent (string paramGuid);
+        void RequestExpand (bool expand);
 
         void SetModel(IPsychoModel paramModel);
         void SetView(IPsychoView paramView);

@@ -127,7 +127,14 @@ namespace Psycho
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
             CurrentTopic = FindByGUID(paramGuid, centralTopic);
-            NotifyObservers();
+//            NotifyObservers();
+            Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
+        }
+
+        public void ExpandTopic (bool expand)
+        {
+            CurrentTopic.Expanded = expand;
+            //            NotifyObservers();
             Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
         }
         #endregion

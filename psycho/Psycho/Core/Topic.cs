@@ -50,6 +50,7 @@ namespace Psycho
 		private int level;
         private int totalCount;
         private string guid;
+        private bool expanded;
         #endregion
 
         #region public fields
@@ -79,6 +80,12 @@ namespace Psycho
 			get { return level; }
 			set { level = value; }
 		}
+
+        public bool Expanded
+        {
+            get { return expanded; }
+            set { expanded = value; }
+        }
 
         public string GUID
         {
@@ -115,8 +122,7 @@ namespace Psycho
             Queue<Topic> remaining = new Queue<Topic>();
             remaining.Enqueue(this);
 
-            while (remaining.Count > 0)
-            {
+            while (remaining.Count > 0) {
                 Topic topic = remaining.Dequeue();
                 action(topic);
                 foreach (Topic child in topic.Subtopics)
