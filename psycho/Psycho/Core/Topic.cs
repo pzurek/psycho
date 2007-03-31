@@ -277,16 +277,14 @@ namespace Psycho
                 {
                         get
                         {
-                                isVisible = true;
                                 Queue<Topic> remaining = new Queue<Topic> ();
-
                                 if (this.Parent != null) remaining.Enqueue (this.Parent);
 
                                 while (remaining.Count > 0) {
                                         Topic topic = remaining.Dequeue ();
                                         if (topic.IsExpanded && topic.Parent.IsVisible) {
                                                 isVisible = true;
-                                                if (topic.IsCentral) break;
+                                                if (topic.Parent.IsCentral) break;
                                         }
                                         else
                                                 isVisible = false;
