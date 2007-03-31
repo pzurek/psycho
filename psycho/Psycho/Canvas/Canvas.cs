@@ -1,4 +1,4 @@
-// Copyright (C) 2006 by:
+// Copyright 2006 by:
 //
 // Author:
 //   Piotr Zurek, p.zurek@gmail.com
@@ -51,7 +51,7 @@ namespace Psycho
                         mapArea = new DrawingArea ();
                         mapArea.ExposeEvent += OnMapExpose;
                         mapArea.Realized += OnMapRealize;
-                        this.Vadjustment.Changed += new EventHandler (Vadjustment_Changed);
+                        this.Vadjustment.ValueChanged += new EventHandler (Vadjustment_ValueChanged);
                         this.ShadowType = ShadowType.EtchedIn;
                         this.HscrollbarPolicy = PolicyType.Always;
                         this.VscrollbarPolicy = PolicyType.Always;
@@ -62,10 +62,16 @@ namespace Psycho
                         this.AddWithViewport (mapArea);
                 }
 
-                void Vadjustment_Changed (object sender, EventArgs args)
+                void Vadjustment_ValueChanged (object sender, EventArgs e)
                 {
-                        QueueDrawArea (0, (int) Vadjustment.Value, mapArea.Allocation.Width, mapArea.Allocation.Height);
+                        Refresh ();
                 }
+
+                void Hadjustment_ValueChanged (object sender, EventArgs e)
+                {
+                        Refresh ();
+                }
+
 
                 public void WireUp (IControl iControl, IModel iModel)
                 {
@@ -89,7 +95,8 @@ namespace Psycho
 
                 void OnMapExpose (object sender, ExposeEventArgs e)
                 {
-                        mapContext = Gdk.CairoHelper.Create (mapArea.GdkWindow);
+                        //Gdk.Rectangle mapRectangle = new Gdk.Rectangle (0, -200, mapArea.Allocation.Width, mapArea.Allocation.Height);
+                        mapContext = Gdk.CairoHelper.Create (mapArea.GdkWindow); // mapContext, mapRectangle);
                         mapContext.Antialias = Antialias.Default;
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
@@ -178,6 +185,11 @@ namespace Psycho
                 public void Update (IModel iModel)
                 {
                         this.QueueDraw ();
+                }
+
+                public void Refresh ()
+                {
+                        this.mapArea.QueueDrawArea (0, 0 /*((int) Vadjustment.Value)*/, mapArea.Allocation.Width, mapArea.Allocation.Height);
                 }
 
                 public void AddTopic ()

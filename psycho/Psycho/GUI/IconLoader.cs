@@ -32,15 +32,26 @@ namespace Psycho
 {
         static class IconLoader
         {
-                const string psychoIconFile = "Resources/psycho-small.png";
-                const string topicIconFile = "Resources/psycho-topic.png";
-                const string subtopicIconFile = "Resources/psycho-subtopic.png";
-                const string deleteIconFile = "Resources/psycho-delete.png";
-                const string calloutIconFile = "Resources/psycho-callout.png";
-                const string borderIconFile = "Resources/psycho-border.png";
-                const string relationIconFile = "Resources/psycho-relation.png";
-                const string notesIconFile = "Resources/psycho-notes-small.png";
-                const string paperFile = "Resources/paper.png";
+                const string resourceDirectory = "Resources";
+                const string psychoIconFile = "psycho-small.png";
+                const string topicIconFile = "psycho-topic.png";
+                const string subtopicIconFile = "psycho-subtopic.png";
+                const string deleteIconFile = "psycho-delete.png";
+                const string calloutIconFile = "psycho-callout.png";
+                const string borderIconFile = "psycho-border.png";
+                const string relationIconFile = "psycho-relation.png";
+                const string notesIconFile = "psycho-notes-small.png";
+                const string paperFile = "paper.png";
+
+                static string psychoIconPath = System.IO.Path.Combine (resourceDirectory, psychoIconFile);
+                static string topicIconPath = System.IO.Path.Combine (resourceDirectory, topicIconFile);
+                static string subtopicIconPath = System.IO.Path.Combine (resourceDirectory, subtopicIconFile);
+                static string deleteIconPath = System.IO.Path.Combine (resourceDirectory, deleteIconFile);
+                static string calloutIconPath = System.IO.Path.Combine (resourceDirectory, calloutIconFile);
+                static string borderIconPath = System.IO.Path.Combine (resourceDirectory, borderIconFile);
+                static string relationIconPath = System.IO.Path.Combine (resourceDirectory, relationIconFile);
+                static string notesIconPath = System.IO.Path.Combine (resourceDirectory, notesIconFile);
+                static string paperPath = System.IO.Path.Combine (resourceDirectory, paperFile);
 
                 public static Pixbuf psychoIcon;
                 public static Pixbuf topicIcon;
@@ -54,15 +65,15 @@ namespace Psycho
 
                 static IconLoader ()
                 {
-                        psychoIcon = new Pixbuf (psychoIconFile);
-                        topicIcon = new Pixbuf (topicIconFile);
-                        subtopicIcon = new Pixbuf (subtopicIconFile);
-                        deleteIcon = new Pixbuf (deleteIconFile);
-                        calloutIcon = new Pixbuf (calloutIconFile);
-                        borderIcon = new Pixbuf (borderIconFile);
-                        relationIcon = new Pixbuf (relationIconFile);
-                        notesIcon = new Pixbuf (notesIconFile);
-                        paper = new Pixbuf (paperFile);
+                        psychoIcon = new Pixbuf (psychoIconPath);
+                        topicIcon = new Pixbuf (topicIconPath);
+                        subtopicIcon = new Pixbuf (subtopicIconPath);
+                        deleteIcon = new Pixbuf (deleteIconPath);
+                        calloutIcon = new Pixbuf (calloutIconPath);
+                        borderIcon = new Pixbuf (borderIconPath);
+                        relationIcon = new Pixbuf (relationIconPath);
+                        notesIcon = new Pixbuf (notesIconPath);
+                        paper = new Pixbuf (paperPath);
                 }
         }
 }

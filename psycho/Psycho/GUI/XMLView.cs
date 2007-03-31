@@ -36,8 +36,9 @@ namespace Psycho
         {
                 IModel Model;
                 IControl Control;
+
                 SourceView XmlPreview;
-                XmlWriterSettings xmlSettings;
+                XmlWriterSettings XmlSettings;
                 StringBuilder builder;
                 XmlWriter writer;
 
@@ -50,9 +51,9 @@ namespace Psycho
                         XmlPreview.ShowLineMarkers = true;
                         XmlPreview.ShowLineNumbers = true;
 
-                        xmlSettings = new XmlWriterSettings ();
-                        xmlSettings.Indent = true;
-                        xmlSettings.IndentChars = "        ";
+                        XmlSettings = new XmlWriterSettings ();
+                        XmlSettings.Indent = true;
+                        XmlSettings.IndentChars = "        ";
 
                         this.Add (XmlPreview);
                         ShowAll ();
@@ -61,7 +62,7 @@ namespace Psycho
                 public void Update (IModel iModel)
                 {
                         builder = new StringBuilder ();
-                        writer = XmlWriter.Create (builder, xmlSettings);
+                        writer = XmlWriter.Create (builder, XmlSettings);
                         iModel.XMLModel.Save (writer);
                         this.XmlPreview.Buffer.Text = builder.ToString ();
                 }
