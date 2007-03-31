@@ -42,6 +42,19 @@ namespace Psycho {
         private Topic selectedTopic;
 
         private bool isEdited;
+        private string deletedTopicPath;
+        private bool updatePending;
+
+        public string DeletedTopicPath
+        {
+            get {
+                return deletedTopicPath;
+            }
+            set {
+                deletedTopicPath = value;
+            }
+        }
+
         private TreeViewColumn pathColumn = new TreeViewColumn();
         private TreeViewColumn titleColumn = new TreeViewColumn();
         private TreeViewColumn levelColumn = new TreeViewColumn();
@@ -164,10 +177,13 @@ namespace Psycho {
 
         public void Update (IPsychoModel paramModel)
         {
+            updatePending = true;
             UpdateNew(paramModel);
-            UpdateDeleted(paramModel);
-            //UpdateDeletedPaths(paramModel);
+            //UpdateDeleted(paramModel);
+            UpdateDeletedPath(paramModel);
             UpdateChanged(paramModel);
+            updatePending = false;
+            SetCurrentTopic();
         }
 
         public void UpdateNew (IPsychoModel paramModel)
@@ -186,21 +202,26 @@ namespace Psycho {
             }
         }
 
-        public void UpdateDeleted (IPsychoModel paramModel)
-        {
-            foreach (Topic deletedTopic in paramModel.DeletedTopics) {
-                TreeIter deletedIter;
-                string topicPath = (deletedTopic.Path);
-                TreePath deletedPath = new TreePath(topicPath);
-                this.store.GetIter(out deletedIter, deletedPath);
-                this.store.Remove(ref deletedIter);
-                outlineView.QueueDraw();
-            }
-        }
+        //That will go eventually...
+        
+        //public void UpdateDeleted (IPsychoModel paramModel)
+        //{
+        //    foreach (Topic deletedTopic in paramModel.DeletedTopics) {
+        //        TreeIter deletedIter;
+        //        string topicPath = (deletedTopic.Path);
+        //        TreePath deletedPath = new TreePath(topicPath);
+        //        this.store.GetIter(out deletedIter, deletedPath);
+        //        this.store.Remove(ref deletedIter);
+        //        outlineView.QueueDraw();
+        //    }
+        //}
 
-        public void UpdateDeletedPaths (IPsychoModel paramModel)
+        public void UpdateDeletedPath (IPsychoModel paramModel)
         {
-            string deletedTopicPath = (paramModel.DeletedTopicPath);
+            if (paramModel.DeletedTopicPath != "")
+                DeletedTopicPath = (paramModel.DeletedTopicPath);
+            else
+                return;
             TreeIter deletedIter;
             TreePath deletedPath = new TreePath(deletedTopicPath);
             this.store.GetIter(out deletedIter, deletedPath);
@@ -281,7 +302,6 @@ namespace Psycho {
             Control.SetView(this);
             Model.AddObserver(this);
             Build(Model);
-            Update(Model);
         }
 
         private void AddNodesRecursively (TreeStore paramStore, TreeIter paramParent, Topic paramTopic)
@@ -299,7 +319,7 @@ namespace Psycho {
 
             if (((TreeSelection) sender).GetSelected(out model, out selectedNode))
                 selectedTopic = (Topic) model.GetValue(selectedNode, 0);
-            if (selectedTopic != Model.CurrentTopic) SetCurrentTopic();
+            if (!updatePending) SetCurrentTopic();
         }
 
         private void titleCell_Edited (object sender, Gtk.EditedArgs args)
