@@ -28,33 +28,31 @@ using System.Text;
 
 namespace Psycho
 {
-
         class MindControl : IControl
         {
-
                 IModel Model;
                 IView View;
 
-                public MindControl (IModel paramModel, IView paramView)
+                public MindControl (IModel iModel, IView iView)
                 {
-                        Model = paramModel;
-                        View = paramView;
+                        Model = iModel;
+                        View = iView;
                 }
 
-                public void SetModel (IModel paramModel)
+                public void SetModel (IModel iModel)
                 {
-                        Model = paramModel;
+                        Model = iModel;
                 }
 
-                public void SetView (IView paramView)
+                public void SetView (IView iView)
                 {
-                        View = paramView;
+                        View = iView;
                 }
 
-                public void RequestSetCurrent (string paramGuid)
+                public void RequestSetCurrent (string iGuid)
                 {
                         if (Model != null)
-                                Model.SetCurrent (paramGuid);
+                                Model.SetCurrent (iGuid);
                 }
 
                 public void RequestAddSubtopic ()
@@ -75,16 +73,16 @@ namespace Psycho
                                 Model.DeleteTopic ();
                 }
 
-                public void RequestSetTitle (string paramTitle)
+                public void RequestSetTitle (string iTitle)
                 {
                         if (Model != null)
-                                Model.SetTitle (paramTitle);
+                                Model.SetTitle (iTitle);
                 }
 
-                public void RequestExpand (string paramGuid, bool isExpanded)
+                public void RequestExpand (string iGuid, bool isExpanded)
                 {
                         if (Model != null)
-                                Model.ExpandTopic (paramGuid, isExpanded);
+                                Model.ExpandTopic (iGuid, isExpanded);
                 }
 
                 public void RequestEditFlag (bool editPending)
@@ -93,10 +91,10 @@ namespace Psycho
                                 Model.EditPending = editPending;
                 }
 
-                public void RequestChange (Topic paramTopic)
+                public void RequestChange (Topic iTopic)
                 {
                         if (Model != null)
-                                Model.ChangeTopic (paramTopic);
+                                Model.ChangeTopic (iTopic);
                 }
         }
 }

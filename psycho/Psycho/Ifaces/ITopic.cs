@@ -51,8 +51,8 @@ namespace Psycho
                 string Number { get; }
                 int Level { get; }
 
-                void AddSubtopic (Topic paramTopic);
-                void AddSubtopic (int paramIndex, Topic paramTopic);
+                void AddSubtopic (Topic iTopic);
+                void AddSubtopic (int iIndex, Topic iTopic);
                 void Delete ();
                 void ForEach (Action<Topic> action);
         }

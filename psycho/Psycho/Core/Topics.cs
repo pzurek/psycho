@@ -40,10 +40,10 @@ namespace Psycho
                 {
                         get
                         {
-                                        height = 0;
-                                        foreach (Topic child in this)
-                                                height += child.TotalHeight + child.Style.Padding;
-                                        return height;
+                                height = 0;
+                                foreach (Topic child in this)
+                                        height += child.TotalHeight + child.Style.Padding;
+                                return height;
                         }
                 }
 

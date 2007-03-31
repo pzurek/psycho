@@ -25,7 +25,6 @@
 
 namespace Psycho
 {
-
         using System;
         using System.Collections;
         using System.Collections.Generic;
@@ -33,10 +32,9 @@ namespace Psycho
 
         public class Task
         {
-
-                public Task (Topic paramTopic)
+                public Task (Topic iTopic)
                 {
-                        this.topic = paramTopic;
+                        this.topic = iTopic;
                 }
 
                 string startDate;

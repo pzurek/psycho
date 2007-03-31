@@ -38,7 +38,6 @@ namespace Psycho
                 public UIManager uiManager = new UIManager ();
                 ActionGroup actions = new ActionGroup ("group");
 
-                Widget currentWidget;
                 Toolbar toolbar;
                 ToolItem topicToolItem;
 
@@ -184,13 +183,13 @@ namespace Psycho
                         }
                 }
 
-                public void WireUp (IControl paramControl, IModel paramModel)
+                public void WireUp (IControl iControl, IModel iModel)
                 {
                         if (Model != null)
                                 Model.RemoveObserver (this);
 
-                        Model = paramModel;
-                        Control = paramControl;
+                        Model = iModel;
+                        Control = iControl;
 
                         Control.SetModel (Model);
                         Control.SetView (this);
@@ -210,7 +209,7 @@ namespace Psycho
                         }
                 }
 
-                public void Update (IModel paramModel)
+                public void Update (IModel iModel)
                 {
                         CheckButtonsLegal ();
                 }
@@ -230,7 +229,7 @@ namespace Psycho
                         Control.RequestDelete ();
                 }
 
-                public void ExpandTopic (string paramGuid, bool isExpanded)
+                public void ExpandTopic (string iGuid, bool isExpanded)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
@@ -275,7 +274,7 @@ namespace Psycho
                                 actions["Delete"].Sensitive = true;
                 }
 
-                public void CommitChange (Topic paramTopic)
+                public void CommitChange (Topic iTopic)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }

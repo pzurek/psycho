@@ -28,10 +28,8 @@ using System.Text;
 
 namespace Psycho
 {
-
         public class Font
         {
-
                 string description;
                 string family;
                 Single size;
@@ -43,10 +41,10 @@ namespace Psycho
                 bool strikethrough;
                 bool isAuto;
 
-                public Font (string paramFamily, int paramSize)
+                public Font (string iFamily, int iSize)
                 {
-                        this.family = paramFamily;
-                        this.size = paramSize;
+                        this.family = iFamily;
+                        this.size = iSize;
                         this.color = new Color ();
                         this.strikethroughColor = new Color ();
                         this.bold = false;

@@ -46,15 +46,15 @@ namespace Psycho
                 void CreateTopic ();
                 void CreateSubtopic ();
                 void DeleteTopic ();
-                void ChangeTopic (Topic paramTopic);
-                void SetCurrent (string paramGuid);
+                void ChangeTopic (Topic iTopic);
+                void SetCurrent (string iGuid);
                 void SetCurrent (Topic iTopic);
-                void SetTitle (string paramString);
-                void ExpandTopic (string paramGuid, bool isExpanded);
+                void SetTitle (string iString);
+                void ExpandTopic (string iGuid, bool isExpanded);
                 //void TriggerEdit (bool editPending);
 
-                void AddObserver (IView paramView);
-                void RemoveObserver (IView paramView);
+                void AddObserver (IView iView);
+                void RemoveObserver (IView iView);
                 void NotifyObservers ();
         }
 }

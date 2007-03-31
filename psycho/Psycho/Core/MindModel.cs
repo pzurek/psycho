@@ -33,7 +33,6 @@ namespace Psycho
 
         public class MindModel : IModel
         {
-
                 Topic centralTopic;
                 Topic currentTopic;
                 XmlElement currentXmlTopic;
@@ -69,7 +68,7 @@ namespace Psycho
                 bool editPending;
                 public int levelCounter;
 
-                public Topic FindByGUID (string paramGuid/*, Topic paramTopic*/)
+                public Topic FindByGUID (string iGuid/*, Topic iTopic*/)
                 {
                         Topic found = new Topic (0);
 
@@ -78,7 +77,7 @@ namespace Psycho
 
                         while (remaining.Count > 0) {
                                 Topic topic = remaining.Dequeue ();
-                                if (topic.GUID != paramGuid) {
+                                if (topic.GUID != iGuid) {
                                         foreach (Topic child in topic.Subtopics) {
                                                 remaining.Enqueue (child);
                                         }
@@ -91,9 +90,9 @@ namespace Psycho
                         return found;
                 }
 
-                public XmlElement FindXmlByGuid (string paramGuid)
+                public XmlElement FindXmlByGuid (string iGuid)
                 {
-                        string xPath = ("//Topic[@guid='" + paramGuid + "']");
+                        string xPath = ("//Topic[@guid='" + iGuid + "']");
                         foundXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
                         return foundXmlTopic;
                 }
@@ -142,14 +141,14 @@ namespace Psycho
                         set { editPending = value; Console.WriteLine ("Edit pending {0}", editPending.ToString ()); }
                 }
 
-                public void AppendSomeNodes (Topic paramTopic)
+                public void AppendSomeNodes (Topic iTopic)
                 {
-                        while (paramTopic.Subtopics.Count < 2) {
+                        while (iTopic.Subtopics.Count < 2) {
                                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
-                                newTopic.Parent = paramTopic;
-                                CreateXMLSubtopic (paramTopic.GUID, newTopic.GUID, newTopic.Text);
-                                paramTopic.AddSubtopic (newTopic);
-                                if (newTopic.Level < 7)
+                                newTopic.Parent = iTopic;
+                                CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);
+                                iTopic.AddSubtopic (newTopic);
+                                if (newTopic.Level < 3)
                                         AppendSomeNodes (newTopic);
                         }
                 }
@@ -181,37 +180,37 @@ namespace Psycho
                         NotifyObservers ();
                 }
 
-                public void CreateXMLSubtopic (string parentGuid, string paramGuid, string paramTitle)
+                public void CreateXMLSubtopic (string parentGuid, string iGuid, string iTitle)
                 {
                         XmlElement newXmlTopic = xmlModel.CreateElement ("Topic");
-                        newXmlTopic.SetAttribute ("guid", paramGuid);
+                        newXmlTopic.SetAttribute ("guid", iGuid);
                         XmlElement newXmlTitle = xmlModel.CreateElement ("Title");
-                        newXmlTitle.SetAttribute ("text", paramTitle);
+                        newXmlTitle.SetAttribute ("text", iTitle);
                         newXmlTopic.AppendChild (newXmlTitle);
                         currentXmlParent = FindXmlByGuid (parentGuid);
                         currentXmlParent.AppendChild (newXmlTopic);
                 }
 
-                public void CreateXMLTopic (string parentGuid, string prevSiblingGuid, string paramGuid, string paramTitle)
+                public void CreateXMLTopic (string parentGuid, string prevSiblingGuid, string iGuid, string iTitle)
                 {
                         XmlElement newXmlTopic = xmlModel.CreateElement ("Topic");
-                        newXmlTopic.SetAttribute ("guid", paramGuid);
+                        newXmlTopic.SetAttribute ("guid", iGuid);
                         XmlElement newXmlTitle = xmlModel.CreateElement ("Title");
-                        newXmlTitle.SetAttribute ("text", paramTitle);
+                        newXmlTitle.SetAttribute ("text", iTitle);
                         newXmlTopic.AppendChild (newXmlTitle);
                         currentXmlParent = FindXmlByGuid (parentGuid);
                         currentXmlSibling = FindXmlByGuid (prevSiblingGuid);
                         currentXmlParent.InsertAfter (newXmlTopic, currentXmlSibling);
                 }
 
-                public void CreateXMLSubtopic (Topic paramTopic)
+                public void CreateXMLSubtopic (Topic iTopic)
                 {
-                        CreateXMLSubtopic (paramTopic.Parent.GUID, paramTopic.GUID, paramTopic.Text);
+                        CreateXMLSubtopic (iTopic.Parent.GUID, iTopic.GUID, iTopic.Text);
                 }
 
-                public void CreateXMLTopic (Topic paramSibling, Topic paramTopic)
+                public void CreateXMLTopic (Topic iSibling, Topic iTopic)
                 {
-                        CreateXMLTopic (paramSibling.Parent.GUID, paramSibling.GUID, paramTopic.GUID, paramTopic.Text);
+                        CreateXMLTopic (iSibling.Parent.GUID, iSibling.GUID, iTopic.GUID, iTopic.Text);
                 }
 
                 public void DeleteTopic ()
@@ -253,21 +252,21 @@ namespace Psycho
                         NotifyObservers ();
                 }
 
-                public void SetTitle (string paramTitle)
+                public void SetTitle (string iTitle)
                 {
-                        CurrentTopic.Text = (paramTitle);
+                        CurrentTopic.Text = (iTitle);
                         changedTopics.Add (CurrentTopic);
                         NotifyObservers ();
                 }
 
-                public void AddObserver (IView paramView)
+                public void AddObserver (IView iView)
                 {
-                        observerList.Add (paramView);
+                        observerList.Add (iView);
                 }
 
-                public void RemoveObserver (IView paramView)
+                public void RemoveObserver (IView iView)
                 {
-                        observerList.Remove (paramView);
+                        observerList.Remove (iView);
                 }
 
                 public void NotifyObservers ()
@@ -306,22 +305,22 @@ namespace Psycho
                         NotifyObservers ();
                 }
 
-                public void SetCurrentXml (string paramGuid)
+                public void SetCurrentXml (string iGuid)
                 {
-                        string xPath = ("//Topic[@guid='" + paramGuid + "']");
+                        string xPath = ("//Topic[@guid='" + iGuid + "']");
                         currentXmlTopic = (XmlElement) xmlModel.SelectSingleNode (xPath);
                         NotifyObservers ();
                 }
 
-                public void ExpandTopic (string paramGuid, bool isExpanded)
+                public void ExpandTopic (string iGuid, bool isExpanded)
                 {
-                        Topic ExpandedTopic = FindByGUID (paramGuid);
+                        Topic ExpandedTopic = FindByGUID (iGuid);
                         ExpandedTopic.IsExpanded = (isExpanded);
                 }
 
-                public void ChangeTopic (Topic paramTopic)
+                public void ChangeTopic (Topic iTopic)
                 {
-                        CurrentTopic = paramTopic;
+                        CurrentTopic = iTopic;
                         ChangedTopics.Add (CurrentTopic);
                         NotifyObservers ();
                 }

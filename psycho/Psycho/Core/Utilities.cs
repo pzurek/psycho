@@ -30,23 +30,23 @@ namespace Psycho
 
         static class Utilities
         {
-                public static void MindWireUp (IModel paramModel, IView paramView, IControl paramControl)
+                public static void MindWireUp (IModel iModel, IView iView, IControl iControl)
                 {
                         IModel Model;
                         IControl Control;
                         IView View;
 
-                        View = paramView;
+                        View = iView;
 
                         //if (View.Model != null)
-                        //        Model.RemoveObserver (paramView);
+                        //        Model.RemoveObserver (iView);
 
-                        Model = paramModel;
-                        Control = paramControl;
+                        Model = iModel;
+                        Control = iControl;
 
                         Control.SetModel (Model);
-                        Control.SetView (paramView);
-                        Model.AddObserver (paramView);
+                        Control.SetView (iView);
+                        Model.AddObserver (iView);
                         View.Update (Model);
                 }
         }

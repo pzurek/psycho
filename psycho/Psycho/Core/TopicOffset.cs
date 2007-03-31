@@ -30,9 +30,9 @@ namespace Psycho
 
         public class TopicOffset
         {
-                public TopicOffset (Topic paramTopic)
+                public TopicOffset (Topic iTopic)
                 {
-                        this.topic = paramTopic;
+                        this.topic = iTopic;
                         this.isAuto = true;
                 }
 
@@ -73,7 +73,7 @@ namespace Psycho
                                                 if (topic.IsFirst)
                                                         y = topic.Parent.Offset.Y;
                                                 else
-                                                        y = topic.Previous.Offset.Y + topic.Previous.TotalHeight + 7;
+                                                        y = topic.Previous.Offset.Y + topic.Previous.TotalHeight + topic.Style.Padding;
                                         return y;
                                 }
                                 else
@@ -86,11 +86,11 @@ namespace Psycho
                         }
                 }
 
-                public void SetOffset (int paramXOffset, int paramYOffset)
+                public void SetOffset (int iXOffset, int iYOffset)
                 {
                         isAuto = false;
-                        x = paramXOffset;
-                        y = paramYOffset;
+                        x = iXOffset;
+                        y = iYOffset;
                 }
 
                 public void GetOffset (out int outXOffset, out int outYOffset)
@@ -102,11 +102,6 @@ namespace Psycho
                 public Topic Topic
                 {
                         get { return topic; }
-                }
-
-                public string GUID
-                {
-                        get { return this.topic.GUID; }
                 }
 
                 public bool IsAuto

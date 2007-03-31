@@ -40,14 +40,14 @@ namespace Psycho
                 {
                 }
 
-                public void WireUp (IControl paramControl, IModel paramModel)
+                public void WireUp (IControl iControl, IModel iModel)
                 {
                         if (Model != null) {
                                 Model.RemoveObserver (this);
                         }
 
-                        Model = paramModel;
-                        Control = paramControl;
+                        Model = iModel;
+                        Control = iControl;
 
                         Control.SetModel (Model);
                         Control.SetView (this);
@@ -101,9 +101,10 @@ namespace Psycho
                 void DrawFrame (Cairo.Context iContext, Topic iTopic)
                 {
                         iTopic.Frame.Draw (iContext, iTopic);
+                        Console.WriteLine ("Frame drawn for: " + iTopic.Text);
                 }
 
-                public void Update (IModel paramModel)
+                public void Update (IModel iModel)
                 {
                 }
 
@@ -122,12 +123,12 @@ namespace Psycho
                         throw new Exception ("The method or operation is not implemented.");
                 }
 
-                public void CommitChange (Topic paramTopic)
+                public void CommitChange (Topic iTopic)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
 
-                public void ExpandTopic (string paramGuid, bool isExpanded)
+                public void ExpandTopic (string iGuid, bool isExpanded)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }

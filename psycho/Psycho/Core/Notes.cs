@@ -35,9 +35,9 @@ namespace Psycho
                 string text;
                 Topic topic;
 
-                public Notes (Topic paramTopic)
+                public Notes (Topic iTopic)
                 {
-                        this.topic = paramTopic;
+                        this.topic = iTopic;
                         this.text = "";
                 }
 

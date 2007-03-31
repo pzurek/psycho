@@ -34,9 +34,9 @@ namespace Psycho
                 List<TopicStyle> StyleStore = new List<TopicStyle> ();
                 List<Color> ColorStore = new List<Color> ();
 
-                public Color GetColorByBranchNo (int paramNumber, out Color outColor)
+                public Color GetColorByBranchNo (int iNumber, out Color outColor)
                 {
-                        Color color = ColorStore[paramNumber];
+                        Color color = ColorStore[iNumber];
                         if (color != null) {
                                 outColor = color;
                                 return outColor;

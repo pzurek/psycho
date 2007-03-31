@@ -31,10 +31,8 @@ using Gdk;
 
 namespace Psycho
 {
-
         public class ButtonView : VBox, IView
         {
-
                 Entry titleEntry = new Entry ();
                 Button addSiblingButton = new Button ();
                 Button addChildButton = new Button ();
@@ -81,13 +79,13 @@ namespace Psycho
                                 EditTitle (titleEntry.Text);
                 }
 
-                public void WireUp (IControl paramControl, IModel paramModel)
+                public void WireUp (IControl iControl, IModel iModel)
                 {
                         if (Model != null)
                                 Model.RemoveObserver (this);
 
-                        Model = paramModel;
-                        Control = paramControl;
+                        Model = iModel;
+                        Control = iControl;
 
                         Control.SetModel (Model);
                         Control.SetView (this);
@@ -107,9 +105,9 @@ namespace Psycho
                         }
                 }
 
-                public void EditTitle (string paramString)
+                public void EditTitle (string iString)
                 {
-                        Control.RequestSetTitle (paramString);
+                        Control.RequestSetTitle (iString);
                 }
 
                 void btnAddChild_Click (object sender, System.EventArgs args)
@@ -151,9 +149,9 @@ namespace Psycho
                         Control.RequestEditFlag (editPending);
                 }
 
-                public void Update (IModel paramModel)
+                public void Update (IModel iModel)
                 {
-                        titleEntry.Text = paramModel.CurrentTopic.Text;
+                        titleEntry.Text = iModel.CurrentTopic.Text;
                         CheckButtonsLegal ();
                 }
 
@@ -177,12 +175,12 @@ namespace Psycho
                         deleteButton.Sensitive = (true);
                 }
 
-                public void ExpandTopic (string paramGuid, bool isExpanded)
+                public void ExpandTopic (string iGuid, bool isExpanded)
                 {
-                        Control.RequestExpand (paramGuid, isExpanded);
+                        Control.RequestExpand (iGuid, isExpanded);
                 }
 
-                public void CommitChange (Topic paramTopic)
+                public void CommitChange (Topic iTopic)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }

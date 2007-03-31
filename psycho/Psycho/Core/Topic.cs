@@ -57,12 +57,12 @@ namespace Psycho
                         this.TextLayout.SetText (this.Text);
                 }
 
-                public Topic (Topic paramParent)
+                public Topic (Topic iParent)
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = ("Topic ");
-                        this.Parent = paramParent;
+                        this.Parent = iParent;
                         this.IsExpanded = false;
                         this.Style = (new TopicStyle ());
                         this.TextLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
@@ -448,14 +448,14 @@ namespace Psycho
                         }
                 }
 
-                public void AddSubtopic (Topic paramTopic)
+                public void AddSubtopic (Topic iTopic)
                 {
-                        this.Subtopics.Add (paramTopic);
+                        this.Subtopics.Add (iTopic);
                 }
 
-                public void AddSubtopic (int paramIndex, Topic paramTopic)
+                public void AddSubtopic (int iIndex, Topic iTopic)
                 {
-                        this.Subtopics.Insert (paramIndex, paramTopic);
+                        this.Subtopics.Insert (iIndex, iTopic);
                 }
 
                 public void Delete ()

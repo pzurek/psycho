@@ -30,10 +30,8 @@ using Gtk;
 
 namespace Psycho
 {
-
         public class OutlineView : ScrolledWindow, IView
         {
-
                 IModel Model;
                 IControl Control;
 
@@ -204,30 +202,30 @@ namespace Psycho
                                 (cell as CellRendererPixbuf).Pixbuf = null;
                 }
 
-                public void Build (IModel paramModel)
+                public void Build (IModel iModel)
                 {
                         store.Clear ();
-                        TreeIter centralNode = store.AppendValues (paramModel.CentralTopic);
-                        AddNodesRecursively (store, centralNode, paramModel.CentralTopic);
+                        TreeIter centralNode = store.AppendValues (iModel.CentralTopic);
+                        AddNodesRecursively (store, centralNode, iModel.CentralTopic);
                         outlineView.ExpandAll ();
                         outlineView.ScrollToCell (store.GetPath (selectedNode), titleColumn, true, 0, 0);
                 }
 
-                public void Update (IModel paramModel)
+                public void Update (IModel iModel)
                 {
                         //if (editPending == false) {
                         updatePending = true;
-                        UpdateNew (paramModel);
-                        UpdateDeletedPath (paramModel);
-                        UpdateChanged (paramModel);
-                        workingTopic = paramModel.CurrentTopic;
+                        UpdateNew (iModel);
+                        UpdateDeletedPath (iModel);
+                        UpdateChanged (iModel);
+                        workingTopic = iModel.CurrentTopic;
                         updatePending = false;
                         //}
                 }
 
-                public void UpdateNew (IModel paramModel)
+                public void UpdateNew (IModel iModel)
                 {
-                        foreach (Topic topic in paramModel.NewTopics) {
+                        foreach (Topic topic in iModel.NewTopics) {
                                 TreeIter parent;
                                 TreePath parentPath = new TreePath (topic.Parent.Path);
                                 int position = topic.Parent.Subtopics.IndexOf (topic);
@@ -243,10 +241,10 @@ namespace Psycho
                         }
                 }
 
-                public void UpdateDeletedPath (IModel paramModel)
+                public void UpdateDeletedPath (IModel iModel)
                 {
-                        if (paramModel.DeletedTopicPath != "")
-                                DeletedTopicPath = (paramModel.DeletedTopicPath);
+                        if (iModel.DeletedTopicPath != "")
+                                DeletedTopicPath = (iModel.DeletedTopicPath);
                         else
                                 return;
                         TreeIter deletedIter;
@@ -254,7 +252,7 @@ namespace Psycho
                         this.store.GetIter (out deletedIter, deletedPath);
                         this.store.Remove (ref deletedIter);
 
-                        TreePath path = new TreePath (paramModel.CurrentTopic.Path);
+                        TreePath path = new TreePath (iModel.CurrentTopic.Path);
                         TreeIter iter;
                         store.GetIter (out iter, path);
                         outlineView.Selection.SelectIter (iter);
@@ -263,10 +261,10 @@ namespace Psycho
                         outlineView.QueueDraw ();
                 }
 
-                public void UpdateChanged (IModel paramModel)
+                public void UpdateChanged (IModel iModel)
                 {
 
-                        foreach (Topic topic in paramModel.ChangedTopics) {
+                        foreach (Topic topic in iModel.ChangedTopics) {
                                 TreePath path = new TreePath (topic.Path);
                                 TreeIter iter;
                                 store.GetIter (out iter, path);
@@ -293,9 +291,9 @@ namespace Psycho
                         Control.RequestDelete ();
                 }
 
-                public void ExpandTopic (string paramGuid, bool isExpanded)
+                public void ExpandTopic (string iGuid, bool isExpanded)
                 {
-                        Control.RequestExpand (paramGuid, isExpanded);
+                        Control.RequestExpand (iGuid, isExpanded);
                 }
 
                 public void EditTitle (string Title)
@@ -329,14 +327,14 @@ namespace Psycho
                 {
                 }
 
-                public void WireUp (IControl paramControl, IModel paramModel)
+                public void WireUp (IControl iControl, IModel iModel)
                 {
                         if (Model != null) {
                                 Model.RemoveObserver (this);
                         }
 
-                        Model = paramModel;
-                        Control = paramControl;
+                        Model = iModel;
+                        Control = iControl;
 
                         Control.SetModel (Model);
                         Control.SetView (this);
@@ -344,12 +342,12 @@ namespace Psycho
                         Build (Model);
                 }
 
-                void AddNodesRecursively (TreeStore paramStore, TreeIter paramParent, Topic paramTopic)
+                void AddNodesRecursively (TreeStore iStore, TreeIter iParent, Topic iTopic)
                 {
 
-                        foreach (Topic child in paramTopic.Subtopics) {
-                                TreeIter kid = paramStore.AppendValues (paramParent, child);
-                                AddNodesRecursively (paramStore, kid, child);
+                        foreach (Topic child in iTopic.Subtopics) {
+                                TreeIter kid = iStore.AppendValues (iParent, child);
+                                AddNodesRecursively (iStore, kid, child);
                         }
                 }
 
@@ -382,7 +380,7 @@ namespace Psycho
                         ExpandTopic (expandedTopic.GUID, true);
                 }
 
-                public void CommitChange (Topic paramTopic)
+                public void CommitChange (Topic iTopic)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }

@@ -27,17 +27,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho {
+namespace Psycho
+{
 
-        public interface IView {
+        public interface IView
+        {
 
-                void Update (IModel paramModel);
-                void WireUp (IControl paramControl, IModel paramModel);
+                void Update (IModel iModel);
+                void WireUp (IControl iControl, IModel iModel);
                 void AddTopic ();
                 void AddSubtopic ();
                 void DeleteTopic ();
-                void CommitChange (Topic paramTopic);
-                void ExpandTopic (string paramGuid, bool isExpanded);
+                void CommitChange (Topic iTopic);
+                void ExpandTopic (string iGuid, bool isExpanded);
                 void EditTitle (string Title);
                 void SetCurrentTopic ();
                 void TriggerEdit (bool editPending);

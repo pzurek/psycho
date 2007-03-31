@@ -47,14 +47,14 @@ namespace Psycho
                         get { return frameHeight; }
                 }
 
-                double OctDist (int paramHeight)
+                double OctDist (int iHeight)
                 {
                         octDist = new double ();
-                        octDist = paramHeight / (System.Math.Sqrt (2) + 1);
+                        octDist = iHeight / (System.Math.Sqrt (2) + 1);
                         return octDist;
                 }
 
-                double OctDistOrtho (int paramHeight)
+                double OctDistOrtho (int iHeight)
                 {
                         octDistOrtho = new double ();
                         octDistOrtho = octDist / (System.Math.Sqrt (2));

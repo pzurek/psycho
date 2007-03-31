@@ -44,25 +44,25 @@ namespace Psycho
                         set { isAuto = value; }
                 }
 
-                public void SetARGB (ushort paramAlfa, ushort paramRed, ushort paramGreen, ushort paramBlue)
+                public void SetARGB (ushort iAlfa, ushort iRed, ushort iGreen, ushort iBlue)
                 {
-                        alfa = paramAlfa;
-                        red = paramRed;
-                        green = paramGreen;
-                        blue = paramBlue;
+                        alfa = iAlfa;
+                        red = iRed;
+                        green = iGreen;
+                        blue = iBlue;
                 }
 
-                public void SetRGB (ushort paramRed, ushort paramGreen, ushort paramBlue)
+                public void SetRGB (ushort iRed, ushort iGreen, ushort iBlue)
                 {
                         alfa = 255;
-                        red = paramRed;
-                        green = paramGreen;
-                        blue = paramBlue;
+                        red = iRed;
+                        green = iGreen;
+                        blue = iBlue;
                 }
 
-                public void SetAlfa (ushort paramAlfa)
+                public void SetAlfa (ushort iAlfa)
                 {
-                        this.alfa = paramAlfa;
+                        this.alfa = iAlfa;
                 }
 
                 public void GetARGB (out ushort outAlfa, out ushort outRed, out ushort outGreen, out ushort outBlue)
@@ -95,35 +95,35 @@ namespace Psycho
                         this.blue = 0;
                 }
 
-                public Color (string name, ushort paramAlfa, ushort paramRed, ushort paramGreen, ushort paramBlue)
+                public Color (string name, ushort iAlfa, ushort iRed, ushort iGreen, ushort iBlue)
                 {
                         this.name = name;
-                        this.alfa = paramAlfa;
-                        this.red = paramRed;
-                        this.green = paramGreen;
-                        this.blue = paramBlue;
+                        this.alfa = iAlfa;
+                        this.red = iRed;
+                        this.green = iGreen;
+                        this.blue = iBlue;
                 }
 
-                public Color (ushort paramAlfa, ushort paramRed, ushort paramGreen, ushort paramBlue)
+                public Color (ushort iAlfa, ushort iRed, ushort iGreen, ushort iBlue)
                 {
                         this.name = "";
-                        this.alfa = paramAlfa;
-                        this.red = paramRed;
-                        this.green = paramGreen;
-                        this.blue = paramBlue;
+                        this.alfa = iAlfa;
+                        this.red = iRed;
+                        this.green = iGreen;
+                        this.blue = iBlue;
                 }
 
-                public Color (Color paramColor)
+                public Color (Color iColor)
                 {
-                        ushort paramAlfa = new ushort ();
-                        ushort paramRed = new ushort ();
-                        ushort paramGreen = new ushort ();
-                        ushort paramBlue = new ushort ();
-                        paramColor.GetARGB (out paramAlfa, out paramRed, out paramGreen, out paramBlue);
-                        this.alfa = paramAlfa;
-                        this.red = paramRed;
-                        this.green = paramGreen;
-                        this.blue = paramBlue;
+                        ushort iAlfa = new ushort ();
+                        ushort iRed = new ushort ();
+                        ushort iGreen = new ushort ();
+                        ushort iBlue = new ushort ();
+                        iColor.GetARGB (out iAlfa, out iRed, out iGreen, out iBlue);
+                        this.alfa = iAlfa;
+                        this.red = iRed;
+                        this.green = iGreen;
+                        this.blue = iBlue;
                 }
 
                 public Pango.Color ToPangoColor ()
@@ -145,21 +145,21 @@ namespace Psycho
                         return outColor;
                 }
 
-                public Color (Pango.Color paramColor)
+                public Color (Pango.Color iColor)
                 {
                         this.alfa = 255;
-                        this.red = paramColor.Red;
-                        this.green = paramColor.Green;
-                        this.blue = paramColor.Blue;
+                        this.red = iColor.Red;
+                        this.green = iColor.Green;
+                        this.blue = iColor.Blue;
                         this.name = "";
                 }
 
-                public Color (Cairo.Color paramColor)
+                public Color (Cairo.Color iColor)
                 {
-                        this.alfa = (ushort) (paramColor.A * 255);
-                        this.red = (ushort) (paramColor.R * 255);
-                        this.green = (ushort) (paramColor.G * 255);
-                        this.blue = (ushort) (paramColor.B * 255);
+                        this.alfa = (ushort) (iColor.A * 255);
+                        this.red = (ushort) (iColor.R * 255);
+                        this.green = (ushort) (iColor.G * 255);
+                        this.blue = (ushort) (iColor.B * 255);
                         this.name = "";
                 }
         }
