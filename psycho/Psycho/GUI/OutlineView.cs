@@ -225,28 +225,29 @@ namespace Psycho
                 public void Update (IModel iModel)
                 {
                         this.updatePending = true;
+                        //outlineView.Model = null;
                         UpdateNew (iModel);
                         UpdateDeletedPath (iModel);
                         UpdateChanged (iModel);
+                        //outlineView.Model = store;
                         workingTopic = iModel.CurrentTopic;
                         this.updatePending = false;
                 }
 
                 public void UpdateNew (IModel iModel)
                 {
-                        //if (iModel.NewTopics.Count != 0) {
-                        //        foreach (Topic topic in iModel.NewTopics) {
-                        //                TreeIter parent;
-                        //                TreePath parentPath = new TreePath (topic.Parent.Path);
-                        //                int position = topic.Parent.SubtopicList.IndexOf (topic);
-                        //                store.GetIter (out parent, parentPath);
-                        //                TreeIter iter = store.InsertNode (parent, position);
-                        //                store.SetValue (iter, 0, topic);
-                        //                TreePath path = store.GetPath (iter);
-                        //                SelectCurrentRow (iter, path);
-                        //                outlineView.ExpandToPath (path);
-                        //        }
-                        //}
+                        if (iModel.NewTopics.Count != 0) {
+                                foreach (Topic topic in iModel.NewTopics) {
+                                        TreeIter parent;
+                                        TreePath parentPath = new TreePath (topic.Parent.Path);
+                                        int position = topic.Parent.SubtopicList.IndexOf (topic);
+                                        store.GetIter (out parent, parentPath);
+                                        TreeIter iter = store.InsertNode (parent, position);
+                                        store.SetValue (iter, 0, topic);
+                                        TreePath path = store.GetPath (iter);
+                                        SelectCurrentRow (iter, path);
+                                }
+                        }
                 }
 
                 public void UpdateDeletedPath (IModel iModel)
@@ -283,6 +284,7 @@ namespace Psycho
                         outlineView.Selection.SelectIter (iIter);
                         outlineView.ScrollToCell (iPath, titleColumn, false, 1, 0);
                         outlineView.SetCursor (iPath, titleColumn, false);
+                        outlineView.ExpandToPath (iPath);
                         outlineView.QueueDraw ();
                 }
                         
