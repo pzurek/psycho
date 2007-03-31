@@ -60,9 +60,9 @@ namespace Psycho
             DrawingArea mapView = new DrawingArea();
             TextView XMLView = new TextView();
 
-            mainNotebook.InsertPageMenu(mapView, new Label("Map View"), new Label("Map View"), 0);
-            mainNotebook.InsertPageMenu(nodeView, new Label("Outline View"), new Label("Outline View"), 1);
-            mainNotebook.InsertPageMenu(XMLView, new Label("XML View"), new Label("XML View"), 2); 
+            mainNotebook.InsertPage(mapView, new Label("Map View"), /*new Label("Map View"),*/ 0);
+            mainNotebook.InsertPage(nodeView, new Label("Outline View"), /*new Label("Outline View"),*/ 1);
+            mainNotebook.InsertPage(XMLView, new Label("XML View"), /*new Label("XML View"),*/ 2);
 
             mainVBox.Homogeneous = false;
 

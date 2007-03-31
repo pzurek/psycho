@@ -65,7 +65,7 @@ namespace Psycho {
             deleteButton.Clicked += new EventHandler(btnDelete_Click);
 
             buttonBox.Homogeneous = true;
-            buttonBox.Layout = (Gtk.ButtonBoxStyle.End);
+            buttonBox.Layout = (Gtk.ButtonBoxStyle.Start);
             buttonBox.Spacing = 6;
             buttonBox.PackStart(addSiblingButton, false, true, 6);
             buttonBox.PackStart(addChildButton, false, true, 6);

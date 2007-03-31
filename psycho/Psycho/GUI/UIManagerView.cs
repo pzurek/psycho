@@ -24,6 +24,8 @@
 //
 
 using System;
+using System.IO;
+using Gdk;
 using Gtk;
 
 namespace Psycho {
@@ -89,6 +91,7 @@ namespace Psycho {
                 new ActionEntry ("About", null, "_About", "<control>A", "About", new EventHandler (ActionActivated)),
             };
 
+            //BuildIcons();
             ActionGroup actions = new ActionGroup("group");
             actions.Add(entries);
 
@@ -96,10 +99,43 @@ namespace Psycho {
             uiManager.AddUiFromString(ui);
         }
 
+        public static void BuildIcons()
+        {
+            Pixbuf pixbufTopic = Pixbuf.LoadFromResource("Resources/gtk-logo-rgb.gif");
+            Pixbuf pixbufSubtopic = Pixbuf.LoadFromResource("Resources/psycho-subtopic.gif");
+            Pixbuf pixbufDelete = Pixbuf.LoadFromResource("Resources/psycho-delete.gif");
+
+            Pixbuf transparentTopic = pixbufTopic.AddAlpha(true, 0xff, 0xff, 0xff);
+            Pixbuf transparentSubtopic = pixbufSubtopic.AddAlpha(true, 0xff, 0xff, 0xff);
+            Pixbuf transparentDelete = pixbufDelete.AddAlpha(true, 0xff, 0xff, 0xff);
+
+            IconFactory factory = new IconFactory();
+            factory.Add("psycho-topic", new IconSet(transparentTopic));
+            factory.Add("psycho-subtopic", new IconSet(transparentSubtopic));
+            factory.Add("psycho-delete", new IconSet(transparentDelete));
+            factory.AddDefault();
+
+            StockManager.Add(new StockItem("psycho-topic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add(new StockItem("psycho-subtopic", "Add Subtopic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add(new StockItem("psycho-delete", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+        }
+
         private void ActionActivated (object sender, EventArgs a)
         {
             Action action = sender as Action;
             Console.WriteLine("Action \"{0}\" activated", action.Name);
+            switch (action.Name) {
+            case "AddTopic":
+                AddTopic();
+                return;
+            case "AddSubtopic":
+                AddSubtopic();
+                return;
+            case "Delete":
+                DeleteTopic();
+                return;
+            default: break;
+            }
         }
 
         #region IView Members
@@ -125,17 +161,17 @@ namespace Psycho {
 
         public void AddTopic ()
         {
-            throw new Exception("The method or operation is not implemented.");
+            Control.RequestAddTopic();
         }
 
         public void AddSubtopic ()
         {
-            throw new Exception("The method or operation is not implemented.");
+            Control.RequestAddSubtopic();
         }
 
         public void DeleteTopic ()
         {
-            throw new Exception("The method or operation is not implemented.");
+            Control.RequestDelete();
         }
 
         public void ExpandTopic (string paramGuid, bool isExpanded)

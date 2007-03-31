@@ -85,10 +85,9 @@ namespace Psycho {
 
         public void CreateTopic()
         {
-            int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
-            Topic newTopic = new Topic(centralTopic.TotalCount);
-
             if (CurrentTopic.Parent != null) {
+                int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
+                Topic newTopic = new Topic(centralTopic.TotalCount);
                 newTopic.Parent = CurrentTopic.Parent;
                 CurrentTopic.Parent.AddSubtopicAt((currentIndex + 1), newTopic);
                 CurrentTopic = newTopic;
@@ -119,12 +118,10 @@ namespace Psycho {
                 return;
 
             Topic tempParent = this.CurrentTopic.Parent;
-
             Topic deletedTopic = (CurrentTopic);
 
             deletedTopicPath = (deletedTopic.Path);
             deletedTopics.Add(deletedTopic);
-
 
             if (CurrentTopic.Parent.Subtopics.Count == 1) {
                 CurrentTopic.Parent.Subtopics.Clear();

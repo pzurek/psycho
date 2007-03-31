@@ -47,12 +47,8 @@ namespace Psycho {
 
         public string DeletedTopicPath
         {
-            get {
-                return deletedTopicPath;
-            }
-            set {
-                deletedTopicPath = value;
-            }
+            get { return deletedTopicPath; }
+            set { deletedTopicPath = value; }
         }
 
         private TreeViewColumn pathColumn = new TreeViewColumn();
@@ -69,24 +65,29 @@ namespace Psycho {
             titleCell.Edited += new EditedHandler(titleCell_Edited);
             titleCell.EditingStarted += new EditingStartedHandler(titleCell_EditingStarted);
             titleCell.EditingCanceled += new EventHandler(titleCell_EditingCanceled);
+            titleCell.Mode = CellRendererMode.Editable;
             titleColumn.PackStart(titleCell, true);
             titleColumn.AddAttribute(titleCell, "text", 1);
             titleColumn.SetCellDataFunc(titleCell, new Gtk.TreeCellDataFunc(RenderTitle));
 
             guidColumn.Title = "Topic GUID";
+            guidColumn.Clickable = false;
             CellRendererText guidCell = new CellRendererText();
+            guidCell.Mode = CellRendererMode.Inert;
             guidColumn.PackStart(guidCell, false);
             guidColumn.AddAttribute(guidCell, "text", 0);
             guidColumn.SetCellDataFunc(guidCell, new Gtk.TreeCellDataFunc(RenderGuid));
 
             pathColumn.Title = "Topic path";
             CellRendererText pathCell = new CellRendererText();
+            pathCell.Mode = CellRendererMode.Inert;
             pathColumn.PackStart(pathCell, false);
             pathColumn.AddAttribute(pathCell, "text", 3);
             pathColumn.SetCellDataFunc(pathCell, new Gtk.TreeCellDataFunc(RenderPath));
 
             levelColumn.Title = "Topic level";
             CellRendererText levelCell = new CellRendererText();
+            levelCell.Mode = CellRendererMode.Inert;
             levelColumn.PackStart(levelCell, false);
             levelColumn.AddAttribute(levelCell, "text", 2);
             levelColumn.SetCellDataFunc(levelCell, new Gtk.TreeCellDataFunc(RenderLevel));
@@ -125,21 +126,21 @@ namespace Psycho {
         {
             string key = args.Event.Key.ToString();
             Console.WriteLine(key);
-            switch (key) {
-            case "Return":
-            if (isEdited) return;
-            else {
-                AddTopic();
-                return;
-            }
-            case "Insert":
-            AddSubtopic();
-            return;
-            case "Delete":
-            DeleteTopic();
-            return;
-            default: break;
-            }
+            //switch (key) {
+            //case "Return":
+            //if (isEdited) return;
+            //else {
+            //    AddTopic();
+            //    return;
+            //}
+            //case "Insert":
+            //AddSubtopic();
+            //return;
+            //case "Delete":
+            //DeleteTopic();
+            //return;
+            //default: break;
+            //}
         }
 
         private void RenderTitle (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
@@ -181,6 +182,7 @@ namespace Psycho {
             UpdateNew(paramModel);
             UpdateDeletedPath(paramModel);
             UpdateChanged(paramModel);
+
             updatePending = false;
         }
 
@@ -196,7 +198,9 @@ namespace Psycho {
                 TreePath path = store.GetPath(iter);
                 outlineView.ExpandToPath(path);
                 outlineView.Selection.SelectIter(iter);
-                outlineView.ScrollToCell(path, titleColumn, true, 0, 0);
+                outlineView.ScrollToCell(path, null, false, 1, 0);
+                outlineView.ActivateRow(path, titleColumn);
+                outlineView.QueueDraw();
             }
         }
 
@@ -215,7 +219,8 @@ namespace Psycho {
             TreeIter iter;
             store.GetIter(out iter, path);
             outlineView.Selection.SelectIter(iter);
-
+            outlineView.ScrollToCell(path, null, false, 1, 0);
+            outlineView.ActivateRow(path, titleColumn);
             outlineView.QueueDraw();
         }
 
@@ -228,8 +233,9 @@ namespace Psycho {
                 store.GetIter(out iter, path);
                 store.SetValue(iter, 0, topic);
                 outlineView.Selection.SelectIter(iter);
+                outlineView.ScrollToCell(path, null, false, 1, 0);
+                outlineView.ActivateRow(path, titleColumn);
                 outlineView.QueueDraw();
-                outlineView.ScrollToCell(path, titleColumn, true, 0, 0);
             }
         }
 
