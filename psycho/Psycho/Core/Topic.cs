@@ -43,6 +43,7 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic ";
                         this.Style = new TopicStyle (this);
+                        //this.Update ();
                 }
 
                 public Topic (string iTitle)
@@ -51,6 +52,7 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = iTitle;
                         this.Style = new TopicStyle (this);
+                        //this.Update ();
                 }
 
                 public Topic (Topic iParent)
@@ -60,6 +62,7 @@ namespace Psycho
                         this.Text = "Topic ";
                         this.Parent = iParent;
                         this.Style = new TopicStyle (this);
+                        //this.Update ();
                 }
 
                 public Topic (string iTitle, Topic iParent)
@@ -69,6 +72,7 @@ namespace Psycho
                         this.Text = iTitle;
                         this.Parent = iParent;
                         this.Style = new TopicStyle (this);
+                        //this.Update ();
                 }
 
                 public Topic (int topicNumber)
@@ -77,6 +81,20 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic " + topicNumber.ToString ();
                         this.Style = new TopicStyle (this);
+                        //this.Update ();
+                }
+
+                void Update ()
+                {
+                        this.UpdateTextSize ();
+                        this.Offset.Update (this);
+                        this.Frame.Update (this);
+                        this.Connection.Update (this);
+                }
+
+                void UpdateTextSize ()
+                {
+                        this.TextLayout.GetPixelSize (out textWidth, out textHeight);
                 }
 
                 string text;
@@ -161,7 +179,6 @@ namespace Psycho
                 {
                         get
                         {
-                                TextLayout.GetPixelSize (out textWidth, out textHeight);
                                 return textWidth;
                         }
                 }
@@ -170,7 +187,6 @@ namespace Psycho
                 {
                         get
                         {
-                                TextLayout.GetPixelSize (out textWidth, out textHeight);
                                 return textHeight;
                         }
                 }

@@ -61,7 +61,8 @@ namespace Psycho
                 {
                         this.shape = iTopic.Style.ConnectShape;
                         this.start = iTopic.Frame.Left;
-                        this.end = iTopic.Parent.Frame.Right;
+                        if (iTopic.Parent != null)
+                                this.end = iTopic.Parent.Frame.Right;
                         this.connectionVector.Dx = this.End.X - this.Start.X;
                         this.connectionVector.Dy = this.End.Y - this.Start.Y;
                 }
@@ -287,7 +288,7 @@ namespace Psycho
                 {
                         get
                         {
-                                roundedAngleCrankStart.X = this.Start.X + this.ConnectionVector.Dx / 4;
+                                roundedAngleCrankStart.X = this.Start.X + this.ConnectionVector.Dx / 8;
                                 roundedAngleCrankStart.Y = this.Start.Y;
                                 return roundedAngleCrankStart;
                         }
@@ -297,8 +298,8 @@ namespace Psycho
                 {
                         get
                         {
-                                roundedAngleCrankEnd.X = this.End.X - this.ConnectionVector.Dx / 4;
-                                roundedAngleCrankEnd.Y = this.End.Y - this.ConnectionVector.Dy / 2;
+                                roundedAngleCrankEnd.X = this.End.X - this.ConnectionVector.Dx / 8;
+                                roundedAngleCrankEnd.Y = this.End.Y - this.ConnectionVector.Dy / 4;
                                 return roundedAngleCrankEnd;
                         }
                 }
