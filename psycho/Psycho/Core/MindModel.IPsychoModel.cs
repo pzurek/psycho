@@ -28,6 +28,7 @@ namespace Psycho {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Xml;
     using Psycho;
 
     /// <summary>
@@ -35,15 +36,16 @@ namespace Psycho {
     /// </summary>
     public partial class MindModel : IModel {
 
-        private Topic centralTopic = new Topic(1234);
+        private Topic centralTopic = new Topic (1234);
         private Topic currentTopic;
+        public XmlDocument content;
 
         #region IModel Members
-        private ArrayList observerList = new ArrayList();
-        private Topics newTopics = new Topics();
-        private Topics deletedTopics = new Topics();
+        private ArrayList observerList = new ArrayList ();
+        private Topics newTopics = new Topics ();
+        private Topics deletedTopics = new Topics ();
         private string deletedTopicPath = ("");
-        private Topics changedTopics = new Topics();
+        private Topics changedTopics = new Topics ();
         private bool editPending;
 
         public Topic CurrentTopic
@@ -86,40 +88,40 @@ namespace Psycho {
 
         public bool EditPending
         {
-            get { Console.WriteLine("Edit pending {0}", editPending.ToString());  return editPending; }
-            set { editPending = value; Console.WriteLine("Edit pending {0}", editPending.ToString()); }
+            get { Console.WriteLine ("Edit pending {0}", editPending.ToString ()); return editPending; }
+            set { editPending = value; Console.WriteLine ("Edit pending {0}", editPending.ToString ()); }
         }
 
-        public void CreateTopic()
+        public void CreateTopic ()
         {
             if (CurrentTopic.Parent != null) {
-                int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
-                Topic newTopic = new Topic(centralTopic.TotalCount);
+                int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf (CurrentTopic);
+                Topic newTopic = new Topic (centralTopic.TotalCount);
                 newTopic.Parent = CurrentTopic.Parent;
-                CurrentTopic.Parent.AddSubtopicAt((currentIndex + 1), newTopic);
+                CurrentTopic.Parent.AddSubtopicAt ((currentIndex + 1), newTopic);
                 CurrentTopic = newTopic;
-                newTopics.Add(newTopic);
-                NotifyObservers();
+                newTopics.Add (newTopic);
+                NotifyObservers ();
             }
         }
 
-        public void CreateSubtopic()
+        public void CreateSubtopic ()
         {
-            Topic newTopic = new Topic(centralTopic.TotalCount);
+            Topic newTopic = new Topic (centralTopic.TotalCount);
             newTopic.Parent = CurrentTopic;
-            CurrentTopic.AddSubtopic(newTopic);
+            CurrentTopic.AddSubtopic (newTopic);
             CurrentTopic = newTopic;
-            newTopics.Add(newTopic);
-            NotifyObservers();
+            newTopics.Add (newTopic);
+            NotifyObservers ();
         }
 
-        public void DeleteTopic()
+        public void DeleteTopic ()
         {
             int newIndex;
             int currentIndex;
 
             if (CurrentTopic.Parent != null) {
-                currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
+                currentIndex = CurrentTopic.Parent.Subtopics.IndexOf (CurrentTopic);
             }
             else
                 return;
@@ -128,10 +130,10 @@ namespace Psycho {
             Topic deletedTopic = (CurrentTopic);
 
             deletedTopicPath = (deletedTopic.Path);
-            deletedTopics.Add(deletedTopic);
+            deletedTopics.Add (deletedTopic);
 
             if (CurrentTopic.Parent.Subtopics.Count == 1) {
-                CurrentTopic.Parent.Subtopics.Clear();
+                CurrentTopic.Parent.Subtopics.Clear ();
                 CurrentTopic = tempParent;
             }
             else {
@@ -141,56 +143,56 @@ namespace Psycho {
                 else {
                     newIndex = currentIndex;
                 }
-                CurrentTopic.Parent.Subtopics.RemoveAt(currentIndex);
+                CurrentTopic.Parent.Subtopics.RemoveAt (currentIndex);
                 CurrentTopic = tempParent.Subtopics[newIndex];
             }
-            NotifyObservers();
+            NotifyObservers ();
         }
 
-        public void SetTitle(string paramTitle)
+        public void SetTitle (string paramTitle)
         {
             CurrentTopic.Title = (paramTitle);
-            changedTopics.Add(CurrentTopic);
-            NotifyObservers();
+            changedTopics.Add (CurrentTopic);
+            NotifyObservers ();
         }
 
-        public void AddObserver(IView paramView)
+        public void AddObserver (IView paramView)
         {
-            observerList.Add(paramView);
-            Console.WriteLine("View: " + paramView.ToString() + " added to observer list");
+            observerList.Add (paramView);
+            Console.WriteLine ("View: " + paramView.ToString () + " added to observer list");
         }
 
-        public void RemoveObserver(IView paramView)
+        public void RemoveObserver (IView paramView)
         {
-            observerList.Remove(paramView);
+            observerList.Remove (paramView);
         }
 
-        public void NotifyObservers()
+        public void NotifyObservers ()
         {
             foreach (IView view in observerList) {
-                view.Update(this);
+                view.Update (this);
             }
-            ClearChanges();
+            ClearChanges ();
         }
 
         private void ClearChanges ()
         {
-            newTopics.Clear();
+            newTopics.Clear ();
             deletedTopicPath = ("");
-            deletedTopics.Clear();
-            changedTopics.Clear();
+            deletedTopics.Clear ();
+            changedTopics.Clear ();
         }
 
-        public void SetCurrent(string paramGuid, Topic paramTopic)
+        public void SetCurrent (string paramGuid, Topic paramTopic)
         {
-            Topic saughtTopic = FindByGUID(paramGuid);
+            Topic saughtTopic = FindByGUID (paramGuid);
             CurrentTopic = saughtTopic;
-            NotifyObservers();
+            NotifyObservers ();
         }
 
-        public void ExpandTopic(string paramGuid, bool isExpanded)
+        public void ExpandTopic (string paramGuid, bool isExpanded)
         {
-            Topic ExpandedTopic = FindByGUID(paramGuid);
+            Topic ExpandedTopic = FindByGUID (paramGuid);
             ExpandedTopic.IsExpanded = (isExpanded);
         }
         #endregion
