@@ -29,10 +29,8 @@ using System.Text;
 
 namespace Psycho
 {
-
         public class Color
         {
-
                 string name;
                 ushort red;
                 ushort green;
@@ -135,6 +133,34 @@ namespace Psycho
                         outColor.Green = this.green;
                         outColor.Blue = this.blue;
                         return outColor;
+                }
+
+                public Cairo.Color ToCairoColor ()
+                {
+                        Cairo.Color outColor = new Cairo.Color ();
+                        outColor.A = this.alfa / 255;
+                        outColor.R = this.red / 255;
+                        outColor.G = this.green / 255;
+                        outColor.B = this.blue / 255;
+                        return outColor;
+                }
+
+                public Color (Pango.Color paramColor)
+                {
+                        this.alfa = 255;
+                        this.red = paramColor.Red;
+                        this.green = paramColor.Green;
+                        this.blue = paramColor.Blue;
+                        this.name = "";
+                }
+
+                public Color (Cairo.Color paramColor)
+                {
+                        this.alfa = (ushort) (paramColor.A * 255);
+                        this.red = (ushort) (paramColor.R * 255);
+                        this.green = (ushort) (paramColor.G * 255);
+                        this.blue = (ushort) (paramColor.B * 255);
+                        this.name = "";
                 }
         }
 }
