@@ -122,16 +122,16 @@ namespace Psycho
                         DrawTopics (mapContext);
                         this.mapArea.SetSizeRequest ((int) Model.CentralTopic.GlobalWidth + 2 * margin, (int) Model.CentralTopic.GlobalHeight + 2 * margin);
                         
-                        // Temporary code used to draw to png file. That has to be a separate method called by the user.
-                        Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 20, (int) Model.CentralTopic.GlobalHeight + 20);
-                        Cairo.Context pictureContext = new Cairo.Context (image);
-                        DrawBackground (pictureContext);
-                        pictureContext.Translate (System.Math.Floor (Model.CentralTopic.Width / 2 + 10), Model.CentralTopic.GlobalHeight / 2 + 10);
-                        DrawTopics (pictureContext);
-                        pictureContext.Rectangle (Model.CentralTopic.Width / 2 - 10, Model.CentralTopic.GlobalHeight / 2 - 10, Model.CentralTopic.Width + 20, Model.CentralTopic.GlobalHeight + 20);
-                        image.WriteToPng ("psycho.png");
-                        ((IDisposable) pictureContext.Target).Dispose ();
-                        ((IDisposable) pictureContext).Dispose ();
+                        //// Temporary code used to draw to png file. That has to be a separate method called by the user.
+                        //Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 20, (int) Model.CentralTopic.GlobalHeight + 20);
+                        //Cairo.Context pictureContext = new Cairo.Context (image);
+                        //DrawBackground (pictureContext);
+                        //pictureContext.Translate (System.Math.Floor (Model.CentralTopic.Width / 2 + 10), Model.CentralTopic.GlobalHeight / 2 + 10);
+                        //DrawTopics (pictureContext);
+                        //pictureContext.Rectangle (Model.CentralTopic.Width / 2 - 10, Model.CentralTopic.GlobalHeight / 2 - 10, Model.CentralTopic.Width + 20, Model.CentralTopic.GlobalHeight + 20);
+                        //image.WriteToPng ("psycho.png");
+                        //((IDisposable) pictureContext.Target).Dispose ();
+                        //((IDisposable) pictureContext).Dispose ();
                         // End of that hack...
 
                         ((IDisposable) mapContext.Target).Dispose ();
