@@ -5,6 +5,8 @@ using Gtk;
 using Cairo;
 
 namespace Psycho {
+
     class Canvas : DrawingArea {
+
     }
 }

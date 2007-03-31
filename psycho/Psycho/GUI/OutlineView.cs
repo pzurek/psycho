@@ -46,6 +46,8 @@ namespace Psycho {
         private string deletedTopicPath;
         private bool updatePending;
 
+        IconLoader iconLoader = new IconLoader ();
+
         public string DeletedTopicPath
         {
             get { return deletedTopicPath; }
@@ -69,42 +71,42 @@ namespace Psycho {
             titleCell.EditingCanceled += new EventHandler(titleCell_EditingCanceled);
             titleCell.Mode = CellRendererMode.Editable;
             titleColumn.PackStart(titleCell, true);
-            titleColumn.AddAttribute(titleCell, "text", 1);
+            titleColumn.AddAttribute(titleCell, "text", 0);
             titleColumn.SetCellDataFunc(titleCell, new Gtk.TreeCellDataFunc(RenderTitle));
 
             guidColumn.Title = "Topic GUID";
             guidColumn.Clickable = false;
-            CellRendererText guidCell = new CellRendererText();
+            CellRendererText guidCell = new CellRendererText ();
             guidCell.Mode = CellRendererMode.Inert;
-            guidColumn.PackStart(guidCell, false);
-            guidColumn.AddAttribute(guidCell, "text", 0);
-            guidColumn.SetCellDataFunc(guidCell, new Gtk.TreeCellDataFunc(RenderGuid));
+            guidColumn.PackStart (guidCell, false);
+            guidColumn.AddAttribute (guidCell, "text", 0);
+            guidColumn.SetCellDataFunc (guidCell, new Gtk.TreeCellDataFunc (RenderGuid));
 
             pathColumn.Title = "Topic path";
-            CellRendererText pathCell = new CellRendererText();
+            CellRendererText pathCell = new CellRendererText ();
             pathCell.Mode = CellRendererMode.Inert;
-            pathColumn.PackStart(pathCell, false);
-            pathColumn.AddAttribute(pathCell, "text", 3);
-            pathColumn.SetCellDataFunc(pathCell, new Gtk.TreeCellDataFunc(RenderPath));
+            pathColumn.PackStart (pathCell, false);
+            pathColumn.AddAttribute (pathCell, "text", 3);
+            pathColumn.SetCellDataFunc (pathCell, new Gtk.TreeCellDataFunc (RenderPath));
 
             levelColumn.Title = "Topic level";
-            CellRendererText levelCell = new CellRendererText();
+            CellRendererText levelCell = new CellRendererText ();
             levelCell.Mode = CellRendererMode.Inert;
-            levelColumn.PackStart(levelCell, false);
-            levelColumn.AddAttribute(levelCell, "text", 2);
-            levelColumn.SetCellDataFunc(levelCell, new Gtk.TreeCellDataFunc(RenderLevel));
+            levelColumn.PackStart (levelCell, false);
+            levelColumn.AddAttribute (levelCell, "text", 2);
+            levelColumn.SetCellDataFunc (levelCell, new Gtk.TreeCellDataFunc (RenderLevel));
 
             notesColumn.Title = "Notes";
-            CellRendererToggle notesCell = new CellRendererToggle ();
+            CellRendererPixbuf notesCell = new CellRendererPixbuf ();
+            notesCell.Mode = CellRendererMode.Inert;
             notesColumn.PackStart (notesCell, false);
-            notesColumn.AddAttribute (notesCell, "toggle" , 2);
+            notesColumn.AddAttribute (notesCell, "pixbuf", 1);
             notesColumn.SetCellDataFunc (notesCell, new Gtk.TreeCellDataFunc (RenderNotes));
 
-
             outlineView.Model = store;
-            outlineView.AppendColumn(pathColumn);
+            outlineView.AppendColumn (pathColumn);
             outlineView.AppendColumn(titleColumn);
-            outlineView.AppendColumn(levelColumn);
+            outlineView.AppendColumn (levelColumn);
             outlineView.AppendColumn(notesColumn);
             outlineView.ExpanderColumn = titleColumn;
 
@@ -181,7 +183,10 @@ namespace Psycho {
         private void RenderNotes (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
         {
             Topic topic = (Topic) model.GetValue (iter, 0);
-            (cell as CellRendererToggle).Active = topic.HasNotes;
+            if (topic.HasNotes)
+                (cell as CellRendererPixbuf).Pixbuf = iconLoader.notesIcon;
+            else
+                (cell as CellRendererPixbuf).Pixbuf = null;
         }
 
         public void Build (IModel paramModel)

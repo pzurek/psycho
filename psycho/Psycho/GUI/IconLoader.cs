@@ -37,6 +37,7 @@ namespace Psycho {
         const string calloutIconFile = "Resources/psycho-callout.png";
         const string borderIconFile = "Resources/psycho-border.png";
         const string relationIconFile = "Resources/psycho-relation.png";
+        const string notesIconFile = "Resources/psycho-notes-small.png";
 
         public Pixbuf psychoIcon;
         public Pixbuf topicIcon;
@@ -45,6 +46,7 @@ namespace Psycho {
         public Pixbuf calloutIcon;
         public Pixbuf borderIcon;
         public Pixbuf relationIcon;
+        public Pixbuf notesIcon;
 
         public IconLoader ()
         {
@@ -55,6 +57,7 @@ namespace Psycho {
             calloutIcon = new Pixbuf (calloutIconFile);
             borderIcon = new Pixbuf (borderIconFile);
             relationIcon = new Pixbuf (relationIconFile);
+            notesIcon = new Pixbuf (notesIconFile);
         }
     }
 }

@@ -6,6 +6,8 @@ namespace Psycho {
 
     public class Knockout : DrawingArea {
 
+        Pango.Layout text;
+
         public Knockout ()
         {
         }
@@ -74,6 +76,13 @@ namespace Psycho {
             cr.Fill ();
         }
 
+        void DrawText ()
+        {
+            text = new Pango.Layout (this.PangoContext);
+            text.FontDescription = (Pango.FontDescription.FromString("Bitstream Vera Sans 20"));
+            text.SetMarkup ("Pango Context So that's how it works...");
+        }
+
         void Draw (Context cr, int width, int height)
         {
             double radius = 0.5 * Math.Min (width, height) - 10;
@@ -109,15 +118,16 @@ namespace Psycho {
             Context cr_circles = new Context (circles);
             cr_circles.Operator = Operator.Over;
             Draw3Circles (cr_circles, xc, yc, radius, 0.5);
-            // cr_circles.Destroy ();
+            cr_circles.Antialias = Antialias.Subpixel;
 
             cr_overlay.Operator = Operator.Add;
             cr_overlay.SetSourceSurface (circles, 0, 0);
             cr_overlay.Paint ();
-            // cr_overlay.Destroy ();
 
             cr.SetSourceSurface (overlay, 0, 0);
             cr.Paint ();
+
+            DrawText ();
 
             overlay.Destroy ();
             punch.Destroy ();
@@ -130,6 +140,8 @@ namespace Psycho {
             int w, h;
             e.Window.GetSize (out w, out h);
             Draw (cr, w, h);
+            text.Width = w;
+            this.GdkWindow.DrawLayout (this.Style.TextAAGC (StateType.Normal), 10, 10, text);
             return true;
         }
     }
