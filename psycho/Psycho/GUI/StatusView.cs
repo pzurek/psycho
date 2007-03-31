@@ -50,9 +50,9 @@ namespace Psycho {
         public void Update (IModel paramModel)
         {
             if (Model != null) {
-                mapTitle.Text = ("Map title: " + Model.CentralTopic.Title);
+                mapTitle.Text = ("Map title: " + Model.CentralTopic.Text);
                 topicNumber.Text = ("Topics in the map: " + Model.CentralTopic.TotalCount.ToString());
-                currentTitle.Text = ("Current topic title: " + Model.CurrentTopic.Title);
+                currentTitle.Text = ("Current topic title: " + Model.CurrentTopic.Text);
             }
         }
 

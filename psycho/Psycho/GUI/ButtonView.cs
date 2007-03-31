@@ -156,7 +156,7 @@ namespace Psycho {
 
         public void Update (IModel paramModel)
         {
-            titleEntry.Text = paramModel.CurrentTopic.Title;
+            titleEntry.Text = paramModel.CurrentTopic.Text;
             CheckButtonsLegal ();
         }
 

@@ -44,14 +44,14 @@ namespace Psycho {
         public MindModel ()
         {
             this.currentTopic = this.centralTopic;
-            centralTopic.Title = "Central Topic";
+            centralTopic.Text = "Central Topic";
 
             XmlDeclaration declarationNode = XMLModel.CreateXmlDeclaration ("1.0", "UTF-8", "");
             xmlModel.AppendChild (declarationNode);
             XmlElement rootNode = xmlModel.CreateElement ("Topic");
             rootNode.SetAttribute ("guid", CentralTopic.GUID);
             XmlElement rootTitle = xmlModel.CreateElement ("Title");
-            rootTitle.SetAttribute ("text", CentralTopic.Title);
+            rootTitle.SetAttribute ("text", CentralTopic.Text);
             rootNode.AppendChild (rootTitle);
             xmlModel.AppendChild (rootNode);
             currentXmlTopic = rootNode;
@@ -145,7 +145,7 @@ namespace Psycho {
             while (paramTopic.Subtopics.Count < 2) {
                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                 newTopic.Parent = paramTopic;
-                CreateXMLSubtopic (paramTopic.GUID, newTopic.GUID, newTopic.Title);
+                CreateXMLSubtopic (paramTopic.GUID, newTopic.GUID, newTopic.Text);
                 paramTopic.AddSubtopic (newTopic);
                 if (newTopic.Level < 4)
                     AppendSomeNodes (newTopic);
@@ -204,12 +204,12 @@ namespace Psycho {
 
         public void CreateXMLSubtopic (Topic paramTopic)
         {
-            CreateXMLSubtopic (paramTopic.Parent.GUID, paramTopic.GUID, paramTopic.Title);
+            CreateXMLSubtopic (paramTopic.Parent.GUID, paramTopic.GUID, paramTopic.Text);
         }
 
         public void CreateXMLTopic (Topic paramSibling, Topic paramTopic)
         {
-            CreateXMLTopic (paramSibling.Parent.GUID, paramSibling.GUID, paramTopic.GUID, paramTopic.Title);
+            CreateXMLTopic (paramSibling.Parent.GUID, paramSibling.GUID, paramTopic.GUID, paramTopic.Text);
         }
 
         public void DeleteTopic ()
@@ -253,7 +253,7 @@ namespace Psycho {
 
         public void SetTitle (string paramTitle)
         {
-            CurrentTopic.Title = (paramTitle);
+            CurrentTopic.Text = (paramTitle);
             changedTopics.Add (CurrentTopic);
             NotifyObservers ();
         }

@@ -36,12 +36,12 @@ namespace Psycho {
         {
             System.Guid newGuid = System.Guid.NewGuid ();
             this.guid = newGuid.ToString ();
-            this.Title = ("Topic " + topic_number.ToString ());
+            this.Text = ("Topic " + topic_number.ToString ());
             this.isExpanded = false;
         }
 
         #region private fields
-        private string title;
+        private string text;
         private string id;
         private Topic parent;
         private int level;
@@ -50,16 +50,24 @@ namespace Psycho {
         private string guid;
         private bool isExpanded;
         private Notes topicNotes;
+        private Psycho.ConnectionShape topicShape;
+        private Title topicTitle;
         #endregion
 
         #region public fields
         
         public Topics Subtopics = new Topics ();
 
-        public string Title
+        public string Text
         {
-            get { return title; }
-            set { title = value; }
+            get { return text; }
+            set { text = value; }
+        }
+
+        public Title TopicTitle
+        {
+            get { return topicTitle; }
+            set { topicTitle = value; }
         }
 
         public string Id
@@ -89,6 +97,12 @@ namespace Psycho {
         {
             get { return isExpanded; }
             set { isExpanded = value; }
+        }
+
+        public Psycho.ConnectionShape TopicShape
+        {
+            get { return topicShape; }
+            set { topicShape = value; }
         }
 
         public bool HasNotes

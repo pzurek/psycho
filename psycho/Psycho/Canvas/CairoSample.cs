@@ -35,11 +35,11 @@ namespace Psycho {
             // draw the check
             Context cr2 = new Context (check);
             cr2.Operator = Operator.Source;
-            cr2.Color = new Color (0.4, 0.4, 0.4);
+            cr2.Color = new Cairo.Color (0.4, 0.4, 0.4);
             cr2.Rectangle (0, 0, 2 * CHECK_SIZE, 2 * CHECK_SIZE);
             cr2.Fill ();
 
-            cr2.Color = new Color (0.7, 0.7, 0.7);
+            cr2.Color = new Cairo.Color (0.7, 0.7, 0.7);
             cr2.Rectangle (x, y, CHECK_SIZE, CHECK_SIZE);
             cr2.Fill ();
 
@@ -63,15 +63,15 @@ namespace Psycho {
         {
             double subradius = radius * (2 / 3.0 - 0.1);
 
-            cr.Color = new Color (1.0, 0.0, 0.0, alpha);
+            cr.Color = new Cairo.Color (1.0, 0.0, 0.0, alpha);
             OvalPath (cr, xc + radius / 3.0 * Math.Cos (Math.PI * 0.5), yc - radius / 3.0 * Math.Sin (Math.PI * 0.5), subradius, subradius);
             cr.Fill ();
 
-            cr.Color = new Color (0.0, 1.0, 0.0, alpha);
+            cr.Color = new Cairo.Color (0.0, 1.0, 0.0, alpha);
             OvalPath (cr, xc + radius / 3.0 * Math.Cos (Math.PI * (0.5 + 2 / 0.3)), yc - radius / 3.0 * Math.Sin (Math.PI * (0.5 + 2 / 0.3)), subradius, subradius);
             cr.Fill ();
 
-            cr.Color = new Color (0.0, 0.0, 1.0, alpha);
+            cr.Color = new Cairo.Color (0.0, 0.0, 1.0, alpha);
             OvalPath (cr, xc + radius / 3.0 * Math.Cos (Math.PI * (0.5 + 4 / 0.3)), yc - radius / 3.0 * Math.Sin (Math.PI * (0.5 + 4 / 0.3)), subradius, subradius);
             cr.Fill ();
         }
@@ -98,7 +98,7 @@ namespace Psycho {
 
             // Draw a black circle on the overlay
             Context cr_overlay = new Context (overlay);
-            cr_overlay.Color = new Color (0.0, 0.0, 0.0);
+            cr_overlay.Color = new Cairo.Color (0.0, 0.0, 0.0);
             OvalPath (cr_overlay, xc, yc, radius, radius);
             cr_overlay.Fill ();
 

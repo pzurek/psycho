@@ -159,7 +159,7 @@ namespace Psycho {
         private void RenderTitle (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
         {
             Topic topic = (Topic) model.GetValue(iter, 0);
-            (cell as CellRendererText).Text = topic.Title;
+            (cell as CellRendererText).Text = topic.Text;
         }
 
         private void RenderGuid (TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
