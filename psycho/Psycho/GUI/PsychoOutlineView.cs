@@ -165,11 +165,15 @@ namespace Psycho {
 
 
             foreach (Topic topic in paraModel.NewTopics) {
-                TreeIter parentIter;
+                TreeIter parent;
                 TreePath parentPath = new TreePath(topic.Parent.TopicPath);
-                store.GetIter(out parentIter, parentPath);
-                TreeIter iter = store.AppendValues(parentIter, topic);
+                int position = topic.Parent.Subtopics.IndexOf(topic);
+                store.GetIter(out parent, parentPath);
+                TreeIter iter = store.InsertNode(parent, position);
+                store.SetValue(iter, 0, topic);
                 outlineView.Selection.SelectIter(iter);
+                TreePath path = store.GetPath(iter);
+                outlineView.ExpandToPath(path);
             }
 
             foreach (Topic topic in paraModel.DeletedTopics) {

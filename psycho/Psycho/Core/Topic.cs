@@ -101,7 +101,6 @@ namespace Psycho {
             get { this.CalculateLevel(); return level; }
         }
 
-
         #endregion
 
         #region public metods
@@ -127,7 +126,6 @@ namespace Psycho {
             this.id = (this.Parent.Id.ToString() + "." + this.Parent.Subtopics.IndexOf(this));
         }
 
-
         private void BuildPath ()
         {
             if (this.Parent == null)
@@ -147,6 +145,18 @@ namespace Psycho {
                 action(topic);
                 foreach (Topic child in topic.Subtopics)
                     remaining.Enqueue(child);
+            }
+        }
+
+        private void CountDescendants ()
+        {
+            totalCount = 0;
+            Queue<Topic> remaining = new Queue<Topic>();
+            remaining.Enqueue(this);
+            while (remaining.Count > 0) {
+                Topic topic = remaining.Dequeue();
+                foreach (Topic child in topic.Subtopics) remaining.Enqueue(child);
+                totalCount++;
             }
         }
 
