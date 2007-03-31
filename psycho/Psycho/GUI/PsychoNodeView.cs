@@ -28,7 +28,8 @@ using System.Collections.Generic;
 using Gtk;
 
 namespace Psycho {
-    public class PsychoNodeView : NodeView {
+
+    public partial class PsychoNodeView : NodeView {
 
         public PsychoTreeNode centralNode = new PsychoTreeNode("", "");
         public PsychoTreeNode selectedNode = new PsychoTreeNode("", "");
@@ -45,6 +46,7 @@ namespace Psycho {
 
             AppendColumn(titleColumn);
             AppendColumn("GUID", new CellRendererText(), "text", 1);
+
             Selection.Changed += new System.EventHandler(OnSelectionChanged);
             RowCollapsed += new RowCollapsedHandler(outlineView_RowCollapsed);
             RowExpanded += new RowExpandedHandler(outlineView_RowExpanded);

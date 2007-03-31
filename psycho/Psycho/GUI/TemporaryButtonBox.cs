@@ -50,9 +50,8 @@ namespace Psycho {
         Button deleteButton = new Button();
         #endregion
 
-        public TemporaryButtonBox()
-            : base()
-        {
+        public TemporaryButtonBox() : base() {
+
             this.Homogeneous = false;
             this.BorderWidth = 6;
 
@@ -160,25 +159,6 @@ namespace Psycho {
             AddNodesRecursively(outlineView.centralNode, paramModel.CentralTopic);
             outlineView.ExpandAll();
             titleEntry.Text = paramModel.CurrentTopic.Title;
-        }
-
-        private void AddNodesRecursively(PsychoTreeNode paramNode, Topic paramTopic)
-        {
-            foreach (Topic child in paramTopic.Subtopics) {
-                PsychoTreeNode newNode = new PsychoTreeNode(child.Title, child.GUID);
-                paramNode.AddChild(newNode);
-                newNode.Parent = paramNode;
-                AddNodesRecursively(newNode, child);
-            }
-        }
-
-        public void SelectNodeByGUID(string paramGuid)
-        {
-            foreach (PsychoTreeNode node in outlineView) {
-                this.outlineView.NodeSelection.SelectNode(node);
-                Console.WriteLine("Node found :" + node.GUID);
-                if (node.GUID == paramGuid) break;
-            }
         }
 
         public void DisableAddSibling()

@@ -27,6 +27,7 @@ using System;
 using Gtk;
 
 namespace Psycho {
+
     [Gtk.TreeNode]
     public class PsychoTreeNode : TreeNode {
         private string guid;
