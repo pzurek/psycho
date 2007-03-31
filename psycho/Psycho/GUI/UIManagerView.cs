@@ -34,6 +34,7 @@ namespace Psycho {
 
         private IModel Model;
         private IControl Control;
+
         IconLoader iconLoader = new IconLoader ();
 
         public UIManager uiManager = new UIManager ();
@@ -114,6 +115,8 @@ namespace Psycho {
             uiManager.InsertActionGroup (actions, 0);
             uiManager.AddUiFromString (ui);
             uiManager.AddTearoffs = true;
+            Toolbar toolbar = (Toolbar)(uiManager.GetWidget ("/ToolBar"));
+            toolbar.IconSize = IconSize.LargeToolbar;
         }
 
         private void BuildIcons ()
@@ -121,16 +124,25 @@ namespace Psycho {
             Pixbuf topicIcon = iconLoader.topicIcon;
             Pixbuf subtopicIcon = iconLoader.subtopicIcon;
             Pixbuf deleteIcon = iconLoader.deleteIcon;
+            Pixbuf calloutIcon = iconLoader.calloutIcon;
+            Pixbuf borderIcon = iconLoader.borderIcon;
+            Pixbuf relationIcon = iconLoader.relationIcon;
 
             IconFactory factory = new IconFactory ();
             factory.Add ("psycho-topic", new IconSet (topicIcon));
             factory.Add ("psycho-subtopic", new IconSet (subtopicIcon));
             factory.Add ("psycho-delete", new IconSet (deleteIcon));
+            factory.Add ("psycho-callout", new IconSet (calloutIcon));
+            factory.Add ("psycho-border", new IconSet (borderIcon));
+            factory.Add ("psycho-relation", new IconSet (relationIcon));
             factory.AddDefault ();
 
             StockManager.Add (new StockItem ("psycho-topic", "Add Topic", 0, Gdk.ModifierType.Button1Mask, ""));
             StockManager.Add (new StockItem ("psycho-subtopic", "Add Subtopic", 0, Gdk.ModifierType.Button1Mask, ""));
             StockManager.Add (new StockItem ("psycho-delete", "Delete Topic", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add (new StockItem ("psycho-callout", "Add Callout", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add (new StockItem ("psycho-border", "Create Border", 0, Gdk.ModifierType.Button1Mask, ""));
+            StockManager.Add (new StockItem ("psycho-relation", "Create Relation", 0, Gdk.ModifierType.Button1Mask, ""));
         }
 
         private void ActionActivated (object sender, EventArgs args)
