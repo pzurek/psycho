@@ -61,10 +61,12 @@ namespace Psycho {
 
         public void CreateTopic()
         {
+            int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
             Topic newTopic = new Topic(centralTopic.TotalCount);
+
             if (CurrentTopic.Parent != null) {
                 newTopic.Parent = CurrentTopic.Parent;
-                CurrentTopic.Parent.AddSubtopic(newTopic);
+                CurrentTopic.Parent.AddSubtopicAt((currentIndex + 1), newTopic);
                 CurrentTopic = newTopic;
             }
             NotifyObservers();
@@ -105,7 +107,6 @@ namespace Psycho {
         public void SetTitle(string paramTitle)
         {
             CurrentTopic.Title = (paramTitle);
-            Console.WriteLine("Title for topic: " + CurrentTopic.Title + " set to: " + CurrentTopic.Title);
             NotifyObservers();
         }
 
@@ -130,9 +131,9 @@ namespace Psycho {
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
             Topic saughtTopic = FindByGUID(paramGuid);
-            Console.WriteLine("Found topic: " + saughtTopic.Title);
+            //Console.WriteLine("Found topic: " + saughtTopic.Title);
             CurrentTopic = saughtTopic;
-            Console.WriteLine("Current topic set to: " + CurrentTopic.Title);
+            //Console.WriteLine("Current topic set to: " + CurrentTopic.Title);
             NotifyObservers();
         }
 

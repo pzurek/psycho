@@ -105,6 +105,11 @@ namespace Psycho {
             this.Subtopics.Add(paramTopic);
         }
 
+        public void AddSubtopicAt (int paramIndex, Topic paramTopic)
+        {
+            this.Subtopics.Insert(paramIndex, paramTopic);
+        }
+
         public void Delete()
         {
             if (this.Parent != null)

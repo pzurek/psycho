@@ -52,6 +52,7 @@ namespace Psycho {
         //    }
         //}
 
+        private bool isEdited;
         private TreeViewColumn titleColumn = new TreeViewColumn();
         private TreeViewColumn guidColumn = new TreeViewColumn();
 
@@ -61,6 +62,9 @@ namespace Psycho {
             titleColumn.Title = "Topic title";
             CellRendererText titleCell = new CellRendererText();
             titleCell.Editable = true;
+            titleCell.Edited += new EditedHandler(titleCell_Edited);
+            titleCell.EditingStarted += new EditingStartedHandler(titleCell_EditingStarted);
+            titleCell.EditingCanceled += new EventHandler(titleCell_EditingCanceled);
             titleColumn.PackStart(titleCell, true);
             titleColumn.AddAttribute(titleCell, "text", 0);
             titleColumn.SetCellDataFunc(titleCell, new Gtk.TreeCellDataFunc(RenderTitle));
@@ -79,14 +83,44 @@ namespace Psycho {
             outlineView.Focused += new FocusedHandler(outlineView_Focused);
             outlineView.RowCollapsed += new RowCollapsedHandler(outlineView_RowCollapsed);
             outlineView.RowExpanded += new RowExpandedHandler(outlineView_RowExpanded);
-            outlineView.KeyPressEvent += new KeyPressEventHandler(outlineView_KeyPressEvent);
+            outlineView.KeyReleaseEvent += new KeyReleaseEventHandler(outlineView_KeyReleaseEvent);
             outlineView.RowActivated += new RowActivatedHandler(outlineView_RowActivated);
 
             outlineView.ExpanderColumn.Expand = true;
-            //outlineView.ExpandAll();
             this.VscrollbarPolicy = PolicyType.Always;
             Add(outlineView);
             ShowAll();
+        }
+
+        void titleCell_EditingCanceled (object sender, EventArgs args)
+        {
+            isEdited = false;
+        }
+
+        void titleCell_EditingStarted (object sender, EditingStartedArgs args)
+        {
+            isEdited = true;
+        }
+
+        void outlineView_KeyReleaseEvent (object sender, KeyReleaseEventArgs args)
+        {
+            string key = args.Event.Key.ToString();
+            Console.WriteLine(key);
+            switch (key) {
+            case "Return":
+            if (isEdited) return;
+            else {
+                AddTopic();
+                return;
+            }
+            case "Insert":
+            AddSubtopic();
+            return;
+            case "Delete":
+            DeleteTopic();
+            return;
+            default: break;
+            }
         }
 
         void outlineView_RowActivated (object sender, RowActivatedArgs args)
@@ -95,7 +129,7 @@ namespace Psycho {
             //TreeIter iter;
             //store.GetIter(out iter, args.Path);
             //Topic iterTopic = (Topic) store.GetValue(iter, 0);
-            Console.WriteLine("Row activated") ;
+            Console.WriteLine("Row activated");
         }
 
         void outlineView_Focused (object sender, FocusedArgs args)
@@ -126,20 +160,22 @@ namespace Psycho {
 
         public void AddTopic ()
         {
-
+            Control.RequestAddTopic();
         }
 
         public void AddSubtopic ()
         {
+            Control.RequestAddSubtopic();
         }
 
         public void DeleteTopic ()
         {
+            Control.RequestDelete();
         }
 
         public void ExpandTopic (string paramGuid, bool isExpanded)
         {
-            this.Control.RequestExpand(paramGuid, isExpanded);
+            Control.RequestExpand(paramGuid, isExpanded);
         }
 
         public void EditTitle (string Title)
@@ -149,7 +185,7 @@ namespace Psycho {
 
         public void SetCurrentTopic ()
         {
-            this.Control.RequestSetCurrent(selectedTopic.GUID);
+            Control.RequestSetCurrent(selectedTopic.GUID);
         }
 
         public void DisableAddSibling ()
@@ -209,25 +245,20 @@ namespace Psycho {
 
         }
 
-        void outlineView_KeyPressEvent (object sender, KeyPressEventArgs args)
-        {
-            string key = args.Event.Key.ToString();
-            Console.WriteLine(key);
-        }
-
         void OnSelectionChanged (object sender, System.EventArgs args)
         {
             TreeModel model;
 
-            if (((TreeSelection) sender).GetSelected(out model, out selectedNode)) {
+            if (((TreeSelection) sender).GetSelected(out model, out selectedNode))
                 selectedTopic = (Topic) model.GetValue(selectedNode, 0);
-                SetCurrentTopic();
-            }
+            if (selectedTopic != Model.CurrentTopic) SetCurrentTopic();
+
         }
 
         private void titleCell_Edited (object sender, Gtk.EditedArgs args)
         {
-            EditTitle(args.NewText);
+            string titleText = args.NewText;
+            EditTitle(titleText);
         }
 
         private void outlineView_RowCollapsed (object sender, Gtk.RowCollapsedArgs args)

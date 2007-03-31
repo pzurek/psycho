@@ -53,7 +53,6 @@ namespace Psycho {
 
             HButtonBox buttonBox = new HButtonBox();
 
-            titleEntry.Changed +=new EventHandler(titleEntry_Changed); /*+= new EventHandler(titleEntry_EditingDone);*/
             titleEntry.KeyReleaseEvent += new KeyReleaseEventHandler (titleEntry_KeyReleaseEvent);
 
             addSiblingButton.Label = ("Add Sibling");
@@ -84,11 +83,6 @@ namespace Psycho {
             Console.WriteLine("Title edited: " + titleEntry.Text);
         }
 
-        void titleEntry_Changed (object sender, EventArgs args)
-        {
-            //EditTitle(titleEntry.Text);
-        }
-
         public void WireUp(IPsychoControl paramControl, IPsychoModel paramModel)
         {
             if (Model != null) {
@@ -104,10 +98,16 @@ namespace Psycho {
             Update(Model);
         }
 
-        private void titleEntry_EditingDone(object sender, System.EventArgs args)
+        public void CheckButtonsLegal ()
         {
-            //EditTitle(titleEntry.Text);
-            //Console.WriteLine("Title edited: " + titleEntry.Text);
+            if (Model.CurrentTopic == Model.CentralTopic) {
+                DisableAddSibling();
+                DisableDelete();
+            }
+            else {
+                EnableAddSibling();
+                EnableDelete();
+            }
         }
 
         public void EditTitle(string paramString)
@@ -155,6 +155,7 @@ namespace Psycho {
         public void Update(IPsychoModel paramModel)
         {
             titleEntry.Text = paramModel.CurrentTopic.Title;
+            CheckButtonsLegal();
         }
 
         public void DisableAddSibling()

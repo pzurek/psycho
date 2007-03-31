@@ -35,7 +35,6 @@ namespace Psycho {
         {
             Model = paramModel;
             View = paramView;
-            CheckButtonsLegal();
         }
 
         #region IPsychoControl Members
@@ -52,59 +51,39 @@ namespace Psycho {
 
         public void RequestSetCurrent(string paramGuid)
         {
-            Model.SetCurrent(paramGuid, Model.CentralTopic);
-            CheckButtonsLegal();
+            if (Model != null)
+                Model.SetCurrent(paramGuid, Model.CentralTopic);
         }
 
         public void RequestAddSubtopic()
         {
-            if (Model != null) {
+            if (Model != null) 
                 Model.CreateSubtopic();
-                CheckButtonsLegal();
-            }
         }
 
         public void RequestAddTopic()
         {
-            if (Model != null) {
+            if (Model != null) 
                 Model.CreateTopic();
-                CheckButtonsLegal();
-            }
         }
 
         public void RequestDelete()
         {
-            if (Model != null) {
+            if (Model != null)
                 Model.DeleteTopic();
-                CheckButtonsLegal();
-            }
         }
 
         public void RequestSetTitle(string paramTitle)
         {
-            if (Model != null) {
+            if (Model != null) 
                 Model.SetTitle (paramTitle);
-            }
         }
 
         public void RequestExpand(string paramGuid, bool isExpanded)
         {
-            if (Model != null) {
+            if (Model != null) 
                 Model.ExpandTopic(paramGuid, isExpanded);
-            }
         }
         #endregion
-
-        public void CheckButtonsLegal()
-        {
-            if (Model.CurrentTopic == Model.CentralTopic) {
-                View.DisableAddSibling();
-                View.DisableDelete();
-            }
-            else {
-                View.EnableAddSibling();
-                View.EnableDelete();
-            }
-        }
     }
 }
