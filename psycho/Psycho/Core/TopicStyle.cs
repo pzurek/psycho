@@ -47,6 +47,7 @@ namespace Psycho
                 int minMargin;
                 int maxMargin;
                 int padding;
+                int crankRadius, crankChamfer;
                 bool fixedWidth;
                 int width;
 
@@ -55,16 +56,23 @@ namespace Psycho
                 public TopicStyle (Topic iTopic) //TODO: One big hack
                 {
                         this.topic = iTopic;
-                        this.StyleFont = (new Font ("Verdana", 10)); // TODO: That of course has to be loaded from style
+                        this.StyleFont = (new Font ("Bitstream Vera Sans", 10)); // TODO: That of course has to be loaded from style
                         this.ConnectPoint = ConnectionPoint.Edge;
-                        this.StrokeWidth = 2;
+                        this.StrokeWidth = 1.5;
                         this.EqualMargins = true;
-                        this.LeftMargin = 0;
-                        this.RightMargin = 3;
-                        this.TopMargin = 4;
-                        this.BottomMargin = 10;
+                        this.LeftMargin = 3;
+                        this.RightMargin = 0;
+                        this.TopMargin = 0;
+                        this.BottomMargin = 0;
+                        this.CrankChamfer = 12;
+                        this.CrankRadius = 12;
                         this.Width = 150;
                         this.Padding = 4;
+                }
+
+                public Topic Topic
+                {
+                        get { return topic; }
                 }
 
                 public Font StyleFont
@@ -77,7 +85,7 @@ namespace Psycho
                 {
                         get
                         {
-                                switch (this.topic.Level) {
+                                switch (this.Topic.Level) {
                                 case 0:
                                 shape = TopicShape.RoundedRectangle;
                                 break;
@@ -109,18 +117,21 @@ namespace Psycho
                 {
                         get
                         {
-                                switch (this.topic.Level) {
+                                switch (this.Topic.Level) {
                                 case 0:
                                 connectShape = ConnectionShape.Curve;
                                 break;
                                 case 1:
-                                connectShape = ConnectionShape.Straight;
+                                connectShape = ConnectionShape.RoundedCrank;
                                 break;
                                 case 2:
+                                connectShape = ConnectionShape.Arc;
+                                break;
+                                case 3:
                                 connectShape = ConnectionShape.Crank;
                                 break;
                                 default:
-                                connectShape = ConnectionShape.Crank;
+                                connectShape = ConnectionShape.Straight;
                                 break;
                                 }
                                 return connectShape;
@@ -144,8 +155,8 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.topic.Level < 2) {
-                                        switch (this.topic.Number) {
+                                if (this.Topic.Level < 2) {
+                                        switch (this.Topic.Number) {
                                         case "0":
                                         strokeColor = new Color (55, 55, 55);
                                         break;
@@ -173,7 +184,7 @@ namespace Psycho
                                         }
                                 }
                                 else
-                                        strokeColor = this.topic.Parent.Style.StrokeColor;
+                                        strokeColor = this.Topic.Parent.Style.StrokeColor;
                                 return strokeColor;
                         }
                         set { strokeColor = value; }
@@ -261,6 +272,18 @@ namespace Psycho
                                         maxMargin = BottomMargin;
                                 return maxMargin;
                         }
+                }
+
+                public int CrankRadius
+                {
+                        get { return crankRadius; }
+                        set { crankRadius = value; }
+                }
+
+                public int CrankChamfer
+                {
+                        get { return crankChamfer; }
+                        set { crankChamfer = value; }
                 }
 
                 public int Padding

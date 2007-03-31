@@ -60,7 +60,7 @@ namespace Psycho
 
                 public string GUID
                 {
-                        get { return this.topic.GUID; }
+                        get { return this.Topic.GUID; }
                 }
         }
 }

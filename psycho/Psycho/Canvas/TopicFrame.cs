@@ -54,10 +54,10 @@ namespace Psycho
                 {
                         get
                         {
-                                frameWidth = this.topic.TextWidth +
-                                             this.topic.Style.LeftMargin +
-                                             this.topic.Style.RightMargin +
-                                             this.topic.Style.StrokeWidth;
+                                frameWidth = this.Topic.TextWidth +
+                                             this.Topic.Style.LeftMargin +
+                                             this.Topic.Style.RightMargin +
+                                              2 * this.Topic.Style.StrokeWidth;
                                 return frameWidth;
                         }
                 }
@@ -66,10 +66,10 @@ namespace Psycho
                 {
                         get
                         {
-                                frameHeight = this.topic.TextHeight +
-                                              this.topic.Style.TopMargin +
-                                              this.topic.Style.BottomMargin +
-                                              this.topic.Style.StrokeWidth;
+                                frameHeight = this.Topic.TextHeight +
+                                              this.Topic.Style.TopMargin +
+                                              this.Topic.Style.BottomMargin +
+                                              2 * this.Topic.Style.StrokeWidth;
                                 return frameHeight;
                         }
                 }
@@ -79,7 +79,7 @@ namespace Psycho
                         get
                         {
                                 octDistHor = new double ();
-                                if (this.topic.Style.Shape == TopicShape.Octagon)
+                                if (this.Topic.Style.Shape == TopicShape.Octagon)
                                         octDistHor = this.Height / (2 + sqrt2);
                                 else
                                         octDistHor = 0;
@@ -92,7 +92,7 @@ namespace Psycho
                         get
                         {
                                 octDistVer = new double ();
-                                if (this.topic.Style.Shape == TopicShape.Octagon)
+                                if (this.Topic.Style.Shape == TopicShape.Octagon)
                                         octDistVer = (this.Height - OctDistHor) / 2;
                                 else
                                         octDist = 0;
@@ -115,7 +115,7 @@ namespace Psycho
                         get
                         {
                                 hexDistHor = new double ();
-                                if (this.topic.Style.Shape == TopicShape.Hexagon) {
+                                if (this.Topic.Style.Shape == TopicShape.Hexagon) {
                                         hexDistHor = this.Height / (2 * sqrt3);
                                 }
                                 else
@@ -138,9 +138,8 @@ namespace Psycho
                 {
                         get
                         {
-                                radius = new double ();
-                                if (this.topic.Style.Shape == TopicShape.RoundedRectangle) {
-                                        radius = 6 /*this.topic.Style.MinMargin*/;
+                                if (this.Topic.Style.Shape == TopicShape.RoundedRectangle) {
+                                        radius = 6 /*this.Topic.Style.MinMargin*/;
                                 }
                                 else
                                         radius = 0;
@@ -152,10 +151,10 @@ namespace Psycho
                 {
                         get
                         {
-                                origin.X = this.topic.Offset.X -
-                                           this.topic.Style.LeftMargin;
-                                origin.Y = this.topic.Offset.Y -
-                                           this.topic.Style.TopMargin;
+                                origin.X = this.Topic.Offset.X -
+                                           this.Topic.Style.LeftMargin;
+                                origin.Y = this.Topic.Offset.Y -
+                                           this.Topic.Style.TopMargin;
                                 return origin;
                         }
                 }
@@ -164,9 +163,9 @@ namespace Psycho
                 {
                         get
                         {
-                                center.X = this.topic.Offset.X +
+                                center.X = this.Origin.X +
                                            this.Width / 2;
-                                center.Y = this.topic.Offset.Y +
+                                center.Y = this.Origin.Y +
                                            this.Height / 2;
                                 return center;
                         }
@@ -176,18 +175,17 @@ namespace Psycho
                 {
                         get
                         {
-                                left.X = this.topic.Offset.X -
-                                         this.topic.Style.LeftMargin -
+                                left.X = this.Origin.X -
                                          this.HexDistHor -
                                          this.OctDistHor -
                                          this.Radius;
 
-                                if (topic.Style.Shape == TopicShape.Line)
-                                        left.Y = this.topic.Offset.Y +
+                                if (this.Topic.Style.Shape == TopicShape.Line)
+                                        left.Y = this.Origin.Y +
                                                   this.Height;
                                 else
-                                        left.Y = this.topic.Offset.Y +
-                                                  this.Height / 2;
+                                        left.Y = this.Origin.Y +
+                                                 this.Height / 2;
                                 return left;
                         }
                 }
@@ -196,19 +194,18 @@ namespace Psycho
                 {
                         get
                         {
-                                right.X = this.topic.Offset.X +
-                                          this.topic.TextWidth +
-                                          this.topic.Style.RightMargin +
+                                right.X = this.Origin.X +
+                                          this.Width +
                                           this.HexDistHor +
                                           this.OctDistHor +
                                           this.Radius;
 
-                                if (topic.Style.Shape == TopicShape.Line)
-                                        right.Y = this.topic.Offset.Y +
-                                                  this.topic.Frame.Height;
+                                if (this.Topic.Style.Shape == TopicShape.Line)
+                                        right.Y = this.Origin.Y +
+                                                  this.Height;
                                 else
-                                        right.Y = this.topic.Offset.Y +
-                                                  this.topic.Frame.Height / 2;
+                                        right.Y = this.Origin.Y +
+                                                  this.Height / 2;
                                 return right;
                         }
                 }
@@ -217,10 +214,9 @@ namespace Psycho
                 {
                         get
                         {
-                                top.X = this.topic.Offset.X +
-                                         this.topic.TextWidth / 2;
-                                top.Y = this.topic.Offset.Y -
-                                        this.topic.Style.TopMargin;
+                                top.X = this.Origin.X +
+                                         this.Width / 2;
+                                top.Y = this.Origin.Y;
                                 return top;
                         }
                 }
@@ -229,11 +225,10 @@ namespace Psycho
                 {
                         get
                         {
-                                bottom.X = this.topic.Offset.X +
-                                         this.topic.TextWidth / 2;
-                                bottom.Y = this.topic.Offset.Y +
-                                          this.topic.TextHeight +
-                                           this.topic.Style.BottomMargin;
+                                bottom.X = this.Origin.X +
+                                         this.Width / 2;
+                                bottom.Y = this.Origin.Y +
+                                          this.Height;
                                 return bottom;
                         }
                 }
@@ -241,7 +236,7 @@ namespace Psycho
                 public void Sketch (Cairo.Context iContext)
                 {
                         context = iContext;
-                        switch (this.topic.Style.Shape) {
+                        switch (this.Topic.Style.Shape) {
                         case TopicShape.Rectangle:
                         sketchRectangle ();
                         break;

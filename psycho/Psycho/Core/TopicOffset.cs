@@ -51,10 +51,10 @@ namespace Psycho
                         get
                         {
                                 if (isAuto) {
-                                        if (topic.IsCentral)
-                                                x = 10;
+                                        if (Topic.IsCentral)
+                                                x = 20;
                                         else
-                                                x = topic.Parent.Offset.X + topic.Parent.Frame.Width + 49;
+                                                x = Topic.Parent.Offset.X + Topic.Parent.Frame.Width + 70;
                                         return x;
                                 }
                                 else
@@ -72,16 +72,14 @@ namespace Psycho
                         get
                         {
                                 if (isAuto) {
-                                        if (this.topic.IsCentral)
-                                                y = 10;
+                                        if (this.Topic.IsCentral)
+                                                y = 20;
                                         else
-                                                if (this.topic.IsFirst)
-                                                        y = this.topic.Parent.Offset.Y;
+                                                if (this.Topic.IsFirst)
+                                                        y = this.Topic.Parent.Offset.Y;
                                                 else
-                                                        y = this.topic.Previous.Offset.Y +
-                                                            this.topic.Previous.TotalHeight /*+
-                                                            this.topic.Style.Padding*/
-                                                                                      ;
+                                                        y = this.Topic.Previous.Offset.Y +
+                                                            this.Topic.Previous.TotalHeight;
                                         return y;
                                 }
                                 else

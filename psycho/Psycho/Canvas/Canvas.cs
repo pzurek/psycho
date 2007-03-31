@@ -101,6 +101,7 @@ namespace Psycho
                         pattern.Extend = Extend.Repeat;
                         cr.Pattern = pattern;
                         cr.Paint ();
+                        pattern.Destroy ();
                 }
 
                 void DrawTopics (Cairo.Context cr)
@@ -118,6 +119,7 @@ namespace Psycho
 
                 void DrawText (Cairo.Context iContext, Topic iTopic)
                 {
+                        gc = mapArea.Style.TextAAGC (StateType.Normal);
                         gc.Foreground = black;
                         text = iTopic.TextLayout;
                         this.mapArea.GdkWindow.DrawLayout (gc, (int) iTopic.Offset.X, (int) iTopic.Offset.Y, text);
@@ -127,8 +129,6 @@ namespace Psycho
                 {
                         iTopic.Connection.Sketch (iContext);
                         Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
-                        //Cairo.Color fillColor;
-                        //strokeColor = new Cairo.Color (1, 0, 0);
                         iContext.Color = strokeColor;
                         iContext.LineWidth = iTopic.Style.StrokeWidth;
                         iContext.Stroke ();
