@@ -32,10 +32,8 @@ using Psycho;
 
 namespace Psycho
 {
-
         public class MainWindow : Gtk.Window
         {
-
                 public MainWindow () : base ("Psycho")
                 {
                         Icon = IconLoader.psychoIcon;
