@@ -35,14 +35,15 @@ namespace Psycho {
     /// </summary>
     public partial class MindModel : IPsychoModel {
 
-        private Topic centralTopic = new Topic(0);
+        private Topic centralTopic = new Topic(1234);
         private Topic currentTopic;
 
         #region IPsychoModel Members
         private ArrayList observerList = new ArrayList();
-        public Topics newTopics = new Topics();
-        public Topics deletedTopics = new Topics();
-        public Topics changedTopics = new Topics();
+        private Topics newTopics = new Topics();
+        private Topics deletedTopics = new Topics();
+        private string deletedTopicPath = ("");
+        private Topics changedTopics = new Topics();
 
         public Topic CurrentTopic
         {
@@ -60,10 +61,16 @@ namespace Psycho {
             get { return changedTopics; }
         }
 
+        public string DeletedTopicPath
+        {
+            get { return deletedTopicPath; }
+        }
+
         public Topics DeletedTopics
         {
             get { return deletedTopics; }
         }
+
 
         public Topic CentralTopic
         {
@@ -103,12 +110,21 @@ namespace Psycho {
         public void DeleteTopic()
         {
             int newIndex;
-            int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
+            int currentIndex;
+
+            if (CurrentTopic.Parent != null) {
+                currentIndex = CurrentTopic.Parent.Subtopics.IndexOf(CurrentTopic);
+            }
+            else
+                return;
+
             Topic tempParent = this.CurrentTopic.Parent;
 
-            Topic deletedTopic = new Topic(999);
-            deletedTopic =  currentTopic;
+            Topic deletedTopic = (CurrentTopic);
+
+            deletedTopicPath = (deletedTopic.Path);
             deletedTopics.Add(deletedTopic);
+
 
             if (CurrentTopic.Parent.Subtopics.Count == 1) {
                 CurrentTopic.Parent.Subtopics.Clear();
@@ -155,9 +171,10 @@ namespace Psycho {
 
         private void ClearChanges ()
         {
-            NewTopics.Clear();
-            DeletedTopics.Clear();
-            ChangedTopics.Clear();
+            newTopics.Clear();
+            deletedTopicPath = ("");
+            deletedTopics.Clear();
+            changedTopics.Clear();
         }
 
         public void SetCurrent(string paramGuid, Topic paramTopic)

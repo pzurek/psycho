@@ -36,6 +36,7 @@ namespace Psycho {
         Topic CentralTopic { get; set; }
         Topics NewTopics { get; }
         Topics DeletedTopics { get; }
+        string DeletedTopicPath { get; }
         Topics ChangedTopics { get; }
         int CurrentLevel { get; }
         #endregion

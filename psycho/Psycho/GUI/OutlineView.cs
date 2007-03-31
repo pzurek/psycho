@@ -162,11 +162,17 @@ namespace Psycho {
             outlineView.ScrollToCell(store.GetPath(selectedNode), titleColumn, true, 0, 0);
         }
 
-        public void Update (IPsychoModel paraModel)
-        {   
+        public void Update (IPsychoModel paramModel)
+        {
+            UpdateNew(paramModel);
+            UpdateDeleted(paramModel);
+            //UpdateDeletedPaths(paramModel);
+            UpdateChanged(paramModel);
+        }
 
-
-            foreach (Topic topic in paraModel.NewTopics) {
+        public void UpdateNew (IPsychoModel paramModel)
+        {
+            foreach (Topic topic in paramModel.NewTopics) {
                 TreeIter parent;
                 TreePath parentPath = new TreePath(topic.Parent.Path);
                 int position = topic.Parent.Subtopics.IndexOf(topic);
@@ -178,16 +184,34 @@ namespace Psycho {
                 outlineView.Selection.SelectIter(iter);
                 outlineView.ScrollToCell(path, titleColumn, true, 0, 0);
             }
+        }
 
-            foreach (Topic topic in paraModel.DeletedTopics) {
-                TreeIter iter;
-                TreePath path = new TreePath(topic.Path);
-                store.GetIter(out iter, path);
-                store.Remove(ref iter);
+        public void UpdateDeleted (IPsychoModel paramModel)
+        {
+            foreach (Topic deletedTopic in paramModel.DeletedTopics) {
+                TreeIter deletedIter;
+                string topicPath = (deletedTopic.Path);
+                TreePath deletedPath = new TreePath(topicPath);
+                this.store.GetIter(out deletedIter, deletedPath);
+                this.store.Remove(ref deletedIter);
                 outlineView.QueueDraw();
             }
+        }
 
-            foreach (Topic topic in paraModel.ChangedTopics) {
+        public void UpdateDeletedPaths (IPsychoModel paramModel)
+        {
+            string deletedTopicPath = (paramModel.DeletedTopicPath);
+            TreeIter deletedIter;
+            TreePath deletedPath = new TreePath(deletedTopicPath);
+            this.store.GetIter(out deletedIter, deletedPath);
+            this.store.Remove(ref deletedIter);
+            outlineView.QueueDraw();
+        }
+
+        public void UpdateChanged (IPsychoModel paramModel)
+        {
+
+            foreach (Topic topic in paramModel.ChangedTopics) {
                 TreePath path = new TreePath(topic.Path);
                 TreeIter iter;
                 store.GetIter(out iter, path);
@@ -269,11 +293,6 @@ namespace Psycho {
             }
         }
 
-        public void SelectNodeByGUID (string paramGuid)
-        {
-
-        }
-
         void OnSelectionChanged (object sender, System.EventArgs args)
         {
             TreeModel model;
@@ -281,7 +300,6 @@ namespace Psycho {
             if (((TreeSelection) sender).GetSelected(out model, out selectedNode))
                 selectedTopic = (Topic) model.GetValue(selectedNode, 0);
             if (selectedTopic != Model.CurrentTopic) SetCurrentTopic();
-
         }
 
         private void titleCell_Edited (object sender, Gtk.EditedArgs args)
