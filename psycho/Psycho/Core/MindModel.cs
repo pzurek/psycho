@@ -45,9 +45,8 @@ namespace Psycho
 
                 public MindModel ()
                 {
-                        CentralTopic = new Topic ();
+                        CentralTopic = new Topic ("Central Topic");
                         SetCurrent (CentralTopic);
-                        centralTopic.Text = "Central Topic";
 
                         XmlDeclaration declarationNode = XMLModel.CreateXmlDeclaration ("1.0", "UTF-8", "");
                         xmlModel.AppendChild (declarationNode);
@@ -145,12 +144,12 @@ namespace Psycho
 
                 public void AppendSomeNodes (Topic iTopic)
                 {
-                        while (iTopic.Subtopics.Count < 2) {
+                        while (iTopic.Subtopics.Count < 3) {
                                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                                 newTopic.Parent = iTopic;
                                 CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);
                                 iTopic.AddSubtopic (newTopic);
-                                if (newTopic.Level < 7)
+                                if (newTopic.Level < 3)
                                         AppendSomeNodes (newTopic);
                         }
                 }
@@ -252,7 +251,8 @@ namespace Psycho
                                         newIndex = currentIndex;
                                 }
                                 CurrentTopic.Parent.Subtopics.RemoveAt (currentIndex);
-                                CurrentTopic = tempParent.Subtopics[newIndex];
+                                Topic tempTopic = tempParent.Subtopics[newIndex];
+                                SetCurrent (tempTopic);
                                 SetCurrentXml (CurrentTopic.GUID);
                         }
                         UpdateToTop (tempParent);
@@ -313,6 +313,34 @@ namespace Psycho
                         CurrentTopic.IsCurrent = true;
                         SetCurrentXml (CurrentTopic.GUID);
                         NotifyObservers ();
+                }
+
+                public void CurrentGoForward ()
+                {
+                        if (CurrentTopic.Next != null)
+                                SetCurrent (CurrentTopic.Next);
+                        else
+                                CurrentGoDown ();     
+                }
+
+                public void CurrentGoDown ()
+                {
+                        if (CurrentTopic.HasChildren)
+                                SetCurrent (CurrentTopic.Subtopics.First);
+                }
+
+                public void CurrentGoBack ()
+                {
+                        if (CurrentTopic.Previous != null)
+                                SetCurrent (CurrentTopic.Previous);
+                        else
+                                CurrentGoUp ();
+                }
+
+                public void CurrentGoUp ()
+                {
+                        if (CurrentTopic.Parent != null)
+                                SetCurrent (CurrentTopic.Parent);
                 }
 
                 public void SetCurrentXml (string iGuid)

@@ -25,6 +25,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -55,6 +56,31 @@ namespace Psycho
                 {
                         if (Model != null)
                                 Model.SetCurrent (iGuid);
+                }
+
+                public void RequestCurrentForward ()
+                {
+                        if (Model != null)
+                                Model.CurrentGoForward ();
+                }
+
+                public void RequestCurrentBack ()
+                {
+                        if (Model != null)
+                                Model.CurrentGoBack ();
+                }
+
+
+                public void RequestCurrentUp ()
+                {
+                        if (Model != null)
+                                Model.CurrentGoUp ();
+                }
+
+                public void RequestCurrentDown ()
+                {
+                        if (Model != null)
+                                Model.CurrentGoDown ();
                 }
 
                 public void RequestAddSubtopic ()

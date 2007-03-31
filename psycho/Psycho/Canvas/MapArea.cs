@@ -201,7 +201,6 @@ namespace Psycho
 
                         int reminder = (int) System.Math.IEEERemainder (iContext.LineWidth, 2);
                         if (reminder != 0) {
-                                //iContext.Save ();
                                 iContext.Translate (0.5, 0.5);
                         }
 
@@ -209,7 +208,6 @@ namespace Psycho
 
                         if (reminder != 0) {
                                 iContext.Translate (-0.5, -0.5);
-                                //iContext.Restore ();
                         }                       
 
                         iContext.Restore ();
@@ -281,6 +279,26 @@ namespace Psycho
                 }
 
                 public void EnableDelete ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentForward ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentBack ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentUp ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentDown ()
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }

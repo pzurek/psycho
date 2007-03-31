@@ -75,6 +75,11 @@ namespace Psycho
                 "    <toolitem name='open' action='Open'/>" +
                 "    <toolitem name='save' action='Save'/>" +
                 "    <separator action='Sep1'/>" +
+                "    <toolitem name='goback' action='GoBack'/>" +
+                "    <toolitem name='goup' action='GoUp'/>" +
+                "    <toolitem name='godown' action='GoDown'/>" +
+                "    <toolitem name='goforward' action='GoForward'/>" +
+                "    <separator action='Sep2'/>" +
                 "    <toolitem name='addtopic' action='AddTopic'/>" +
                 "    <toolitem name='addsubtopic' action='AddSubtopic'/>" +
                 "    <toolitem name='delete' action='Delete'/>" +
@@ -105,6 +110,10 @@ namespace Psycho
                                 new ActionEntry ("Relation", "psycho-relation", "_Relation", "", "Create a relation between two existing elements", new EventHandler (ActionActivated)),
                                 new ActionEntry ("Callout", "psycho-callout", "_Callout", "", "Create a callout topic for currently selected element", new EventHandler (ActionActivated)),
                                 new ActionEntry ("Border", "psycho-border", "_Border", "", "Add Border", new EventHandler (ActionActivated)),
+                                new ActionEntry ("GoForward", Stock.GoForward, "_Next", "", "Go to next topic", new EventHandler (ActionActivated)),
+                                new ActionEntry ("GoBack", Stock.GoBack, "_Previous", "", "Go to previous topic", new EventHandler (ActionActivated)),
+                                new ActionEntry ("GoUp", Stock.GoUp, "P_arent", "", "Go to paretn topic", new EventHandler (ActionActivated)),
+                                new ActionEntry ("GoDown", Stock.GoDown, "C_hild", "", "Go to first child topic", new EventHandler (ActionActivated)),
                                 
                                 new ActionEntry ("Copy", Stock.Copy, "Copy", "<control>C", "Copy to clipboard", new EventHandler (ActionActivated)),
                                 new ActionEntry ("Cut", Stock.Cut, "Cut", "<control>X", "Cut to clipboard", new EventHandler (ActionActivated)),
@@ -181,6 +190,18 @@ namespace Psycho
                         case "Delete":
                         DeleteTopic ();
                         return;
+                        case "GoForward":
+                        SetCurrentForward ();
+                        return;
+                        case "GoBack":
+                        SetCurrentBack ();
+                        return;
+                        case "GoUp":
+                        SetCurrentUp ();
+                        return;
+                        case "GoDown":
+                        SetCurrentDown ();
+                        return;
                         default: break;
                         }
                 }
@@ -244,6 +265,26 @@ namespace Psycho
                 public void SetCurrentTopic ()
                 {
                         throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentForward ()
+                {
+                        Control.RequestCurrentForward ();
+                }
+
+                public void SetCurrentBack ()
+                {
+                        Control.RequestCurrentBack ();
+                }
+
+                public void SetCurrentUp ()
+                {
+                        Control.RequestCurrentUp ();
+                }
+
+                public void SetCurrentDown ()
+                {
+                        Control.RequestCurrentDown ();
                 }
 
                 public void TriggerEdit (bool editPending)

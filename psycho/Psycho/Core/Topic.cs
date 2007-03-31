@@ -515,8 +515,6 @@ namespace Psycho
                 {
                         get
                         {
-                                if (level == null)
-                                        ;
                                 level = 0;
                                 Queue<Topic> remaining = new Queue<Topic> ();
 

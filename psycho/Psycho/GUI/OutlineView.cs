@@ -387,5 +387,26 @@ namespace Psycho
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
+
+
+                public void SetCurrentForward ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentBack ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentUp ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void SetCurrentDown ()
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
         }
 }

@@ -51,6 +51,10 @@ namespace Psycho
                 void ChangeTopic (Topic iTopic);
                 void SetCurrent (string iGuid);
                 void SetCurrent (Topic iTopic);
+                void CurrentGoForward ();
+                void CurrentGoBack ();
+                void CurrentGoUp ();
+                void CurrentGoDown ();
                 void SetTitle (string iString);
                 void ExpandTopic (string iGuid, bool isExpanded);
                 //void TriggerEdit (bool editPending);
