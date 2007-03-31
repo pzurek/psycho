@@ -133,6 +133,9 @@ namespace Psycho
                                 connectShape = ConnectionShape.ChamferedCrank;
                                 break;
                                 case 4:
+                                connectShape = ConnectionShape.Crank;
+                                break;
+                                case 5:
                                 connectShape = ConnectionShape.None;
                                 break;
                                 default:

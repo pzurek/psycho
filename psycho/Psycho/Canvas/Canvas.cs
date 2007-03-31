@@ -106,7 +106,7 @@ namespace Psycho
                         DrawFrames (iContext, Model.CentralTopic);
                         DrawTexts (iContext, Model.CentralTopic);
                         DrawFrame (iContext, Model.CentralTopic);
-                        DrawText (iContext, Model.CentralTopic);
+                        DrawText (/*iContext,*/ Model.CentralTopic);
                 }
 
                 public void DrawConnections (Cairo.Context iContext, Topic iTopic)
@@ -135,20 +135,20 @@ namespace Psycho
                                 if (TempTopic.IsExpanded) {
                                         DrawTexts (iContext, TempTopic);
                                 }
-                                DrawText (iContext, TempTopic);
+                                DrawText (/*iContext, */TempTopic);
                         }
                 }
 
-                void DrawText (Cairo.Context iContext, Topic iTopic)
+                void DrawText (/*Cairo.Context iContext,*/ Topic iTopic)
                 {
                         gc = mapArea.Style.TextAAGC (StateType.Normal);
                         gc.Foreground = new Gdk.Color (0, 0, 0);
                         text = iTopic.TextLayout;
-                        this.mapArea.GdkWindow.DrawLayout (gc, (int) iTopic.Offset.X, (int) iTopic.Offset.Y, text);
+                        mapArea.GdkWindow.DrawLayout (gc, (int) iTopic.Offset.X, (int) iTopic.Offset.Y, text);
                         gc.Dispose ();
                 }
 
-                void DrawConnection (Cairo.Context iContext, Topic iTopic)
+                static void DrawConnection (Cairo.Context iContext, Topic iTopic)
                 {
                         iTopic.Connection.Sketch (iContext);
                         iContext.Color = iTopic.Style.StrokeColor.ToCairoColor ();
@@ -156,7 +156,7 @@ namespace Psycho
                         iContext.Stroke ();
                 }
 
-                void DrawFrame (Cairo.Context iContext, Topic iTopic)
+                static void DrawFrame (Cairo.Context iContext, Topic iTopic)
                 {
                         Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
                         if (iTopic.IsCurrent)
