@@ -28,10 +28,8 @@ using System.Text;
 
 namespace Psycho
 {
-
         public class FontMarker
         {
-
                 Font textFont;
                 int startIndex;
                 int endIndex;

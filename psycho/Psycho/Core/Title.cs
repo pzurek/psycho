@@ -29,10 +29,8 @@ using System.Text;
 
 namespace Psycho
 {
-
         public class Title
         {
-
                 string text;
                 Font textFont;
 

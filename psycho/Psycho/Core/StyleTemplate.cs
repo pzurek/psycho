@@ -44,6 +44,5 @@ namespace Psycho {
                         get { return baseStyle; }
                         set { baseStyle = value; }
                 }
-
         }
 }
