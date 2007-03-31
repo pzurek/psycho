@@ -27,17 +27,36 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Gtk;
+using Gdk;
 using Cairo;
 
 namespace Psycho
 {
-        class Canvas : DrawingArea, IView
+        class Canvas : ScrolledWindow, IView
         {
                 IModel Model;
                 IControl Control;
 
+                DrawingArea mapArea;
+
+                Gdk.GC gc;
+                Gdk.Color red;
+                Gdk.Color green;
+                Gdk.Color blue;
+                Gdk.Color black;
+
+                Pango.Layout text;
+
                 public Canvas ()
+                        : base ()
                 {
+                        mapArea = new DrawingArea ();
+
+                        mapArea.ExposeEvent += OnMapExpose;
+                        mapArea.Realized += OnMapRealize;
+                        this.HscrollbarPolicy = PolicyType.Always;
+                        this.VscrollbarPolicy = PolicyType.Always;
+                        this.Add (mapArea);
                 }
 
                 public void WireUp (IControl iControl, IModel iModel)
@@ -55,14 +74,30 @@ namespace Psycho
                         Update (Model);
                 }
 
-                protected override bool OnExposeEvent (Gdk.EventExpose e)
+                void OnMapRealize (object sender, EventArgs e)
                 {
-                        Context cr = Gdk.CairoHelper.Create (e.Window);
+                        gc = new Gdk.GC (this.GdkWindow);
+
+                        red = new Gdk.Color (0xff, 0, 0);
+                        green = new Gdk.Color (0, 0xff, 0);
+                        blue = new Gdk.Color (0, 0, 0xff);
+                        black = new Gdk.Color (0, 0, 0);
+
+                        Colormap colormap = Colormap.System;
+                        colormap.AllocColor (ref red, true, true);
+                        colormap.AllocColor (ref green, true, true);
+                        colormap.AllocColor (ref blue, true, true);
+                        colormap.AllocColor (ref black, true, true);
+                }
+
+
+                void OnMapExpose (object o, ExposeEventArgs e)
+                {
+                        Context cr = Gdk.CairoHelper.Create (mapArea.GdkWindow);
                         int w, h;
-                        e.Window.GetSize (out w, out h);
+                        mapArea.GdkWindow.GetSize (out w, out h);
                         DrawBackground (cr);
-                        DrawTopics (cr, w, h);
-                        return true;
+                        DrawTopics (cr);
                 }
 
                 private void DrawBackground (Context cr)
@@ -74,10 +109,7 @@ namespace Psycho
                         cr.Paint ();
                 }
 
-                Pango.Layout text;
-                Cairo.Matrix matrix;
-
-                void DrawTopics (Cairo.Context cr, int w, int h)
+                void DrawTopics (Cairo.Context cr)
                 {
                         Model.CentralTopic.ForEach (delegate (Topic topic)
                         {
@@ -87,25 +119,21 @@ namespace Psycho
                         );
                 }
 
-                void DrawText (Cairo.Context iContext, Topic iTopic)  //TODO: Implement draing to cairo context
+                void DrawText (Cairo.Context iContext, Topic iTopic)
                 {
+                        gc.Foreground = black;
                         text = iTopic.TextLayout;
-                        this.GdkWindow.DrawLayout
-                                (this.Style.TextAAGC (StateType.Normal),
-                                iTopic.Offset.X,
-                                iTopic.Offset.Y,
-                                text);
+                        this.mapArea.GdkWindow.DrawLayout (gc, iTopic.Offset.X, iTopic.Offset.Y, text);
                 }
 
                 void DrawFrame (Cairo.Context iContext, Topic iTopic)
                 {
                         iTopic.Frame.Draw (iContext, iTopic);
-                        Console.WriteLine ("Frame drawn for: " + iTopic.Text);
                 }
 
                 public void Update (IModel iModel)
                 {
-                        this.QueueDraw();
+                        this.QueueDraw ();
                 }
 
                 public void AddTopic ()
