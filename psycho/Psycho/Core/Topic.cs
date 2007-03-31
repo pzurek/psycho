@@ -66,7 +66,7 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic ";
                         this.Parent = iParent;
-                        iParent.Subtopics.Add (this);
+                        iParent.SubtopicList.Add (this);
                         this.Style = new TopicStyle (this);
                         if (this.Parent != null)
                                 this.Parent.Update ();
@@ -78,7 +78,7 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = iTitle;
                         this.Parent = iParent;
-                        iParent.Subtopics.Add (this);
+                        iParent.SubtopicList.Add (this);
                         this.Style = new TopicStyle (this);
                         if (this.Parent != null)
                                 this.Parent.Update ();
@@ -100,7 +100,7 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic " + topicNumber.ToString ();
                         this.Parent = iParent;
-                        iParent.Subtopics.Add (this);
+                        iParent.SubtopicList.Add (this);
                         this.Style = new TopicStyle (this);
                         if (this.Parent != null)
                                 this.Parent.Update ();
@@ -148,11 +148,11 @@ namespace Psycho
                 double totalWidth;
                 int textHeight;
                 double totalHeight;
-                Topics subtopics;
-                Topics leftSubtopics;
-                Topics rightSubtopics;
-                Topics topSubtopics;
-                Topics bottomSubtopics;
+                TopicList subtopicList;
+                TopicList leftSubtopics;
+                TopicList rightSubtopics;
+                TopicList topSubtopics;
+                TopicList bottomSubtopics;
                 Pango.Layout textLayout;
                 TopicFrame frame;
                 TopicConnection connection;
@@ -162,14 +162,73 @@ namespace Psycho
                 bool isLast;
                 bool hasChildren;
                 Cairo.PointD inPoint;
+                Cairo.PointD outPoint;
+
+                public TopicList SubtopicList
+                {
+                        get
+                        {
+                                if (subtopicList == null)
+                                        subtopicList = new TopicList (this);
+                                return subtopicList;
+                        }
+                }
+
+                public int Index
+                {
+                        get
+                        {
+                                if (this.Parent != null) {
+                                        index = this.Parent.SubtopicList.IndexOf (this);
+                                        return index;
+                                }
+                                else {
+                                        index = -1;
+                                        return index;
+                                }
+                        }
+                }
 
                 public Cairo.PointD InPoint
                 {
-                        get { return inPoint; }
-                        set { inPoint = value; }
+                        get
+                        {
+                                switch (this.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                if (this.isOnLeft)
+                                                        inPoint = this.Frame.Right;
+                                                else
+                                                        inPoint = this.Frame.Left;
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OneSideMap:
+                                        inPoint = this.Frame.Left;
+                                        break;
+                                        case SubtopicsLayout.Root: {
+                                                if (this.isOnLeft)
+                                                        inPoint = this.Frame.Right;
+                                                else
+                                                        inPoint = this.Frame.Left;
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OneSideRoot:
+                                        inPoint = this.Frame.Left;
+                                        break;
+                                        case SubtopicsLayout.DoubleOrgChart: {
+                                                if (this.isOnTop)
+                                                        inPoint = this.Frame.Bottom;
+                                                else
+                                                        inPoint = this.Frame.Top;
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart:
+                                        inPoint = this.Frame.Top;
+                                        break;
+                                }
+                                return inPoint;
+                        }
                 }
 
-                Cairo.PointD outPoint;
 
                 public Cairo.PointD OutPoint
                 {
@@ -186,37 +245,27 @@ namespace Psycho
                                                                 outPoint = this.Frame.Right;
                                                 }
                                                 break;
-                                                case SubtopicsLayout.Root: {
-                                                        outPoint = this.Frame.Bottom;
+                                                case SubtopicsLayout.OneSideMap:
+                                                outPoint = this.Frame.Right;
+                                                break;
+                                                case SubtopicsLayout.Root:
+                                                outPoint = this.Frame.Bottom;
+                                                break;
+                                                case SubtopicsLayout.OneSideRoot:
+                                                outPoint = this.Frame.Bottom;
+                                                break;
+                                                case SubtopicsLayout.DoubleOrgChart: {
+                                                        if (this.isOnTop)
+                                                                outPoint = this.Frame.Top;
+                                                        else
+                                                                outPoint = this.Frame.Bottom;
                                                 }
+                                                break;
+                                                case SubtopicsLayout.OrgChart:
+                                                outPoint = this.Frame.Bottom;
                                                 break;
                                         }
                                 return outPoint;
-                        }
-                }
-
-                public Topics Subtopics
-                {
-                        get
-                        {
-                                if (subtopics == null)
-                                        subtopics = new Topics (this);
-                                return subtopics;
-                        }
-                }
-
-                public int Index
-                {
-                        get
-                        {
-                                if (this.Parent != null) {
-                                        index = this.Parent.Subtopics.IndexOf (this);
-                                        return index;
-                                }
-                                else {
-                                        index = -1;
-                                        return index;
-                                }
                         }
                 }
 
@@ -281,7 +330,7 @@ namespace Psycho
                 void updateTop ()
                 {
                         this.top = (int) this.Frame.Top.Y;
-                        foreach (Topic topic in this.Subtopics) {
+                        foreach (Topic topic in this.SubtopicList) {
                                 if (topic.Top < this.Top)
                                         this.top = topic.Top;
                         }
@@ -290,7 +339,7 @@ namespace Psycho
                 void updateBottom ()
                 {
                         this.bottom = (int) this.Frame.Bottom.Y;
-                        foreach (Topic topic in this.Subtopics) {
+                        foreach (Topic topic in this.SubtopicList) {
                                 if (topic.bottom > this.Bottom)
                                         this.bottom = topic.Bottom;
                         }
@@ -299,7 +348,7 @@ namespace Psycho
                 void updateLeft ()
                 {
                         this.left = (int) this.Frame.Left.X;
-                        foreach (Topic topic in this.Subtopics) {
+                        foreach (Topic topic in this.SubtopicList) {
                                 if (topic.left < this.Left)
                                         this.left = topic.Left;
                         }
@@ -308,7 +357,7 @@ namespace Psycho
                 void updateRight ()
                 {
                         this.right = (int) this.Frame.Right.X;
-                        foreach (Topic topic in this.Subtopics) {
+                        foreach (Topic topic in this.SubtopicList) {
                                 if (topic.right > this.Right)
                                         this.right = topic.Right;
                         }
@@ -379,11 +428,23 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.IsExpanded && this.Subtopics.Height > this.Frame.Height)
-                                        totalHeight = Subtopics.TotalHeight;
+                                if (this.IsExpanded && this.SubtopicList.Height > this.Frame.Height)
+                                        totalHeight = SubtopicList.Height;
                                 else
                                         totalHeight = this.Frame.Height + this.Style.Padding;
                                 return totalHeight;
+                        }
+                }
+
+                public double TotalWidth
+                {
+                        get
+                        {
+                                if (this.IsExpanded && this.SubtopicList.Width > this.Frame.Width)
+                                        totalWidth = SubtopicList.Width;
+                                else
+                                        totalWidth = this.Frame.Width + this.Style.Padding;
+                                return totalWidth;
                         }
                 }
 
@@ -450,7 +511,7 @@ namespace Psycho
                         get
                         {
                                 if (this.Parent != null && !this.IsLast)
-                                        next = this.Parent.Subtopics[(this.Index + 1)];
+                                        next = this.Parent.SubtopicList[(this.Index + 1)];
                                 else
                                         next = null;
                                 return next;
@@ -462,7 +523,7 @@ namespace Psycho
                         get
                         {
                                 if (this.Index > 0)
-                                        previous = this.Parent.Subtopics[(this.Index - 1)];
+                                        previous = this.Parent.SubtopicList[(this.Index - 1)];
                                 else
                                         previous = null;
                                 return previous;
@@ -532,6 +593,12 @@ namespace Psycho
                         set { isOnLeft = value; }
                 }
 
+                public bool IsOnTop
+                {
+                        get { return isOnTop; }
+                        set { isOnTop = value; }
+                }
+
                 public bool IsCentral
                 {
                         get
@@ -570,7 +637,7 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.Parent != null && this.Parent.Subtopics.Count == this.Index + 1)
+                                if (this.Parent != null && this.Parent.SubtopicList.Count == this.Index + 1)
                                         isLast = true;
                                 else
                                         isLast = false;
@@ -582,7 +649,7 @@ namespace Psycho
                 {
                         get
                         {
-                                if (Subtopics.Count > 0)
+                                if (SubtopicList.Count > 0)
                                         hasChildren = true;
                                 else
                                         hasChildren = false;
@@ -634,7 +701,7 @@ namespace Psycho
                                 remaining.Enqueue (this);
                                 while (remaining.Count > 0) {
                                         Topic topic = remaining.Dequeue ();
-                                        foreach (Topic child in topic.Subtopics) remaining.Enqueue (child);
+                                        foreach (Topic child in topic.SubtopicList) remaining.Enqueue (child);
                                         totalCount++;
                                 }
                                 return totalCount;
@@ -648,7 +715,7 @@ namespace Psycho
                                 if (this.Parent == null)
                                         this.path = "0";
                                 else
-                                        this.path = (this.Parent.Path + ":" + this.Parent.Subtopics.IndexOf (this).ToString ());
+                                        this.path = (this.Parent.Path + ":" + this.Parent.SubtopicList.IndexOf (this).ToString ());
                                 return path;
                         }
                 }
@@ -661,9 +728,9 @@ namespace Psycho
                                         this.number = "0";
                                 else
                                         if (this.Parent.Number == "0")
-                                                this.number = ((this.Parent.Subtopics.IndexOf (this) + 1).ToString ());
+                                                this.number = ((this.Parent.SubtopicList.IndexOf (this) + 1).ToString ());
                                         else
-                                                this.number = (this.Parent.Number.ToString () + "." + (this.Parent.Subtopics.IndexOf (this) + 1).ToString ());
+                                                this.number = (this.Parent.Number.ToString () + "." + (this.Parent.SubtopicList.IndexOf (this) + 1).ToString ());
                                 return number;
                         }
                 }
@@ -688,28 +755,28 @@ namespace Psycho
 
                 public Topic FirstChild ()
                 {
-                        return this.Subtopics.First;
+                        return this.SubtopicList.First;
                 }
 
                 public Topic LastChild ()
                 {
-                        return this.Subtopics.Last;
+                        return this.SubtopicList.Last;
                 }
 
                 public void AddSubtopic (Topic iTopic)
                 {
-                        this.Subtopics.Add (iTopic);
+                        this.SubtopicList.Add (iTopic);
                 }
 
                 public void AddSubtopic (int iIndex, Topic iTopic)
                 {
-                        this.Subtopics.Insert (iIndex, iTopic);
+                        this.SubtopicList.Insert (iIndex, iTopic);
                 }
 
                 public void Delete ()
                 {
                         if (this.Parent != null)
-                                this.Parent.Subtopics.Remove (this);
+                                this.Parent.SubtopicList.Remove (this);
                 }
 
                 public void ForEach (Action<Topic> action)
@@ -721,7 +788,7 @@ namespace Psycho
                         while (remaining.Count > 0) {
                                 Topic topic = remaining.Dequeue ();
                                 action (topic);
-                                foreach (Topic child in topic.Subtopics)
+                                foreach (Topic child in topic.SubtopicList)
                                         remaining.Enqueue (child);
                         }
                 }

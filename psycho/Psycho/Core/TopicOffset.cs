@@ -34,6 +34,10 @@ namespace Psycho
         {
                 double x;
                 double y;
+                double baseX;
+                double baseY;
+                double localX;
+                double localY;
                 bool isAuto;
                 Topic topic;
 
@@ -49,23 +53,104 @@ namespace Psycho
                         get { return topic; }
                 }
 
+                public bool IsAuto
+                {
+                        get { return isAuto; }
+                        set { isAuto = value; }
+                }
+
                 public void Update (Topic iTopic)
                 {
-                        if (iTopic.IsCentral)
-                                x = 10 /*- iTopic.TextHeight / 2*/;
-                        else
-                                x = System.Math.Floor (iTopic.Parent.Offset.X +
-                                    iTopic.Parent.Frame.Width +
-                                    iTopic.Style.HorChildDist);
+                        UpdateX (iTopic);
+                        UpdateY (iTopic);
+                }
 
+                void UpdateX (Topic iTopic)
+                {
+                        x = 0;
                         if (iTopic.IsCentral)
-                                y = 10 /*- iTopic.TextWidth / 2*/;
-                        else
-                                if (iTopic.IsFirst)
-                                        y = System.Math.Floor (iTopic.Parent.Offset.Y);
-                                else
-                                        y = System.Math.Floor (iTopic.Previous.Offset.Y +
-                                            iTopic.Previous.TotalHeight);
+                                return;
+                        else {
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map:
+                                        if (iTopic.IsOnLeft) {
+                                                x = System.Math.Floor (iTopic.Parent.Offset.X -
+                                                                       iTopic.Parent.Frame.Width / 2 -
+                                                                       iTopic.Frame.Width / 2 -
+                                                                       iTopic.Parent.Style.HorChildDist);
+                                        }
+                                        else {
+                                                x = System.Math.Floor (iTopic.Parent.Offset.X +
+                                                                       iTopic.Parent.Frame.Width / 2 +
+                                                                       iTopic.Frame.Width / 2 +
+                                                                       iTopic.Parent.Style.HorChildDist);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OneSideMap: {
+                                                x = System.Math.Floor (iTopic.Parent.Offset.X +
+                                                                       iTopic.Parent.Frame.Width / 2 +
+                                                                       iTopic.Frame.Width / 2 +
+                                                                       iTopic.Parent.Style.HorChildDist);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root:
+                                        if (iTopic.IsOnLeft) {
+                                                x = System.Math.Floor (iTopic.Parent.Offset.X -
+                                                                       iTopic.Frame.Width / 2 -
+                                                                       iTopic.Parent.Style.HorChildDist);
+                                        }
+                                        else {
+                                                x = System.Math.Floor (iTopic.Parent.Offset.X +
+                                                                       iTopic.Frame.Width / 2 +
+                                                                       iTopic.Parent.Style.HorChildDist);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OneSideRoot: {
+                                                x = System.Math.Floor (iTopic.Parent.Offset.X +
+                                                                       iTopic.Frame.Width / 2 +
+                                                                       iTopic.Parent.Style.HorChildDist);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.DoubleOrgChart:
+                                        break;
+                                        case SubtopicsLayout.OrgChart:
+                                        break;
+                                }
+                        }
+                }
+
+                void UpdateY (Topic iTopic)
+                {
+                        y = 0;
+                        if (iTopic.IsCentral)
+                                return;
+                        else {
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map:
+                                        break;
+                                        case SubtopicsLayout.OneSideMap: {
+                                                if (iTopic.IsFirst) {
+                                                        y = iTopic.Parent.Offset.Y -
+                                                            iTopic.Parent.TotalHeight / 2 +
+                                                            iTopic.TotalHeight / 2;
+                                                }
+                                                else {
+                                                        y = iTopic.Previous.Offset.Y +
+                                                            iTopic.Previous.TotalHeight / 2 +
+                                                            iTopic.TotalHeight / 2;
+                                                }
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root:
+                                        break;
+                                        case SubtopicsLayout.OneSideRoot: 
+                                        break;
+                                        case SubtopicsLayout.DoubleOrgChart:
+                                        break;
+                                        case SubtopicsLayout.OrgChart:
+                                        break;
+                                }
+                        }
                 }
 
                 public double X
@@ -94,23 +179,17 @@ namespace Psycho
                         }
                 }
 
-                public void SetOffset (int iXOffset, int iYOffset)
+                public void SetValue (int iXOffset, int iYOffset)
                 {
                         isAuto = false;
                         X = iXOffset;
                         Y = iYOffset;
                 }
 
-                public void GetOffset (out double outXOffset, out double outYOffset)
+                public void GetValue (out double outXOffset, out double outYOffset)
                 {
                         outXOffset = X;
                         outYOffset = Y;
-                }
-
-                public bool IsAuto
-                {
-                        get { return isAuto; }
-                        set { isAuto = value; }
                 }
         }
 }

@@ -29,13 +29,9 @@ using System;
 
 namespace Psycho
 {
-        public enum SubtopicsLayout
+        public enum TopicListOrientation
         {
-                Map,
-                OneSideMap,
-                Root,
-                OneSideRoot,
-                OrgChart,
-                DoubleOrgChart,
+                Vertical,
+                Horizontal,
         }
 }

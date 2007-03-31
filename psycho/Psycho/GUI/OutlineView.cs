@@ -349,7 +349,7 @@ namespace Psycho
                 void AddNodesRecursively (TreeStore iStore, TreeIter iParent, Topic iTopic)
                 {
 
-                        foreach (Topic child in iTopic.Subtopics) {
+                        foreach (Topic child in iTopic.SubtopicList) {
                                 TreeIter kid = iStore.AppendValues (iParent, child);
                                 AddNodesRecursively (iStore, kid, child);
                         }

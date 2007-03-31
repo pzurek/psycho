@@ -61,10 +61,10 @@ namespace Psycho
                 }
 
                 List<IView> observerList = new List<IView> ();
-                Topics newTopics = new Topics ();
-                Topics deletedTopics = new Topics ();
+                TopicList newTopics = new TopicList ();
+                TopicList deletedTopics = new TopicList ();
                 string deletedTopicPath = ("");
-                Topics changedTopics = new Topics ();
+                TopicList changedTopics = new TopicList ();
                 bool editPending;
                 public int levelCounter;
 
@@ -78,7 +78,7 @@ namespace Psycho
                         while (remaining.Count > 0) {
                                 Topic topic = remaining.Dequeue ();
                                 if (topic.GUID != iGuid) {
-                                        foreach (Topic child in topic.Subtopics) {
+                                        foreach (Topic child in topic.SubtopicList) {
                                                 remaining.Enqueue (child);
                                         }
                                 }
@@ -104,12 +104,12 @@ namespace Psycho
                         set { currentTopic = value; }
                 }
 
-                public Topics NewTopics
+                public TopicList NewTopics
                 {
                         get { return newTopics; }
                 }
 
-                public Topics ChangedTopics
+                public TopicList ChangedTopics
                 {
                         get { return changedTopics; }
                 }
@@ -119,7 +119,7 @@ namespace Psycho
                         get { return deletedTopicPath; }
                 }
 
-                public Topics DeletedTopics
+                public TopicList DeletedTopics
                 {
                         get { return deletedTopics; }
                 }
@@ -143,7 +143,7 @@ namespace Psycho
 
                 public void AppendSomeNodes (Topic iTopic)
                 {
-                        while (iTopic.Subtopics.Count < 3) {
+                        while (iTopic.SubtopicList.Count < 3) {
                                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                                 newTopic.Parent = iTopic;
                                 CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);
@@ -156,7 +156,7 @@ namespace Psycho
                 public void CreateTopic ()
                 {
                         if (CurrentTopic.Parent != null) {
-                                int currentIndex = CurrentTopic.Parent.Subtopics.IndexOf (CurrentTopic);
+                                int currentIndex = CurrentTopic.Parent.SubtopicList.IndexOf (CurrentTopic);
                                 Topic newTopic = new Topic (centralTopic.TotalCount);
                                 newTopic.Parent = CurrentTopic.Parent;
                                 CurrentTopic.Parent.AddSubtopic ((currentIndex + 1), newTopic);
@@ -222,7 +222,7 @@ namespace Psycho
                         int currentIndex;
 
                         if (CurrentTopic.Parent != null) {
-                                currentIndex = CurrentTopic.Parent.Subtopics.IndexOf (CurrentTopic);
+                                currentIndex = CurrentTopic.Parent.SubtopicList.IndexOf (CurrentTopic);
                         }
                         else
                                 return;
@@ -237,19 +237,19 @@ namespace Psycho
                         currentXmlTopic = FindXmlByGuid (CurrentTopic.GUID);
                         currentXmlParent.RemoveChild (currentXmlTopic);
 
-                        if (CurrentTopic.Parent.Subtopics.Count == 1) {
-                                CurrentTopic.Parent.Subtopics.Clear ();
+                        if (CurrentTopic.Parent.SubtopicList.Count == 1) {
+                                CurrentTopic.Parent.SubtopicList.Clear ();
                                 CurrentTopic = tempParent;
                         }
                         else {
-                                if (currentIndex == (CurrentTopic.Parent.Subtopics.Count - 1)) {
+                                if (currentIndex == (CurrentTopic.Parent.SubtopicList.Count - 1)) {
                                         newIndex = currentIndex - 1;
                                 }
                                 else {
                                         newIndex = currentIndex;
                                 }
-                                CurrentTopic.Parent.Subtopics.RemoveAt (currentIndex);
-                                Topic tempTopic = tempParent.Subtopics[newIndex];
+                                CurrentTopic.Parent.SubtopicList.RemoveAt (currentIndex);
+                                Topic tempTopic = tempParent.SubtopicList[newIndex];
                                 SetCurrent (tempTopic);
                                 SetCurrentXml (CurrentTopic.GUID);
                         }
@@ -295,7 +295,8 @@ namespace Psycho
 
                 public void SetCurrent (string iGuid)
                 {
-                        CurrentTopic.IsCurrent = false;
+                        if (CurrentTopic != null)
+                                CurrentTopic.IsCurrent = false;
                         Topic saughtTopic = FindByGUID (iGuid);
                         CurrentTopic = saughtTopic;
                         CurrentTopic.IsCurrent = true;
@@ -325,7 +326,7 @@ namespace Psycho
                 {
                         if (CurrentTopic.HasChildren) {
                                 CurrentTopic.IsExpanded = true;
-                                SetCurrent (CurrentTopic.Subtopics.First);
+                                SetCurrent (CurrentTopic.SubtopicList.First);
                         }
                 }
 
@@ -386,7 +387,7 @@ namespace Psycho
 
                 public static void UpdateOffsets (Topic iTopic)
                 {
-                        foreach (Topic TempTopic in iTopic.Subtopics) {
+                        foreach (Topic TempTopic in iTopic.SubtopicList) {
                                 TempTopic.Offset.Update (TempTopic);
                                 TempTopic.Connection.Update (TempTopic);
                                 if (TempTopic.IsExpanded)
@@ -407,6 +408,7 @@ namespace Psycho
                                 this.CurrentTopic.IsCurrent = false;
                                 this.CurrentTopic = null;
                         }
+                        NotifyObservers ();
                 }
 
                 public void SetCurrentByCoords (int iX, int iY)
@@ -425,7 +427,7 @@ namespace Psycho
                                         SetCurrent (iTopic);
                                 }
                                 else {
-                                        foreach (Topic child in iTopic.Subtopics)
+                                        foreach (Topic child in iTopic.SubtopicList)
                                                 setCurrentByCoords (child, iX, iY);
                                 }
                         }

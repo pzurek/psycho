@@ -181,7 +181,8 @@ namespace Psycho
 
                 public void Update (IModel iModel)
                 {
-                        titleEntry.Text = iModel.CurrentTopic.Text;
+                        if (Model.CurrentTopic != null)
+                                titleEntry.Text = iModel.CurrentTopic.Text;
                         CheckButtonsLegal ();
                 }
 

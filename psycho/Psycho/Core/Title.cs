@@ -36,7 +36,7 @@ namespace Psycho
                 string text;
                 Font textFont;
 
-                FontMarkers titleFontMarkers = new FontMarkers ();
+                FontMarkerList titleFontMarkers = new FontMarkerList ();
 
                 public string Text
                 {

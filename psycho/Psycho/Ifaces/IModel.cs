@@ -38,10 +38,10 @@ namespace Psycho
                 Topic CurrentTopic { get; set; }
                 Topic CentralTopic { get; set; }
                 bool EditPending { get; set; }
-                Topics NewTopics { get; }
-                Topics DeletedTopics { get; }
+                TopicList NewTopics { get; }
+                TopicList DeletedTopics { get; }
                 string DeletedTopicPath { get; }
-                Topics ChangedTopics { get; }
+                TopicList ChangedTopics { get; }
                 int CurrentLevel { get; }
                 XmlDocument XMLModel { get; }
 

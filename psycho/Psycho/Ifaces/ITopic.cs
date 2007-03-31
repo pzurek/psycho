@@ -32,7 +32,7 @@ namespace Psycho
 {
         public interface ITopic
         {
-                Topics Subtopics { get; }
+                TopicList SubtopicList { get; }
                 string Text { get; set; }
 
                 //public Pango.Layout TextLayout { get; set; }

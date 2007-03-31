@@ -31,9 +31,9 @@ using System.Text;
 
 namespace Psycho
 {
-        public class FontMarkers : List<FontMarker>
+        public class FontMarkerList : List<FontMarker>
         {
-                public FontMarkers ()
+                public FontMarkerList ()
                         : base ()
                 {
                 }

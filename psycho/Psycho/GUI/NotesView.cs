@@ -87,8 +87,11 @@ namespace Psycho
                 public void Update (IModel iModel)
                 {
                         if (editPending == false) {
-                                workingTopic = iModel.CurrentTopic;
-                                if (workingTopic.Note != null && workingTopic.Note.Text != "")
+                                workingTopic = null;
+                                if (Model.CurrentTopic != null)
+                                        workingTopic = iModel.CurrentTopic;
+
+                                if (workingTopic != null && workingTopic.Note != null && workingTopic.Note.Text != "")
                                         notesBuffer.Text = workingTopic.Note.Text;
                                 else
                                         notesBuffer.Clear ();
@@ -189,24 +192,14 @@ namespace Psycho
                         throw new Exception ("The method or operation is not implemented.");
                 }
 
-                #region IView Members
-
-
                 public void SetCurrentByCoords (int iX, int iY)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
 
-                #endregion
-
-                #region IView Members
-
-
                 public void ClearCurrentTopic ()
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
-
-                #endregion
         }
 }

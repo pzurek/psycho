@@ -73,8 +73,6 @@ namespace Psycho
                         if (args.Event.Type != Gdk.EventType.ButtonPress)
                                 return;
                         ClearCurrentTopic ();
-                        //if (a.Event.Button == 1)
-                        //        is_dragging = true;
 
                         mapArea.HasFocus = true;
                         Gdk.EventButton pos = args.Event;
@@ -116,9 +114,10 @@ namespace Psycho
                 void OnMapExpose (object sender, ExposeEventArgs args)
                 {
                         mapContext = Gdk.CairoHelper.Create (args.Event.Window);
+                        mapContext.Translate (1000 - Model.CentralTopic.Left, 1000 - Model.CentralTopic.Top);
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
-                        this.mapArea.SetSizeRequest (2000, (int) Model.CentralTopic.TotalHeight + 100);
+                        this.mapArea.SetSizeRequest ((int) Model.CentralTopic.GlobalWidth + 2000, (int) Model.CentralTopic.GlobalHeight + 2000);
                         ((IDisposable) mapContext.Target).Dispose ();
                         ((IDisposable) mapContext).Dispose ();
                 }
@@ -181,7 +180,7 @@ namespace Psycho
 
                 public void DrawConnections (Cairo.Context iContext, Topic iTopic)
                 {
-                        foreach (Topic TempTopic in iTopic.Subtopics) {
+                        foreach (Topic TempTopic in iTopic.SubtopicList) {
                                 if (TempTopic.IsExpanded)
                                         DrawConnections (iContext, TempTopic);
                                 DrawConnection (iContext, TempTopic);
@@ -190,7 +189,7 @@ namespace Psycho
 
                 public void DrawFrames (Cairo.Context iContext, Topic iTopic)
                 {
-                        foreach (Topic TempTopic in iTopic.Subtopics) {
+                        foreach (Topic TempTopic in iTopic.SubtopicList) {
                                 if (TempTopic.IsExpanded)
                                         DrawFrames (iContext, TempTopic);
                                 DrawFrame (iContext, TempTopic);
@@ -200,7 +199,7 @@ namespace Psycho
 
                 public void DrawTexts (Cairo.Context iContext, Topic iTopic)
                 {
-                        foreach (Topic TempTopic in iTopic.Subtopics) {
+                        foreach (Topic TempTopic in iTopic.SubtopicList) {
                                 if (TempTopic.IsExpanded)
                                         DrawTexts (iContext, TempTopic);
                                 DrawText (/*iContext, */TempTopic);
@@ -212,7 +211,10 @@ namespace Psycho
                         gc = mapArea.Style.TextAAGC (StateType.Normal);
                         gc.Foreground = new Gdk.Color (0, 0, 0);
                         text = iTopic.TextLayout;
-                        mapArea.GdkWindow.DrawLayout (gc, (int) iTopic.Offset.X, (int) iTopic.Offset.Y, text);
+                        mapArea.GdkWindow.DrawLayout (gc,
+                                (int) (iTopic.Offset.X - iTopic.TextWidth / 2 - Model.CentralTopic.Left + 1000),
+                                (int) (iTopic.Offset.Y - iTopic.TextHeight / 2 - Model.CentralTopic.Top + 1000),
+                                text);
                         gc.Dispose ();
                 }
 
@@ -293,7 +295,7 @@ namespace Psycho
 
                 public void SetCurrentByCoords (int iX, int iY)
                 {
-                        Control.RequestSetCurrentByCoords (iX, iY);
+                        Control.RequestSetCurrentByCoords (iX - 1000 + Model.CentralTopic.Left, iY - 1000 + Model.CentralTopic.Top);
                 }
 
                 public void ClearCurrentTopic ()

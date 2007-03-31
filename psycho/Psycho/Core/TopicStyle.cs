@@ -36,7 +36,6 @@ namespace Psycho
                 TopicShape shape;
                 ConnectionPoint connectPoint;
                 ConnectionShape connectShape;
-                SubtopicDystributionDirection subtopicDistribution;
                 Color fillColor;
                 Color strokeColor;
                 double strokeWidth;
@@ -52,7 +51,6 @@ namespace Psycho
                 int polyDistance;
                 bool fixedWidth;
                 int width;
-                SubtopicDystributionDirection subDirection;
                 SubtopicsLayout subLayout;
 
                 Stylus stylus = new Stylus ();
@@ -69,12 +67,13 @@ namespace Psycho
                         this.RightMargin = 0;
                         this.TopMargin = 0;
                         this.BottomMargin = 0;
-                        this.CrankChamfer = 12;
-                        this.CrankRadius = 12;
+                        this.CrankChamfer = 7;
+                        this.CrankRadius = 7;
                         this.PolyDistance = 7;
-                        this.Width = 100;
-                        this.Padding = 3;
+                        this.Width = 140;
+                        this.Padding = 2;
                         this.HorChildDist = 42;
+                        this.SubLayout = SubtopicsLayout.OneSideMap;
                 }
 
                 public Topic Topic
@@ -120,12 +119,6 @@ namespace Psycho
                         set { connectPoint = value; }
                 }
 
-                public SubtopicDystributionDirection SubDirection
-                {
-                        get { return subDirection; }
-                        set { subDirection = value; }
-                }
-
                 public SubtopicsLayout SubLayout
                 {
                         get { return subLayout; }
@@ -162,12 +155,6 @@ namespace Psycho
                                 return connectShape;
                         }
                         set { connectShape = value; }
-                }
-
-                public SubtopicDystributionDirection SubtopicDistribution
-                {
-                        get { return subtopicDistribution; }
-                        set { subtopicDistribution = value; }
                 }
 
                 public Color FillColor

@@ -42,19 +42,23 @@ namespace Psycho
                 public StatusView ()
                         : base ()
                 {
-                        this.PackStart (mapTitle);
-                        this.PackStart (topicNumber);
-                        this.PackStart (currentTitle);
-                        this.Homogeneous = true;
+                        //this.PackStart (mapTitle);
+                        //this.PackStart (topicNumber);
+                        //this.PackStart (currentTitle);
+                        //this.Homogeneous = true;
                 }
 
                 public void Update (IModel iModel)
                 {
                         if (Model != null) {
-
-                                mapTitle.Text = ("Map title: " + Model.CentralTopic.Text);
-                                topicNumber.Text = ("Topics in the map: " + Model.CentralTopic.TotalCount.ToString ());
-                                currentTitle.Text = ("Current topic title: " + Model.CurrentTopic.Text);
+                                //mapTitle.Text = ("Map title: " + Model.CentralTopic.Text);
+                                //topicNumber.Text = ("Topics in the map: " + Model.CentralTopic.TotalCount.ToString ());
+                                if (Model.CurrentTopic != null) {
+                                        //currentTitle.Text = ("Current topic title: " + Model.CurrentTopic.Text);
+                                        this.Push (0, ("Current topic title: " + Model.CurrentTopic.Text));
+                                }
+                                else
+                                        this.Push (0, "No topic selected");
                         }
                 }
 

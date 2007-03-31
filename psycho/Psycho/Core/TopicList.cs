@@ -30,25 +30,30 @@ using System.Collections.Generic;
 
 namespace Psycho
 {
-        public class Topics : List<Topic>
+        public class TopicList : List<Topic>
         {
                 double height;
                 double width;
-                double totalHeight;
-                double totalWidth;
                 Topic topic;
                 Topic first;
                 Topic last;
+                TopicListOrientation orientation;
 
-                //TODO: The calculation below will have to be conditional if Org Chart is to be implemented
-                //For Org Chart width has to sum and height has to be max
                 public double Height
                 {
                         get
                         {
                                 height = 0;
-                                foreach (Topic child in this)
-                                        height += child.TotalHeight;
+                                if (this.Count > 0) {
+                                        if (this.Orientation == TopicListOrientation.Vertical) {
+                                                foreach (Topic child in this)
+                                                        height += child.TotalHeight;
+                                        }
+                                        else
+                                                foreach (Topic child in this)
+                                                        if (child.TotalHeight > height)
+                                                                height = child.TotalHeight;
+                                }
                                 return height;
                         }
                 }
@@ -57,52 +62,28 @@ namespace Psycho
                 {
                         get
                         {
+                                width = 0;
                                 if (this.Count > 0) {
-                                        width = 0;
+                                        if (this.Orientation == TopicListOrientation.Horizontal) {
+                                        foreach (Topic child in this)
+                                                width += child.TotalWidth;
+                                }
+                                else
                                         foreach (Topic child in this)
                                                 if (child.TextWidth > width)
                                                         width = child.TextWidth;
-                                        return width;
                                 }
-                                else
-                                        return 0;
+                                return width;
                         }
                 }
 
-                public double TotalHeight
-                {
-                        get
-                        {
-                                totalHeight = 0;
-                                foreach (Topic child in this)
-                                        totalHeight += child.TotalHeight;
-                                return totalHeight;
-                        }
-                }
-
-                public double TotalWidth  //TODO: This is bullshit...
-                {
-                        get
-                        {
-                                if (this.Count > 0) {
-                                        totalWidth = 0;
-                                        foreach (Topic child in this)
-                                                if (child.TextWidth > totalWidth)
-                                                        totalWidth = child.TextWidth;
-                                        return totalWidth;
-                                }
-                                else
-                                        return 0;
-                        }
-                }
-
-                public Topics (Topic iTopic)
+                public TopicList (Topic iTopic)
                         : base ()
                 {
                         this.topic = iTopic;
                 }
 
-                public Topics ()
+                public TopicList ()
                         : base ()
                 {
                 }
@@ -110,6 +91,34 @@ namespace Psycho
                 public Topic Parent
                 {
                         get { return topic; }
+                }
+
+                public TopicListOrientation Orientation
+                {
+                        get
+                        {
+                                switch (this.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.DoubleOrgChart:
+                                        orientation = TopicListOrientation.Horizontal;
+                                        break;
+                                        case SubtopicsLayout.OrgChart:
+                                        orientation = TopicListOrientation.Horizontal;
+                                        break;
+                                        case SubtopicsLayout.Map:
+                                        orientation = TopicListOrientation.Vertical;
+                                        break;
+                                        case SubtopicsLayout.OneSideMap:
+                                        orientation = TopicListOrientation.Vertical;
+                                        break;
+                                        case SubtopicsLayout.Root:
+                                        orientation = TopicListOrientation.Vertical;
+                                        break;
+                                        case SubtopicsLayout.OneSideRoot:
+                                        orientation = TopicListOrientation.Vertical;
+                                        break;
+                                }
+                                return orientation;
+                        }
                 }
 
                 public Topic First

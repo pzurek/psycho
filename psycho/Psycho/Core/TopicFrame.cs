@@ -63,11 +63,14 @@ namespace Psycho
                 {
                         frameWidth = iTopic.TextWidth +
                                      iTopic.Style.LeftMargin +
-                                     iTopic.Style.RightMargin;
+                                     iTopic.Style.RightMargin +
+                                     iTopic.Style.StrokeWidth;
 
                         frameHeight = iTopic.TextHeight +
                                       iTopic.Style.TopMargin +
-                                      iTopic.Style.BottomMargin;
+                                      iTopic.Style.BottomMargin +
+                                      iTopic.Style.StrokeWidth;
+                        ;
 
                         if (this.Topic.Style.Shape == TopicShape.Octagon)
                                 octDistHor = this.Height / (2 + sqrt2);
@@ -184,9 +187,11 @@ namespace Psycho
                 {
                         get
                         {
-                                origin.X = System.Math.Floor (this.Topic.Offset.X -
+                                origin.X = System.Math.Floor (this.Center.X -
+                                           this.Topic.TextWidth / 2 -
                                            this.Topic.Style.LeftMargin);
-                                origin.Y = System.Math.Floor (this.Topic.Offset.Y -
+                                origin.Y = System.Math.Floor (this.Center.Y -
+                                           this.Topic.TextHeight / 2 -
                                            this.Topic.Style.TopMargin);
                                 return origin;
                         }
@@ -196,10 +201,8 @@ namespace Psycho
                 {
                         get
                         {
-                                center.X = System.Math.Floor (this.Origin.X +
-                                           this.Width / 2);
-                                center.Y = System.Math.Floor (this.Origin.Y +
-                                           this.Height / 2);
+                                center.X = System.Math.Floor (this.Topic.Offset.X);
+                                center.Y = System.Math.Floor (this.Topic.Offset.Y);
                                 return center;
                         }
                 }
