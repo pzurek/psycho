@@ -38,6 +38,7 @@ namespace Psycho
                 public UIManager uiManager = new UIManager ();
                 ActionGroup actions = new ActionGroup ("group");
 
+                Widget currentWidget;
                 Toolbar toolbar;
 
                 const string ui =
@@ -115,14 +116,29 @@ namespace Psycho
                         uiManager.InsertActionGroup (actions, 0);
                         uiManager.AddUiFromString (ui);
                         toolbar = (Toolbar) (uiManager.GetWidget ("/ToolBar"));
-                        toolbar.CanFocus = true;
                         uiManager.PreActivate += new PreActivateHandler (uiManager_PreActivate);
+                        toolbar.ButtonPressEvent += new ButtonPressEventHandler (toolbar_ButtonPressEvent);
                         toolbar.IconSize = IconSize.Button;
                 }
 
-                void uiManager_PreActivate (object o, PreActivateArgs args)
+                void toolbar_ButtonPressEvent (object sender, ButtonPressEventArgs args)
                 {
-                        Console.WriteLine ("Toolbar focused");
+                        currentWidget = sender as ToolButton;
+                        Console.WriteLine (args.ToString ());
+                        if (currentWidget != null) {
+                                currentWidget.CanFocus = true;
+                                currentWidget.GrabFocus ();
+                        }
+                }
+
+                void uiManager_PreActivate (object sender, PreActivateArgs args)
+                {
+                        //currentWidget = actions[args.Action.Name].Proxies[0].get;
+                        //Console.WriteLine (args.Action.Proxies[0].Name);
+                        //if (currentWidget != null) {
+                        //        currentWidget.CanFocus = true;
+                        //        currentWidget.GrabFocus ();
+                        //}
                 }
 
                 void BuildIcons ()
@@ -153,9 +169,7 @@ namespace Psycho
 
                 void ActionActivated (object sender, EventArgs args)
                 {
-
                         Action action = sender as Action;
-                        Console.WriteLine ("Action \"{0}\" activated", action.AccelPath);
 
                         switch (action.Name) {
                         case "AddTopic":

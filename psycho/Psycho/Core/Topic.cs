@@ -39,20 +39,34 @@ namespace Psycho
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
-                        this.Text = ("Topic ");
+                        this.text = ("Topic ");
                         this.isExpanded = false;
                         this.style = (new TopicStyle ());
-                        textLayout = new Pango.Layout (this.PangoContext);
-                        Pango.AttrForeground textColor = new AttrForeground (this.style.StyleFont.FontColor.ToPangoColor ());
+                        this.textLayout = new Pango.Layout (this.PangoContext);
+                        this.textLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
+                        this.textLayout.SetText (this.text);
+                }
+
+                public Topic (Topic paramParent)
+                {
+                        System.Guid newGuid = System.Guid.NewGuid ();
+                        this.guid = newGuid.ToString ();
+                        this.text = ("Topic ");
+                        this.parent = paramParent;
+                        this.isExpanded = false;
+                        this.style = (new TopicStyle ());
+                        this.textLayout = new Pango.Layout (this.PangoContext);
+                        this.textLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
+                        this.textLayout.SetText (this.text);
                 }
 
                 public Topic (int topicNumber)
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
-                        this.Text = ("Topic " + topicNumber.ToString ());
-                        this.IsExpanded = false;
-                        this.Style = (new TopicStyle ());
+                        this.text = ("Topic " + topicNumber.ToString ());
+                        this.isExpanded = false;
+                        this.style = (new TopicStyle ());
                         this.textLayout = new Pango.Layout (this.PangoContext);
                         this.textLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
                         this.textLayout.SetText (this.text);
