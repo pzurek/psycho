@@ -43,39 +43,39 @@ namespace Psycho
                         cr.Matrix = m;
                 }
 
-                void FillChecks (Context cr, int x, int y, int width, int height)
-                {
-                        int CHECK_SIZE = 16;
+                //void FillChecks (Context cr, int x, int y, int width, int height)
+                //{
+                //        int CHECK_SIZE = 16;
 
-                        cr.Save ();
-                        Surface check = cr.Target.CreateSimilar (Content.Color, 2 * CHECK_SIZE, 2 * CHECK_SIZE);
+                //        cr.Save ();
+                //        Surface check = cr.Target.CreateSimilar (Content.Color, 2 * CHECK_SIZE, 2 * CHECK_SIZE);
 
-                        // draw the check
-                        Context cr2 = new Context (check);
-                        cr2.Operator = Operator.Source;
-                        cr2.Color = new Cairo.Color (0.4, 0.4, 0.4);
-                        cr2.Rectangle (0, 0, 2 * CHECK_SIZE, 2 * CHECK_SIZE);
-                        cr2.Fill ();
+                //        // draw the check
+                //        Context cr2 = new Context (check);
+                //        cr2.Operator = Operator.Source;
+                //        cr2.Color = new Cairo.Color (0.4, 0.4, 0.4);
+                //        cr2.Rectangle (0, 0, 2 * CHECK_SIZE, 2 * CHECK_SIZE);
+                //        cr2.Fill ();
 
-                        cr2.Color = new Cairo.Color (0.7, 0.7, 0.7);
-                        cr2.Rectangle (x, y, CHECK_SIZE, CHECK_SIZE);
-                        cr2.Fill ();
+                //        cr2.Color = new Cairo.Color (0.7, 0.7, 0.7);
+                //        cr2.Rectangle (x, y, CHECK_SIZE, CHECK_SIZE);
+                //        cr2.Fill ();
 
-                        cr2.Rectangle (x + CHECK_SIZE, y + CHECK_SIZE, CHECK_SIZE, CHECK_SIZE);
-                        cr2.Fill ();
-                        //cr2.Destroy ();
+                //        cr2.Rectangle (x + CHECK_SIZE, y + CHECK_SIZE, CHECK_SIZE, CHECK_SIZE);
+                //        cr2.Fill ();
+                //        //cr2.Destroy ();
 
-                        // Fill the whole surface with the check
-                        SurfacePattern check_pattern = new SurfacePattern (check);
-                        check_pattern.Extend = Extend.Repeat;
-                        cr.Source = check_pattern;
-                        cr.Rectangle (0, 0, width, height);
-                        cr.Fill ();
+                //        // Fill the whole surface with the check
+                //        SurfacePattern check_pattern = new SurfacePattern (check);
+                //        check_pattern.Extend = Extend.Repeat;
+                //        cr.Source = check_pattern;
+                //        cr.Rectangle (0, 0, width, height);
+                //        cr.Fill ();
 
-                        check_pattern.Destroy ();
-                        check.Destroy ();
-                        cr.Restore ();
-                }
+                //        check_pattern.Destroy ();
+                //        check.Destroy ();
+                //        cr.Restore ();
+                //}
 
                 void Draw3Circles (Context cr, int xc, int yc, double radius, double alpha)
                 {
@@ -94,15 +94,6 @@ namespace Psycho
                         cr.Fill ();
                 }
 
-                Pango.Layout text;
-
-                void DrawText ()
-                {
-                        text = new Pango.Layout (Model.CentralTopic.PangoContext);
-                        text = Model.CentralTopic.TextLayout;
-                        text.FontDescription = Pango.FontDescription.FromString (Model.CentralTopic.Style.StyleFont.Description);
-                }
-
                 void Draw (Context cr, int width, int height)
                 {
                         double radius = 0.5 * Math.Min (width, height) - 10;
@@ -113,7 +104,7 @@ namespace Psycho
                         Surface punch = cr.Target.CreateSimilar (Content.Alpha, width, height);
                         Surface circles = cr.Target.CreateSimilar (Content.ColorAlpha, width, height);
 
-                        FillChecks (cr, 0, 0, width, height);
+                        //FillChecks (cr, 0, 0, width, height);
                         cr.Save ();
 
                         // Draw a black circle on the overlay
@@ -147,8 +138,6 @@ namespace Psycho
                         cr.SetSourceSurface (overlay, 0, 0);
                         cr.Paint ();
 
-                        DrawText ();
-
                         overlay.Destroy ();
                         punch.Destroy ();
                         circles.Destroy ();
@@ -157,16 +146,11 @@ namespace Psycho
                 protected override bool OnExposeEvent (Gdk.EventExpose e)
                 {
                         Context cr = Gdk.CairoHelper.Create (e.Window);
-                        int w, h, tw, th;
+                        int w, h;
                         e.Window.GetSize (out w, out h);
                         Draw (cr, w, h);
-                        tw = Model.CentralTopic.TextWidth;
-                        th = Model.CentralTopic.TextHeight;
-
-                        this.GdkWindow.DrawLayout (this.Style.TextAAGC (StateType.Normal), ((w - tw) / 2), ((h - th) / 2), text);
                         return true;
                 }
-
 
                 public void AddTopic ()
                 {

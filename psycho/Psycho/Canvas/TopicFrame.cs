@@ -35,6 +35,17 @@ namespace Psycho
                 Cairo.PointD center, left, right, top, bottom;
                 double octDist, octDistOrtho;
                 double hexDist, hexDistOrtho;
+                Topic topic;
+
+                public int Width
+                {
+                        get { return frameWidth; }
+                }
+
+                public int Height
+                {
+                        get { return frameHeight; }
+                }
 
                 double OctDist (int paramHeight)
                 {
@@ -50,17 +61,48 @@ namespace Psycho
                         return octDistOrtho;
                 }
 
-                public TopicFrame (Topic topic, Cairo.Context context)
+                public TopicFrame (Topic iTopic)
                 {
+                        this.topic = iTopic;
+                        this.textWidth = this.topic.TextWidth;
+                        this.textHeight = this.topic.TextHeight;
+                        this.leftMargin = this.topic.Style.LeftMargin;
+                        this.rightMargin = this.topic.Style.RightMargin;
+                        this.topMargin = this.topic.Style.TopMargin;
+                        this.bottomMargin = this.topic.Style.BottomMargin;
+                }
+
+                public void Draw (Cairo.Context cr, Topic iTopic)
+                {
+                        switch (this.topic.Style.Shape) {
+                        case TopicShape.Rectangle:
+                        DrawRectangle (cr, iTopic);
+                        break;
+                        default:
+                        DrawRectangle (cr, iTopic);
+                        break;
+                        }
                 }
 
                 public void DrawCircle (Cairo.PointD origin, int width)
                 {
+
                 }
 
-                public void DrawRectangle (Cairo.PointD origin, int width, int height)
+                public void DrawRectangle (Cairo.Context cr, Topic iTopic)
                 {
-                        context.MoveTo (origin);
+                        this.frameWidth = this.topic.TextWidth + this.topic.Style.LeftMargin + this.topic.Style.RightMargin;
+                        this.frameHeight = this.topic.TextHeight + this.topic.Style.TopMargin + this.topic.Style.BottomMargin;
+                        Cairo.PointD origin = new Cairo.PointD (this.topic.Offset.X - this.topic.Style.LeftMargin, this.topic.Offset.Y - this.topic.Style.TopMargin);
+                        cr.Rectangle (origin, frameWidth, frameHeight);
+                        Cairo.Color strokeColor;
+                        if (iTopic.IsCurrent)
+                                strokeColor = new Cairo.Color (1, 0, 0);
+                        else
+                                strokeColor = new Cairo.Color (0, 0, 1);
+                        cr.Color = strokeColor;
+                        cr.LineWidth = iTopic.Style.StrokeWidth;
+                        cr.Stroke ();
                 }
 
                 public void DrawLine (Cairo.PointD origin, int width, int height)

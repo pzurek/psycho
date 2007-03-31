@@ -25,7 +25,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Psycho
 {
@@ -33,22 +32,18 @@ namespace Psycho
         {
                 int height;
                 int width;
+                Topic topic;
 
-                //The calculation below will have to be conditional if Org Chart is to be implemented
+                //TODO: The calculation below will have to be conditional if Org Chart is to be implemented
                 //For Org Chart width has to sum and height has to be max
-
                 public int Height
                 {
                         get
                         {
-                                if (this.Count > 0) {
                                         height = 0;
                                         foreach (Topic child in this)
-                                                height += child.TextHeight;
+                                                height += child.TotalHeight + child.Style.Padding;
                                         return height;
-                                }
-                                else
-                                        return 0;
                         }
                 }
 
@@ -68,9 +63,20 @@ namespace Psycho
                         }
                 }
 
+                public Topics (Topic iTopic)
+                        : base ()
+                {
+                        this.topic = iTopic;
+                }
+
                 public Topics ()
                         : base ()
                 {
+                }
+
+                public Topic Parent
+                {
+                        get { return topic; }
                 }
         }
 }

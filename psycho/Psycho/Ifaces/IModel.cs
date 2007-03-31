@@ -29,10 +29,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace Psycho {
-
-        public interface IModel {
-
+namespace Psycho
+{
+        public interface IModel
+        {
                 Topic CurrentTopic { get; set; }
                 Topic CentralTopic { get; set; }
                 bool EditPending { get; set; }
@@ -47,7 +47,8 @@ namespace Psycho {
                 void CreateSubtopic ();
                 void DeleteTopic ();
                 void ChangeTopic (Topic paramTopic);
-                void SetCurrent (string paramGuid, Topic paramTopic);
+                void SetCurrent (string paramGuid);
+                void SetCurrent (Topic iTopic);
                 void SetTitle (string paramString);
                 void ExpandTopic (string paramGuid, bool isExpanded);
                 //void TriggerEdit (bool editPending);

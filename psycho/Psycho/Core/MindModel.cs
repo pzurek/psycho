@@ -25,7 +25,6 @@
 
 namespace Psycho
 {
-
         using System;
         using System.Collections;
         using System.Collections.Generic;
@@ -35,7 +34,7 @@ namespace Psycho
         public class MindModel : IModel
         {
 
-                Topic centralTopic = new Topic ();
+                Topic centralTopic;
                 Topic currentTopic;
                 XmlElement currentXmlTopic;
                 XmlElement currentXmlParent;
@@ -45,7 +44,8 @@ namespace Psycho
 
                 public MindModel ()
                 {
-                        this.currentTopic = this.centralTopic;
+                        CentralTopic = new Topic ();
+                        SetCurrent (CentralTopic);
                         centralTopic.Text = "Central Topic";
 
                         XmlDeclaration declarationNode = XMLModel.CreateXmlDeclaration ("1.0", "UTF-8", "");
@@ -144,12 +144,12 @@ namespace Psycho
 
                 public void AppendSomeNodes (Topic paramTopic)
                 {
-                        while (paramTopic.Subtopics.Count < 3) {
+                        while (paramTopic.Subtopics.Count < 2) {
                                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                                 newTopic.Parent = paramTopic;
                                 CreateXMLSubtopic (paramTopic.GUID, newTopic.GUID, newTopic.Text);
                                 paramTopic.AddSubtopic (newTopic);
-                                if (newTopic.Level < 4)
+                                if (newTopic.Level < 7)
                                         AppendSomeNodes (newTopic);
                         }
                 }
@@ -162,7 +162,7 @@ namespace Psycho
                                 newTopic.Parent = CurrentTopic.Parent;
                                 CurrentTopic.Parent.AddSubtopic ((currentIndex + 1), newTopic);
                                 CreateXMLTopic (CurrentTopic, newTopic);
-                                CurrentTopic = newTopic;
+                                SetCurrent (newTopic);
                                 SetCurrentXml (CurrentTopic.GUID);
                                 newTopics.Add (newTopic);
                                 NotifyObservers ();
@@ -175,7 +175,7 @@ namespace Psycho
                         newTopic.Parent = CurrentTopic;
                         CurrentTopic.AddSubtopic (newTopic);
                         CreateXMLSubtopic (newTopic);
-                        CurrentTopic = newTopic;
+                        SetCurrent (newTopic);
                         SetCurrentXml (CurrentTopic.GUID);
                         newTopics.Add (newTopic);
                         NotifyObservers ();
@@ -286,10 +286,22 @@ namespace Psycho
                         changedTopics.Clear ();
                 }
 
-                public void SetCurrent (string paramGuid, Topic paramTopic5)
+                public void SetCurrent (string iGuid)
                 {
-                        Topic saughtTopic = FindByGUID (paramGuid);
+                        CurrentTopic.IsCurrent = false;
+                        Topic saughtTopic = FindByGUID (iGuid);
                         CurrentTopic = saughtTopic;
+                        CurrentTopic.IsCurrent = true;
+                        SetCurrentXml (CurrentTopic.GUID);
+                        NotifyObservers ();
+                }
+
+                public void SetCurrent (Topic iTopic)
+                {
+                        if (CurrentTopic != null)
+                                CurrentTopic.IsCurrent = false;
+                        CurrentTopic = iTopic;
+                        CurrentTopic.IsCurrent = true;
                         SetCurrentXml (CurrentTopic.GUID);
                         NotifyObservers ();
                 }

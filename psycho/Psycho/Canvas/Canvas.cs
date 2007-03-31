@@ -36,6 +36,10 @@ namespace Psycho
                 IModel Model;
                 IControl Control;
 
+                public Canvas ()
+                {
+                }
+
                 public void WireUp (IControl paramControl, IModel paramModel)
                 {
                         if (Model != null) {
@@ -51,9 +55,56 @@ namespace Psycho
                         Update (Model);
                 }
 
-                public void Update (IModel paramModel)
+                protected override bool OnExposeEvent (Gdk.EventExpose e)
+                {
+                        Context cr = Gdk.CairoHelper.Create (e.Window);
+                        int w, h;
+                        e.Window.GetSize (out w, out h);
+                        DrawBackground (cr);
+                        DrawTopics (cr, w, h);
+                        return true;
+                }
+
+                private void DrawBackground (Context cr)
+                {
+                        Surface background = new ImageSurface ("Resources/paper.png");
+                        SurfacePattern pattern = new SurfacePattern (background);
+                        pattern.Extend = Extend.Repeat;
+                        cr.Pattern = pattern;
+                        cr.Paint ();
+                }
+
+                Pango.Layout text;
+                Cairo.Matrix matrix;
+
+                void DrawTopics (Cairo.Context cr, int w, int h)
                 {
                         this.QueueDraw ();
+                        Model.CentralTopic.ForEach (delegate (Topic topic)
+                        {
+                                DrawFrame (cr, topic);
+                                DrawText (cr, topic);
+                        }
+                        );
+                }
+
+                void DrawText (Cairo.Context iContext, Topic iTopic)  //TODO: Implement draing to cairo context
+                {
+                        text = iTopic.TextLayout;
+                        this.GdkWindow.DrawLayout
+                                (this.Style.TextAAGC (StateType.Normal),
+                                iTopic.Offset.X,
+                                iTopic.Offset.Y,
+                                text);
+                }
+
+                void DrawFrame (Cairo.Context iContext, Topic iTopic)
+                {
+                        iTopic.Frame.Draw (iContext, iTopic);
+                }
+
+                public void Update (IModel paramModel)
+                {
                 }
 
                 public void AddTopic ()

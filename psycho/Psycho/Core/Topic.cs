@@ -39,63 +39,86 @@ namespace Psycho
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
-                        this.text = ("Topic ");
-                        this.isExpanded = false;
-                        this.style = (new TopicStyle ());
-                        this.textLayout = new Pango.Layout (this.PangoContext);
-                        this.textLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
-                        this.textLayout.SetText (this.text);
+                        this.Text = ("Topic ");
+                        this.IsExpanded = false;
+                        this.Style = (new TopicStyle ());
+                        this.TextLayout.FontDescription = Pango.FontDescription.FromString (this.Style.StyleFont.Description);
+                        this.TextLayout.SetText (this.Text);
+                }
+
+                public Topic (string iTitle)
+                {
+                        System.Guid newGuid = System.Guid.NewGuid ();
+                        this.guid = newGuid.ToString ();
+                        this.Text = iTitle;
+                        this.IsExpanded = false;
+                        this.Style = (new TopicStyle ());
+                        this.TextLayout.FontDescription = Pango.FontDescription.FromString (this.Style.StyleFont.Description);
+                        this.TextLayout.SetText (this.Text);
                 }
 
                 public Topic (Topic paramParent)
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
-                        this.text = ("Topic ");
-                        this.parent = paramParent;
-                        this.isExpanded = false;
-                        this.style = (new TopicStyle ());
-                        this.textLayout = new Pango.Layout (this.PangoContext);
-                        this.textLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
-                        this.textLayout.SetText (this.text);
+                        this.Text = ("Topic ");
+                        this.Parent = paramParent;
+                        this.IsExpanded = false;
+                        this.Style = (new TopicStyle ());
+                        this.TextLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
+                        this.TextLayout.SetText (this.text);
                 }
 
                 public Topic (int topicNumber)
                 {
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
-                        this.text = ("Topic " + topicNumber.ToString ());
-                        this.isExpanded = false;
-                        this.style = (new TopicStyle ());
-                        this.textLayout = new Pango.Layout (this.PangoContext);
-                        this.textLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
-                        this.textLayout.SetText (this.text);
+                        this.Text = ("Topic " + topicNumber.ToString ());
+                        this.IsExpanded = false;
+                        this.Style = (new TopicStyle ());
+                        this.TextLayout.FontDescription = Pango.FontDescription.FromString (this.style.StyleFont.Description);
+                        this.TextLayout.SetText (this.text);
                 }
 
                 string text;
                 string number;
                 Topic parent;
+                Topic previous;
+                Topic next;
                 int level;
                 int index;
                 int totalCount;
                 string path;
                 string guid;
+                bool isCurrent;
                 bool isExpanded;
+                bool isVisible;
+                bool hasNotes;
                 Notes topicNotes;
                 TopicStyle style;
                 TopicOffset offset;
                 Title topicTitle;
                 TopicType type;
                 int textWidth;
+                int totalWidth;
                 int textHeight;
-                Topics subtopics = new Topics ();
+                int totalHeight;
+                Topics subtopics;
                 Pango.Layout textLayout;
+                TopicFrame frame;
                 bool isOnLeft;
+                bool isFirst;
+                bool isLast;
+                bool hasChildren;
 
                 public Topics Subtopics
                 {
-                        get { return subtopics; }
-                        set { subtopics = value; }
+                        get
+                        {
+                                if (subtopics == null)
+                                        subtopics = new Topics (this);
+                                return subtopics;
+                        }
                 }
 
                 public int Index
@@ -123,7 +146,10 @@ namespace Psycho
                 {
                         get
                         {
+                                textLayout = new Pango.Layout (this.PangoContext);
                                 textLayout.SetText (this.text);
+                                textLayout.Width = Pango.Units.FromPixels (this.Style.Width);
+                                textLayout.FontDescription = Pango.FontDescription.FromString (this.Style.StyleFont.Description);
                                 return textLayout;
                         }
                 }
@@ -132,17 +158,42 @@ namespace Psycho
                 {
                         get
                         {
-                                textLayout.GetPixelSize (out textWidth, out textHeight);
+                                TextLayout.GetPixelSize (out textWidth, out textHeight);
                                 return textWidth;
                         }
                 }
+
+
 
                 public int TextHeight
                 {
                         get
                         {
-                                textLayout.GetPixelSize (out textWidth, out textHeight);
+                                TextLayout.GetPixelSize (out textWidth, out textHeight);
                                 return textHeight;
+                        }
+                }
+
+                public int TotalHeight
+                {
+                        get
+                        {
+                                totalHeight = this.Frame.Height;
+                                if (this.Subtopics.Count > 0
+                                        && this.IsExpanded
+                                        && this.Subtopics.Height > this.totalHeight)
+                                        totalHeight = Subtopics.Height;
+                                return totalHeight;
+                        }
+                }
+
+                public TopicFrame Frame
+                {
+                        get
+                        {
+                                if (this.frame == null)
+                                        frame = new TopicFrame (this);
+                                return frame;
                         }
                 }
 
@@ -168,10 +219,11 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.Parent.Subtopics.Count > this.Index)
-                                        return this.Parent.Subtopics[(this.index + 1)];
+                                if (this.Parent != null && this.Parent.Subtopics.Count > this.Index)
+                                        next = this.Parent.Subtopics[(this.Index + 1)];
                                 else
-                                        return null;
+                                        next = null;
+                                return next;
                         }
 
                 }
@@ -181,9 +233,10 @@ namespace Psycho
                         get
                         {
                                 if (this.Index > 0)
-                                        return this.Parent.Subtopics[(this.index - 1)];
+                                        previous = this.Parent.Subtopics[(this.Index - 1)];
                                 else
-                                        return null;
+                                        previous = null;
+                                return previous;
                         }
                 }
 
@@ -208,10 +261,38 @@ namespace Psycho
                         }
                 }
 
+                public bool IsCurrent
+                {
+                        get { return isCurrent; }
+                        set { isCurrent = value; }
+                }
+
                 public bool IsExpanded
                 {
                         get { return isExpanded; }
                         set { isExpanded = value; }
+                }
+
+                public bool IsVisible
+                {
+                        get
+                        {
+                                isVisible = true;
+                                Queue<Topic> remaining = new Queue<Topic> ();
+
+                                if (this.Parent != null) remaining.Enqueue (this.Parent);
+
+                                while (remaining.Count > 0) {
+                                        Topic topic = remaining.Dequeue ();
+                                        if (topic.IsExpanded && topic.Parent.IsVisible) {
+                                                isVisible = true;
+                                                if (topic.IsCentral) break;
+                                        }
+                                        else
+                                                isVisible = false;
+                                }
+                                return isVisible;
+                        }
                 }
 
                 public bool IsOnLeft
@@ -231,14 +312,26 @@ namespace Psycho
                         }
                 }
 
+                public bool IsMain
+                {
+                        get
+                        {
+                                if (this.Level == 1)
+                                        return true;
+                                else
+                                        return false;
+                        }
+                }
+
                 public bool IsFirst
                 {
                         get
                         {
-                                if (this.Parent != null || this.index == 0)
-                                        return true;
+                                if (this.Parent != null && this.Index == 0)
+                                        isFirst = true;
                                 else
-                                        return false;
+                                        isFirst = false;
+                                return isFirst;
                         }
                 }
 
@@ -246,10 +339,23 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.Parent != null || this.Parent.Subtopics.Count == this.index + 1)
-                                        return true;
+                                if (this.Parent != null && this.Parent.Subtopics.Count == this.Index + 1)
+                                        isLast = true;
                                 else
-                                        return false;
+                                        isLast = false;
+                                return isLast;
+                        }
+                }
+
+                public bool HasChildren
+                {
+                        get
+                        {
+                                if (Subtopics.Count > 0)
+                                        hasChildren = true;
+                                else
+                                        hasChildren = false;
+                                return hasChildren;
                         }
                 }
 
@@ -261,17 +367,23 @@ namespace Psycho
 
                 public TopicOffset Offset
                 {
-                        get { return offset; }
+                        get
+                        {
+                                if (this.offset == null)
+                                        offset = new TopicOffset (this);
+                                return offset;
+                        }
                 }
 
                 public bool HasNotes
                 {
                         get
                         {
-                                if (this.topicNotes != null && this.topicNotes.Text != "")
-                                        return true;
+                                if (this.TopicNotes != null && this.TopicNotes.Text != "")
+                                        hasNotes = true;
                                 else
-                                        return false;
+                                        hasNotes = false;
+                                return hasNotes;
                         }
                 }
 
@@ -298,7 +410,7 @@ namespace Psycho
                                 if (this.Parent == null)
                                         this.path = "0";
                                 else
-                                        this.path = (this.Parent.path + ":" + this.Parent.Subtopics.IndexOf (this).ToString ());
+                                        this.path = (this.Parent.Path + ":" + this.Parent.Subtopics.IndexOf (this).ToString ());
                                 return path;
                         }
                 }

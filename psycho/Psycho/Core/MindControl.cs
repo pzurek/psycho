@@ -54,7 +54,7 @@ namespace Psycho
                 public void RequestSetCurrent (string paramGuid)
                 {
                         if (Model != null)
-                                Model.SetCurrent (paramGuid, Model.CentralTopic);
+                                Model.SetCurrent (paramGuid);
                 }
 
                 public void RequestAddSubtopic ()

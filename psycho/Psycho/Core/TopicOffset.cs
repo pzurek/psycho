@@ -46,7 +46,10 @@ namespace Psycho
                         get
                         {
                                 if (isAuto) {
-                                        /*some elaborate calculations*/
+                                        if (topic.IsCentral)
+                                                x = 10;
+                                        else
+                                                x = topic.Parent.Offset.X + topic.Parent.TextWidth + 28;
                                         return x;
                                 }
                                 else
@@ -64,7 +67,13 @@ namespace Psycho
                         get
                         {
                                 if (isAuto) {
-                                        /*some elaborate calculations*/
+                                        if (topic.IsCentral)
+                                                y = 10;
+                                        else
+                                                if (topic.IsFirst)
+                                                        y = topic.Parent.Offset.Y;
+                                                else
+                                                        y = topic.Previous.Offset.Y + topic.Previous.TotalHeight + 7;
                                         return y;
                                 }
                                 else

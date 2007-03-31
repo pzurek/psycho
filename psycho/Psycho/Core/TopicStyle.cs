@@ -37,30 +37,33 @@ namespace Psycho
                 SubtopicDystributionDirection subbtopicDistribution;
                 Color fillColor;
                 Color strokeColor;
-                int strokeWidth;
+                double strokeWidth;
                 bool equalMargins;
                 int leftMargin;
                 int rightMargin;
                 int topMargin;
                 int bottomMargin;
+                int padding;
                 bool fixedWidth;
                 int width;
 
                 Stylus stylus = new Stylus ();
 
-                public TopicStyle ()
+                public TopicStyle () //TODO: One big hack
                 {
-                        this.styleFont = (new Font ("Bitstream Vera Sans", 20));
-                        this.shape = TopicShape.RoundedRectangle;
-                        this.connectPoint = ConnectionPoint.Edge;
-                        this.connectShape = ConnectionShape.Curve;
+                        this.StyleFont = (new Font ("Bitstream Vera Sans", 5)); // TODO: That of course has to be loaded from style
+                        this.Shape = TopicShape.RoundedRectangle;
+                        this.ConnectPoint = ConnectionPoint.Edge;
+                        this.ConnectShape = ConnectionShape.Curve;
                         Color fcolor = (stylus.GetFirstColor (out fcolor));
-                        this.fillColor = fcolor;
-                        fillColor.SetAlfa (50);
-                        this.strokeColor = fillColor; //for now stroke color is by default the same as fill color
+                        this.FillColor = fcolor;
+                        FillColor.SetAlfa (20);
+                        this.StrokeColor = fillColor; // TODO: For now the stroke color is the same as fill color. To be changed later
                         this.StrokeWidth = 2;
-                        this.equalMargins = true;
-                        this.leftMargin = 10;
+                        this.EqualMargins = true;
+                        this.LeftMargin = 5;
+                        this.Width = 100;
+                        this.Padding = 5;
                 }
 
                 public Font StyleFont
@@ -105,7 +108,7 @@ namespace Psycho
                         set { strokeColor = value; }
                 }
 
-                public int StrokeWidth
+                public double StrokeWidth
                 {
                         get { return strokeWidth; }
                         set { strokeWidth = value; }
@@ -157,6 +160,12 @@ namespace Psycho
                                         return bottomMargin;
                         }
                         set { bottomMargin = value; }
+                }
+
+                public int Padding
+                {
+                        get { return padding; }
+                        set { padding = value; }
                 }
 
                 public bool FixedWidth
