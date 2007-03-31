@@ -514,6 +514,16 @@ namespace Psycho
                         }
                 }
 
+                public Topic FirstChild ()
+                {
+                        return this.Subtopics.First;
+                }
+
+                public Topic LastChild ()
+                {
+                        return this.Subtopics.Last;
+                }
+
                 public void AddSubtopic (Topic iTopic)
                 {
                         this.Subtopics.Add (iTopic);
