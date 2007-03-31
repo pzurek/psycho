@@ -183,6 +183,8 @@ namespace Psycho
                 {
                         get
                         {
+                                if (textWidth == 0)
+                                        this.UpdateTextSize (this);
                                 return textWidth;
                         }
                 }
@@ -191,6 +193,8 @@ namespace Psycho
                 {
                         get
                         {
+                                if (textWidth == 0)
+                                        this.UpdateTextSize (this);
                                 return textHeight;
                         }
                 }

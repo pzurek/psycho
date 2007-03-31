@@ -150,7 +150,7 @@ namespace Psycho
                                 newTopic.Parent = iTopic;
                                 CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);
                                 iTopic.AddSubtopic (newTopic);
-                                if (newTopic.Level < 7)
+                                if (newTopic.Level < 8)
                                         AppendSomeNodes (newTopic);
                         }
                 }
