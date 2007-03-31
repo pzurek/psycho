@@ -33,13 +33,13 @@ namespace Psycho
 
         public class Notes
         {
-
                 string text;
                 Topic topic;
 
                 public Notes (Topic paramTopic)
                 {
                         this.topic = paramTopic;
+                        this.text = "";
                 }
 
                 public string Text

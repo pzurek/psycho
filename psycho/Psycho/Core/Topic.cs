@@ -69,10 +69,9 @@ namespace Psycho
                 bool isExpanded;
                 Notes topicNotes;
                 TopicStyle style;
+                TopicOffset offset;
                 Title topicTitle;
                 TopicType type;
-                int xOffset;
-                int yOffset;
                 int textWidth;
                 int textHeight;
                 Topics subtopics = new Topics ();
@@ -133,18 +132,6 @@ namespace Psycho
                         }
                 }
 
-                public void SetOffset (int paramXOffset, int paramYOffset)
-                {
-                        xOffset = paramXOffset;
-                        yOffset = paramYOffset;
-                }
-
-                public void GetOffset (out int outXOffset, out int outYOffset)
-                {
-                        outXOffset = xOffset;
-                        outYOffset = yOffset;
-                }
-
                 public Title TopicTitle
                 {
                         get { return topicTitle; }
@@ -193,8 +180,16 @@ namespace Psycho
 
                 public Notes TopicNotes
                 {
-                        get { return topicNotes; }
-                        set { topicNotes = value; }
+                        get {
+                                if (this.topicNotes == null)
+                                        topicNotes = new Notes (this);
+                                return topicNotes;
+                        }
+                        set {
+                                if (this.topicNotes == null)
+                                        topicNotes = new Notes (this);
+                                topicNotes = value;
+                        }
                 }
 
                 public bool IsExpanded
@@ -224,7 +219,7 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.Parent != null || this.index != 0)
+                                if (this.Parent != null || this.index == 0)
                                         return true;
                                 else
                                         return false;
@@ -235,7 +230,7 @@ namespace Psycho
                 {
                         get
                         {
-                                if (this.Parent != null || this.Parent.Subtopics.Count == this.index)
+                                if (this.Parent != null || this.Parent.Subtopics.Count == this.index + 1)
                                         return true;
                                 else
                                         return false;
@@ -246,6 +241,11 @@ namespace Psycho
                 {
                         get { return style; }
                         set { style = value; }
+                }
+
+                public TopicOffset Offset
+                {
+                        get { return offset; }
                 }
 
                 public bool HasNotes
