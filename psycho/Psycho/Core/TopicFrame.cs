@@ -306,9 +306,13 @@ namespace Psycho
 
                 void sketchLine ()
                 {
-                        context.MoveTo (Origin);
-                        context.RelMoveTo (0, Height);
-                        context.RelLineTo (RecWidth, 0);
+                        if (this.Topic.Parent.Style.SubLayout == SubtopicsLayout.OrgChart)
+                                context.Rectangle (Origin, RecWidth, Height);
+                        else {
+                                context.MoveTo (Origin);
+                                context.RelMoveTo (0, Height);
+                                context.RelLineTo (RecWidth, 0);
+                        }
                 }
 
                 void sketchRoundedRectangle ()

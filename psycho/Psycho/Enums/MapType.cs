@@ -29,10 +29,13 @@ using System;
 
 namespace Psycho
 {
-        public enum SubtopicsLayout
+        public enum MapType
         {
                 Map,
+                OneSideMap,
                 Root,
+                OneSideRoot,
                 OrgChart,
+                DoubleOrgChart,
         }
 }

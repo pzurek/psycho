@@ -45,6 +45,7 @@ namespace Psycho
                 Gdk.GC gc;
                 Cairo.Context mapContext;
                 Pango.Layout text;
+                static int margin = 20;
 
                 public MindView ()
                         : base ()
@@ -114,10 +115,17 @@ namespace Psycho
                 void OnMapExpose (object sender, ExposeEventArgs args)
                 {
                         mapContext = Gdk.CairoHelper.Create (args.Event.Window);
-                        mapContext.Translate (1000 - Model.CentralTopic.Left, 1000 - Model.CentralTopic.Top);
+                        mapContext.Translate (margin - Model.CentralTopic.Left, margin - Model.CentralTopic.Top);
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
-                        this.mapArea.SetSizeRequest ((int) Model.CentralTopic.GlobalWidth + 2000, (int) Model.CentralTopic.GlobalHeight + 2000);
+                        this.mapArea.SetSizeRequest ((int) Model.CentralTopic.GlobalWidth + 2 * margin, (int) Model.CentralTopic.GlobalHeight + 2 * margin);
+                        //Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 22 , (int) Model.CentralTopic.GlobalHeight + 22);
+                        //Cairo.Context pictureContext = new Cairo.Context (image);
+                        //DrawBackground (pictureContext);
+                        //pictureContext.Translate (System.Math.Floor (Model.CentralTopic.Width / 2), Model.CentralTopic.GlobalHeight / 2);
+                        //DrawTopics (pictureContext);
+                        //pictureContext.Rectangle (Model.CentralTopic.Width / 2 - 10, Model.CentralTopic.GlobalHeight / 2 - 10, Model.CentralTopic.Width + 20, Model.CentralTopic.GlobalHeight + 20);
+                        //image.WriteToPng ("psycho.png");
                         ((IDisposable) mapContext.Target).Dispose ();
                         ((IDisposable) mapContext).Dispose ();
                 }
@@ -153,6 +161,7 @@ namespace Psycho
                                 return;
                                 case "Down":
                                 SetCurrentForward ();
+                                args.RetVal = true;
                                 return;
                                 default: break;
                         }
@@ -172,7 +181,7 @@ namespace Psycho
 
                 void DrawTopics (Context iContext)
                 {
-                        //DrawConnections (iContext, Model.CentralTopic);
+                        DrawConnections (iContext, Model.CentralTopic);
                         DrawFrames (iContext, Model.CentralTopic);
                         DrawFrame (iContext, Model.CentralTopic);
                         DrawText (/*iContext,*/ Model.CentralTopic);
@@ -190,7 +199,7 @@ namespace Psycho
                 public void DrawFrames (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.SubtopicList) {
-                                DrawRegion (iContext, iTopic);
+                                //DrawRegion (iContext, iTopic);
                                 if (TempTopic.IsExpanded) {
                                         DrawFrames (iContext, TempTopic);
                                 }
@@ -214,8 +223,8 @@ namespace Psycho
                         gc.Foreground = new Gdk.Color (0, 0, 0);
                         text = iTopic.TextLayout;
                         mapArea.GdkWindow.DrawLayout (gc,
-                                (int) (iTopic.Offset.X - iTopic.TextWidth / 2 - Model.CentralTopic.Left + 1000),
-                                (int) (iTopic.Offset.Y - iTopic.TextHeight / 2 - Model.CentralTopic.Top + 1000),
+                                (int) (iTopic.Offset.X - iTopic.TextWidth / 2 - Model.CentralTopic.Left + margin),
+                                (int) (iTopic.Offset.Y - iTopic.TextHeight / 2 - Model.CentralTopic.Top + margin),
                                 text);
                         gc.Dispose ();
                 }
@@ -259,7 +268,8 @@ namespace Psycho
                         iTopic.Frame.Sketch (iContext);
                         fillColor.A = 0.16;
                         iContext.Color = fillColor;
-                        iContext.FillPreserve ();
+                        if (iTopic.Style.Shape != TopicShape.Line)
+                                iContext.FillPreserve ();
                         iContext.Color = strokeColor;
                         iContext.Stroke ();
                         iContext.Restore ();
@@ -294,7 +304,7 @@ namespace Psycho
 
                 public void Refresh ()
                 {
-                        this.mapArea.QueueDrawArea (0, 0 /*((int) Vadjustment.Value)*/, mapArea.Allocation.Width, mapArea.Allocation.Height);
+                        this.mapArea.QueueDrawArea (0, 0, mapArea.Allocation.Width, mapArea.Allocation.Height);
                 }
 
                 public void AddTopic ()
@@ -319,7 +329,7 @@ namespace Psycho
 
                 public void SetCurrentByCoords (int iX, int iY)
                 {
-                        Control.RequestSetCurrentByCoords (iX - 1000 + Model.CentralTopic.Left, iY - 1000 + Model.CentralTopic.Top);
+                        Control.RequestSetCurrentByCoords (iX - margin + Model.CentralTopic.Left, iY - margin + Model.CentralTopic.Top);
                 }
 
                 public void ClearCurrentTopic ()

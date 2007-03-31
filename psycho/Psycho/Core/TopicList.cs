@@ -98,22 +98,13 @@ namespace Psycho
                         get
                         {
                                 switch (this.Parent.Style.SubLayout) {
-                                        case SubtopicsLayout.DoubleOrgChart:
-                                        orientation = TopicListOrientation.Horizontal;
-                                        break;
                                         case SubtopicsLayout.OrgChart:
                                         orientation = TopicListOrientation.Horizontal;
                                         break;
                                         case SubtopicsLayout.Map:
                                         orientation = TopicListOrientation.Vertical;
                                         break;
-                                        case SubtopicsLayout.OneSideMap:
-                                        orientation = TopicListOrientation.Vertical;
-                                        break;
                                         case SubtopicsLayout.Root:
-                                        orientation = TopicListOrientation.Vertical;
-                                        break;
-                                        case SubtopicsLayout.OneSideRoot:
                                         orientation = TopicListOrientation.Vertical;
                                         break;
                                 }

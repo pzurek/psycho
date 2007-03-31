@@ -171,16 +171,18 @@ namespace Psycho
 
                 public void CreateSubtopic ()
                 {
-                        Topic newTopic = new Topic (centralTopic.TotalCount);
-                        newTopic.Parent = CurrentTopic;
-                        CurrentTopic.IsExpanded = true;
-                        CurrentTopic.AddSubtopic (newTopic);
-                        CreateXMLSubtopic (newTopic);
-                        SetCurrent (newTopic);
-                        SetCurrentXml (CurrentTopic.GUID);
-                        newTopics.Add (newTopic);
-                        UpdateToTop (newTopic);
-                        NotifyObservers ();
+                        if (CurrentTopic != null) {
+                                Topic newTopic = new Topic (centralTopic.TotalCount);
+                                newTopic.Parent = CurrentTopic;
+                                CurrentTopic.IsExpanded = true;
+                                CurrentTopic.AddSubtopic (newTopic);
+                                CreateXMLSubtopic (newTopic);
+                                SetCurrent (newTopic);
+                                SetCurrentXml (CurrentTopic.GUID);
+                                newTopics.Add (newTopic);
+                                UpdateToTop (newTopic);
+                                NotifyObservers ();
+                        }
                 }
 
                 public void CreateXMLSubtopic (string parentGuid, string iGuid, string iTitle)

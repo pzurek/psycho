@@ -62,6 +62,13 @@ namespace Psycho
                         if (iTopic.Parent != null) {
                                 this.start = iTopic.InPoint;
                                 this.end = iTopic.Parent.OutPoint;
+
+                                if (iTopic.Style.SubLayout == SubtopicsLayout.Map &&
+                                    iTopic.InPoint.Equals (iTopic.Frame.Top))
+                                        this.start.Y = iTopic.Offset.BaseY;
+                                if (iTopic.Style.SubLayout == SubtopicsLayout.OrgChart &&
+                                    iTopic.InPoint.Equals (iTopic.Frame.Left))
+                                        this.start.X = iTopic.Offset.BaseX;
                         }
                         this.connectionVector.Dx = this.End.X - this.Start.X;
                         this.connectionVector.Dy = this.End.Y - this.Start.Y;
@@ -146,8 +153,23 @@ namespace Psycho
                 {
                         get
                         {
-                                middleStart.X = System.Math.Floor (this.Start.X + this.ConnectionVector.Dx / 2);
-                                middleStart.Y = System.Math.Floor (this.Start.Y);
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                middleStart.X = System.Math.Floor (this.Start.X + this.ConnectionVector.Dx / 2);
+                                                middleStart.Y = System.Math.Floor (this.Start.Y);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                middleStart.X = System.Math.Floor (this.Start.X);
+                                                middleStart.Y = System.Math.Floor (this.Start.Y + this.ConnectionVector.Dy / 2);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root: {
+                                                middleStart.X = System.Math.Floor (this.End.X);
+                                                middleStart.Y = System.Math.Floor (this.Start.Y);
+                                        }
+                                        break;
+                                }
                                 return middleStart;
                         }
                 }
@@ -156,8 +178,23 @@ namespace Psycho
                 {
                         get
                         {
-                                middleEnd.X = System.Math.Floor (this.End.X - this.ConnectionVector.Dx / 2);
-                                middleEnd.Y = System.Math.Floor (this.End.Y);
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                middleEnd.X = System.Math.Floor (this.End.X - this.ConnectionVector.Dx / 2);
+                                                middleEnd.Y = System.Math.Floor (this.End.Y);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                middleEnd.X = System.Math.Floor (this.End.X);
+                                                middleEnd.Y = System.Math.Floor (this.End.Y + this.ConnectionVector.Dy / 2);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root: {
+                                                middleEnd.X = System.Math.Floor (this.End.X);
+                                                middleEnd.Y = System.Math.Floor (this.Start.Y);
+                                        }
+                                        break;
+                                }
                                 return middleEnd;
                         }
                 }
@@ -166,8 +203,23 @@ namespace Psycho
                 {
                         get
                         {
-                                curveControlStart.X = System.Math.Floor (this.Start.X + ConnectionVector.Dx / 1.61);
-                                curveControlStart.Y = System.Math.Floor (this.Start.Y);
+                                switch (this.Topic.Parent.Style.SubLayout) {
+                                        case SubtopicsLayout.Map: {
+                                                curveControlStart.X = System.Math.Floor (this.Start.X + ConnectionVector.Dx / 1.61);
+                                                curveControlStart.Y = System.Math.Floor (this.Start.Y);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.OrgChart: {
+                                                curveControlStart.X = System.Math.Floor (this.Start.X);
+                                                curveControlStart.Y = System.Math.Floor (this.Start.Y + ConnectionVector.Dy / 1.61);
+                                        }
+                                        break;
+                                        case SubtopicsLayout.Root: {
+                                                curveControlStart.X = System.Math.Floor (this.Start.X + ConnectionVector.Dx / 1.61);
+                                                curveControlStart.Y = System.Math.Floor (this.Start.Y);
+                                        }
+                                        break;
+                                }
                                 return curveControlStart;
                         }
                 }
@@ -241,7 +293,7 @@ namespace Psycho
                 {
                         get
                         {
-                                chamferedCrankStart1.X = System.Math.Floor (this.MiddleStart.X - this.CrankRadius * System.Math.Sign(this.connectionVector.Dx));
+                                chamferedCrankStart1.X = System.Math.Floor (this.MiddleStart.X - this.CrankRadius * System.Math.Sign (this.connectionVector.Dx));
                                 chamferedCrankStart1.Y = System.Math.Floor (this.MiddleStart.Y);
                                 return chamferedCrankStart1;
                         }
@@ -322,36 +374,109 @@ namespace Psycho
                         if (this.Topic.Parent == null)
                                 return;
                         context = iContext;
-                        switch (this.Topic.Parent.Style.ConnectShape) {
-                        case ConnectionShape.Straight:
-                        sketchStraight ();
-                        break;
-                        case ConnectionShape.Crank:
-                        sketchCrank ();
-                        break;
-                        case ConnectionShape.AngleCrank:
-                        sketchAngleCrank ();
-                        break;
-                        case ConnectionShape.RoundedAngleCrank:
-                        sketchRoundedAngleCrank ();
-                        break;
-                        case ConnectionShape.ChamferedCrank:
-                        sketchChamferedCrank ();
-                        break;
-                        case ConnectionShape.RoundedCrank:
-                        sketchRoundedCrank ();
-                        break;
-                        case ConnectionShape.Arc:
-                        sketchArc ();
-                        break;
-                        case ConnectionShape.Curve:
-                        sketchCurve ();
-                        break;
-                        case ConnectionShape.None:
-                        break;
-                        default:
-                        sketchStraight ();
-                        break;
+                        switch (this.Topic.Parent.Style.SubLayout) {
+                                case SubtopicsLayout.Map: {
+                                        switch (this.Topic.Parent.Style.ConnectShape) {
+                                                case ConnectionShape.Straight:
+                                                sketchStraight ();
+                                                break;
+                                                case ConnectionShape.Crank:
+                                                sketchCrank ();
+                                                break;
+                                                case ConnectionShape.AngleCrank:
+                                                sketchAngleCrank ();
+                                                break;
+                                                case ConnectionShape.RoundedAngleCrank:
+                                                sketchRoundedAngleCrank ();
+                                                break;
+                                                case ConnectionShape.ChamferedCrank:
+                                                sketchChamferedCrank ();
+                                                break;
+                                                case ConnectionShape.RoundedCrank:
+                                                sketchRoundedCrank ();
+                                                break;
+                                                case ConnectionShape.Arc:
+                                                sketchArc ();
+                                                break;
+                                                case ConnectionShape.Curve:
+                                                sketchCurve ();
+                                                break;
+                                                case ConnectionShape.None:
+                                                break;
+                                                default:
+                                                sketchStraight ();
+                                                break;
+                                        }
+                                }
+                                break;
+                                case SubtopicsLayout.Root: {
+                                        switch (this.Topic.Parent.Style.ConnectShape) {
+                                                case ConnectionShape.Straight:
+                                                sketchStraight ();
+                                                break;
+                                                case ConnectionShape.Crank:
+                                                //sketchRootCrank ();
+                                                break;
+                                                case ConnectionShape.AngleCrank:
+                                                sketchAngleCrank ();
+                                                break;
+                                                case ConnectionShape.RoundedAngleCrank:
+                                                sketchRoundedAngleCrank ();
+                                                break;
+                                                case ConnectionShape.ChamferedCrank:
+                                                //sketchRootChamferedCrank ();
+                                                break;
+                                                case ConnectionShape.RoundedCrank:
+                                                //sketchRootRoundedCrank ();
+                                                break;
+                                                case ConnectionShape.Arc:
+                                                sketchArc ();
+                                                break;
+                                                case ConnectionShape.Curve:
+                                                sketchArc ();
+                                                break;
+                                                case ConnectionShape.None:
+                                                break;
+                                                default:
+                                                sketchStraight ();
+                                                break;
+                                        }
+                                }
+                                break;
+                                case SubtopicsLayout.OrgChart: {
+                                        switch (this.Topic.Parent.Style.ConnectShape) {
+                                                case ConnectionShape.Straight:
+                                                sketchStraight ();
+                                                break;
+                                                case ConnectionShape.Crank:
+                                                sketchCrank ();
+                                                break;
+                                                case ConnectionShape.AngleCrank:
+                                                sketchAngleCrank ();
+                                                break;
+                                                case ConnectionShape.RoundedAngleCrank:
+                                                sketchRoundedAngleCrank ();
+                                                break;
+                                                case ConnectionShape.ChamferedCrank:
+                                                sketchChamferedCrank ();
+                                                break;
+                                                case ConnectionShape.RoundedCrank:
+                                                sketchRoundedCrank ();
+                                                break;
+                                                case ConnectionShape.Arc:
+                                                sketchArc ();
+                                                break;
+                                                case ConnectionShape.Curve:
+                                                sketchCurve ();
+                                                break;
+                                                case ConnectionShape.None:
+                                                break;
+                                                default:
+                                                sketchStraight ();
+                                                break;
+                                        }
+                                }
+                                break;
                         }
                 }
 

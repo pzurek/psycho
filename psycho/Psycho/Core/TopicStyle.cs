@@ -71,11 +71,11 @@ namespace Psycho
                         this.CrankRadius = 7;
                         this.PolyDistance = 7;
                         this.Width = 140;
-                        this.Padding = 4;
+                        this.Padding = 5;
                         this.HorChildDist = 42;
                         this.VerChildDist = 7;
                         this.OrgChartVertDist = 21;
-                        this.ConnectPoint = ConnectionPoint.Center;
+                        this.ConnectPoint = ConnectionPoint.Edge;
                 }
 
                 public Topic Topic
@@ -135,7 +135,7 @@ namespace Psycho
                                         subLayout = SubtopicsLayout.OrgChart;
                                         break;
                                         default:
-                                        subLayout = SubtopicsLayout.OneSideMap;
+                                        subLayout = SubtopicsLayout.Map;
                                         break;
                                 }
                                 

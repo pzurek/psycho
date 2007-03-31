@@ -203,24 +203,11 @@ namespace Psycho
                                                         inPoint = this.Frame.Left;
                                         }
                                         break;
-                                        case SubtopicsLayout.OneSideMap:
-                                        inPoint = this.Frame.Left;
-                                        break;
                                         case SubtopicsLayout.Root: {
                                                 if (this.isOnLeft)
                                                         inPoint = this.Frame.Right;
                                                 else
                                                         inPoint = this.Frame.Left;
-                                        }
-                                        break;
-                                        case SubtopicsLayout.OneSideRoot:
-                                        inPoint = this.Frame.Left;
-                                        break;
-                                        case SubtopicsLayout.DoubleOrgChart: {
-                                                if (this.isOnTop)
-                                                        inPoint = this.Frame.Bottom;
-                                                else
-                                                        inPoint = this.Frame.Top;
                                         }
                                         break;
                                         case SubtopicsLayout.OrgChart:
@@ -247,21 +234,8 @@ namespace Psycho
                                                                 outPoint = this.Frame.Right;
                                                 }
                                                 break;
-                                                case SubtopicsLayout.OneSideMap:
-                                                outPoint = this.Frame.Right;
-                                                break;
                                                 case SubtopicsLayout.Root:
                                                 outPoint = this.Frame.Bottom;
-                                                break;
-                                                case SubtopicsLayout.OneSideRoot:
-                                                outPoint = this.Frame.Bottom;
-                                                break;
-                                                case SubtopicsLayout.DoubleOrgChart: {
-                                                        if (this.isOnTop)
-                                                                outPoint = this.Frame.Top;
-                                                        else
-                                                                outPoint = this.Frame.Bottom;
-                                                }
                                                 break;
                                                 case SubtopicsLayout.OrgChart:
                                                 outPoint = this.Frame.Bottom;
@@ -452,20 +426,10 @@ namespace Psycho
                                                 if (this.SubtopicList.Height > this.Height)
                                                         totalHeight = this.SubtopicList.Height;
                                                 break;
-                                                case SubtopicsLayout.OneSideMap:
-                                                if (this.SubtopicList.Height > this.Height)
-                                                        totalHeight = this.SubtopicList.Height;
-                                                break;
                                                 case SubtopicsLayout.Root:
                                                 totalHeight = this.Height + this.SubtopicList.Height + this.Style.VerChildDist;
                                                 break;
-                                                case SubtopicsLayout.OneSideRoot:
-                                                totalHeight = this.Height + this.SubtopicList.Height + this.Style.VerChildDist;
-                                                break;
                                                 case SubtopicsLayout.OrgChart:
-                                                totalHeight = this.Height + this.SubtopicList.Height + this.Style.OrgChartVertDist;
-                                                break;
-                                                case SubtopicsLayout.DoubleOrgChart:
                                                 totalHeight = this.Height + this.SubtopicList.Height + this.Style.OrgChartVertDist;
                                                 break;
                                         }
@@ -484,20 +448,10 @@ namespace Psycho
                                                         case SubtopicsLayout.Map:
                                                         totalWidth = this.Width + this.SubtopicList.Width + this.Style.HorChildDist;
                                                         break;
-                                                        case SubtopicsLayout.OneSideMap:
-                                                        totalWidth = this.Width + this.SubtopicList.Width + this.Style.HorChildDist;
-                                                        break;
                                                         case SubtopicsLayout.Root:
                                                         totalWidth = this.Width / 2  + this.SubtopicList.Width + this.Style.HorChildDist / 2;
                                                         break;
-                                                        case SubtopicsLayout.OneSideRoot:
-                                                        totalWidth = this.Width / 2 + this.SubtopicList.Width + this.Style.HorChildDist / 2;
-                                                        break;
                                                         case SubtopicsLayout.OrgChart:
-                                                        if (this.SubtopicList.Width > this.Width)
-                                                                totalWidth = this.SubtopicList.Width;
-                                                        break;
-                                                        case SubtopicsLayout.DoubleOrgChart:
                                                         if (this.SubtopicList.Width > this.Width)
                                                                 totalWidth = this.SubtopicList.Width;
                                                         break;

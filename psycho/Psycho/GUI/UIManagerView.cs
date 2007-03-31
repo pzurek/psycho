@@ -74,12 +74,12 @@ namespace Psycho
                 "    <toolitem name='new' action='New'/>" +
                 "    <toolitem name='open' action='Open'/>" +
                 "    <toolitem name='save' action='Save'/>" +
-                "    <separator action='Sep1'/>" +
+/*                "    <separator action='Sep1'/>" +
                 "    <toolitem name='goback' action='GoBack'/>" +
                 "    <toolitem name='goup' action='GoUp'/>" +
                 "    <toolitem name='godown' action='GoDown'/>" +
                 "    <toolitem name='goforward' action='GoForward'/>" +
-                "    <separator action='Sep2'/>" +
+ */             "    <separator action='Sep2'/>" +
                 "    <toolitem name='addtopic' action='AddTopic'/>" +
                 "    <toolitem name='addsubtopic' action='AddSubtopic'/>" +
                 "    <toolitem name='delete' action='Delete'/>" +
