@@ -24,35 +24,13 @@
 //
 
 using System;
-using Gtk;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Psycho {
 
-    [Gtk.TreeNode]
-    public class PsychoTreeNode : TreeNode {
+    public interface IVisitable {
 
-        private string guid;
-        private string title;
-
-        public new PsychoTreeNode Parent;
-
-        public PsychoTreeNode(string paramTitle, string paramGuid)
-            : base()
-        {
-            this.title = paramTitle;
-            this.guid = paramGuid;
-        }
-
-        [Gtk.TreeNodeValue(Column = 0)]
-        public string Title
-        {
-            get { return title; }
-        }
-
-        [Gtk.TreeNodeValue(Column = 1)]
-        public string GUID
-        {
-            get { return guid; }
-        }
+        void Accept (IVisitor visitor);
     }
 }

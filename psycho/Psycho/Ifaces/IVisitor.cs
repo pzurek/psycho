@@ -28,9 +28,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Psycho {
+    public interface IVisitor {
 
-    public interface IPsychoVisitable {
-
-        void Accept (IPsychoVisitor visitor);
+        void Visit (object visitable);
     }
 }
