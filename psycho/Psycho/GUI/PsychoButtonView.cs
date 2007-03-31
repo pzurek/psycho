@@ -79,6 +79,7 @@ namespace Psycho {
         void titleEntry_KeyReleaseEvent (object o, KeyReleaseEventArgs args)
         {
             string key = args.Event.Key.ToString();
+            if (args.Event.Key == Gdk.Key.Return)
             EditTitle(titleEntry.Text);
             Console.WriteLine("Title edited: " + titleEntry.Text);
         }
