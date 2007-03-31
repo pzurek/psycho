@@ -45,6 +45,11 @@ namespace Psycho
                         this.topic = iTopic;
                 }
 
+                public Topic Topic
+                {
+                        get { return topic; }
+                }
+
                 public double Width
                 {
                         get
@@ -176,6 +181,7 @@ namespace Psycho
                                          this.HexDistHor -
                                          this.OctDistHor -
                                          this.Radius;
+
                                 if (topic.Style.Shape == TopicShape.Line)
                                         left.Y = this.topic.Offset.Y +
                                                   this.Height;
@@ -196,6 +202,7 @@ namespace Psycho
                                           this.HexDistHor +
                                           this.OctDistHor +
                                           this.Radius;
+
                                 if (topic.Style.Shape == TopicShape.Line)
                                         right.Y = this.topic.Offset.Y +
                                                   this.topic.Frame.Height;

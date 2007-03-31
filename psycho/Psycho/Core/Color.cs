@@ -95,10 +95,10 @@ namespace Psycho
                         this.blue = 0;
                 }
 
-                public Color (string name, ushort iAlfa, ushort iRed, ushort iGreen, ushort iBlue)
+                public Color (ushort iRed, ushort iGreen, ushort iBlue)
                 {
-                        this.name = name;
-                        this.alfa = iAlfa;
+                        this.name = "";
+                        this.alfa = 255;
                         this.red = iRed;
                         this.green = iGreen;
                         this.blue = iBlue;
@@ -107,6 +107,15 @@ namespace Psycho
                 public Color (ushort iAlfa, ushort iRed, ushort iGreen, ushort iBlue)
                 {
                         this.name = "";
+                        this.alfa = iAlfa;
+                        this.red = iRed;
+                        this.green = iGreen;
+                        this.blue = iBlue;
+                }
+
+                public Color (string name, ushort iAlfa, ushort iRed, ushort iGreen, ushort iBlue)
+                {
+                        this.name = name;
                         this.alfa = iAlfa;
                         this.red = iRed;
                         this.green = iGreen;
@@ -138,10 +147,10 @@ namespace Psycho
                 public Cairo.Color ToCairoColor ()
                 {
                         Cairo.Color outColor = new Cairo.Color ();
-                        outColor.A = this.alfa / 255;
-                        outColor.R = this.red / 255;
-                        outColor.G = this.green / 255;
-                        outColor.B = this.blue / 255;
+                        outColor.A = (double) this.alfa / 255;
+                        outColor.R = (double) this.red / 255;
+                        outColor.G = (double) this.green / 255;
+                        outColor.B = (double) this.blue / 255;
                         return outColor;
                 }
 

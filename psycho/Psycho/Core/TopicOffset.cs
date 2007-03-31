@@ -41,6 +41,11 @@ namespace Psycho
                         this.isAuto = true;
                 }
 
+                public Topic Topic
+                {
+                        get { return topic; }
+                }
+
                 public double X
                 {
                         get
@@ -100,11 +105,6 @@ namespace Psycho
                 {
                         outXOffset = x;
                         outYOffset = y;
-                }
-
-                public Topic Topic
-                {
-                        get { return topic; }
                 }
 
                 public bool IsAuto

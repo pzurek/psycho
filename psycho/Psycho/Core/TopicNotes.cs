@@ -38,7 +38,6 @@ namespace Psycho
                 public TopicNotes (Topic iTopic)
                 {
                         this.topic = iTopic;
-                        this.text = "";
                         //string previousText, nextText, firstAncestorText;
                         //if (this.Topic.Previous != null) previousText = this.Topic.Previous.Text;
                         //else previousText = "";
@@ -53,18 +52,18 @@ namespace Psycho
 
                 public string Text
                 {
-                        get { return text; }
+                        get
+                        {
+                                if (this.text == null)
+                                        text = "";
+                                return text;
+                        }
                         set { text = value; }
                 }
 
                 public Topic Topic
                 {
                         get { return topic; }
-                }
-
-                public string GUID
-                {
-                        get { return this.topic.GUID; }
                 }
         }
 }

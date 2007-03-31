@@ -78,26 +78,19 @@ namespace Psycho
                 void OnMapRealize (object sender, EventArgs e)
                 {
                         gc = new Gdk.GC (this.GdkWindow);
-
-                        red = new Gdk.Color (0xff, 0, 0);
-                        green = new Gdk.Color (0, 0xff, 0);
-                        blue = new Gdk.Color (0, 0, 0xff);
-                        black = new Gdk.Color (0, 0, 0);
-
-                        Colormap colormap = Colormap.System;
-                        colormap.AllocColor (ref red, true, true);
-                        colormap.AllocColor (ref green, true, true);
-                        colormap.AllocColor (ref blue, true, true);
-                        colormap.AllocColor (ref black, true, true);
                 }
-
 
                 void OnMapExpose (object o, ExposeEventArgs e)
                 {
+                        if ((mapArea.WidgetFlags & WidgetFlags.Realized) == 0)
+                                return;
+
                         Context cr = Gdk.CairoHelper.Create (mapArea.GdkWindow);
+                        cr.Antialias = Antialias.Default;
                         int w, h;
                         mapArea.GdkWindow.GetSize (out w, out h);
                         DrawBackground (cr);
+                        //cr.Translate (w / 2, h / 2);
                         DrawTopics (cr);
                 }
 
@@ -132,26 +125,26 @@ namespace Psycho
 
                 void DrawConnection (Cairo.Context iContext, Topic iTopic)
                 {
-                        foreach (Topic child in iTopic.Subtopics) {
-                                child.Connection.Sketch (iContext);
-                                Cairo.Color strokeColor;
-                                //Cairo.Color fillColor;
-                                strokeColor = new Cairo.Color (1, 0, 1);
-                                iContext.Color = strokeColor;
-                                iContext.LineWidth = iTopic.Style.StrokeWidth;
-                                iContext.Stroke ();
-                        }
+                        iTopic.Connection.Sketch (iContext);
+                        Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
+                        //Cairo.Color fillColor;
+                        //strokeColor = new Cairo.Color (1, 0, 0);
+                        iContext.Color = strokeColor;
+                        iContext.LineWidth = iTopic.Style.StrokeWidth;
+                        iContext.Stroke ();
                 }
 
                 void DrawFrame (Cairo.Context iContext, Topic iTopic)
                 {
                         iTopic.Frame.Sketch (iContext);
-                        Cairo.Color strokeColor;
-                        Cairo.Color fillColor;
+                        Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
+                        Cairo.Color fillColor = iTopic.Style.StrokeColor.ToCairoColor ();
                         if (iTopic.IsCurrent)
                                 strokeColor = new Cairo.Color (0.5, 0.5, 0.5);
-                        else
-                                strokeColor = new Cairo.Color (0, 0, 1);
+                        fillColor.A = 0.1;
+                        iContext.Color = fillColor;
+                        iContext.Fill ();
+                        iTopic.Frame.Sketch (iContext);
                         iContext.Color = strokeColor;
                         iContext.LineWidth = iTopic.Style.StrokeWidth;
                         iContext.Stroke ();

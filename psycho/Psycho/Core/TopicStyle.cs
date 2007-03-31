@@ -30,6 +30,7 @@ namespace Psycho
 {
         public class TopicStyle
         {
+                Topic topic;
                 Font styleFont;
                 TopicShape shape;
                 ConnectionPoint connectPoint;
@@ -51,24 +52,19 @@ namespace Psycho
 
                 Stylus stylus = new Stylus ();
 
-                public TopicStyle () //TODO: One big hack
+                public TopicStyle (Topic iTopic) //TODO: One big hack
                 {
+                        this.topic = iTopic;
                         this.StyleFont = (new Font ("Verdana", 10)); // TODO: That of course has to be loaded from style
-                        this.Shape = TopicShape.RoundedRectangle;
                         this.ConnectPoint = ConnectionPoint.Edge;
-                        this.ConnectShape = ConnectionShape.Straight;
-                        Color fcolor = (stylus.GetFirstColor (out fcolor));
-                        this.FillColor = fcolor;
-                        FillColor.SetAlfa (20);
-                        this.StrokeColor = fillColor; // TODO: For now the stroke color is the same as fill color. To be changed later
                         this.StrokeWidth = 2;
                         this.EqualMargins = true;
-                        this.LeftMargin = 1;
+                        this.LeftMargin = 0;
                         this.RightMargin = 3;
                         this.TopMargin = 4;
                         this.BottomMargin = 10;
-                        this.Width = 100;
-                        this.Padding = 20;
+                        this.Width = 150;
+                        this.Padding = 4;
                 }
 
                 public Font StyleFont
@@ -79,7 +75,27 @@ namespace Psycho
 
                 public TopicShape Shape
                 {
-                        get { return shape; }
+                        get
+                        {
+                                switch (this.topic.Level) {
+                                case 0:
+                                shape = TopicShape.RoundedRectangle;
+                                break;
+                                case 1:
+                                shape = TopicShape.Hexagon;
+                                break;
+                                case 2:
+                                shape = TopicShape.Octagon;
+                                break;
+                                case 3:
+                                shape = TopicShape.Rectangle;
+                                break;
+                                default:
+                                shape = TopicShape.Hexagon;
+                                break;
+                                }
+                                return shape;
+                        }
                         set { shape = value; }
                 }
 
@@ -91,7 +107,24 @@ namespace Psycho
 
                 public ConnectionShape ConnectShape
                 {
-                        get { return connectShape; }
+                        get
+                        {
+                                switch (this.topic.Level) {
+                                case 0:
+                                connectShape = ConnectionShape.Curve;
+                                break;
+                                case 1:
+                                connectShape = ConnectionShape.Straight;
+                                break;
+                                case 2:
+                                connectShape = ConnectionShape.Crank;
+                                break;
+                                default:
+                                connectShape = ConnectionShape.Crank;
+                                break;
+                                }
+                                return connectShape;
+                        }
                         set { connectShape = value; }
                 }
 
@@ -109,7 +142,40 @@ namespace Psycho
 
                 public Color StrokeColor
                 {
-                        get { return strokeColor; }
+                        get
+                        {
+                                if (this.topic.Level < 2) {
+                                        switch (this.topic.Number) {
+                                        case "0":
+                                        strokeColor = new Color (55, 55, 55);
+                                        break;
+                                        case "1":
+                                        strokeColor = new Color (239, 41, 41);
+                                        break;
+                                        case "2":
+                                        strokeColor = new Color (237, 212, 0);
+                                        break;
+                                        case "3":
+                                        strokeColor = new Color (52, 101, 164);
+                                        break;
+                                        case "4":
+                                        strokeColor = new Color (115, 210, 22);
+                                        break;
+                                        case "5":
+                                        strokeColor = new Color (173, 127, 168);
+                                        break;
+                                        case "6":
+                                        strokeColor = new Color (245, 121, 0);
+                                        break;
+                                        default:
+                                        strokeColor = new Color (32, 74, 135);
+                                        break;
+                                        }
+                                }
+                                else
+                                        strokeColor = this.topic.Parent.Style.StrokeColor;
+                                return strokeColor;
+                        }
                         set { strokeColor = value; }
                 }
 

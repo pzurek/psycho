@@ -40,7 +40,7 @@ namespace Psycho
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic ";
-                        this.Style = new TopicStyle ();
+                        this.Style = new TopicStyle (this);
                 }
 
                 public Topic (string iTitle)
@@ -48,7 +48,7 @@ namespace Psycho
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = iTitle;
-                        this.Style = new TopicStyle ();
+                        this.Style = new TopicStyle (this);
                 }
 
                 public Topic (Topic iParent)
@@ -57,7 +57,7 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic ";
                         this.Parent = iParent;
-                        this.Style = new TopicStyle ();
+                        this.Style = new TopicStyle (this);
                 }
 
                 public Topic (string iTitle, Topic iParent)
@@ -66,7 +66,7 @@ namespace Psycho
                         this.guid = newGuid.ToString ();
                         this.Text = iTitle;
                         this.Parent = iParent;
-                        this.Style = new TopicStyle ();
+                        this.Style = new TopicStyle (this);
                 }
 
                 public Topic (int topicNumber)
@@ -74,7 +74,7 @@ namespace Psycho
                         System.Guid newGuid = System.Guid.NewGuid ();
                         this.guid = newGuid.ToString ();
                         this.Text = "Topic " + topicNumber.ToString ();
-                        this.Style = new TopicStyle ();
+                        this.Style = new TopicStyle (this);
                 }
 
                 string text;
@@ -161,8 +161,6 @@ namespace Psycho
                                 return textWidth;
                         }
                 }
-
-
 
                 public int TextHeight
                 {

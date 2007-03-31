@@ -31,15 +31,68 @@ namespace Psycho
         {
                 Topic topic;
                 Cairo.Context context;
+                Cairo.PointD start, end;
+                Cairo.PointD middleStart, middleEnd;
 
                 public TopicConnection (Topic iTopic)
                 {
                         this.topic = iTopic;
                 }
 
+                public Topic Topic
+                {
+                        get { return topic; }
+                }
+
+                public Cairo.PointD Start
+                {
+                        get
+                        {
+                                start = this.topic.Frame.Left;
+                                return start;
+                        }
+                }
+
+                public Cairo.PointD End
+                {
+                        get
+                        {
+                                end = this.topic.Parent.Frame.Right;
+                                return end;
+                        }
+                }
+
+                public Cairo.PointD MiddleStart
+                {
+                        get
+                        {
+                                middleStart.X = this.topic.Parent.Frame.Right.X + ((
+                                                this.topic.Frame.Left.X -
+                                                this.topic.Parent.Frame.Right.X) / 2);
+                                middleStart.Y = this.topic.Frame.Left.Y;
+                                return middleStart;
+                        }
+                }
+
+                public Cairo.PointD MiddleEnd
+                {
+                        get
+                        {
+                                middleEnd.X = this.topic.Parent.Frame.Right.X + ((
+                                                this.topic.Frame.Left.X -
+                                                this.topic.Parent.Frame.Right.X) / 2);
+                                middleEnd.Y = this.topic.Parent.Frame.Right.Y;
+                                return middleEnd;
+                        }
+                }
+
                 public void Sketch (Cairo.Context iContext)
                 {
+                        if (this.topic.Parent == null)
+                                return;
                         context = iContext;
+                        context.LineCap = Cairo.LineCap.Round;
+                        context.LineJoin = Cairo.LineJoin.Round;
                         switch (this.topic.Parent.Style.ConnectShape) {
                         case ConnectionShape.Straight:
                         sketchStraight ();
@@ -69,12 +122,16 @@ namespace Psycho
 
                 private void sketchCurve ()
                 {
-                        throw new Exception ("The method or operation is not implemented.");
+                        context.MoveTo (Start);
+                        Cairo.PointD childPoint = new Cairo.PointD (this.topic.Parent.Frame.Right.X + 10, this.topic.Frame.Left.Y);
+                        Cairo.PointD parentPoint = new Cairo.PointD (this.topic.Frame.Left.X - 10, this.topic.Parent.Frame.Right.Y);
+                        context.CurveTo (MiddleStart, MiddleEnd, End);
                 }
 
                 private void sketchArc ()
                 {
-                        throw new Exception ("The method or operation is not implemented.");
+                        context.MoveTo (this.topic.Frame.Left);
+
                 }
 
                 private void sketchRoundedCrank ()
@@ -89,13 +146,16 @@ namespace Psycho
 
                 private void sketchCrank ()
                 {
-                        throw new Exception ("The method or operation is not implemented.");
+                        context.MoveTo (Start);
+                        context.LineTo (MiddleStart);
+                        context.LineTo (MiddleEnd);
+                        context.LineTo (End);
                 }
 
                 private void sketchStraight ()
                 {
-                        context.MoveTo (this.topic.Frame.Left);
-                        context.LineTo (this.topic.Parent.Frame.Right);
+                        context.MoveTo (Start);
+                        context.LineTo (End);
                 }
         }
 }
