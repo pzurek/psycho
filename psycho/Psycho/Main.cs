@@ -43,6 +43,7 @@ namespace Psycho
 		static void OnDelete (object sender, DeleteEventArgs args)
 	    {
 	        Application.Quit ();
+            return;
 	    }     
 	}
 }
