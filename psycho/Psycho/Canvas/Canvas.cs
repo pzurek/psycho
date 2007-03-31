@@ -103,14 +103,41 @@ namespace Psycho
 
                 void DrawTopics (Context iContext)
                 {
-                        Model.CentralTopic.ForEach (delegate (Topic iTopic)
-                        {
-                                if (iTopic.IsVisible || iTopic.IsCentral) {
-                                        DrawConnection (iContext, iTopic);
-                                        DrawFrame (iContext, iTopic);
-                                        DrawText (iContext, iTopic);
+                        DrawConnections (iContext, Model.CentralTopic);
+                        DrawFrames (iContext, Model.CentralTopic);
+                        DrawTexts (iContext, Model.CentralTopic);
+                        DrawFrame (iContext, Model.CentralTopic);
+                        DrawText (iContext, Model.CentralTopic);
+                }
+
+                public void DrawConnections (Cairo.Context iContext, Topic iTopic)
+                {
+                        foreach (Topic TempTopic in iTopic.Subtopics) {
+                                if (TempTopic.IsExpanded) {
+                                        DrawConnections (iContext, TempTopic);
                                 }
-                        });
+                                DrawConnection (iContext, TempTopic);
+                        }
+                }
+
+                public void DrawFrames (Cairo.Context iContext, Topic iTopic)
+                {
+                        foreach (Topic TempTopic in iTopic.Subtopics) {
+                                if (TempTopic.IsExpanded) {
+                                        DrawFrames (iContext, TempTopic);
+                                }
+                                DrawFrame (iContext, TempTopic);
+                        }
+                }
+
+                public void DrawTexts (Cairo.Context iContext, Topic iTopic)
+                {
+                        foreach (Topic TempTopic in iTopic.Subtopics) {
+                                if (TempTopic.IsExpanded) {
+                                        DrawTexts (iContext, TempTopic);
+                                }
+                                DrawText (iContext, TempTopic);
+                        }
                 }
 
                 void DrawText (Cairo.Context iContext, Topic iTopic)
@@ -124,14 +151,10 @@ namespace Psycho
 
                 void DrawConnection (Cairo.Context iContext, Topic iTopic)
                 {
-                        if (!iTopic.IsCentral) {
-                                iTopic.Connection.Sketch (iContext);
-                                iContext.Color = iTopic.Style.StrokeColor.ToCairoColor ();
-                                iContext.LineWidth = iTopic.Style.StrokeWidth;
-                                iContext.LineCap = LineCap.Round;
-                                iContext.LineJoin = LineJoin.Round;
-                                iContext.Stroke ();
-                        }
+                        iTopic.Connection.Sketch (iContext);
+                        iContext.Color = iTopic.Style.StrokeColor.ToCairoColor ();
+                        iContext.LineWidth = iTopic.Style.StrokeWidth;
+                        iContext.Stroke ();
                 }
 
                 void DrawFrame (Cairo.Context iContext, Topic iTopic)

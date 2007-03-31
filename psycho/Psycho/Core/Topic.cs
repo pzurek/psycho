@@ -145,7 +145,8 @@ namespace Psycho
                 {
                         get
                         {
-                                this.textLayout = new Pango.Layout (this.PangoContext);
+                                if (this.textLayout == null)
+                                        this.textLayout = new Pango.Layout (this.PangoContext);
                                 this.textLayout.SetText (this.text);
                                 this.textLayout.Width = Pango.Units.FromPixels (this.Style.Width);
                                 this.textLayout.FontDescription = Pango.FontDescription.FromString (this.Style.StyleFont.Description);

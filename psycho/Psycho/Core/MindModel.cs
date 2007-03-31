@@ -68,7 +68,7 @@ namespace Psycho
                 bool editPending;
                 public int levelCounter;
 
-                public Topic FindByGUID (string iGuid/*, Topic iTopic*/)
+                public Topic FindByGUID (string iGuid)
                 {
                         Topic found = new Topic (0);
 
@@ -137,13 +137,13 @@ namespace Psycho
 
                 public bool EditPending
                 {
-                        get { Console.WriteLine ("Edit pending {0}", editPending.ToString ()); return editPending; }
-                        set { editPending = value; Console.WriteLine ("Edit pending {0}", editPending.ToString ()); }
+                        get { return editPending; }
+                        set { editPending = value; }
                 }
 
                 public void AppendSomeNodes (Topic iTopic)
                 {
-                        while (iTopic.Subtopics.Count < 3) {
+                        while (iTopic.Subtopics.Count < 2) {
                                 Topic newTopic = new Topic (this.centralTopic.TotalCount);
                                 newTopic.Parent = iTopic;
                                 CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);

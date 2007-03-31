@@ -32,7 +32,7 @@ namespace Psycho
                 Cairo.Context context;
                 double frameHeight, frameWidth;
                 Cairo.PointD origin, center, left, right, top, bottom;
-                double octDist, octDistHor, octDistVer;
+                double octDist, octDistHor, octDistVer, polyDist;
                 double hexDist, hexDistHor;
                 double radius;
                 Topic topic;
@@ -56,9 +56,7 @@ namespace Psycho
                         {
                                 frameWidth = this.Topic.TextWidth +
                                              this.Topic.Style.LeftMargin +
-                                             this.Topic.Style.RightMargin /*+
-                                              2 * this.Topic.Style.StrokeWidth*/
-                                                                                ;
+                                             this.Topic.Style.RightMargin;
                                 return frameWidth;
                         }
                 }
@@ -69,9 +67,7 @@ namespace Psycho
                         {
                                 frameHeight = this.Topic.TextHeight +
                                               this.Topic.Style.TopMargin +
-                                              this.Topic.Style.BottomMargin /*+
-                                              2 * this.Topic.Style.StrokeWidth*/
-                                                                                ;
+                                              this.Topic.Style.BottomMargin;
                                 return frameHeight;
                         }
                 }
@@ -136,6 +132,29 @@ namespace Psycho
                         }
                 }
 
+                double PolyDist
+                {
+                        get
+                        {
+                                polyDist = new double ();
+                                switch (this.Topic.Style.Shape) {
+                                case TopicShape.Octagon:
+                                if (this.Topic.Style.PolyDistance > 0.25 * this.Height)
+                                        polyDist = 0.25 * this.Height;
+                                else
+                                        polyDist = this.Topic.Style.PolyDistance;
+                                                break;
+                                case TopicShape.Hexagon:
+                                        polyDist = this.Topic.Style.PolyDistance;
+                                        break;
+                                default:
+                                        polyDist = 0;
+                                        break;
+                                }
+                                return polyDist;
+                        }
+                }
+
                 double Radius
                 {
                         get
@@ -177,9 +196,10 @@ namespace Psycho
                 {
                         get
                         {
-                                left.X = this.Origin.X -
+                                left.X = this.Origin.X - /*
                                          this.HexDistHor -
-                                         this.OctDistHor -
+                                         this.OctDistHor -*/
+                                         this.PolyDist -
                                          this.Radius;
 
                                 if (this.Topic.Style.Shape == TopicShape.Line)
@@ -197,9 +217,10 @@ namespace Psycho
                         get
                         {
                                 right.X = this.Origin.X +
-                                          this.Width +
+                                          this.Width +/*
                                           this.HexDistHor +
-                                          this.OctDistHor +
+                                          this.OctDistHor +*/
+                                          this.PolyDist +
                                           this.Radius;
 
                                 if (this.Topic.Style.Shape == TopicShape.Line)
@@ -297,12 +318,12 @@ namespace Psycho
                         context.NewPath ();
                         context.MoveTo (Origin);
                         context.RelLineTo (this.Width, 0);
-                        context.RelLineTo (this.OctDistHor, this.OctDistVer);
-                        context.RelLineTo (0, this.OctDist);
-                        context.RelLineTo (-this.OctDistHor, this.OctDistVer);
+                        context.RelLineTo (this.PolyDist, this.PolyDist);
+                        context.RelLineTo (0, this.Height - (2*this.PolyDist));
+                        context.RelLineTo (-this.PolyDist, this.PolyDist);
                         context.RelLineTo (-this.Width, 0);
-                        context.RelLineTo (-this.OctDistHor, -this.OctDistVer);
-                        context.RelLineTo (0, -this.OctDist);
+                        context.RelLineTo (-this.PolyDist, -this.PolyDist);
+                        context.RelLineTo (0, -(this.Height - (2 * this.PolyDist)));
                         context.ClosePath ();
                 }
 
@@ -311,10 +332,10 @@ namespace Psycho
                         context.NewPath ();
                         context.MoveTo (Origin);
                         context.RelLineTo (this.Width, 0);
-                        context.RelLineTo (HexDistHor, this.Height / 2);
-                        context.RelLineTo (-HexDistHor, this.Height / 2);
+                        context.RelLineTo (this.PolyDist, this.Height / 2);
+                        context.RelLineTo (-this.PolyDist, this.Height / 2);
                         context.RelLineTo (-this.Width, 0);
-                        context.RelLineTo (-HexDistHor, -this.Height / 2);
+                        context.RelLineTo (-this.PolyDist, -this.Height / 2);
                         context.ClosePath ();
                 }
         }

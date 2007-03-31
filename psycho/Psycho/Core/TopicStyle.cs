@@ -24,7 +24,6 @@
 //
 
 using System;
-using System.Text;
 
 namespace Psycho
 {
@@ -48,6 +47,7 @@ namespace Psycho
                 int maxMargin;
                 int padding, horChildDist;
                 int crankRadius, crankChamfer;
+                int polyDistance;
                 bool fixedWidth;
                 int width;
 
@@ -60,15 +60,16 @@ namespace Psycho
                         this.ConnectPoint = ConnectionPoint.Edge;
                         this.StrokeWidth = 2;
                         this.EqualMargins = true;
-                        this.LeftMargin = 3;
+                        this.LeftMargin = 2;
                         this.RightMargin = 0;
                         this.TopMargin = 0;
                         this.BottomMargin = 0;
                         this.CrankChamfer = 12;
                         this.CrankRadius = 12;
+                        this.PolyDistance = 8;
                         this.Width = 150;
                         this.Padding = 7;
-                        this.HorChildDist = 50;
+                        this.HorChildDist = 70;
                 }
 
                 public Topic Topic
@@ -123,16 +124,16 @@ namespace Psycho
                                 connectShape = ConnectionShape.Curve;
                                 break;
                                 case 1:
-                                connectShape = ConnectionShape.Arc;
+                                connectShape = ConnectionShape.RoundedCrank;
                                 break;
                                 case 2:
-                                connectShape = ConnectionShape.RoundedCrank;
+                                connectShape = ConnectionShape.Arc;
                                 break;
                                 case 3:
                                 connectShape = ConnectionShape.ChamferedCrank;
                                 break;
                                 case 4:
-                                connectShape = ConnectionShape.Crank;
+                                connectShape = ConnectionShape.None;
                                 break;
                                 default:
                                 connectShape = ConnectionShape.Straight;
@@ -288,6 +289,12 @@ namespace Psycho
                 {
                         get { return crankChamfer; }
                         set { crankChamfer = value; }
+                }
+
+                public int PolyDistance
+                {
+                        get { return polyDistance; }
+                        set { polyDistance = value; }
                 }
 
                 public int Padding
