@@ -122,7 +122,6 @@ namespace Psycho {
         {
             foreach (IPsychoView view in observerList) {
                 view.Update(this);
-                Console.WriteLine("Updated: " + view.ToString());
             }
         }
 
@@ -133,11 +132,11 @@ namespace Psycho {
             Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
         }
 
-        public void ExpandTopic(string paramGuid, bool expand)
+        public void ExpandTopic(string paramGuid, bool isExpanded)
         {
             Topic ExpandedTopic = FindByGUID(paramGuid, CentralTopic);
-            ExpandedTopic.Expanded = (expand);
-            if (expand)
+            ExpandedTopic.IsExpanded = (isExpanded);
+            if (isExpanded)
                 Console.WriteLine("Node: " + ExpandedTopic.GUID + " was expanded");
             else
                 Console.WriteLine("Node: " + ExpandedTopic.GUID + " was collpsed");

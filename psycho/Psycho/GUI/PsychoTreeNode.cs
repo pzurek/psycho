@@ -30,8 +30,10 @@ namespace Psycho {
 
     [Gtk.TreeNode]
     public class PsychoTreeNode : TreeNode {
+
         private string guid;
         private string title;
+
         public new PsychoTreeNode Parent;
 
         public PsychoTreeNode(string paramTitle, string paramGuid)

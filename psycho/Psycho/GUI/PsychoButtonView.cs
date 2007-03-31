@@ -93,6 +93,7 @@ namespace Psycho {
         private void titleEntry_EditingDone(object sender, System.EventArgs args)
         {
             EditTitle(titleEntry.Text);
+            Console.WriteLine("Title edited: " + titleEntry.Text);
         }
 
         public void EditTitle(string paramString)

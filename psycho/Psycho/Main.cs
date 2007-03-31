@@ -31,7 +31,6 @@ namespace Psycho
 	{
 		public static void Main()
 		{
-			Console.WriteLine("I'm going slightly mad...");
 			Application.Init ();
 
         	MainWindow mainWindow = new MainWindow();
@@ -41,7 +40,7 @@ namespace Psycho
 
             MainVBox userInterface = new MainVBox();
             mainWindow.Add(userInterface);
-            mainWindow.ShowAll ();
+            mainWindow.Show();
 	        Application.Run ();
 		}
 		

@@ -47,13 +47,13 @@ namespace Psycho
 
         public void AppendSomeNodes(Topic paramTopic)
         {
-            while (paramTopic.Subtopics.Count < 5){
+            while (paramTopic.Subtopics.Count < 4){
                 Topic newTopic = new Topic(this.centralTopic.TotalCount);
                 newTopic.Parent = paramTopic;
                 paramTopic.AddSubtopic(newTopic);
             }
 
-            while (levelCounter < 4) {
+            while (levelCounter < 2) {
                 foreach (Topic topic in paramTopic.Subtopics) {
                     levelCounter++;
                     AppendSomeNodes(topic);

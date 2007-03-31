@@ -39,6 +39,7 @@ namespace Psycho {
             System.Guid newGuid = System.Guid.NewGuid();
             this.guid = newGuid.ToString();
             this.Title = ("Topic " + topic_number.ToString());
+            this.isExpanded = false;
         }
 
         #region private fields
@@ -48,7 +49,7 @@ namespace Psycho {
         private int level;
         private int totalCount;
         private string guid;
-        private bool expanded;
+        private bool isExpanded;
         #endregion
 
         #region public fields
@@ -79,10 +80,10 @@ namespace Psycho {
             set { level = value; }
         }
 
-        public bool Expanded
+        public bool IsExpanded
         {
-            get { return expanded; }
-            set { expanded = value; }
+            get { return isExpanded; }
+            set { isExpanded = value; }
         }
 
         public string GUID
