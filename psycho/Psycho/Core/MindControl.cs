@@ -26,10 +26,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho
-{
-    class MindControl : IPsychoControl
-    {
+namespace Psycho {
+    class MindControl : IPsychoControl {
         private IPsychoModel Model;
         private IPsychoView View;
 
@@ -51,65 +49,59 @@ namespace Psycho
         {
             this.View = paramView;
         }
-	
-		public void RequestSetCurrent(string paramGuid)
-		{
-	    	Model.SetCurrent(paramGuid, Model.CentralTopic);
-		}
-        
-		public void RequestAddSubtopic()
-        {	
-			if (Model != null)
-            {
-            	Model.CreateSubtopic();
+
+        public void RequestSetCurrent(string paramGuid)
+        {
+            Model.SetCurrent(paramGuid, Model.CentralTopic);
+        }
+
+        public void RequestAddSubtopic()
+        {
+            if (Model != null) {
+                Model.CreateSubtopic();
                 CheckAddSiblingButtonLegal();
-			}
+            }
         }
 
         public void RequestAddTopic()
         {
-			if (Model != null)
-			{
-	            Model.CreateTopic();
+            if (Model != null) {
+                Model.CreateTopic();
                 CheckAddSiblingButtonLegal();
-			}
+            }
         }
 
         public void RequestDelete()
         {
-			if (Model != null)
-			{
-            	Model.DeleteTopic();
+            if (Model != null) {
+                Model.DeleteTopic();
                 CheckAddSiblingButtonLegal();
-			}
+            }
         }
 
         public void RequestSetTitle(string paramTitle)
         {
-			if (Model != null)
-			{
-	            Model.CurrentTopic.Title = (paramTitle);
-			}
+            if (Model != null) {
+                Model.CurrentTopic.Title = (paramTitle);
+            }
         }
 
-        public void RequestExpand (string paramGuid, bool isExpanded)
+        public void RequestExpand(string paramGuid, bool isExpanded)
         {
             if (Model != null) {
                 Model.ExpandTopic(paramGuid, isExpanded);
             }
         }
         #endregion
-    	
-		public void CheckAddSiblingButtonLegal()
-		{
-	    	if(Model.CurrentTopic == Model.CentralTopic)
-	    	{ 
-				View.DisableAddSibling();
-	    	}
-	    	else 
-	    	{
-				View.EnableAddSibling();
-	    	}
-		}
+
+        public void CheckAddSiblingButtonLegal()
+        {
+            if (Model.CurrentTopic == Model.CentralTopic) {
+                View.DisableAddSibling();
+            }
+            else {
+                View.EnableAddSibling();
+            }
+        }
     }
 }

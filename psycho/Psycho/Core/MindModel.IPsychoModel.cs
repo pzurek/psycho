@@ -23,29 +23,27 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-namespace Psycho
-{
+namespace Psycho {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using Psycho;
-	
+
     /// <summary>
     /// Implementation of the IPsychoModel interface for the Topic object.
     /// </summary>
-    public partial class MindModel : IPsychoModel
-    {
-    	private Topic centralTopic = new Topic(0);
-    	private Topic currentTopic;
+    public partial class MindModel : IPsychoModel {
+        private Topic centralTopic = new Topic(0);
+        private Topic currentTopic;
         private int currentLevel = 0;
-    	
+
         #region IPsychoModel Members
         private ArrayList observerList = new ArrayList();
-         
+
         public Topic CurrentTopic
         {
-			get	{ return currentTopic; }
-			set { currentTopic = value; }
+            get { return currentTopic; }
+            set { currentTopic = value; }
         }
 
         public Topic CentralTopic
@@ -59,7 +57,7 @@ namespace Psycho
             get { return currentLevel; }
             set { currentLevel = value; }
         }
-        
+
         public void CreateTopic()
         {
             Topic newTopic = new Topic(centralTopic.TotalCount);
@@ -68,7 +66,7 @@ namespace Psycho
             CurrentTopic = newTopic;
             NotifyObservers();
         }
-        
+
         public void CreateSubtopic()
         {
             Topic newTopic = new Topic(centralTopic.TotalCount);
@@ -124,19 +122,19 @@ namespace Psycho
                 view.Update(this);
             }
         }
-        
+
         public void SetCurrent(string paramGuid, Topic paramTopic)
         {
             CurrentTopic = FindByGUID(paramGuid, CentralTopic);
-//            NotifyObservers();
+            //            NotifyObservers();
             Console.WriteLine("Current topic set to: " + CurrentTopic.GUID);
         }
 
-        public void ExpandTopic (string paramGuid, bool expand)
+        public void ExpandTopic(string paramGuid, bool expand)
         {
             Topic ExpandedTopic = FindByGUID(paramGuid, CentralTopic);
             ExpandedTopic.Expanded = (expand);
-            if (expand) 
+            if (expand)
                 Console.WriteLine("Node: " + ExpandedTopic.GUID + " was expanded");
             else
                 Console.WriteLine("Node: " + ExpandedTopic.GUID + " was collpsed");

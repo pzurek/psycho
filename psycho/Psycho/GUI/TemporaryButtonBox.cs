@@ -51,7 +51,8 @@ namespace Psycho {
         Button deleteButton = new Button();
         #endregion
 
-        public TemporaryButtonBox () : base()
+        public TemporaryButtonBox()
+            : base()
         {
             this.Homogeneous = false;
             this.BorderWidth = 6;
@@ -68,7 +69,7 @@ namespace Psycho {
             titleColumn.PackStart(titleCell, true);
 
             //titleCell.Editable = true;
-            titleCell.Edited +=new EditedHandler(titleCell_Edited);
+            titleCell.Edited += new EditedHandler(titleCell_Edited);
 
             outlineView.AppendColumn(titleColumn);
             outlineView.AppendColumn("GUID", new CellRendererText(), "text", 1);
@@ -82,7 +83,7 @@ namespace Psycho {
 
             titleEntry.EditingDone += new EventHandler(titleEntry_EditingDone);
             Console.WriteLine("Title editing done");
-            
+
             addSiblingButton.Label = ("Add Sibling");
             addSiblingButton.Clicked += new EventHandler(btnAddSibling_Click);
             addChildButton.Label = ("Add Child");
@@ -104,7 +105,7 @@ namespace Psycho {
             this.PackStart(outlineContainer, true, true, 6);
         }
 
-        void outlineView_KeyPressEvent (object o, KeyPressEventArgs args)
+        void outlineView_KeyPressEvent(object o, KeyPressEventArgs args)
         {
             string key = args.Event.Key.ToString();
             Console.WriteLine(key);
@@ -118,7 +119,7 @@ namespace Psycho {
             //}
         }
 
-        public void WireUp (IPsychoControl paramControl, IPsychoModel paramModel)
+        public void WireUp(IPsychoControl paramControl, IPsychoModel paramModel)
         {
             if (Model != null) {
                 Model.RemoveObserver(this);
@@ -138,45 +139,45 @@ namespace Psycho {
             EditTitle(titleEntry.Text);
         }
 
-        public void EditTitle (string paramString)
+        public void EditTitle(string paramString)
         {
             Control.RequestSetTitle(paramString);
         }
 
-        private void btnAddChild_Click (object sender, System.EventArgs args)
+        private void btnAddChild_Click(object sender, System.EventArgs args)
         {
             Console.WriteLine("Add Child Button clicked");
             AddSubtopic();
         }
 
-        public void AddSubtopic ()
+        public void AddSubtopic()
         {
             Control.RequestAddSubtopic();
         }
 
-        private void btnAddSibling_Click (object sender, System.EventArgs args)
+        private void btnAddSibling_Click(object sender, System.EventArgs args)
         {
             Console.WriteLine("Add Sibling Button clicked");
             AddTopic();
         }
 
-        public void AddTopic ()
+        public void AddTopic()
         {
             Control.RequestAddTopic();
         }
 
-        private void btnDelete_Click (object sender, System.EventArgs args)
+        private void btnDelete_Click(object sender, System.EventArgs args)
         {
             Console.WriteLine("Delete Button clicked");
             DeleteTopic();
         }
 
-        public void DeleteTopic ()
+        public void DeleteTopic()
         {
             Control.RequestDelete();
         }
 
-        void OnSelectionChanged (object sender, System.EventArgs args)
+        void OnSelectionChanged(object sender, System.EventArgs args)
         {
             if (this.outlineView.NodeSelection.SelectedNode != null) {
                 selectedNode = checked((Psycho.PsychoTreeNode) outlineView.NodeSelection.SelectedNode);
@@ -185,12 +186,12 @@ namespace Psycho {
             }
         }
 
-        public void SetCurrentTopic ()
+        public void SetCurrentTopic()
         {
             Control.RequestSetCurrent(selectedNode.GUID);
         }
 
-        public void Update (IPsychoModel paramModel)
+        public void Update(IPsychoModel paramModel)
         {
             store.Clear();
             centralNode = new PsychoTreeNode(paramModel.CentralTopic.Title, paramModel.CentralTopic.GUID);
@@ -200,7 +201,7 @@ namespace Psycho {
             titleEntry.Text = paramModel.CurrentTopic.Title;
         }
 
-        private void AddNodesRecursively (PsychoTreeNode paramNode, Topic paramTopic)
+        private void AddNodesRecursively(PsychoTreeNode paramNode, Topic paramTopic)
         {
             foreach (Topic child in paramTopic.Subtopics) {
                 PsychoTreeNode newNode = new PsychoTreeNode(child.Title, child.GUID);
@@ -210,7 +211,7 @@ namespace Psycho {
             }
         }
 
-        public void SelectNodeByGUID (string paramGuid)
+        public void SelectNodeByGUID(string paramGuid)
         {
             foreach (PsychoTreeNode node in outlineView) {
                 this.outlineView.NodeSelection.SelectNode(node);
@@ -219,26 +220,26 @@ namespace Psycho {
             }
         }
 
-        public void DisableAddSibling ()
+        public void DisableAddSibling()
         {
             addSiblingButton.Visible = (false);
         }
 
-        public void EnableAddSibling ()
+        public void EnableAddSibling()
         {
             addSiblingButton.Visible = (true);
         }
 
-        private void titleCell_Edited (object sender, Gtk.EditedArgs args)
+        private void titleCell_Edited(object sender, Gtk.EditedArgs args)
         {
             EditTitle(args.NewText);
         }
 
-        private void outlineView_RowCollapsed (object sender, Gtk.RowCollapsedArgs args)
-        {   
+        private void outlineView_RowCollapsed(object sender, Gtk.RowCollapsedArgs args)
+        {
         }
 
-        private void outlineView_RowExpanded (object sender, Gtk.RowExpandedArgs args)
+        private void outlineView_RowExpanded(object sender, Gtk.RowExpandedArgs args)
         {
         }
 

@@ -27,10 +27,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psycho
-{
-    public interface IPsychoView
-    {
+namespace Psycho {
+    public interface IPsychoView {
         #region Observer implementation
         void Update(IPsychoModel paramModel);
         void AddTopic();

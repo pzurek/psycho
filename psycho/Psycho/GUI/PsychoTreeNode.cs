@@ -26,32 +26,31 @@
 using System;
 using Gtk;
 
-namespace Psycho
-{
-	[Gtk.TreeNode]
-	public class PsychoTreeNode : TreeNode
-	{
-		private string guid;
-		private string title;
+namespace Psycho {
+    [Gtk.TreeNode]
+    public class PsychoTreeNode : TreeNode {
+        private string guid;
+        private string title;
         private string parentGuid;
         public new PsychoTreeNode Parent;
 
-        public PsychoTreeNode(string paramTitle, string paramGuid) : base()
-		{
-			this.title = paramTitle;
-			this.guid = paramGuid;
-  		}
-
-        [Gtk.TreeNodeValue (Column=0)]
-        public string Title
+        public PsychoTreeNode(string paramTitle, string paramGuid)
+            : base()
         {
-        	get { return title; }
+            this.title = paramTitle;
+            this.guid = paramGuid;
         }
 
-        [Gtk.TreeNodeValue (Column=1)]
+        [Gtk.TreeNodeValue(Column = 0)]
+        public string Title
+        {
+            get { return title; }
+        }
+
+        [Gtk.TreeNodeValue(Column = 1)]
         public string GUID
         {
-        	get { return guid; }
+            get { return guid; }
         }
     }
 }

@@ -26,10 +26,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace Psycho
-{
-    public partial class MindModel
-    {
+namespace Psycho {
+    public partial class MindModel {
         public Topic FindByGUID(string paramGuid, Topic paramTopic)
         {
             Topic found = new Topic(0);
@@ -42,7 +40,7 @@ namespace Psycho
                 if (topic.GUID != paramGuid) {
                     foreach (Topic child in topic.Subtopics) {
                         remaining.Enqueue(child);
-//                        Console.WriteLine("Stepping through: " + child.Title);
+                        //                        Console.WriteLine("Stepping through: " + child.Title);
                     }
                 }
                 else
