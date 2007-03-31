@@ -72,9 +72,9 @@ namespace Psycho
                         this.PolyDistance = 7;
                         this.Width = 140;
                         this.Padding = 5;
-                        this.HorChildDist = 42;
-                        this.VerChildDist = 7;
-                        this.OrgChartVertDist = 21;
+                        this.HorChildDist = 56;
+                        this.VerChildDist = 14;
+                        this.OrgChartVertDist = 49;
                         this.ConnectPoint = ConnectionPoint.Edge;
                 }
 
@@ -148,26 +148,26 @@ namespace Psycho
                         get
                         {
                                 switch (this.Topic.Level) {
-                                case 0:
-                                connectShape = ConnectionShape.Curve;
-                                break;
-                                case 1:
-                                connectShape = ConnectionShape.RoundedCrank;
-                                break;
-                                case 2:
-                                connectShape = ConnectionShape.Arc;
-                                break;
-                                case 3:
-                                connectShape = ConnectionShape.RoundedAngleCrank;
-                                break;
-                                case 4:
-                                connectShape = ConnectionShape.AngleCrank;
-                                break;
-                                case 5:
-                                connectShape = ConnectionShape.ChamferedCrank;
-                                break;
+                                //case 0:
+                                //connectShape = ConnectionShape.Curve;
+                                //break;
+                                //case 1:
+                                //connectShape = ConnectionShape.RoundedCrank;
+                                //break;
+                                //case 2:
+                                //connectShape = ConnectionShape.Arc;
+                                //break;
+                                //case 3:
+                                //connectShape = ConnectionShape.RoundedAngleCrank;
+                                //break;
+                                //case 4:
+                                //connectShape = ConnectionShape.AngleCrank;
+                                //break;
+                                //case 5:
+                                //connectShape = ConnectionShape.ChamferedCrank;
+                                //break;
                                 default:
-                                connectShape = ConnectionShape.Straight;
+                                connectShape = ConnectionShape.Crank;
                                 break;
                                 }
                                 return connectShape;
