@@ -52,14 +52,14 @@ namespace Psycho
                 public void Update (Topic iTopic)
                 {
                         if (iTopic.IsCentral)
-                                x = 20;
+                                x = 0 /*- iTopic.TextHeight / 2*/;
                         else
                                 x = iTopic.Parent.Offset.X +
                                     iTopic.Parent.Frame.Width +
                                     iTopic.Style.HorChildDist;
 
                         if (iTopic.IsCentral)
-                                y = 20;
+                                y = 0 /*- iTopic.TextWidth / 2*/;
                         else
                                 if (iTopic.IsFirst)
                                         y = iTopic.Parent.Offset.Y;
