@@ -123,7 +123,7 @@ namespace Psycho
                         DrawTopics (mapContext);
                         this.mapArea.SetSizeRequest ((int) Model.CentralTopic.GlobalWidth + 2 * margin, (int) Model.CentralTopic.GlobalHeight + 2 * margin);
                         
-                        //// Temporary code used to draw to png file. That has to be a separate method called by the user.
+                        ////// Temporary code used to draw to png file. That has to be a separate method called by the user.
                         //Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 20, (int) Model.CentralTopic.GlobalHeight + 20);
                         //Cairo.Context pictureContext = new Cairo.Context (image);
                         //DrawBackground (pictureContext);
@@ -133,7 +133,7 @@ namespace Psycho
                         //image.WriteToPng ("psycho.png");
                         //((IDisposable) pictureContext.Target).Dispose ();
                         //((IDisposable) pictureContext).Dispose ();
-                        // End of that hack...
+                        //// End of that hack...
 
                         ((IDisposable) mapContext.Target).Dispose ();
                         ((IDisposable) mapContext).Dispose ();
