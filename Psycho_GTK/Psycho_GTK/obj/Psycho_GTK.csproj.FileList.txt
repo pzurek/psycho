@@ -1,0 +1,10 @@
+obj\Release\ResolveAssemblyReference.cache
+bin\Release\Psycho_GTK.exe
+bin\Release\Psycho_GTK.pdb
+obj\Release\Psycho_GTK.exe
+obj\Release\Psycho_GTK.pdb
+bin\Debug\Psycho_GTK.exe
+bin\Debug\Psycho_GTK.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Psycho_GTK.exe
+obj\Debug\Psycho_GTK.pdb
