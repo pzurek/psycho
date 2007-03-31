@@ -118,10 +118,16 @@ namespace Psycho
                         uiManager.AddUiFromString (ui);
                         toolbar = (Toolbar) (uiManager.GetWidget ("/ToolBar"));
                         topicToolItem = (ToolItem) (uiManager.GetWidget ("/ToolBar/addtopic"));
-                        topicToolItem.CanFocus = true;
+                        topicToolItem.ButtonPressEvent += new ButtonPressEventHandler (topicToolItem_ButtonPressEvent);
                         uiManager.PreActivate += new PreActivateHandler (uiManager_PreActivate);
                         toolbar.ButtonPressEvent += new ButtonPressEventHandler (toolbar_ButtonPressEvent);
-                        toolbar.IconSize = IconSize.Button;
+                        toolbar.IconSize = IconSize.SmallToolbar;
+                }
+
+                void topicToolItem_ButtonPressEvent (object o, ButtonPressEventArgs args)
+                {
+                        topicToolItem.CanFocus = true;
+                        topicToolItem.GrabFocus ();
                 }
 
                 void toolbar_ButtonPressEvent (object sender, ButtonPressEventArgs args)
