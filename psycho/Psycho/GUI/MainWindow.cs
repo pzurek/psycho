@@ -106,7 +106,11 @@ namespace Psycho {
 
             mainHPaned.Add1 (mainFrame);
             mainHPaned.Add2 (notesFrame);
-            mainHPaned.Position = 500;
+            int windowWidth = new int ();
+            int windowHeight = new int ();
+            this.SetSizeRequest (640, 480);
+            this.GetSize (out windowWidth, out windowHeight);
+            mainHPaned.Position = (int)(windowWidth * 0.6);
 
             
             globalVBox.PackStart (mainHPaned, true, true, 0);
