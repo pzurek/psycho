@@ -47,9 +47,9 @@ namespace Psycho
                         MindModel model = new MindModel ();
                         model.AppendSomeNodes (model.CentralTopic);
 
-                        PropertyView buttonView = new PropertyView ();
-                        MindControl buttonControl = new MindControl (model, buttonView);
-                        buttonView.WireUp (buttonControl, model);
+                        PropertyView propertyView = new PropertyView ();
+                        MindControl propertyControl = new MindControl (model, propertyView);
+                        propertyView.WireUp (propertyControl, model);
 
                         OutlineView nodeView = new OutlineView ();
                         MindControl outlineControl = new MindControl (model, nodeView);
@@ -77,8 +77,8 @@ namespace Psycho
 
                         AddAccelGroup(UIView.uiManager.AccelGroup);
 
-                        Expander buttonExpander = new Expander ("Property View");
-                        buttonExpander.Add (buttonView);
+                        Expander propertyExpander = new Expander ("Property View");
+                        propertyExpander.Add (propertyView);
 
                         Expander notesExpander = new Expander ("Notes");
                         notesView.BorderWidth = 6;
@@ -98,7 +98,6 @@ namespace Psycho
                         globalVBox.Homogeneous = false;
                         globalVBox.PackStart (UIView.uiManager.GetWidget ("/MenuBar"), false, false, 0);
                         globalVBox.PackStart (UIView.uiManager.GetWidget ("/ToolBar"), false, false, 0);
-                        globalVBox.PackStart (buttonExpander, false, false, 6);
 
                         mainVBox.PackStart (mainNotebook, true, true, 0);
                         Frame mainFrame = new Frame ();
@@ -117,6 +116,7 @@ namespace Psycho
                         mainHPaned.Position = (int) (windowWidth * 0.6);
 
                         globalVBox.PackStart (mainHPaned, true, true, 0);
+                        globalVBox.PackStart (propertyExpander, false, false, 6);
                         globalVBox.PackEnd (statusView, false, false, 0);
                         globalVBox.ShowAll ();
 
