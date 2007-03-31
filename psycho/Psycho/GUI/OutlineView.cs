@@ -135,18 +135,18 @@ namespace Psycho
                 {
                         editPending = false;
                         Console.WriteLine ("Outline focus lost");
-                        Update (Model);
+                        //Update (Model);
                 }
 
                 void titleCell_EditingCanceled (object sender, EventArgs args)
                 {
-                        //editPending = false;
+                        editPending = false;
                         //TriggerEdit (editPending);
                 }
 
                 void titleCell_EditingStarted (object sender, EditingStartedArgs args)
                 {
-                        //editPending = true;
+                        editPending = true;
                         //TriggerEdit (editPending);
                 }
 
@@ -226,19 +226,19 @@ namespace Psycho
 
                 public void UpdateNew (IModel iModel)
                 {
-                        if (iModel.NewTopics.Count != 0) {
-                                foreach (Topic topic in iModel.NewTopics) {
-                                        TreeIter parent;
-                                        TreePath parentPath = new TreePath (topic.Parent.Path);
-                                        int position = topic.Parent.Subtopics.IndexOf (topic);
-                                        store.GetIter (out parent, parentPath);
-                                        TreeIter iter = store.InsertNode (parent, position);
-                                        store.SetValue (iter, 0, topic);
-                                        TreePath path = store.GetPath (iter);
-                                        SelectCurrentRow (iter, path);
-                                        //outlineView.ExpandToPath (path);
-                               }
-                        }
+                        //if (iModel.NewTopics.Count != 0) {
+                        //        foreach (Topic topic in iModel.NewTopics) {
+                        //                TreeIter parent;
+                        //                TreePath parentPath = new TreePath (topic.Parent.Path);
+                        //                int position = topic.Parent.Subtopics.IndexOf (topic);
+                        //                store.GetIter (out parent, parentPath);
+                        //                TreeIter iter = store.InsertNode (parent, position);
+                        //                store.SetValue (iter, 0, topic);
+                        //                TreePath path = store.GetPath (iter);
+                        //                SelectCurrentRow (iter, path);
+                        //                outlineView.ExpandToPath (path);
+                        //       }
+                        //}
                 }
 
                 public void UpdateDeletedPath (IModel iModel)
@@ -408,5 +408,15 @@ namespace Psycho
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
+
+                #region IView Members
+
+
+                public void SetCurrentByCoords (int iX, int iY)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                #endregion
         }
 }

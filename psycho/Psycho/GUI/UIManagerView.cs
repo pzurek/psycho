@@ -131,7 +131,7 @@ namespace Psycho
                         topicToolItem.ButtonPressEvent += new ButtonPressEventHandler (topicToolItem_ButtonPressEvent);
                         uiManager.PreActivate += new PreActivateHandler (uiManager_PreActivate);
                         toolbar.ButtonPressEvent += new ButtonPressEventHandler (toolbar_ButtonPressEvent);
-                        toolbar.IconSize = IconSize.LargeToolbar;
+                        toolbar.IconSize = IconSize.Menu;
                 }
 
                 void topicToolItem_ButtonPressEvent (object o, ButtonPressEventArgs args)
@@ -321,5 +321,15 @@ namespace Psycho
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
+
+                #region IView Members
+
+
+                public void SetCurrentByCoords (int iX, int iY)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                #endregion
         }
 }

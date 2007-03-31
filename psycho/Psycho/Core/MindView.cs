@@ -54,9 +54,13 @@ namespace Psycho
                         mapArea.ExposeEvent += OnMapExpose;
                         mapArea.Realized += OnMapRealize;
                         mapArea.KeyPressEvent += OnKeyPressEvent;
+                        mapArea.ButtonPressEvent += new ButtonPressEventHandler (mapArea_ButtonPressEvent);
                         mapArea.FocusInEvent += OnFocusInEvent;
+                        mapArea.AddEvents ((int) EventMask.ButtonPressMask
+                                         | (int) EventMask.ButtonReleaseMask
+                                         | (int) EventMask.KeyPressMask
+                                         | (int) EventMask.PointerMotionMask);
                         mapArea.CanFocus = true;
-                        //this.Vadjustment.ValueChanged += new EventHandler (Vadjustment_ValueChanged);
                         this.ShadowType = ShadowType.EtchedIn;
                         this.HscrollbarPolicy = PolicyType.Always;
                         this.VscrollbarPolicy = PolicyType.Always;
@@ -64,12 +68,29 @@ namespace Psycho
                         this.Add (mapViewPort);
                 }
 
-                void Vadjustment_ValueChanged (object sender, EventArgs e)
+                void mapArea_ButtonPressEvent (object sender, ButtonPressEventArgs args)
+                {
+                        Console.WriteLine ("Mouse clicked");
+
+                        if (args.Event.Type != Gdk.EventType.ButtonPress)
+                                return;
+
+                        //if (a.Event.Button == 1)
+                        //        is_dragging = true;
+
+                        mapArea.HasFocus = true;
+		        Gdk.EventButton pos = args.Event;
+                        Control.RequestSetCurrentByCoords ((int) pos.X, (int) pos.Y);
+                        Console.WriteLine (pos.X + " " + pos.Y);
+                        args.RetVal = true;
+                }
+
+                void Vadjustment_ValueChanged (object sender, EventArgs args)
                 {
                         Refresh ();
                 }
 
-                void Hadjustment_ValueChanged (object sender, EventArgs e)
+                void Hadjustment_ValueChanged (object sender, EventArgs args)
                 {
                         Refresh ();
                 }
@@ -332,5 +353,15 @@ namespace Psycho
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
+
+                #region IView Members
+
+
+                public void SetCurrentByCoords (int iX, int iY)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                #endregion
         }
 }

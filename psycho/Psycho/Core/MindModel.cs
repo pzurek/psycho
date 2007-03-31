@@ -391,12 +391,39 @@ namespace Psycho
                                 TempTopic.Connection.Update (TempTopic);
                                 if (TempTopic.IsExpanded)
                                         UpdateOffsets (TempTopic);
+                                TempTopic.UpdateLimits ();
                         }
                 }
 
                 public void UpdateAllOffsets ()
                 {
                         UpdateOffsets (this.CentralTopic);
+                        this.CentralTopic.UpdateLimits ();
+                }
+
+                public void SetCurrentByCoords (int iX, int iY)
+                {
+                        setCurrentByCoords (this.CentralTopic, iX, iY);
+                }
+
+                void setCurrentByCoords (Topic iTopic, int iX, int iY)
+                {
+
+                        if (iTopic.RegionContainsPoint (iX, iY)) {
+
+                                Console.WriteLine ("Topic: " + iTopic.Text + " contains region hit");
+
+                                if (iTopic.ContainsPoint (iX, iY)) {
+                                        Console.WriteLine ("Topic: " + iTopic.Text + " contains hit");
+                                        SetCurrent (iTopic);
+                                }
+                                else {
+                                        foreach (Topic child in iTopic.Subtopics)
+                                                setCurrentByCoords (child, iX, iY);
+                                }
+                        }
+                        else
+                                return;
                 }
         }
 }

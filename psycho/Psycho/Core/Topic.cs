@@ -136,6 +136,9 @@ namespace Psycho
                 bool isExpanded;
                 bool isVisible;
                 bool hasNote;
+                bool containsPoint;
+                bool regionContainsPoint;
+                int top, bottom, left, right;
                 TopicNote note;
                 TopicStyle style;
                 TopicOffset offset;
@@ -177,6 +180,120 @@ namespace Psycho
                                         return index;
                                 }
                         }
+                }
+
+                public int Top
+                {
+                        get
+                        {
+                                return top;
+                        }
+                }
+
+
+                public int Bottom
+                {
+                        get
+                        {
+                                return bottom;
+                        }
+                }
+
+
+                public int Left
+                {
+                        get
+                        {
+                                return left;
+                        }
+                }
+
+
+                public int Right
+                {
+                        get
+                        {
+                                return right;
+                        }
+                }
+
+                public int GlobalWidth
+                {
+                        get
+                        {
+                                int globalWidth = right - left;
+                                return globalWidth;
+                        }
+                }
+
+                public int GlobalHeight
+                {
+                        get
+                        {
+                                int globalHeight = bottom - top;
+                                return globalHeight;
+                        }
+                }
+
+                public void UpdateLimits ()
+                {
+                        updateTop ();
+                        updateBottom ();
+                        updateLeft ();
+                        updateRight ();
+                }
+
+                void updateTop ()
+                {
+                        this.top = (int) this.Frame.Top.Y;
+                        foreach (Topic topic in this.Subtopics) {
+                                if (topic.Top < this.Top)
+                                        this.top = topic.Top;
+                        }
+                }
+
+                void updateBottom ()
+                {
+                        this.bottom = (int) this.Frame.Bottom.Y;
+                        foreach (Topic topic in this.Subtopics) {
+                                if (topic.bottom > this.Bottom)
+                                        this.bottom = topic.Bottom;
+                        }
+                }
+
+                void updateLeft ()
+                {
+                        this.left = (int) this.Frame.Top.X;
+                        foreach (Topic topic in this.Subtopics) {
+                                if (topic.left < this.Left)
+                                        this.left = topic.Left;
+                        }
+                }
+
+                void updateRight ()
+                {
+                        this.right = (int) this.Frame.Top.X;
+                        foreach (Topic topic in this.Subtopics) {
+                                if (topic.right > this.Right)
+                                        this.right = topic.Right;
+                        }
+                }
+
+                public bool RegionContainsPoint (int iX, int iY)
+                {
+                        regionContainsPoint = false;
+                        if ((iY > this.Top && iY < this.Bottom) && (iX > this.Left && iX < this.Right))
+                                regionContainsPoint = true;
+                        return regionContainsPoint;
+                }
+
+                public bool ContainsPoint (int iX, int iY)
+                {
+                        containsPoint = false;
+                        if ((iY > this.Frame.Top.Y && iY < this.Frame.Bottom.Y)
+                                && (iX > this.Frame.Left.X && iX < this.Frame.Right.X))
+                                containsPoint = true;
+                        return containsPoint;
                 }
 
                 public string Text

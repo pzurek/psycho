@@ -104,6 +104,19 @@ namespace Psycho
                         }
                 }
 
+                ConnectionShape Shape
+                {
+                        get
+                        {
+                                return shape;
+                        }
+
+                        set
+                        {
+                                shape = value;
+                        }
+                }
+
 
                 public double CrankRadius
                 {

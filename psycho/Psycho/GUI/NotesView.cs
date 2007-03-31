@@ -188,5 +188,15 @@ namespace Psycho
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
+
+                #region IView Members
+
+
+                public void SetCurrentByCoords (int iX, int iY)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                #endregion
         }
 }

@@ -101,7 +101,6 @@ namespace Psycho
                         }
                 }
 
-
                 public double Width
                 {
                         get
