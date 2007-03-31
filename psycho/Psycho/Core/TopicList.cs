@@ -71,7 +71,7 @@ namespace Psycho
                                 else
                                         foreach (Topic child in this)
                                                 if (child.TextWidth > width)
-                                                        width = child.TextWidth;
+                                                        width = child.TotalWidth;
                                 }
                                 return width;
                         }

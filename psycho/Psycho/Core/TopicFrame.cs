@@ -70,7 +70,6 @@ namespace Psycho
                                       iTopic.Style.TopMargin +
                                       iTopic.Style.BottomMargin +
                                       iTopic.Style.StrokeWidth;
-                        ;
 
                         if (this.Topic.Style.Shape == TopicShape.Octagon)
                                 octDistHor = this.Height / (2 + sqrt2);

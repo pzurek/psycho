@@ -431,7 +431,7 @@ namespace Psycho
                                 if (this.IsExpanded && this.SubtopicList.Height > this.Frame.Height)
                                         totalHeight = SubtopicList.Height;
                                 else
-                                        totalHeight = this.Frame.Height + this.Style.Padding;
+                                        totalHeight = this.Frame.Height + this.Style.Padding + this.Style.StrokeWidth;
                                 return totalHeight;
                         }
                 }
@@ -443,7 +443,7 @@ namespace Psycho
                                 if (this.IsExpanded && this.SubtopicList.Width > this.Frame.Width)
                                         totalWidth = SubtopicList.Width;
                                 else
-                                        totalWidth = this.Frame.Width + this.Style.Padding;
+                                        totalWidth = this.Frame.Width + this.Style.Padding + this.Style.StrokeWidth;
                                 return totalWidth;
                         }
                 }

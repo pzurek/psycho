@@ -44,9 +44,9 @@ namespace Psycho
                 Topic selectedTopic;
                 Topic workingTopic;
 
-                bool editPending;
-
                 string deletedTopicPath;
+
+                bool editPending;
                 bool updatePending;
 
                 public string DeletedTopicPath
@@ -55,15 +55,22 @@ namespace Psycho
                         set { deletedTopicPath = value; }
                 }
 
-                TreeViewColumn pathColumn = new TreeViewColumn ();
-                TreeViewColumn titleColumn = new TreeViewColumn ();
-                TreeViewColumn levelColumn = new TreeViewColumn ();
-                TreeViewColumn guidColumn = new TreeViewColumn ();
-                TreeViewColumn notesColumn = new TreeViewColumn ();
+                //TreeViewColumn pathColumn;
+                TreeViewColumn titleColumn;
+                //TreeViewColumn levelColumn;
+                //TreeViewColumn guidColumn;
+                TreeViewColumn notesColumn;
 
                 public OutlineView ()
                         : base ()
                 {
+                        //pathColumn = new TreeViewColumn ();
+                        titleColumn = new TreeViewColumn ();
+                        //levelColumn = new TreeViewColumn ();
+                        //guidColumn = new TreeViewColumn ();
+                        notesColumn = new TreeViewColumn ();
+
+
                         titleColumn.Title = "Topic title";
                         CellRendererText titleCell = new CellRendererText ();
                         titleCell.Editable = true;
@@ -129,13 +136,11 @@ namespace Psycho
                 void outlineView_FocusInEvent (object o, FocusInEventArgs args)
                 {
                         editPending = true;
-                        Console.WriteLine ("Outline focused");
                 }
 
                 void outlineView_FocusOutEvent (object o, FocusOutEventArgs args)
                 {
                         editPending = false;
-                        Console.WriteLine ("Outline focus lost");
                         //Update (Model);
                 }
 
@@ -389,7 +394,6 @@ namespace Psycho
                         throw new Exception ("The method or operation is not implemented.");
                 }
 
-
                 public void SetCurrentForward ()
                 {
                         throw new Exception ("The method or operation is not implemented.");
@@ -410,24 +414,14 @@ namespace Psycho
                         throw new Exception ("The method or operation is not implemented.");
                 }
 
-                #region IView Members
-
-
                 public void SetCurrentByCoords (int iX, int iY)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
 
-                #endregion
-
-                #region IView Members
-
-
                 public void ClearCurrentTopic ()
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
-
-                #endregion
         }
 }
