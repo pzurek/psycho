@@ -45,13 +45,22 @@ namespace Psycho
                         MindModel model = new MindModel ();
                         model.AppendSomeNodes (model.CentralTopic);
 
+
+                        MindView mapView = new MindView ();
+                        MindControl mapControl = new MindControl (model, mapView);
+                        mapView.WireUp (mapControl, model);
+
+                        //OutlineView nodeView = new OutlineView ();
+                        //MindControl outlineControl = new MindControl (model, nodeView);
+                        //nodeView.WireUp (outlineControl, model);
+
+                        XMLView XMLPreview = new XMLView ();
+                        MindControl XMLControl = new MindControl (model, XMLPreview);
+                        XMLPreview.WireUp (XMLControl, model);
+
                         PropertyView propertyView = new PropertyView ();
                         MindControl propertyControl = new MindControl (model, propertyView);
                         propertyView.WireUp (propertyControl, model);
-
-                        OutlineView nodeView = new OutlineView ();
-                        MindControl outlineControl = new MindControl (model, nodeView);
-                        nodeView.WireUp (outlineControl, model);
 
                         UIManagerView UIView = new UIManagerView ();
                         MindControl uiManControl = new MindControl (model, UIView);
@@ -61,17 +70,9 @@ namespace Psycho
                         MindControl statusControl = new MindControl (model, statusView);
                         statusView.WireUp (statusControl, model);
 
-                        XMLView XMLPreview = new XMLView ();
-                        MindControl XMLControl = new MindControl (model, XMLPreview);
-                        XMLPreview.WireUp (XMLControl, model);
-
                         NotesView notesView = new NotesView ();
                         MindControl notesControl = new MindControl (model, notesView);
                         notesView.WireUp (notesControl, model);
-
-                        MindView mapView = new MindView ();
-                        MindControl mapControl = new MindControl (model, mapView);
-                        mapView.WireUp (mapControl, model);
 
                         AddAccelGroup(UIView.uiManager.AccelGroup);
 
@@ -86,10 +87,10 @@ namespace Psycho
                         Notebook mainNotebook = new Notebook ();
                         mainNotebook.BorderWidth = 6;
 
-                        mainNotebook.InsertPage (nodeView, new Label ("Outline View"), 1);
-                        mainNotebook.InsertPage (XMLPreview, new Label ("XML View"), 2);
-                        mainNotebook.InsertPage (mapView, new Label ("Map View"), 0);
-                        mainNotebook.CurrentPage = 0;
+                        mainNotebook.AppendPage (mapView, new Label ("Map View"));
+                        mainNotebook.AppendPage (XMLPreview, new Label ("XML View"));
+                        //mainNotebook.AppendPage (nodeView, new Label ("Outline View"));
+                        Console.WriteLine ("Current page: " + mainNotebook.CurrentPage.ToString());
 
                         mainNotebook.ShowBorder = true;
 
