@@ -210,7 +210,7 @@ namespace Psycho
                 public void DrawFrames (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.SubtopicList) {
-                                //DrawRegion (iContext, iTopic);
+                                DrawRegion (iContext, iTopic);
                                 if (TempTopic.IsExpanded) {
                                         DrawFrames (iContext, TempTopic);
                                 }
