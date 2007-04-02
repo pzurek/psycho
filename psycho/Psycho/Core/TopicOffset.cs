@@ -142,6 +142,7 @@ namespace Psycho
                                                         baseX = System.Math.Floor (iTopic.Previous.Offset.BaseX);
                                                 }
                                         } break;
+
                                         case SubtopicLayout.OrgChart:{
                                                 if (iTopic.IsOnOtherSide) {
                                                         if (iTopic.IsFirst) {
@@ -346,6 +347,11 @@ namespace Psycho
                         isAuto = false;
                         X = iXOffset;
                         Y = iYOffset;
+                }
+
+                public void ResetValue ()
+                {
+                        isAuto = true;
                 }
 
                 public void GetValue (out double outXOffset, out double outYOffset)

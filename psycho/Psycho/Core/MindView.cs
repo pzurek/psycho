@@ -159,7 +159,7 @@ namespace Psycho
                                 DeleteTopic ();
                                 return;
                                 case "Left":            //At the moment it's Right-Child Down-Next but that should
-                                SetCurrentUp ();        //be Subtopic layout dependent
+                                SetCurrentUp ();        //detect the closest topic in given direction
                                 return;
                                 case "Right":
                                 SetCurrentDown ();
