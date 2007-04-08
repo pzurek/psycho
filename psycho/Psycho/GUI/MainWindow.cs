@@ -54,9 +54,9 @@ namespace Psycho
                         //MindControl outlineControl = new MindControl (model, nodeView);
                         //nodeView.WireUp (outlineControl, model);
 
-                        XMLView XMLPreview = new XMLView ();
-                        MindControl XMLControl = new MindControl (model, XMLPreview);
-                        XMLPreview.WireUp (XMLControl, model);
+                        //XMLView XMLPreview = new XMLView ();
+                        //MindControl XMLControl = new MindControl (model, XMLPreview);
+                        //XMLPreview.WireUp (XMLControl, model);
 
                         PropertyView propertyView = new PropertyView ();
                         MindControl propertyControl = new MindControl (model, propertyView);
@@ -88,7 +88,7 @@ namespace Psycho
                         mainNotebook.BorderWidth = 6;
 
                         mainNotebook.AppendPage (mapView, new Label ("Map View"));
-                        mainNotebook.AppendPage (XMLPreview, new Label ("XML View"));
+                        //mainNotebook.AppendPage (XMLPreview, new Label ("XML View"));
                         //mainNotebook.AppendPage (nodeView, new Label ("Outline View"));
                         Console.WriteLine ("Current page: " + mainNotebook.CurrentPage.ToString());
 

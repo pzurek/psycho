@@ -154,7 +154,7 @@ namespace Psycho
                 Pango.Layout textLayout;
                 TopicFrame frame;
                 TopicConnection connection;
-                bool isOnOtherSide;
+                bool inPrimarySubtopicList;
                 bool isFirst;
                 bool isLast;
                 bool hasChildren;
@@ -192,17 +192,17 @@ namespace Psycho
                         {
                                 switch (this.Parent.Style.SubLayout) {
                                         case SubtopicLayout.Map: {
-                                                if (this.IsOnOtherSide)
-                                                        inPoint = this.Frame.Right;
-                                                else
+                                                if (this.InPrimarySubtopicList)
                                                         inPoint = this.Frame.Left;
+                                                else
+                                                        inPoint = this.Frame.Right;
                                         }
                                         break;
                                         case SubtopicLayout.Root: {
-                                                if (this.IsOnOtherSide)
-                                                        inPoint = this.Frame.Right;
+                                                if (this.InPrimarySubtopicList)
+                                                         inPoint = this.Frame.Left;
                                                 else
-                                                        inPoint = this.Frame.Left;
+                                                         inPoint = this.Frame.Right;
                                         }
                                         break;
                                         case SubtopicLayout.OrgChart:
@@ -223,10 +223,10 @@ namespace Psycho
                                 else
                                         switch (this.Style.SubLayout) {
                                                 case SubtopicLayout.Map: {
-                                                        if (this.IsOnOtherSide)
-                                                                outPoint = this.Frame.Left;
-                                                        else
+                                                        if (this.InPrimarySubtopicList)
                                                                 outPoint = this.Frame.Right;
+                                                        else
+                                                                outPoint = this.Frame.Left;
                                                 }
                                                 break;
                                                 case SubtopicLayout.Root:
@@ -596,10 +596,10 @@ namespace Psycho
                         }
                 }
 
-                public bool IsOnOtherSide
+                public bool InPrimarySubtopicList
                 {
-                        get { return isOnOtherSide; }
-                        set { isOnOtherSide = value; }
+                        get { return inPrimarySubtopicList; }
+                        set { inPrimarySubtopicList = value; }
                 }
 
                 public bool IsCentral

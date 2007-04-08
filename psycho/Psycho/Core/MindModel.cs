@@ -43,14 +43,14 @@ namespace Psycho
                 XmlElement foundXmlTopic;
                 XmlDocument xmlModel = new XmlDocument ();
 
-                TopicList leftSubtopics;
-                TopicList rightSubtopics;
-                TopicList topSubtopics;
-                TopicList bottomSubtopics;
-
+                TopicList primarySubtopicList;
+                TopicList secondarySubtopicList;
 
                 public MindModel ()
                 {
+                        primarySubtopicList = new TopicList ();
+                        secondarySubtopicList = new TopicList ();
+
                         CentralTopic = new Topic ("Psycho - free mind mapping solution");
                         SetCurrent (CentralTopic);
 
@@ -149,13 +149,33 @@ namespace Psycho
 
                 public void AppendSomeNodes (Topic iTopic)
                 {
-                        while (iTopic.SubtopicList.Count < 3) {
-                                Topic newTopic = new Topic (this.centralTopic.TotalCount);
-                                newTopic.Parent = iTopic;
-                                CreateXMLSubtopic (iTopic.GUID, newTopic.GUID, newTopic.Text);
-                                iTopic.AddSubtopic (newTopic);
-                                if (newTopic.Level < 5)
-                                        AppendSomeNodes (newTopic);
+                        SetCurrent (iTopic);
+                        while (iTopic.SubtopicList.Count < 2) {
+                                CreateSubtopic ();
+                                AppendSomeNodes (iTopic);
+                        }
+                                
+                        if (iTopic.Level < 2)
+                                foreach (Topic subTopic in iTopic.SubtopicList)
+                                        AppendSomeNodes (subTopic);
+                }
+
+                void PlaceOnSide (Topic iTopic)
+                {
+                        if (iTopic.Level == 1) {
+                                if (primarySubtopicList.Count <= secondarySubtopicList.Count) {
+                                        primarySubtopicList.Add (iTopic);
+                                        iTopic.InPrimarySubtopicList = true;
+                                        Console.WriteLine ("Topic :" + iTopic.Text + " inserted on primary side");
+                                }
+                                else {
+                                        secondarySubtopicList.Add (iTopic);
+                                        iTopic.InPrimarySubtopicList = false;
+                                        Console.WriteLine ("Topic :" + iTopic.Text + " inserted on secondary side");
+                                }
+                        }
+                        else {
+                                iTopic.InPrimarySubtopicList = iTopic.Parent.InPrimarySubtopicList;
                         }
                 }
 
@@ -169,6 +189,7 @@ namespace Psycho
                                 CreateXMLTopic (CurrentTopic, newTopic);
                                 SetCurrent (newTopic);
                                 SetCurrentXml (CurrentTopic.GUID);
+                                PlaceOnSide (newTopic);
                                 newTopics.Add (newTopic);
                                 UpdateToTop (newTopic);
                                 NotifyObservers ();
@@ -185,6 +206,7 @@ namespace Psycho
                                 CreateXMLSubtopic (newTopic);
                                 SetCurrent (newTopic);
                                 SetCurrentXml (CurrentTopic.GUID);
+                                PlaceOnSide (newTopic);
                                 newTopics.Add (newTopic);
                                 UpdateToTop (newTopic);
                                 NotifyObservers ();
@@ -327,7 +349,7 @@ namespace Psycho
                         if (CurrentTopic.Next != null)
                                 SetCurrent (CurrentTopic.Next);
                         else
-                                CurrentGoDown ();     
+                                CurrentGoDown ();
                 }
 
                 public void CurrentGoDown ()

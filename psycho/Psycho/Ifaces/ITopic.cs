@@ -52,6 +52,7 @@ namespace Psycho
                 string Path { get; }
                 string Number { get; }
                 int Level { get; }
+                bool InPrimarySubtopicList { get; set; }
 
                 void AddSubtopic (Topic iTopic);
                 void AddSubtopic (int iIndex, Topic iTopic);

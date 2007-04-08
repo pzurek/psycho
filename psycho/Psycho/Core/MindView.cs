@@ -46,7 +46,8 @@ namespace Psycho
 
                 Gdk.GC gc;
                 Cairo.Context mapContext;
-                Pango.Layout text;
+                Cairo.Context controlContext;
+
                 static int margin = 20;
 
                 public MindView ()
