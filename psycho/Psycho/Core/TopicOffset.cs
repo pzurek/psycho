@@ -184,11 +184,10 @@ namespace Psycho
                                                         baseY = iTopic.Parent.Offset.BaseY -
                                                                 iTopic.Parent.SubtopicList.Height / 2;
                                                 else
-                                                        baseY = iTopic.Parent.Offset.BaseY;
+                                                        baseY = VerticalDownSubFirst (iTopic);
                                         }
                                         else {
-                                                baseY = iTopic.Previous.Offset.BaseY +
-                                                    iTopic.Previous.TotalHeight;
+                                                baseY = VerticalDownSubNext (iTopic);
                                         }
 
                                         break;
@@ -290,6 +289,37 @@ namespace Psycho
                                         break;
                                 }
                         }
+                }
+
+                static double VerticalDownMainFirst (Topic iTopic)
+                {
+                        double verticalDownMainFirst;
+                        verticalDownMainFirst = System.Math.Floor (iTopic.Parent.Offset.BaseY -
+                                                                  iTopic.Parent.SubtopicList.Height / 2);
+                        return verticalDownMainFirst;
+                }
+
+                static double VerticalDownMainNext (Topic iTopic)
+                {
+                        double verticalDownMainNext;
+                        verticalDownMainNext = System.Math.Floor (iTopic.Parent.Offset.BaseY -
+                                                                  iTopic.Parent.SubtopicList.Height / 2);
+                        return verticalDownMainNext;
+                }
+
+                static double VerticalDownSubFirst (Topic iTopic)
+                {
+                        double verticalDownSubFirst;
+                        verticalDownSubFirst = System.Math.Floor (iTopic.Parent.Offset.BaseY);
+                        return verticalDownSubFirst;
+                }
+                
+                static double VerticalDownSubNext (Topic iTopic)
+                {
+                        double verticalDownSubNext;
+                        verticalDownSubNext = System.Math.Floor (iTopic.Previous.Offset.BaseY +
+                                                                 iTopic.Previous.TotalHeight);
+                        return verticalDownSubNext;
                 }
 
                 public double BaseX
