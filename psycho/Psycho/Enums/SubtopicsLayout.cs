@@ -32,7 +32,7 @@ namespace Psycho
         public enum SubtopicLayout
         {
                 Map,
-                Root,
+                Tree,
                 OrgChart,
         }
 }
