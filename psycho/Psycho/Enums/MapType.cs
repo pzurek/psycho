@@ -33,8 +33,8 @@ namespace Psycho
         {
                 Map,
                 OneSideMap,
-                Root,
-                OneSideRoot,
+                Tree,
+                DoubleTree,
                 OrgChart,
                 DoubleOrgChart,
         }
