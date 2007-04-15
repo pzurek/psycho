@@ -174,9 +174,8 @@ namespace Psycho
                                         Console.WriteLine ("Topic :" + iTopic.Text + " inserted on secondary side");
                                 }
                         }
-                        else {
+                        else
                                 iTopic.InPrimarySubtopicList = iTopic.Parent.InPrimarySubtopicList;
-                        }
                 }
 
                 public void CreateTopic ()

@@ -55,11 +55,22 @@ namespace Psycho
                                 //topicNumber.Text = ("Topics in the map: " + Model.CentralTopic.TotalCount.ToString ());
                                 if (Model.CurrentTopic != null) {
                                         //currentTitle.Text = ("Current topic title: " + Model.CurrentTopic.Text);
-                                        this.Push (0, ("Current topic title: " + Model.CurrentTopic.Text));
+                                        
+                                        this.Push (0, ("Current topic title: " + Model.CurrentTopic.Text + SideText(Model.CurrentTopic)));
                                 }
                                 else
                                         this.Push (0, "No topic selected");
                         }
+                }
+
+                string SideText (Topic iTopic)
+                {
+                        string sideText;
+                        if (iTopic.InPrimarySubtopicList)
+                                sideText = " Topic is on primary side";
+                        else
+                                sideText = " Topic is on secondary side";
+                        return sideText;
                 }
 
                 public void WireUp (IControl iControl, IModel iModel)

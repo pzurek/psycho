@@ -85,88 +85,20 @@ namespace Psycho
                                 return;
                         else {
                                 switch (this.Topic.Parent.Style.SubLayout) {
-                                        case SubtopicLayout.Map:
-                                        if (!iTopic.InPrimarySubtopicList) { //TODO: Switch the logic - don't use "!"
-                                                if (iTopic.IsFirst) {
-                                                        baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX -
-                                                                                   iTopic.Parent.Frame.Width / 2 -
-                                                                                   iTopic.Frame.Width / 2 -
-                                                                                   iTopic.Parent.Style.HorChildDist);
-                                                }
-                                                else {
-                                                        baseX = System.Math.Floor (iTopic.Previous.Offset.BaseX);
-                                                }
-                                        }
-                                        else {
-                                                if (iTopic.IsFirst) {
-                                                        if (iTopic.Level == 1)
-                                                                baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX +
-                                                                                           iTopic.Parent.TotalWidth -
-                                                                                           iTopic.Parent.SubtopicList.Width);
-                                                        else
-                                                                baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX +
-                                                                                           iTopic.Parent.TotalWidth -
-                                                                                           iTopic.Parent.SubtopicList.Width);
-                                                }
-                                                else {
-                                                        baseX = System.Math.Floor (iTopic.Previous.Offset.BaseX);
-                                                }
-                                        }
-                                        break;
+                                case SubtopicLayout.Map:
+                                        baseX = HorizontalMainFirstMap (iTopic);
+                                break;
 
-                                        case SubtopicLayout.Root:
-                                        if (!iTopic.InPrimarySubtopicList) { //TODO: Switch the logic - don't use "!"
-                                                if (iTopic.IsFirst) {
-                                                        baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX -
-                                                                                   iTopic.Parent.Width / 2 -
-                                                                                   iTopic.Parent.Style.HorChildDist);
-                                                }
-                                                else {
-                                                        baseX = System.Math.Floor (iTopic.Previous.Offset.BaseX);
-                                                }
-                                        }
-                                        else {
-                                                if (iTopic.IsFirst) {
-                                                        if (iTopic.Level == 1)
-                                                                baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX +
-                                                                                           iTopic.Parent.Width / 2 +
-                                                                                           iTopic.Parent.Style.HorChildDist / 2);
-                                                        else
-                                                                baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX +
-                                                                                           iTopic.Parent.Width / 2 +
-                                                                                           iTopic.Parent.Style.HorChildDist / 2);
-                                                }
-                                                else {
-                                                        baseX = System.Math.Floor (iTopic.Previous.Offset.BaseX);
-                                                }
-                                        } break;
+                                case SubtopicLayout.Tree:
+                                        baseX = HorizontalMainFirstTree (iTopic);
+                                break;
 
-                                        case SubtopicLayout.OrgChart:
-                                        if (iTopic.InPrimarySubtopicList) { //TODO: Switch the logic - don't use "!"
-                                                if (iTopic.IsFirst) {
-                                                        baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX -
-                                                                               iTopic.Parent.Frame.Width / 2 -
-                                                                               iTopic.Frame.Width / 2 -
-                                                                               iTopic.Parent.Style.HorChildDist);
-                                                }
-                                                else {
-                                                        baseX = System.Math.Floor (iTopic.Previous.Offset.BaseX);
-                                                }
-                                        }
-                                        else {
-                                                if (iTopic.IsFirst) {
-                                                        if (iTopic.Level == 1)
-                                                                baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX -
-                                                                                           iTopic.Parent.TotalWidth / 2);
-                                                        else
-                                                                baseX = System.Math.Floor (iTopic.Parent.Offset.BaseX);
-                                                }
-                                                else {
-                                                        baseX = System.Math.Floor (iTopic.Previous.Offset.BaseX +
-                                                                                   iTopic.Previous.TotalWidth);
-                                                }
-                                        }
-                                        break;
+                                case SubtopicLayout.OrgChart:
+                                if (iTopic.IsFirst)
+                                        baseX = HorizontalMainFirstOrgChart (iTopic);
+                                else
+                                        baseX = HorizontalSubNext (iTopic);
+                                break;
                                 }
                         }
                 }
@@ -178,69 +110,58 @@ namespace Psycho
                                 return;
                         else {
                                 switch (this.Topic.Parent.Style.SubLayout) {
-                                        case SubtopicLayout.Map:
+                                case SubtopicLayout.Map:
+                                if (iTopic.IsFirst) {
+                                        if (iTopic.Level == 1)
+                                                baseY = VerticalMainFirstMap (iTopic);
+                                        else
+                                                baseY = VerticalSubFirstMap (iTopic);
+                                }
+                                else
+                                        baseY = VerticalSubNext (iTopic);
+                                break;
+
+                                case SubtopicLayout.Tree:
+                                if (iTopic.IsFirst) {
+                                        if (iTopic.Level == 1)
+                                                baseY = VerticalMainFirstTree (iTopic);
+                                        else
+                                                baseY = VerticalSubFirstTree (iTopic);
+                                }
+                                else
+                                        baseY = VerticalSubNext (iTopic);
+                                break;
+
+                                case SubtopicLayout.OrgChart:
+                                if (!iTopic.InPrimarySubtopicList) {
                                         if (iTopic.IsFirst) {
                                                 if (iTopic.Level == 1)
-                                                        baseY = iTopic.Parent.Offset.BaseY -
-                                                                iTopic.Parent.SubtopicList.Height / 2;
+                                                        baseY = System.Math.Floor (iTopic.Parent.Offset.BaseY +
+                                                                                   iTopic.Parent.Height +
+                                                                                   iTopic.Parent.Style.OrgChartVertDist);
                                                 else
-                                                        baseY = VerticalDownSubFirst (iTopic);
+                                                        baseY = System.Math.Floor (iTopic.Parent.Offset.BaseY +
+                                                                                   iTopic.Parent.Height +
+                                                                                   iTopic.Parent.Style.OrgChartVertDist);
                                         }
-                                        else {
-                                                baseY = VerticalDownSubNext (iTopic);
-                                        }
-
-                                        break;
-                                        case SubtopicLayout.Root:
+                                        else
+                                                baseY = System.Math.Floor (iTopic.Previous.Offset.BaseY);
+                                }
+                                else {
                                         if (iTopic.IsFirst) {
                                                 if (iTopic.Level == 1)
-                                                        baseY = iTopic.Parent.Offset.BaseY -
-                                                                iTopic.Parent.SubtopicList.Height;
+                                                        baseY = System.Math.Floor (iTopic.Parent.Offset.BaseY +
+                                                                                   iTopic.Parent.Height +
+                                                                                   iTopic.Parent.Style.OrgChartVertDist);
                                                 else
-                                                        baseY = iTopic.Parent.Offset.BaseY +
-                                                                iTopic.Parent.Height +
-                                                                iTopic.Parent.Style.VerChildDist;
+                                                        baseY = System.Math.Floor (iTopic.Parent.Offset.BaseY +
+                                                                                   iTopic.Parent.Height +
+                                                                                   iTopic.Parent.Style.OrgChartVertDist);
                                         }
-                                        else {
-                                                baseY = iTopic.Previous.Offset.BaseY +
-                                                        iTopic.Previous.TotalHeight;
-                                        }
-
-                                        break;
-
-                                        case SubtopicLayout.OrgChart:
-                                        if (!iTopic.InPrimarySubtopicList) {
-                                                if (iTopic.IsFirst) {
-                                                        if (iTopic.Level == 1)
-                                                                baseY = System.Math.Floor (iTopic.Parent.Offset.BaseY +
-                                                                                           iTopic.Parent.Height +
-                                                                                           iTopic.Parent.Style.OrgChartVertDist);
-                                                        else
-                                                                baseY = System.Math.Floor (iTopic.Parent.Offset.BaseY +
-                                                                                           iTopic.Parent.Height +
-                                                                                           iTopic.Parent.Style.OrgChartVertDist);
-                                                }
-                                                else {
-                                                        baseY = System.Math.Floor (iTopic.Previous.Offset.BaseY);
-                                                }
-                                        }
-                                        else {
-                                                if (iTopic.IsFirst) {
-                                                        if (iTopic.Level == 1)
-                                                                baseY = System.Math.Floor (iTopic.Parent.Offset.BaseY +
-                                                                                           iTopic.Parent.Height +
-                                                                                           iTopic.Parent.Style.OrgChartVertDist);
-                                                        else
-                                                                baseY = System.Math.Floor (iTopic.Parent.Offset.BaseY +
-                                                                                           iTopic.Parent.Height +
-                                                                                           iTopic.Parent.Style.OrgChartVertDist);
-                                                }
-                                                else {
-                                                        baseY = System.Math.Floor (iTopic.Previous.Offset.BaseY);
-                                                }
-                                        }
-
-                                        break;
+                                        else
+                                                baseY = System.Math.Floor (iTopic.Previous.Offset.BaseY);
+                                }
+                                break;
                                 }
                         }
                 }
@@ -252,21 +173,21 @@ namespace Psycho
                                 return;
                         else {
                                 switch (this.Topic.Style.SubLayout) {
-                                        case SubtopicLayout.Map:
-                                        if (!iTopic.InPrimarySubtopicList)
-                                                localX = System.Math.Floor (-iTopic.Width / 2);
-                                        else
-                                                localX = System.Math.Floor (iTopic.Width / 2);
-                                        break;
-                                        case SubtopicLayout.Root:
-                                        if (iTopic.InPrimarySubtopicList)
-                                                localX = System.Math.Floor (-iTopic.Width / 2);
-                                        else
-                                                localX = System.Math.Floor (iTopic.Width / 2);
-                                        break;
-                                        case SubtopicLayout.OrgChart:
-                                        localX = System.Math.Floor (iTopic.TotalWidth / 2);
-                                        break;
+                                case SubtopicLayout.Map:
+                                if (iTopic.InPrimarySubtopicList)
+                                        localX = System.Math.Floor (iTopic.Width / 2);
+                                else
+                                        localX = - System.Math.Floor (iTopic.Width / 2);
+                                break;
+                                case SubtopicLayout.Tree:
+                                if (iTopic.InPrimarySubtopicList)
+                                        localX = System.Math.Floor (iTopic.Width / 2);
+                                else
+                                        localX = - System.Math.Floor (iTopic.Width / 2);
+                                break;
+                                case SubtopicLayout.OrgChart:
+                                localX = System.Math.Floor (iTopic.TotalWidth / 2);
+                                break;
                                 }
                         }
                 }
@@ -278,48 +199,123 @@ namespace Psycho
                                 return;
                         else {
                                 switch (this.Topic.Style.SubLayout) {
-                                        case SubtopicLayout.Map:
-                                        localY = System.Math.Floor (iTopic.TotalHeight / 2);
-                                        break;
-                                        case SubtopicLayout.Root:
-                                        localY = System.Math.Floor (iTopic.Height / 2);
-                                        break;
-                                        case SubtopicLayout.OrgChart:
-                                        localY = System.Math.Floor (iTopic.Height / 2);
-                                        break;
+                                case SubtopicLayout.Map:
+                                localY = System.Math.Floor (iTopic.TotalHeight / 2);
+                                break;
+                                case SubtopicLayout.Tree:
+                                localY = System.Math.Floor (iTopic.Height / 2);
+                                break;
+                                case SubtopicLayout.OrgChart:
+                                localY = System.Math.Floor (iTopic.Height / 2);
+                                break;
                                 }
                         }
                 }
 
-                static double VerticalDownMainFirst (Topic iTopic)
+                private static double EvaluateSideSign (Topic iTopic, double x)
                 {
-                        double verticalDownMainFirst;
-                        verticalDownMainFirst = System.Math.Floor (iTopic.Parent.Offset.BaseY -
-                                                                  iTopic.Parent.SubtopicList.Height / 2);
-                        return verticalDownMainFirst;
+                        if (!iTopic.InPrimarySubtopicList)
+                                x = -x;
+                        return x;
                 }
 
-                static double VerticalDownMainNext (Topic iTopic)
+                static double VerticalMainFirstMap (Topic iTopic)
                 {
-                        double verticalDownMainNext;
-                        verticalDownMainNext = System.Math.Floor (iTopic.Parent.Offset.BaseY -
-                                                                  iTopic.Parent.SubtopicList.Height / 2);
-                        return verticalDownMainNext;
+                        double y;
+                        y = - iTopic.Parent.SubtopicList.Height / 2;
+                        return y;
                 }
 
-                static double VerticalDownSubFirst (Topic iTopic)
+                static double VerticalMainFirstTree (Topic iTopic)
                 {
-                        double verticalDownSubFirst;
-                        verticalDownSubFirst = System.Math.Floor (iTopic.Parent.Offset.BaseY);
-                        return verticalDownSubFirst;
+                        double y;
+                        y = iTopic.Parent.Frame.Height / 2 +
+                            iTopic.Parent.Style.VerChildDist;
+                        return y;
+                }
+
+                static double VerticalMainFirstOrgChart (Topic iTopic)
+                {
+                        double y;
+                        y = iTopic.Parent.Frame.Height / 2 +
+                            iTopic.Parent.Style.OrgChartVertDist;
+                        y = EvaluateSideSign (iTopic, y);
+                        return y;
+                }
+
+                static double HorizontalMainFirstMap (Topic iTopic)
+                {
+                        double x;
+                        x = iTopic.Parent.Frame.Width / 2 +
+                            iTopic.Parent.Style.HorChildDist;
+                        x = EvaluateSideSign (iTopic, x);
+                        return x;
+                }
+
+                static double HorizontalMainFirstTree (Topic iTopic)
+                {
+                        double x;
+                        x = iTopic.Parent.Style.HorChildDist / 2;
+                        x = EvaluateSideSign (iTopic, x);
+                        return x;
+                }
+
+                static double HorizontalMainFirstOrgChart (Topic iTopic)
+                {
+                        double x;
+                        x = - iTopic.Parent.Style.HorChildDist / 2;
+                        x = EvaluateSideSign (iTopic, x);
+                        return x;
+                }
+
+                static double VerticalMainNext (Topic iTopic)
+                {
+                        double y;
+                        y = iTopic.Parent.Offset.BaseY +
+                            iTopic.Previous.TotalHeight;
+                        return y;
+                }
+
+                static double VerticalSubFirstMap (Topic iTopic)
+                {
+                        double y;
+                        y = iTopic.Parent.Offset.BaseY;
+                        return y;
+                }
+
+                static double VerticalSubFirstTree (Topic iTopic)
+                {
+                        double y;
+                        y = iTopic.Parent.Offset.BaseY +
+                            iTopic.Parent.Height +
+                            iTopic.Parent.Style.VerChildDist;
+                        return y;
+                }
+
+                static double VerticalSubFirstOrgChart (Topic iTopic)
+                {
+                        double y;
+                        y = iTopic.Parent.Offset.BaseY +
+                            iTopic.Parent.Height +
+                            iTopic.Parent.Style.VerChildDist;
+                        return y;
+                }
+
+                static double VerticalSubNext (Topic iTopic)
+                {
+                        double y;
+                        y = iTopic.Previous.Offset.BaseY +
+                            iTopic.Previous.TotalHeight;
+                        return y;
                 }
                 
-                static double VerticalDownSubNext (Topic iTopic)
+                static double HorizontalSubNext (Topic iTopic)
                 {
-                        double verticalDownSubNext;
-                        verticalDownSubNext = System.Math.Floor (iTopic.Previous.Offset.BaseY +
-                                                                 iTopic.Previous.TotalHeight);
-                        return verticalDownSubNext;
+                        double x;
+                        x = iTopic.Previous.Offset.BaseX +
+                            iTopic.Previous.TotalWidth;
+                        x = EvaluateSideSign (iTopic, x);
+                        return x;
                 }
 
                 public double BaseX
@@ -346,7 +342,7 @@ namespace Psycho
                         get
                         {
                                 x = baseX + localX;
-                                return x;
+                                return System.Math.Floor (x);
                         }
                         set
                         {
@@ -360,7 +356,7 @@ namespace Psycho
                         get
                         {
                                 y = baseY + localY;
-                                return y;
+                                return System.Math.Floor (y);
                         }
                         set
                         {

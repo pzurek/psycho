@@ -198,7 +198,7 @@ namespace Psycho
                                                         inPoint = this.Frame.Right;
                                         }
                                         break;
-                                        case SubtopicLayout.Root: {
+                                        case SubtopicLayout.Tree: {
                                                 if (this.InPrimarySubtopicList)
                                                          inPoint = this.Frame.Left;
                                                 else
@@ -229,7 +229,7 @@ namespace Psycho
                                                                 outPoint = this.Frame.Left;
                                                 }
                                                 break;
-                                                case SubtopicLayout.Root:
+                                                case SubtopicLayout.Tree:
                                                 outPoint = this.Frame.Bottom;
                                                 break;
                                                 case SubtopicLayout.OrgChart:
@@ -421,7 +421,7 @@ namespace Psycho
                                                 if (this.SubtopicList.Height > this.Height)
                                                         totalHeight = this.SubtopicList.Height;
                                                 break;
-                                                case SubtopicLayout.Root:
+                                                case SubtopicLayout.Tree:
                                                 totalHeight = this.Height + this.SubtopicList.Height + this.Style.VerChildDist;
                                                 break;
                                                 case SubtopicLayout.OrgChart:
@@ -443,7 +443,7 @@ namespace Psycho
                                                         case SubtopicLayout.Map:
                                                         totalWidth = this.Width + this.SubtopicList.Width + this.Style.HorChildDist;
                                                         break;
-                                                        case SubtopicLayout.Root:
+                                                        case SubtopicLayout.Tree:
                                                         totalWidth = this.Width / 2  + this.SubtopicList.Width + this.Style.HorChildDist / 2;
                                                         break;
                                                         case SubtopicLayout.OrgChart:
@@ -799,12 +799,16 @@ namespace Psycho
                 public bool IsValid
                 {
                         get { return isValid; }
-                        set { isValid = value; }
                 }
 
                 public void Invalidate ()
                 {
-                        this.IsValid = false;
+                        isValid = false;
+                }
+
+                public void Validate ()
+                {
+                        isValid = true;
                 }
         }
 }

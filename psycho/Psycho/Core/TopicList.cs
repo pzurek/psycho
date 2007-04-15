@@ -104,7 +104,7 @@ namespace Psycho
                                         case SubtopicLayout.Map:
                                         orientation = TopicListOrientation.Vertical;
                                         break;
-                                        case SubtopicLayout.Root:
+                                        case SubtopicLayout.Tree:
                                         orientation = TopicListOrientation.Vertical;
                                         break;
                                 }

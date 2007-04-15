@@ -212,8 +212,8 @@ namespace Psycho
                 {
                         get
                         {
-                                center.X = System.Math.Floor (this.Topic.Offset.X);
-                                center.Y = System.Math.Floor (this.Topic.Offset.Y);
+                                center.X = this.Topic.Offset.X;
+                                center.Y = this.Topic.Offset.Y;
                                 return center;
                         }
                 }
