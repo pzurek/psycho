@@ -130,10 +130,10 @@ namespace Psycho
                                         subLayout = SubtopicLayout.OrgChart;
                                         break;
                                         case 1:
-                                        subLayout = SubtopicLayout.OrgChart;
+                                        subLayout = SubtopicLayout.Map;
                                         break;
                                         case 2:
-                                        subLayout = SubtopicLayout.OrgChart;
+                                        subLayout = SubtopicLayout.Tree;
                                         break;
                                         default:
                                         subLayout = SubtopicLayout.OrgChart;

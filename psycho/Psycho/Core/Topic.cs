@@ -687,14 +687,6 @@ namespace Psycho
                         }
                 }
 
-                public bool HasNotes
-                {
-                        get
-                        {
-                                return !String.IsNullOrEmpty (this.Note.Text);
-                        }
-                }
-
                 public int TotalCount
                 {
                         get

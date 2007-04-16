@@ -48,7 +48,7 @@ namespace Psycho
                 Cairo.Context mapContext;
                 Cairo.Context controlContext;
 
-                static int margin = 20;
+                static int margin = 200;
 
                 public MindView ()
                         : base ()
@@ -305,8 +305,11 @@ namespace Psycho
                 static void DrawRegion (Cairo.Context iContext, Topic iTopic)
                 {
                         iContext.Save ();
-                        Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
-                        strokeColor = new Cairo.Color (0, 0, 0);
+                        Cairo.Color strokeColor;
+                        strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
+                        //strokeColor = new Cairo.Color (0, 0, 0);
+                        iContext.Color = strokeColor;
+                        strokeColor.A = 0.5;
                         iContext.LineWidth = 1;
                         iContext.Translate (0.5, 0.5);
                         if (iTopic.IsCentral)
@@ -316,9 +319,9 @@ namespace Psycho
                                                     iTopic.GlobalHeight);
                         else
                                 iContext.Rectangle (System.Math.Floor (iTopic.Offset.BaseX),
-                                            System.Math.Floor (iTopic.Offset.BaseY),
-                                            System.Math.Floor (iTopic.TotalWidth),
-                                            System.Math.Floor (iTopic.TotalHeight));
+                                                    System.Math.Floor (iTopic.Offset.BaseY),
+                                                    System.Math.Floor (iTopic.TotalWidth),
+                                                    System.Math.Floor (iTopic.TotalHeight));
 
                         iContext.Stroke ();
                         iContext.Restore ();

@@ -205,7 +205,7 @@ namespace Psycho
                 {
                         Topic topic = (Topic) model.GetValue (iter, 0);
 
-                        if (topic.HasNotes)
+                        if (topic.HasNote)
                                 (cell as CellRendererPixbuf).Pixbuf = IconLoader.notesIcon;
                         else
                                 (cell as CellRendererPixbuf).Pixbuf = null;

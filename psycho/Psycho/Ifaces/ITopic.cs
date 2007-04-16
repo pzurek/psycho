@@ -47,7 +47,7 @@ namespace Psycho
                 TopicNote Note { get; set; }
                 bool IsExpanded { get; set; }
                 TopicStyle Style { get; set; }
-                bool HasNotes { get;}
+                bool HasNote { get;}
                 int TotalCount { get; }
                 string Path { get; }
                 string Number { get; }
