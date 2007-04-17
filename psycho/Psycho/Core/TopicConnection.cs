@@ -63,7 +63,30 @@ namespace Psycho
                 {
                         if (iTopic.Parent != null) {
                                 this.start = iTopic.InPoint;
-                                this.end = iTopic.Parent.OutPoint;
+
+                                if (iTopic.IsMain) {
+                                        switch (iTopic.Parent.Style.SubLayout) {
+                                        case SubtopicLayout.Map: {
+                                                if (iTopic.InPrimarySubtopicList)
+                                                        this.end = iTopic.Parent.Frame.Right;
+                                                else
+                                                        this.end = iTopic.Parent.Frame.Left;
+                                        }
+                                        break;
+                                        case SubtopicLayout.Tree:
+                                        this.end = iTopic.Parent.Frame.Bottom;
+                                        break;
+                                        case SubtopicLayout.OrgChart: {
+                                                if (iTopic.InPrimarySubtopicList)
+                                                        this.end = iTopic.Parent.Frame.Bottom;
+                                                else
+                                                        this.end = iTopic.Parent.Frame.Top;
+                                        }
+                                        break;
+                                        }
+                                }
+                                else
+                                        this.end = iTopic.Parent.OutPoint;
 
                                 this.mapExtenstion = false;
                                 this.orgChartExtension = false;

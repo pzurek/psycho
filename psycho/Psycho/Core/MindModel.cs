@@ -43,15 +43,10 @@ namespace Psycho
                 XmlElement foundXmlTopic;
                 XmlDocument xmlModel = new XmlDocument ();
 
-                TopicList primarySubtopicList;
-                TopicList secondarySubtopicList;
-
                 public MindModel ()
                 {
-                        primarySubtopicList = new TopicList ();
-                        secondarySubtopicList = new TopicList ();
-
-                        CentralTopic = new Topic ("Psycho - free mind mapping solution");
+                        CentralTopic = new Topic ();
+                        CentralTopic.Text = "Psycho - Free mind mapping solution";
                         SetCurrent (CentralTopic);
 
                         XmlDeclaration declarationNode = XMLModel.CreateXmlDeclaration ("1.0", "UTF-8", "");
@@ -150,7 +145,7 @@ namespace Psycho
                 public void AppendSomeNodes (Topic iTopic)
                 {
                         SetCurrent (iTopic);
-                        while (iTopic.SubtopicList.Count < 2) {
+                        while (iTopic.SubtopicList.Count < 4) {
                                 CreateSubtopic ();
                                 AppendSomeNodes (iTopic);
                         }
@@ -163,15 +158,15 @@ namespace Psycho
                 void PlaceOnSide (Topic iTopic)
                 {
                         if (iTopic.Level == 1) {
-                                if (primarySubtopicList.Count <= secondarySubtopicList.Count) {
-                                        primarySubtopicList.Add (iTopic);
+                                if (CentralTopic.PrimarySubtopicList.Count <= CentralTopic.SecondarySubtopicList.Count) {
+                                        CentralTopic.PrimarySubtopicList.Add (iTopic);
                                         iTopic.InPrimarySubtopicList = true;
-                                        Console.WriteLine ("Topic :" + iTopic.Text + " inserted on primary side");
+                                        //Console.WriteLine ("Topic :" + iTopic.Text + " inserted on primary side");
                                 }
                                 else {
-                                        secondarySubtopicList.Add (iTopic);
+                                        CentralTopic.SecondarySubtopicList.Add (iTopic);
                                         iTopic.InPrimarySubtopicList = false;
-                                        Console.WriteLine ("Topic :" + iTopic.Text + " inserted on secondary side");
+                                        //Console.WriteLine ("Topic :" + iTopic.Text + " inserted on secondary side");
                                 }
                         }
                         else
@@ -185,10 +180,10 @@ namespace Psycho
                                 Topic newTopic = new Topic (centralTopic.TotalCount);
                                 newTopic.Parent = CurrentTopic.Parent;
                                 CurrentTopic.Parent.AddSubtopic ((currentIndex + 1), newTopic);
+                                PlaceOnSide (newTopic);
                                 CreateXMLTopic (CurrentTopic, newTopic);
                                 SetCurrent (newTopic);
                                 SetCurrentXml (CurrentTopic.GUID);
-                                PlaceOnSide (newTopic);
                                 newTopics.Add (newTopic);
                                 UpdateToTop (newTopic);
                                 NotifyObservers ();
@@ -202,10 +197,10 @@ namespace Psycho
                                 newTopic.Parent = CurrentTopic;
                                 CurrentTopic.IsExpanded = true;
                                 CurrentTopic.AddSubtopic (newTopic);
+                                PlaceOnSide (newTopic);
                                 CreateXMLSubtopic (newTopic);
                                 SetCurrent (newTopic);
                                 SetCurrentXml (CurrentTopic.GUID);
-                                PlaceOnSide (newTopic);
                                 newTopics.Add (newTopic);
                                 UpdateToTop (newTopic);
                                 NotifyObservers ();

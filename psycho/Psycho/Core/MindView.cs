@@ -48,7 +48,7 @@ namespace Psycho
                 Cairo.Context mapContext;
                 Cairo.Context controlContext;
 
-                static int margin = 200;
+                static int margin = 400;
 
                 public MindView ()
                         : base ()
@@ -123,7 +123,7 @@ namespace Psycho
                         DrawBackground (mapContext);
                         DrawTopics (mapContext);
                         this.mapArea.SetSizeRequest ((int) Model.CentralTopic.GlobalWidth + 2 * margin, (int) Model.CentralTopic.GlobalHeight + 2 * margin);
-                        
+
                         ////// Temporary code used to draw to png file. That has to be a separate method called by the user.
                         //Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 20, (int) Model.CentralTopic.GlobalHeight + 20);
                         //Cairo.Context pictureContext = new Cairo.Context (image);
@@ -150,30 +150,30 @@ namespace Psycho
                 {
                         string key = args.Event.Key.ToString ();
                         switch (key) {
-                                case "Return":
-                                AddTopic ();
-                                return;
-                                case "Insert":
-                                AddSubtopic ();
-                                return;
-                                case "Delete":
-                                DeleteTopic ();
-                                return;
-                                case "Left":            //At the moment it's Right-Child Down-Next but that should
-                                SetCurrentUp ();        //detect the closest topic in given direction
-                                return;
-                                case "Right":
-                                SetCurrentDown ();
-                                return;
-                                case "Up":
-                                SetCurrentBack ();
-                                args.RetVal = true;
-                                return;
-                                case "Down":
-                                SetCurrentForward ();
-                                args.RetVal = true;
-                                return;
-                                default: break;
+                        case "Return":
+                        AddTopic ();
+                        return;
+                        case "Insert":
+                        AddSubtopic ();
+                        return;
+                        case "Delete":
+                        DeleteTopic ();
+                        return;
+                        case "Left":            //At the moment it's Right-Child Down-Next but that should
+                        SetCurrentUp ();        //detect the closest topic in given direction
+                        return;
+                        case "Right":
+                        SetCurrentDown ();
+                        return;
+                        case "Up":
+                        SetCurrentBack ();
+                        args.RetVal = true;
+                        return;
+                        case "Down":
+                        SetCurrentForward ();
+                        args.RetVal = true;
+                        return;
+                        default: break;
                         }
                 }
 
@@ -199,7 +199,7 @@ namespace Psycho
                         iContext.Restore ();
                 }
 
-                public void DrawConnections (Cairo.Context iContext, Topic iTopic)
+                static public void DrawConnections (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.SubtopicList) {
                                 if (TempTopic.IsExpanded)
@@ -208,10 +208,10 @@ namespace Psycho
                         }
                 }
 
-                public void DrawFrames (Cairo.Context iContext, Topic iTopic)
+                static public void DrawFrames (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.SubtopicList) {
-                                DrawRegion (iContext, iTopic);
+                                //DrawRegion (iContext, iTopic);
                                 if (TempTopic.IsExpanded) {
                                         DrawFrames (iContext, TempTopic);
                                 }
@@ -220,7 +220,7 @@ namespace Psycho
                         }
                 }
 
-                public void DrawTexts (Cairo.Context iContext, Topic iTopic)
+                static public void DrawTexts (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.SubtopicList) {
                                 if (TempTopic.IsExpanded)
@@ -229,7 +229,7 @@ namespace Psycho
                         }
                 }
 
-                void DrawText (Cairo.Context iContext, Topic iTopic)
+                static void DrawText (Cairo.Context iContext, Topic iTopic)
                 {
                         // Original Pango drawing
                         /*
@@ -250,7 +250,7 @@ namespace Psycho
                                 (int) (iTopic.Offset.Y - iTopic.TextHeight / 2)
                                 );
                         Pango.Layout layout = Pango.CairoHelper.CreateLayout (iContext);
-//                       iContext.Color = new Cairo.Color (1, 1, 1); // Just trying different colours
+                        //                       iContext.Color = new Cairo.Color (1, 1, 1); // Just trying different colours
                         layout = iTopic.TextLayout;
                         Pango.CairoHelper.ShowLayout (iContext, layout);
                         iContext.Restore ();
@@ -305,8 +305,7 @@ namespace Psycho
                 static void DrawRegion (Cairo.Context iContext, Topic iTopic)
                 {
                         iContext.Save ();
-                        Cairo.Color strokeColor;
-                        strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
+                        Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
                         //strokeColor = new Cairo.Color (0, 0, 0);
                         iContext.Color = strokeColor;
                         strokeColor.A = 0.5;
@@ -318,10 +317,18 @@ namespace Psycho
                                                     iTopic.GlobalWidth,
                                                     iTopic.GlobalHeight);
                         else
-                                iContext.Rectangle (System.Math.Floor (iTopic.Offset.BaseX),
-                                                    System.Math.Floor (iTopic.Offset.BaseY),
-                                                    System.Math.Floor (iTopic.TotalWidth),
-                                                    System.Math.Floor (iTopic.TotalHeight));
+                                if (iTopic.InPrimarySubtopicList)
+                                        iContext.Rectangle (System.Math.Floor (iTopic.Offset.BaseX),
+                                                            System.Math.Floor (iTopic.Offset.BaseY),
+                                                            System.Math.Floor (iTopic.TotalWidth),
+                                                            System.Math.Floor (iTopic.TotalHeight));
+                                else
+                                        iContext.Rectangle (System.Math.Floor (iTopic.Offset.BaseX),
+                                                            System.Math.Floor (iTopic.Offset.BaseY),
+                                                           -System.Math.Floor (iTopic.TotalWidth),
+                                                            System.Math.Floor (iTopic.TotalHeight));
+
+
 
                         iContext.Stroke ();
                         iContext.Restore ();
