@@ -51,13 +51,22 @@ namespace Psycho
 
                 public Topic Topic
                 {
-                        get { return topic; }
+                        get
+                        {
+                                return topic;
+                        }
                 }
 
                 public bool IsAuto
                 {
-                        get { return isAuto; }
-                        set { isAuto = value; }
+                        get
+                        {
+                                return isAuto;
+                        }
+                        set
+                        {
+                                isAuto = value;
+                        }
                 }
 
                 public void Update (Topic iTopic)
@@ -180,19 +189,19 @@ namespace Psycho
                                 if (iTopic.InPrimarySubtopicList)
                                         localX = iTopic.Width / 2;
                                 else
-                                        localX = - iTopic.Width / 2;
+                                        localX = -iTopic.Width / 2;
                                 break;
                                 case SubtopicLayout.Tree:
                                 if (iTopic.InPrimarySubtopicList)
                                         localX = iTopic.Width / 2;
                                 else
-                                        localX = - iTopic.Width / 2;
+                                        localX = -iTopic.Width / 2;
                                 break;
                                 case SubtopicLayout.OrgChart:
                                 if (iTopic.InPrimarySubtopicList)
                                         localX = iTopic.TotalWidth / 2;
                                 else
-                                        localX = - iTopic.TotalWidth / 2;
+                                        localX = -iTopic.TotalWidth / 2;
                                 break;
                                 }
                         }
@@ -272,7 +281,7 @@ namespace Psycho
                 static double HorizontalMainFirstOrgChart (Topic iTopic)
                 {
                         double x;
-                        x = - iTopic.Parent.SubtopicList.Width / 2;
+                        x = -iTopic.Parent.SubtopicList.Width / 2;
                         return x;
                 }
 
@@ -319,7 +328,7 @@ namespace Psycho
                 private double HorizontalSubFirstMap (Topic iTopic)
                 {
                         double x;
-                        x = System.Math.Abs(iTopic.Parent.Offset.BaseX) +
+                        x = System.Math.Abs (iTopic.Parent.Offset.BaseX) +
                             iTopic.Parent.Frame.Width +
                             iTopic.Parent.Style.HorChildDist;
                         x = EvaluateSideSign (iTopic, x);
@@ -329,7 +338,7 @@ namespace Psycho
                 static double HorizontalSubFirstTree (Topic iTopic)
                 {
                         double x;
-                        x = System.Math.Abs(iTopic.Parent.Offset.BaseX) +
+                        x = System.Math.Abs (iTopic.Parent.Offset.BaseX) +
                             iTopic.Parent.Width / 2 +
                             iTopic.Parent.Style.HorChildDist / 2;
                         x = EvaluateSideSign (iTopic, x);
@@ -344,7 +353,7 @@ namespace Psycho
                         else
                                 //FIXME: That requires some adjustment. Some more logic.
                                 x = System.Math.Abs (iTopic.Parent.Offset.BaseX) +
-                                    iTopic.Parent.TotalWidth; 
+                                    iTopic.Parent.TotalWidth;
                         x = EvaluateSideSign (iTopic, x);
                         return x;
                 }
@@ -382,21 +391,33 @@ namespace Psycho
 
                 public double BaseX
                 {
-                        get { return baseX; }
+                        get
+                        {
+                                return baseX;
+                        }
                 }
 
                 public double BaseY
                 {
-                        get { return baseY; }
+                        get
+                        {
+                                return baseY;
+                        }
                 }
 
                 public double LocalX
                 {
-                        get { return localX; }
+                        get
+                        {
+                                return localX;
+                        }
                 }
                 public double LocalY
                 {
-                        get { return localY; }
+                        get
+                        {
+                                return localY;
+                        }
                 }
 
                 public double X

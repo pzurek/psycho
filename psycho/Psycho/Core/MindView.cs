@@ -48,7 +48,7 @@ namespace Psycho
                 Cairo.Context mapContext;
                 Cairo.Context controlContext;
 
-                static int margin = 400;
+                static int margin = 20;
 
                 public MindView ()
                         : base ()
@@ -173,7 +173,8 @@ namespace Psycho
                         SetCurrentForward ();
                         args.RetVal = true;
                         return;
-                        default: break;
+                        default:
+                        break;
                         }
                 }
 
@@ -211,7 +212,7 @@ namespace Psycho
                 static public void DrawFrames (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.SubtopicList) {
-                                //DrawRegion (iContext, iTopic);
+                                DrawRegion (iContext, iTopic);
                                 if (TempTopic.IsExpanded) {
                                         DrawFrames (iContext, TempTopic);
                                 }

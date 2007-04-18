@@ -101,56 +101,89 @@ namespace Psycho
 
                 public Topic CurrentTopic
                 {
-                        get { return currentTopic; }
-                        set { currentTopic = value; }
+                        get
+                        {
+                                return currentTopic;
+                        }
+                        set
+                        {
+                                currentTopic = value;
+                        }
                 }
 
                 public TopicList NewTopics
                 {
-                        get { return newTopics; }
+                        get
+                        {
+                                return newTopics;
+                        }
                 }
 
                 public TopicList ChangedTopics
                 {
-                        get { return changedTopics; }
+                        get
+                        {
+                                return changedTopics;
+                        }
                 }
 
                 public string DeletedTopicPath
                 {
-                        get { return deletedTopicPath; }
+                        get
+                        {
+                                return deletedTopicPath;
+                        }
                 }
 
                 public TopicList DeletedTopics
                 {
-                        get { return deletedTopics; }
+                        get
+                        {
+                                return deletedTopics;
+                        }
                 }
 
                 public Topic CentralTopic
                 {
-                        get { return centralTopic; }
-                        set { centralTopic = value; }
+                        get
+                        {
+                                return centralTopic;
+                        }
+                        set
+                        {
+                                centralTopic = value;
+                        }
                 }
 
                 public int CurrentLevel
                 {
-                        get { return currentTopic.Level; }
+                        get
+                        {
+                                return currentTopic.Level;
+                        }
                 }
 
                 public bool EditPending
                 {
-                        get { return editPending; }
-                        set { editPending = value; }
+                        get
+                        {
+                                return editPending;
+                        }
+                        set
+                        {
+                                editPending = value;
+                        }
                 }
 
                 public void AppendSomeNodes (Topic iTopic)
                 {
                         SetCurrent (iTopic);
-                        while (iTopic.SubtopicList.Count < 4) {
+                        while (iTopic.SubtopicList.Count < 2) {
                                 CreateSubtopic ();
                                 AppendSomeNodes (iTopic);
                         }
-                                
-                        if (iTopic.Level < 2)
+
+                        if (iTopic.Level < 3)
                                 foreach (Topic subTopic in iTopic.SubtopicList)
                                         AppendSomeNodes (subTopic);
                 }
@@ -392,7 +425,10 @@ namespace Psycho
 
                 public XmlDocument XMLModel
                 {
-                        get { return xmlModel; }
+                        get
+                        {
+                                return xmlModel;
+                        }
                 }
 
                 public static void InvalidateToTop (Topic iTopic)
@@ -456,7 +492,7 @@ namespace Psycho
                                 }
                         }
                         else
-                                return;
+                return;
                 }
         }
 }

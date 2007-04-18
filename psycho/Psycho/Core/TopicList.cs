@@ -90,7 +90,10 @@ namespace Psycho
 
                 public Topic Parent
                 {
-                        get { return topic; }
+                        get
+                        {
+                                return topic;
+                        }
                 }
 
                 public TopicListOrientation Orientation
@@ -98,15 +101,15 @@ namespace Psycho
                         get
                         {
                                 switch (this.Parent.Style.SubLayout) {
-                                        case SubtopicLayout.OrgChart:
-                                        orientation = TopicListOrientation.Horizontal;
-                                        break;
-                                        case SubtopicLayout.Map:
-                                        orientation = TopicListOrientation.Vertical;
-                                        break;
-                                        case SubtopicLayout.Tree:
-                                        orientation = TopicListOrientation.Vertical;
-                                        break;
+                                case SubtopicLayout.OrgChart:
+                                orientation = TopicListOrientation.Horizontal;
+                                break;
+                                case SubtopicLayout.Map:
+                                orientation = TopicListOrientation.Vertical;
+                                break;
+                                case SubtopicLayout.Tree:
+                                orientation = TopicListOrientation.Vertical;
+                                break;
                                 }
                                 return orientation;
                         }

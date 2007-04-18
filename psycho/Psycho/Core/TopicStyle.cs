@@ -71,10 +71,10 @@ namespace Psycho
                         this.CrankRadius = 7;
                         this.PolyDistance = 7;
                         this.Width = 140;
-                        this.Padding = 5;
-                        this.HorChildDist = 56;
+                        this.Padding = 0;
+                        this.HorChildDist = 28;
                         this.VerChildDist = 14;
-                        this.OrgChartVertDist = 49;
+                        this.OrgChartVertDist = 28;
                         this.ConnectPoint = ConnectionPoint.Edge;
                 }
 
@@ -107,7 +107,7 @@ namespace Psycho
                                         shape = TopicShape.Rectangle;
                                         break;
                                         default:
-                                        shape = TopicShape.Hexagon;
+                                        shape = TopicShape.Line;
                                         break;
                                 }
                                 return shape;
@@ -125,15 +125,15 @@ namespace Psycho
                 {
                         get
                         {
-                                switch (this.Topic.Index) {
+                                switch (this.Topic.Level) {
                                         case 0:
                                         subLayout = SubtopicLayout.Map;
                                         break;
                                         case 1:
-                                        subLayout = SubtopicLayout.Tree;
+                                        subLayout = SubtopicLayout.Map;
                                         break;
                                         case 2:
-                                        subLayout = SubtopicLayout.OrgChart;
+                                        subLayout = SubtopicLayout.Map;
                                         break;
                                         default:
                                         subLayout = SubtopicLayout.Map;
@@ -154,19 +154,19 @@ namespace Psycho
                                         connectShape = ConnectionShape.Curve;
                                         break;
                                         case 1:
-                                        connectShape = ConnectionShape.RoundedCrank;
+                                        connectShape = ConnectionShape.Curve;
                                         break;
                                         case 2:
-                                        connectShape = ConnectionShape.Arc;
+                                        connectShape = ConnectionShape.Curve;
                                         break;
                                         case 3:
-                                        connectShape = ConnectionShape.RoundedAngleCrank;
+                                        connectShape = ConnectionShape.Curve;
                                         break;
                                         case 4:
-                                        connectShape = ConnectionShape.AngleCrank;
+                                        connectShape = ConnectionShape.Curve;
                                         break;
                                         case 5:
-                                        connectShape = ConnectionShape.ChamferedCrank;
+                                        connectShape = ConnectionShape.Curve;
                                         break;
                                         case 6:
                                         connectShape = ConnectionShape.Crank;
@@ -241,8 +241,11 @@ namespace Psycho
                                         case 2:
                                         strokeWidth = 3;
                                         break;
-                                        default:
+                                        case 3:
                                         strokeWidth = 2;
+                                        break;
+                                        default:
+                                        strokeWidth = 1;
                                         break;
                                 }
                                 return strokeWidth;

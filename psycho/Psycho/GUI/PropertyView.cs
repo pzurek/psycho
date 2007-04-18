@@ -98,8 +98,8 @@ namespace Psycho
                         basicPropertyBox.PackStart (fillColor, false, false, 6);
 
                         this.PackStart (titleEntry, false, false, 6);
-                        //this.PackStart (buttonBox, false, false, 6);
-                        //this.PackStart (basicPropertyBox, false, false, 6);
+                        this.PackStart (buttonBox, false, false, 6);
+                        this.PackStart (basicPropertyBox, false, false, 6);
                 }
 
                 void titleEntry_KeyReleaseEvent (object o, KeyReleaseEventArgs args)

@@ -125,6 +125,7 @@
     <Compile Include="GUI\OutlineView.cs" />
     <Compile Include="Core\Task.cs" />
     <Compile Include="GUI\StatusView.cs" />
+    <Compile Include="GUI\TopicLayoutComboBox.cs" />
     <Compile Include="GUI\UIManagerView.cs" />
     <Compile Include="GUI\XMLView.cs" />
     <Compile Include="Ifaces\IVisitable.cs" />

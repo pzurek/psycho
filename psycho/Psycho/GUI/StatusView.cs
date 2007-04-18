@@ -55,8 +55,8 @@ namespace Psycho
                                 //topicNumber.Text = ("Topics in the map: " + Model.CentralTopic.TotalCount.ToString ());
                                 if (Model.CurrentTopic != null) {
                                         //currentTitle.Text = ("Current topic title: " + Model.CurrentTopic.Text);
-                                        
-                                        this.Push (0, ("Current topic title: " + Model.CurrentTopic.Text + SideText(Model.CurrentTopic)));
+
+                                        this.Push (0, ("Current topic title: " + Model.CurrentTopic.Text + SideText (Model.CurrentTopic)));
                                 }
                                 else
                                         this.Push (0, "No topic selected");
@@ -167,24 +167,14 @@ namespace Psycho
                         throw new Exception ("The method or operation is not implemented.");
                 }
 
-                #region IView Members
-
-
                 public void SetCurrentByCoords (int iX, int iY)
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
 
-                #endregion
-
-                #region IView Members
-
-
                 public void ClearCurrentTopic ()
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
-
-                #endregion
         }
 }

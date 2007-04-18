@@ -288,7 +288,7 @@ namespace Psycho
                         outlineView.ExpandToPath (iPath);
                         outlineView.QueueDraw ();
                 }
-                        
+
 
                 public void AddTopic ()
                 {
