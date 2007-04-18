@@ -90,10 +90,7 @@ namespace Psycho
 
                 public Topic Parent
                 {
-                        get
-                        {
-                                return topic;
-                        }
+                        get { return topic; }
                 }
 
                 public TopicListOrientation Orientation

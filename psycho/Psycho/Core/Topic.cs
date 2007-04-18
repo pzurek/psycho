@@ -153,6 +153,7 @@ namespace Psycho
                 TopicList subtopicList;
                 TopicList primarySubtopicList;
                 TopicList secondarySubtopicList;
+                TopicList freeTopicList;
                 Pango.Layout textLayout;
                 TopicFrame frame;
                 TopicConnection connection;
@@ -194,6 +195,15 @@ namespace Psycho
                         }
                 }
 
+                public TopicList FreeTopicList
+                {
+                        get
+                        {
+                                if (freeTopicList == null)
+                                        freeTopicList = new TopicList (this);
+                                return freeTopicList;
+                        }
+                }
 
                 public int Index
                 {

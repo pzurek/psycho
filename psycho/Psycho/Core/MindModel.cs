@@ -101,38 +101,23 @@ namespace Psycho
 
                 public Topic CurrentTopic
                 {
-                        get
-                        {
-                                return currentTopic;
-                        }
-                        set
-                        {
-                                currentTopic = value;
-                        }
+                        get { return currentTopic;  }
+                        set { currentTopic = value; }
                 }
 
                 public TopicList NewTopics
                 {
-                        get
-                        {
-                                return newTopics;
-                        }
+                        get { return newTopics; }
                 }
 
                 public TopicList ChangedTopics
                 {
-                        get
-                        {
-                                return changedTopics;
-                        }
+                        get { return changedTopics; }
                 }
 
                 public string DeletedTopicPath
                 {
-                        get
-                        {
-                                return deletedTopicPath;
-                        }
+                        get { return deletedTopicPath; }
                 }
 
                 public TopicList DeletedTopics
@@ -145,34 +130,19 @@ namespace Psycho
 
                 public Topic CentralTopic
                 {
-                        get
-                        {
-                                return centralTopic;
-                        }
-                        set
-                        {
-                                centralTopic = value;
-                        }
+                        get { return centralTopic;  }
+                        set { centralTopic = value; }
                 }
 
                 public int CurrentLevel
                 {
-                        get
-                        {
-                                return currentTopic.Level;
-                        }
+                        get { return currentTopic.Level; }
                 }
 
                 public bool EditPending
                 {
-                        get
-                        {
-                                return editPending;
-                        }
-                        set
-                        {
-                                editPending = value;
-                        }
+                        get { return editPending;  }
+                        set { editPending = value; }
                 }
 
                 public void AppendSomeNodes (Topic iTopic)
@@ -238,6 +208,16 @@ namespace Psycho
                                 UpdateToTop (newTopic);
                                 NotifyObservers ();
                         }
+                }
+
+                public void CreateFreeTopic ()
+                {
+                        Topic newTopic = new Topic (centralTopic.TotalCount);
+                        SetCurrent (newTopic);
+                        SetCurrentXml (CurrentTopic.GUID);
+                        newTopics.Add (newTopic);
+                        UpdateToTop (newTopic);
+                        NotifyObservers ();
                 }
 
                 public void CreateXMLSubtopic (string parentGuid, string iGuid, string iTitle)
