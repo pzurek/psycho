@@ -115,6 +115,7 @@ namespace Psycho
                 void UpdateTextSize (Topic iTopic)
                 {
                         int w, h;
+                        iTopic.TextLayout.Alignment = iTopic.Style.TextAlignment;
                         iTopic.TextLayout.GetPixelSize (out w, out h);
                         textWidth = w;
                         textHeight = h;

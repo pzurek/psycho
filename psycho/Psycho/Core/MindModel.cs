@@ -46,7 +46,7 @@ namespace Psycho
                 public MindModel ()
                 {
                         CentralTopic = new Topic ();
-                        CentralTopic.Text = "Psycho - Free mind mapping solution";
+                        CentralTopic.Text = "Psycho - Free mind mapping solution www.psycho-project.org";
                         SetCurrent (CentralTopic);
 
                         XmlDeclaration declarationNode = XMLModel.CreateXmlDeclaration ("1.0", "UTF-8", "");
@@ -122,10 +122,7 @@ namespace Psycho
 
                 public TopicList DeletedTopics
                 {
-                        get
-                        {
-                                return deletedTopics;
-                        }
+                        get { return deletedTopics; }
                 }
 
                 public Topic CentralTopic
@@ -183,6 +180,7 @@ namespace Psycho
                                 Topic newTopic = new Topic (centralTopic.TotalCount);
                                 newTopic.Parent = CurrentTopic.Parent;
                                 CurrentTopic.Parent.AddSubtopic ((currentIndex + 1), newTopic);
+                                newTopic.Style.MapType = newTopic.Parent.Style.MapType;
                                 PlaceOnSide (newTopic);
                                 CreateXMLTopic (CurrentTopic, newTopic);
                                 SetCurrent (newTopic);
@@ -200,6 +198,7 @@ namespace Psycho
                                 newTopic.Parent = CurrentTopic;
                                 CurrentTopic.IsExpanded = true;
                                 CurrentTopic.AddSubtopic (newTopic);
+                                newTopic.Style.MapType = newTopic.Parent.Style.MapType;
                                 PlaceOnSide (newTopic);
                                 CreateXMLSubtopic (newTopic);
                                 SetCurrent (newTopic);

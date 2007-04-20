@@ -26,6 +26,7 @@
 //
 
 using System;
+using Pango;
 
 namespace Psycho
 {
@@ -52,6 +53,21 @@ namespace Psycho
                 bool fixedWidth;
                 int width;
                 SubtopicLayout subLayout;
+                MapType mapType;
+                Alignment textAlignment;
+
+                public Alignment TextAlignment
+                {
+                        get
+                        {
+                                if (this.Topic.IsCentral)
+                                        textAlignment = Pango.Alignment.Center;
+                                else
+                                        textAlignment = Pango.Alignment.Left;
+                                return textAlignment;
+                        }
+                        set { textAlignment = value; }
+                }
 
                 Stylus stylus = new Stylus ();
 
@@ -70,8 +86,8 @@ namespace Psycho
                         this.CrankChamfer = 7;
                         this.CrankRadius = 7;
                         this.PolyDistance = 7;
-                        this.Width = 140;
-                        this.Padding = 0;
+                        this.Width = 147;
+                        this.Padding = 10;
                         this.HorChildDist = 28;
                         this.VerChildDist = 14;
                         this.OrgChartVertDist = 28;
@@ -121,19 +137,28 @@ namespace Psycho
                         set { connectPoint = value; }
                 }
 
+                public MapType MapType
+                {
+                        get { return mapType; }
+                        set { mapType = value; }
+                }
+
                 public SubtopicLayout SubLayout
                 {
                         get
                         {
-                                switch (this.Topic.Level) {
+                                switch (this.Topic.Index) {
+                                case -1:
+                                subLayout = SubtopicLayout.Tree;
+                                break;
                                 case 0:
                                 subLayout = SubtopicLayout.Map;
                                 break;
                                 case 1:
-                                subLayout = SubtopicLayout.Map;
+                                subLayout = SubtopicLayout.Tree;
                                 break;
                                 case 2:
-                                subLayout = SubtopicLayout.Map;
+                                subLayout = SubtopicLayout.OrgChart;
                                 break;
                                 default:
                                 subLayout = SubtopicLayout.Map;
