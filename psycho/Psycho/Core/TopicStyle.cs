@@ -81,14 +81,14 @@ namespace Psycho
                         this.RightMargin = 0;
                         this.TopMargin = 0;
                         this.BottomMargin = 0;
-                        this.CrankChamfer = 7;
-                        this.CrankRadius = 7;
-                        this.PolyDistance = 7;
-                        this.Width = 147;
-                        this.Padding = 4;
-                        this.HorChildDist = 40;
-                        this.VerChildDist = 10;
-                        this.OrgChartVertDist = 28;
+                        this.CrankChamfer = 8;
+                        this.CrankRadius = 8;
+                        this.PolyDistance = 8;
+                        this.Width = 160;
+                        this.Padding = 8;
+                        this.HorChildDist = 80;
+                        this.VerChildDist = 40;
+                        this.OrgChartVertDist = 40;
                         this.ConnectPoint = ConnectionPoint.Edge;
                 }
 
@@ -174,7 +174,7 @@ namespace Psycho
                         {
                                 switch (this.Topic.Level) {
                                 case 0:
-                                connectShape = ConnectionShape.Curve;
+                                connectShape = ConnectionShape.RoundedAngleCrank;
                                 break;
                                 case 1:
                                 connectShape = ConnectionShape.Curve;
@@ -268,7 +268,7 @@ namespace Psycho
                                 strokeWidth = 2;
                                 break;
                                 default:
-                                strokeWidth = 1;
+                                strokeWidth = 2;
                                 break;
                                 }
                                 return strokeWidth;

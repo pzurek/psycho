@@ -41,6 +41,15 @@ namespace Psycho
 
                 bool isAuto;
                 Topic topic;
+                TopicList list;
+
+                public TopicList List
+                {
+                        get {
+                                list = topic.SideList;
+                                return list;
+                        }
+                }
 
                 public TopicOffset (Topic iTopic)
                 {
@@ -209,6 +218,9 @@ namespace Psycho
                                 if (iTopic.InPrimarySubtopicList ||
                                     iTopic.MapLayout == SubtopicLayout.OrgChart)
                                         localX = iTopic.TotalWidth / 2;
+                                else
+                                        localX = -iTopic.TotalWidth / 2;
+                                //        localX = EvaluateSideSign (iTopic, localX);
                                 break;
                                 }
                         }
@@ -233,7 +245,7 @@ namespace Psycho
                                                 localY = iTopic.TotalHeight - iTopic.Height / 2;
                                         else {
                                                 localY = iTopic.Height / 2;
-                                                localY = EvaluateSideSign (iTopic, localY);
+                                                //localY = EvaluateSideSign (iTopic, localY);
                                         }
                                 }
                                 break;
@@ -301,8 +313,8 @@ namespace Psycho
                         }
                         else
                                 x = iTopic.Parent.Offset.BaseX +
-                                iTopic.Parent.Frame.Width +
-                                iTopic.Parent.Style.HorChildDist;
+                                    iTopic.Parent.Frame.Width +
+                                    iTopic.Parent.Style.HorChildDist;
                         return x;
                 }
 
@@ -325,7 +337,13 @@ namespace Psycho
                 static double HorizontalSubFirstOrgChart (Topic iTopic)
                 {
                         double x;
-                        x = iTopic.Parent.Offset.BaseX;
+                        if (iTopic.MapLayout != SubtopicLayout.OrgChart &&
+                            !iTopic.InPrimarySubtopicList)
+                                x = iTopic.Parent.Offset.BaseX -
+                                    iTopic.Parent.TotalWidth +
+                                    iTopic.TotalWidth;
+                        else
+                                x = iTopic.Parent.Offset.BaseX;
                         return x;
                 }
 
@@ -339,8 +357,13 @@ namespace Psycho
                 static double HorizontalSubNextOrgChart (Topic iTopic)
                 {
                         double x;
-                        x = iTopic.Previous.Offset.BaseX +
-                            iTopic.Previous.TotalWidth;
+                        if (iTopic.MapLayout == SubtopicLayout.OrgChart ||
+                            iTopic.InPrimarySubtopicList)
+                                x = iTopic.Previous.Offset.BaseX +
+                                iTopic.Previous.TotalWidth;
+                        else
+                                x = iTopic.Previous.Offset.BaseX +
+                                iTopic.TotalWidth;
                         return x;
                 }
                 
@@ -365,19 +388,13 @@ namespace Psycho
                 static double VerticalMainFirstOrgChart (Topic iTopic)
                 {
                         double y;
-                        //if (iTopic.Style.SubLayout == SubtopicLayout.OrgChart) {
-                        //        y = iTopic.Parent.Frame.Height / 2 +
-                        //            iTopic.Parent.Style.OrgChartVertDist;
-                        //        y = EvaluateSideSign (iTopic, y);
-                        //}
-                        //else
-                                if (iTopic.InPrimarySubtopicList)
-                                        y = iTopic.Parent.Frame.Height / 2 +
-                                            iTopic.Parent.Style.OrgChartVertDist;
-                                else
-                                        y = - iTopic.Parent.Frame.Height / 2 -
-                                              iTopic.Parent.Style.OrgChartVertDist -
-                                              iTopic.TotalHeight;
+                        if (iTopic.InPrimarySubtopicList)
+                                y = iTopic.Parent.Frame.Height / 2 +
+                                    iTopic.Parent.Style.OrgChartVertDist;
+                        else
+                                y = - iTopic.Parent.Frame.Height / 2 -
+                                      iTopic.Parent.Style.OrgChartVertDist -
+                                      iTopic.TotalHeight;
                         return y;
                 }
 
@@ -392,19 +409,7 @@ namespace Psycho
                 static double VerticalMainNextOrgChart (Topic iTopic)
                 {
                         double y;
-                        //if (iTopic.Style.SubLayout == SubtopicLayout.OrgChart) {
-                        //        y = iTopic.Parent.Frame.Height / 2 +
-                        //            iTopic.Parent.Style.OrgChartVertDist;
-                        //        y = EvaluateSideSign (iTopic, y);
-                        //}
-                        //else
-                                if (iTopic.InPrimarySubtopicList)
-                                        y = iTopic.Parent.Frame.Height / 2 +
-                                            iTopic.Parent.Style.OrgChartVertDist;
-                                else
-                                        y = -iTopic.Parent.Frame.Height / 2 -
-                                              iTopic.Parent.Style.OrgChartVertDist -
-                                              iTopic.TotalHeight;
+                        y = VerticalMainFirstOrgChart (iTopic);
                         return y;
                 }
 
@@ -427,16 +432,16 @@ namespace Psycho
                 static double VerticalSubFirstOrgChart (Topic iTopic)
                 {
                         double y;
-                        if (iTopic.Parent.Style.SubLayout == SubtopicLayout.OrgChart &&
-                            !iTopic.InPrimarySubtopicList) {
-                                y = iTopic.Parent.Offset.BaseY;
-                        }
-                        else {
-                                y = System.Math.Abs (iTopic.Parent.Offset.BaseY) +
+                        if (iTopic.MapLayout == SubtopicLayout.OrgChart &&
+                            iTopic.Parent.Style.SubLayout == SubtopicLayout.OrgChart &&
+                            !iTopic.InPrimarySubtopicList)
+                                y = iTopic.Parent.Offset.BaseY +
+                                    iTopic.SideList.Height - 
+                                    iTopic.TotalHeight;
+                        else
+                                y = iTopic.Parent.Offset.BaseY +
                                     iTopic.Parent.Height +
                                     iTopic.Parent.Style.OrgChartVertDist;
-                                y = EvaluateSideSign (iTopic, y);
-                        }
                         return y;
                 }
 
@@ -451,12 +456,9 @@ namespace Psycho
                 static double VerticalSubNextOrgChart (Topic iTopic)
                 {
                         double y;
-                        y = iTopic.Previous.Offset.BaseY;
+                        y = VerticalSubFirstOrgChart (iTopic);
                         return y;
                 }
-
-
-
 
                 public double BaseX
                 {

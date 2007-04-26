@@ -145,12 +145,18 @@ namespace Psycho
                 public void AppendSomeNodes (Topic iTopic)
                 {
                         SetCurrent (iTopic);
-                        while (iTopic.SubtopicList.Count < 3) {
-                                CreateSubtopic ();
-                                AppendSomeNodes (iTopic);
-                        }
+                        if (iTopic.IsCentral)
+                                while (iTopic.SubtopicList.Count < 6) {
+                                        CreateSubtopic ();
+                                        AppendSomeNodes (iTopic);
+                                }
+                        else
+                                while (iTopic.SubtopicList.Count < 3) {
+                                        CreateSubtopic ();
+                                        AppendSomeNodes (iTopic);
+                                }
 
-                        if (iTopic.Level < 2)
+                        if (iTopic.Level < 3)
                                 foreach (Topic subTopic in iTopic.SubtopicList)
                                         AppendSomeNodes (subTopic);
                 }

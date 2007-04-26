@@ -167,6 +167,7 @@ namespace Psycho
                 TopicList primarySubtopicList;
                 TopicList secondarySubtopicList;
                 TopicList freeTopicList;
+                TopicList sideList;
                 Pango.Layout textLayout;
                 TopicFrame frame;
                 TopicConnection connection;
@@ -192,7 +193,6 @@ namespace Psycho
                                 return subtopicList;
                         }
                 }
-
 
                 public TopicList PrimarySubtopicList
                 {
@@ -228,7 +228,7 @@ namespace Psycho
                 {
                         get
                         {
-                                TopicList list = this.SideList ();
+                                TopicList list = this.SideList;
                                 if (this.Parent == null)
                                         return -1;
                                 else
@@ -237,9 +237,10 @@ namespace Psycho
                         }
                 }
 
-                public TopicList SideList ()
+                public TopicList SideList
                 {
-                        TopicList sideList;
+                        get
+                        {
                         if (this.Level == 1) {
                                 if (this.Parent.PrimarySubtopicList.Contains (this))
                                         sideList = this.Parent.PrimarySubtopicList;
@@ -252,10 +253,11 @@ namespace Psycho
                                 else
                                         sideList = this.Parent.SubtopicList;
                         return sideList;
+                        }
                 }
 
                 /// <summary>
-                /// InPoint is the point on child topic's to which connection line from the parent is connected.
+                /// InPoint is the point on child topic to which connection line from the parent is connected.
                 /// </summary>
                 public Cairo.PointD InPoint
                 {
@@ -289,7 +291,7 @@ namespace Psycho
                 }
 
                 /// <summary>
-                /// OutPoint is the the point on parent topic's frame/line from which connection line goes to the child topic InPoint.
+                /// OutPoint is the the point on parent topic from which connection line goes to the child topic InPoint.
                 /// </summary>
                 public Cairo.PointD OutPoint
                 {
@@ -310,10 +312,11 @@ namespace Psycho
                                         outPoint = this.Frame.Bottom;
                                         break;
                                         case SubtopicLayout.OrgChart:
-                                                if (this.InPrimarySubtopicList)
-                                                        outPoint = this.Frame.Bottom;
-                                                else
+                                                if (this.MapLayout == SubtopicLayout.OrgChart &&
+                                                    !this.InPrimarySubtopicList)
                                                         outPoint = this.Frame.Top;
+                                                else
+                                                        outPoint = this.Frame.Bottom;
                                                 break;
                                         }
                                 return outPoint;
@@ -613,7 +616,7 @@ namespace Psycho
                 {
                         get
                         {
-                                TopicList list = this.SideList ();
+                                TopicList list = this.SideList;
                                 if (this.Index > 0)
                                         previous = list [(this.Index - 1)];
                                 else

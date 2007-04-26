@@ -48,7 +48,7 @@ namespace Psycho
                 Cairo.Context mapContext;
                 Cairo.Context controlContext;
 
-                static int margin = 20;
+                static int margin = 28;
 
                 public MindView ()
                         : base ()
@@ -125,12 +125,12 @@ namespace Psycho
                         this.mapArea.SetSizeRequest ((int) Model.CentralTopic.GlobalWidth + 2 * margin, (int) Model.CentralTopic.GlobalHeight + 2 * margin);
 
                         ////// Temporary code used to draw to png file. That has to be a separate method called by the user.
-                        //Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + 20, (int) Model.CentralTopic.GlobalHeight + 20);
+                        //Cairo.ImageSurface image = new ImageSurface (Format.Rgb24, (int) Model.CentralTopic.GlobalWidth + margin, (int) Model.CentralTopic.GlobalHeight + margin);
                         //Cairo.Context pictureContext = new Cairo.Context (image);
                         //DrawBackground (pictureContext);
-                        //pictureContext.Translate (System.Math.Floor (Model.CentralTopic.Width / 2 + 10), Model.CentralTopic.GlobalHeight / 2 + 10);
+                        //pictureContext.Translate (- Model.CentralTopic.Left + margin/2,- Model.CentralTopic.Top + margin/2);
                         //DrawTopics (pictureContext);
-                        //pictureContext.Rectangle (Model.CentralTopic.Width / 2 - 10, Model.CentralTopic.GlobalHeight / 2 - 10, Model.CentralTopic.Width + 20, Model.CentralTopic.GlobalHeight + 20);
+                        //pictureContext.Rectangle (Model.CentralTopic.Left - margin +1, Model.CentralTopic.Top - margin +1, (Model.CentralTopic.Right - Model.CentralTopic.Left + margin -2), (Model.CentralTopic.Bottom - Model.CentralTopic.Top + margin -2));
                         //image.WriteToPng ("psycho.png");
                         //((IDisposable) pictureContext.Target).Dispose ();
                         //((IDisposable) pictureContext).Dispose ();
@@ -212,7 +212,7 @@ namespace Psycho
                 static public void DrawFrames (Cairo.Context iContext, Topic iTopic)
                 {
                         foreach (Topic TempTopic in iTopic.SubtopicList) {
-                                DrawRegion (iContext, iTopic);
+                                //DrawRegion (iContext, iTopic);
                                 if (TempTopic.IsExpanded) {
                                         DrawFrames (iContext, TempTopic);
                                 }

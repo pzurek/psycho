@@ -105,9 +105,13 @@ namespace Psycho
                                                 this.mapExtenstion = true;
                                                 this.extendedStart = iTopic.InPoint;
                                 }
-                                     
 
-
+                        if (iTopic.Style.SubLayout == SubtopicLayout.Tree)
+                                if (iTopic.InPoint.Equals (iTopic.Frame.Bottom)) {
+                                        this.start.Y += (this.Topic.TotalHeight - this.Topic.Height);
+                                        this.mapExtenstion = true;
+                                        this.extendedStart = iTopic.InPoint;
+                                }
 
                         if (iTopic.Style.SubLayout == SubtopicLayout.OrgChart)
                                 if (iTopic.InPoint.Equals (iTopic.Frame.Left)) {
