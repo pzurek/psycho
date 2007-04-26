@@ -145,12 +145,12 @@ namespace Psycho
                 public void AppendSomeNodes (Topic iTopic)
                 {
                         SetCurrent (iTopic);
-                        while (iTopic.SubtopicList.Count < 2) {
+                        while (iTopic.SubtopicList.Count < 3) {
                                 CreateSubtopic ();
                                 AppendSomeNodes (iTopic);
                         }
 
-                        if (iTopic.Level < 3)
+                        if (iTopic.Level < 2)
                                 foreach (Topic subTopic in iTopic.SubtopicList)
                                         AppendSomeNodes (subTopic);
                 }
@@ -180,7 +180,7 @@ namespace Psycho
                                 Topic newTopic = new Topic (centralTopic.TotalCount);
                                 newTopic.Parent = CurrentTopic.Parent;
                                 CurrentTopic.Parent.AddSubtopic ((currentIndex + 1), newTopic);
-                                newTopic.Style.MapType = newTopic.Parent.Style.MapType;
+                                newTopic.Model = this;
                                 PlaceOnSide (newTopic);
                                 CreateXMLTopic (CurrentTopic, newTopic);
                                 SetCurrent (newTopic);
@@ -198,7 +198,7 @@ namespace Psycho
                                 newTopic.Parent = CurrentTopic;
                                 CurrentTopic.IsExpanded = true;
                                 CurrentTopic.AddSubtopic (newTopic);
-                                newTopic.Style.MapType = newTopic.Parent.Style.MapType;
+                                newTopic.Model = this;
                                 PlaceOnSide (newTopic);
                                 CreateXMLSubtopic (newTopic);
                                 SetCurrent (newTopic);

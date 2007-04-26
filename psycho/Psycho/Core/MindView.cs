@@ -307,7 +307,6 @@ namespace Psycho
                 {
                         iContext.Save ();
                         Cairo.Color strokeColor = iTopic.Style.StrokeColor.ToCairoColor ();
-                        //strokeColor = new Cairo.Color (0, 0, 0);
                         iContext.Color = strokeColor;
                         strokeColor.A = 0.5;
                         iContext.LineWidth = 1;
@@ -318,7 +317,8 @@ namespace Psycho
                                                     iTopic.GlobalWidth,
                                                     iTopic.GlobalHeight);
                         else
-                                if (iTopic.InPrimarySubtopicList)
+                                if (iTopic.InPrimarySubtopicList ||
+                                    iTopic.MapLayout == SubtopicLayout.OrgChart)
                                         iContext.Rectangle (System.Math.Floor (iTopic.Offset.BaseX),
                                                             System.Math.Floor (iTopic.Offset.BaseY),
                                                             System.Math.Floor (iTopic.TotalWidth),
@@ -328,9 +328,6 @@ namespace Psycho
                                                             System.Math.Floor (iTopic.Offset.BaseY),
                                                            -System.Math.Floor (iTopic.TotalWidth),
                                                             System.Math.Floor (iTopic.TotalHeight));
-
-
-
                         iContext.Stroke ();
                         iContext.Restore ();
                 }

@@ -44,6 +44,7 @@ namespace Psycho
                         get
                         {
                                 height = 0;
+
                                 if (this.Count > 0) {
                                         if (this.Orientation == TopicListOrientation.Vertical) {
                                                 foreach (Topic child in this)
@@ -63,11 +64,12 @@ namespace Psycho
                         get
                         {
                                 width = 0;
+
                                 if (this.Count > 0) {
-                                        if (this.Orientation == TopicListOrientation.Horizontal) {
+
+                                        if (this.Orientation == TopicListOrientation.Horizontal)
                                                 foreach (Topic child in this)
                                                         width += child.TotalWidth;
-                                        }
                                         else
                                                 foreach (Topic child in this)
                                                         if (child.TotalWidth > width)

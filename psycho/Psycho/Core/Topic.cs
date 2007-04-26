@@ -121,6 +121,18 @@ namespace Psycho
                         textHeight = h;
                 }
 
+                IModel model;
+                SubtopicLayout mapLayout;
+
+                public SubtopicLayout MapLayout
+                {
+                        get {
+                                mapLayout = Model.CentralTopic.Style.SubLayout;
+                                return mapLayout;
+                        }
+                        
+                        set { mapLayout = value; }
+                }
                 string text;
                 string number;
                 Topic parent;
@@ -164,6 +176,12 @@ namespace Psycho
                 bool hasChildren;
                 Cairo.PointD inPoint;
                 Cairo.PointD outPoint;
+
+                public IModel Model
+                {
+                        get { return model; }
+                        set { model = value; }
+                }
 
                 public TopicList SubtopicList
                 {
@@ -236,34 +254,43 @@ namespace Psycho
                         return sideList;
                 }
 
+                /// <summary>
+                /// InPoint is the point on child topic's to which connection line from the parent is connected.
+                /// </summary>
                 public Cairo.PointD InPoint
                 {
                         get
                         {
                                 switch (this.Parent.Style.SubLayout) {
-                                case SubtopicLayout.Map: {
-                                        if (this.InPrimarySubtopicList)
+                                case SubtopicLayout.Map:
+                                        if (this.InPrimarySubtopicList ||
+                                            this.MapLayout == SubtopicLayout.OrgChart)
                                                 inPoint = this.Frame.Left;
                                         else
                                                 inPoint = this.Frame.Right;
-                                }
                                 break;
-                                case SubtopicLayout.Tree: {
-                                        if (this.InPrimarySubtopicList)
+                                case SubtopicLayout.Tree:
+                                        if (this.InPrimarySubtopicList ||
+                                            this.MapLayout == SubtopicLayout.OrgChart)
                                                 inPoint = this.Frame.Left;
                                         else
                                                 inPoint = this.Frame.Right;
-                                }
                                 break;
                                 case SubtopicLayout.OrgChart:
-                                inPoint = this.Frame.Top;
+                                        if (this.InPrimarySubtopicList ||
+                                            this.MapLayout != SubtopicLayout.OrgChart)
+                                                inPoint = this.Frame.Top;
+                                        else
+                                                inPoint = this.Frame.Bottom;
                                 break;
                                 }
                                 return inPoint;
                         }
                 }
 
-
+                /// <summary>
+                /// OutPoint is the the point on parent topic's frame/line from which connection line goes to the child topic InPoint.
+                /// </summary>
                 public Cairo.PointD OutPoint
                 {
                         get
@@ -272,19 +299,22 @@ namespace Psycho
                                         outPoint = this.Frame.Center;
                                 else
                                         switch (this.Style.SubLayout) {
-                                        case SubtopicLayout.Map: {
-                                                if (this.InPrimarySubtopicList)
+                                        case SubtopicLayout.Map:
+                                                if (this.InPrimarySubtopicList ||
+                                                    this.MapLayout == SubtopicLayout.OrgChart)
                                                         outPoint = this.Frame.Right;
                                                 else
                                                         outPoint = this.Frame.Left;
-                                        }
                                         break;
                                         case SubtopicLayout.Tree:
                                         outPoint = this.Frame.Bottom;
                                         break;
                                         case SubtopicLayout.OrgChart:
-                                        outPoint = this.Frame.Bottom;
-                                        break;
+                                                if (this.InPrimarySubtopicList)
+                                                        outPoint = this.Frame.Bottom;
+                                                else
+                                                        outPoint = this.Frame.Top;
+                                                break;
                                         }
                                 return outPoint;
                         }

@@ -56,7 +56,10 @@ namespace Psycho
                                 if (Model.CurrentTopic != null) {
                                         //currentTitle.Text = ("Current topic title: " + Model.CurrentTopic.Text);
 
-                                        this.Push (0, ("Current topic title: " + Model.CurrentTopic.Text + SideText (Model.CurrentTopic)));
+                                        this.Push (0, ("Current topic title: " + Model.CurrentTopic.Text + SideText (Model.CurrentTopic)
+                                                     + " Topic width: " + Model.CurrentTopic.Width.ToString ()
+                                                     + " Subtopics width: " + Model.CurrentTopic.SubtopicList.Width.ToString ()
+                                                     + " Total width: " + Model.CurrentTopic.TotalWidth.ToString ()));
                                 }
                                 else
                                         this.Push (0, "No topic selected");

@@ -69,8 +69,6 @@ namespace Psycho
                         set { textAlignment = value; }
                 }
 
-                Stylus stylus = new Stylus ();
-
                 public TopicStyle (Topic iTopic) //TODO: One big hack
                 {
                         this.topic = iTopic;
@@ -87,9 +85,9 @@ namespace Psycho
                         this.CrankRadius = 7;
                         this.PolyDistance = 7;
                         this.Width = 147;
-                        this.Padding = 10;
-                        this.HorChildDist = 28;
-                        this.VerChildDist = 14;
+                        this.Padding = 4;
+                        this.HorChildDist = 40;
+                        this.VerChildDist = 10;
                         this.OrgChartVertDist = 28;
                         this.ConnectPoint = ConnectionPoint.Edge;
                 }
@@ -149,7 +147,7 @@ namespace Psycho
                         {
                                 switch (this.Topic.Index) {
                                 case -1:
-                                subLayout = SubtopicLayout.Tree;
+                                subLayout = SubtopicLayout.OrgChart;
                                 break;
                                 case 0:
                                 subLayout = SubtopicLayout.Map;
@@ -161,7 +159,7 @@ namespace Psycho
                                 subLayout = SubtopicLayout.OrgChart;
                                 break;
                                 default:
-                                subLayout = SubtopicLayout.Map;
+                                subLayout = SubtopicLayout.OrgChart;
                                 break;
                                 }
 
