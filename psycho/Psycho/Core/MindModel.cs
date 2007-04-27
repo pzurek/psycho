@@ -146,7 +146,7 @@ namespace Psycho
                 {
                         SetCurrent (iTopic);
                         if (iTopic.IsCentral)
-                                while (iTopic.SubtopicList.Count < 6) {
+                                while (iTopic.SubtopicList.Count < 4) {
                                         CreateSubtopic ();
                                         AppendSomeNodes (iTopic);
                                 }
@@ -156,7 +156,7 @@ namespace Psycho
                                         AppendSomeNodes (iTopic);
                                 }
 
-                        if (iTopic.Level < 3)
+                        if (iTopic.Level < 2)
                                 foreach (Topic subTopic in iTopic.SubtopicList)
                                         AppendSomeNodes (subTopic);
                 }
