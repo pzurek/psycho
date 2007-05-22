@@ -180,5 +180,15 @@ namespace Psycho
                 }
 
                 #endregion
+
+                #region IView Members
+
+
+                public void EditStyle (TopicStyle iStyle)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                #endregion
         }
 }

@@ -125,6 +125,8 @@
     <Compile Include="GUI\OutlineView.cs" />
     <Compile Include="Core\Task.cs" />
     <Compile Include="GUI\StatusView.cs" />
+    <Compile Include="GUI\Widgets\SizeSelector.cs" />
+    <Compile Include="GUI\Widgets\SubtopicLayoutSelector.cs" />
     <Compile Include="GUI\Widgets\TopicLayoutComboBox.cs" />
     <Compile Include="GUI\UIManagerView.cs" />
     <Compile Include="GUI\XMLView.cs" />

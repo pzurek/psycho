@@ -58,6 +58,7 @@ namespace Psycho
                 void CurrentGoUp ();
                 void CurrentGoDown ();
                 void SetTitle (string iString);
+                void SetStyle (TopicStyle iStyle);
                 void ExpandTopic (string iGuid, bool isExpanded);
                 //void TriggerEdit (bool editPending);
 

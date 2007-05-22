@@ -479,5 +479,15 @@ namespace Psycho
                         else
                 return;
                 }
+
+                #region IModel Members
+
+
+                public void SetStyle (TopicStyle iStyle)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                #endregion
         }
 }

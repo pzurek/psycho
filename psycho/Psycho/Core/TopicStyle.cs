@@ -145,18 +145,18 @@ namespace Psycho
                 {
                         get
                         {
-                                switch (this.Topic.Level) {
+                                switch (this.Topic.Index) {
                                 case -1:
-                                subLayout = SubtopicLayout.Tree;
+                                subLayout = SubtopicLayout.Map;
                                 break;
                                 case 0:
                                 subLayout = SubtopicLayout.Tree;
                                 break;
                                 case 1:
-                                subLayout = SubtopicLayout.Tree;
+                                subLayout = SubtopicLayout.Map;
                                 break;
                                 case 2:
-                                subLayout = SubtopicLayout.Map;
+                                subLayout = SubtopicLayout.OrgChart;
                                 break;
                                 default:
                                 subLayout = SubtopicLayout.Map;

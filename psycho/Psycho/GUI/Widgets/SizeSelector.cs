@@ -1,4 +1,4 @@
-// Copyright (C) 2006 by:
+// Copyright (C) 2007 by:
 //
 // Author:
 //   Piotr Zurek, p.zurek@gmail.com
@@ -27,32 +27,25 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
+using Gtk;
 
 namespace Psycho
 {
-        public interface IView
+        class SizeSelector : HBox
         {
-                void Update (IModel iModel);
-                void WireUp (IControl iControl, IModel iModel);
-                void AddTopic ();
-                void AddSubtopic ();
-                void DeleteTopic ();
-                void CommitChange (Topic iTopic);
-                void ExpandTopic (string iGuid, bool isExpanded);
-                void EditTitle (string Title);
-                void EditStyle (TopicStyle iStyle);
-                void SetCurrentTopic ();
-                void ClearCurrentTopic ();
-                void SetCurrentByCoords (int iX, int iY);
-                void SetCurrentForward ();
-                void SetCurrentBack ();
-                void SetCurrentUp ();
-                void SetCurrentDown ();
-                void TriggerEdit (bool editPending);
-                void DisableAddSibling ();
-                void DisableDelete ();
-                void EnableAddSibling ();
-                void EnableDelete ();
+                IView view;
+                Label label;
+                SpinButton spin;
+
+                public SizeSelector (string iText, int iParameter, IView iView )
+                {
+                        view = iView;
+                        label = new Label (iText);
+                        spin = new SpinButton (new IntPtr ());
+                        spin.Value = iParameter;
+                        
+                        this.PackStart (label, false, false, 0);
+                        this.PackStart (spin, false, false, 0);
+                }
         }
 }

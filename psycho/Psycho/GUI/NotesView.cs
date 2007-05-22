@@ -201,5 +201,10 @@ namespace Psycho
                 {
                         throw new Exception ("The method or operation is not implemented.");
                 }
+
+                public void EditStyle (TopicStyle iStyle)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
         }
 }

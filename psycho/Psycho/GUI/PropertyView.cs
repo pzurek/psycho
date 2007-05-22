@@ -30,19 +30,26 @@ using System.Collections;
 using System.Collections.Generic;
 using Gtk;
 using Gdk;
+using Psycho;
 
 namespace Psycho
 {
         public class PropertyView : VBox, IView
         {
                 Entry titleEntry;
-                Button addSiblingButton;
-                Button addChildButton;
-                Button deleteButton;
-                FontButton fontButton;
-                ColorButton fontColor;
-                ColorButton lineColor;
-                ColorButton fillColor;
+                HBox mainPropertyHBox;
+                VBox layoutPropertyVBox;
+                VBox graphicsPropertyVBox;
+                VBox textPropertyVBox;
+                TopicLayoutComboBox layoutComboBox;
+                
+                //Button addSiblingButton;
+                //Button addChildButton;
+                //Button deleteButton;
+                //FontButton fontButton;
+                //ColorButton fontColor;
+                //ColorButton lineColor;
+                //ColorButton fillColor;
 
                 IModel Model;
                 IControl Control;
@@ -50,16 +57,16 @@ namespace Psycho
                 public PropertyView ()
                         : base ()
                 {
-
                         this.Homogeneous = false;
                         this.BorderWidth = 6;
 
-                        HButtonBox buttonBox = new HButtonBox ();
-                        HButtonBox basicPropertyBox = new HButtonBox ();
+                        //HButtonBox buttonBox = new HButtonBox ();
+                        //HButtonBox basicPropertyBox = new HButtonBox ();
 
                         titleEntry = new Entry ();
                         titleEntry.KeyReleaseEvent += new KeyReleaseEventHandler (titleEntry_KeyReleaseEvent);
 
+                        /*
                         addSiblingButton = new Button ();
                         addSiblingButton.Label = ("Add Sibling");
                         addSiblingButton.Clicked += new EventHandler (btnAddSibling_Click);
@@ -82,12 +89,13 @@ namespace Psycho
                         fillColor = new ColorButton ();
                         fillColor.Label = "Fill color";
 
-                        buttonBox.Homogeneous = true;
-                        buttonBox.Layout = (Gtk.ButtonBoxStyle.Start);
-                        buttonBox.Spacing = 6;
                         buttonBox.PackStart (addSiblingButton, false, true, 6);
                         buttonBox.PackStart (addChildButton, false, true, 6);
                         buttonBox.PackStart (deleteButton, false, true, 6);
+                        
+                        buttonBox.Homogeneous = true;
+                        buttonBox.Layout = (Gtk.ButtonBoxStyle.Start);
+                        buttonBox.Spacing = 6;
 
                         basicPropertyBox.Homogeneous = false;
                         basicPropertyBox.Layout = ButtonBoxStyle.Start;
@@ -97,9 +105,18 @@ namespace Psycho
                         basicPropertyBox.PackStart (lineColor, false, false, 6);
                         basicPropertyBox.PackStart (fillColor, false, false, 6);
 
+                        */
+
+                        mainPropertyHBox = new HBox ();
+                        layoutPropertyVBox = new VBox ();
+                        layoutComboBox = new TopicLayoutComboBox (this, this.Model);
+                        layoutPropertyVBox.PackStart (layoutComboBox);
+                        mainPropertyHBox.PackStart (layoutPropertyVBox);
+
                         this.PackStart (titleEntry, false, false, 6);
-                        this.PackStart (buttonBox, false, false, 6);
-                        this.PackStart (basicPropertyBox, false, false, 6);
+                        this.PackStart (mainPropertyHBox, false, false, 6);
+                        //this.PackStart (buttonBox, false, false, 6);
+                        //this.PackStart (basicPropertyBox, false, false, 6);
                 }
 
                 void titleEntry_KeyReleaseEvent (object o, KeyReleaseEventArgs args)
@@ -194,22 +211,22 @@ namespace Psycho
 
                 public void DisableAddSibling ()
                 {
-                        addSiblingButton.Sensitive = (false);
+                        //addSiblingButton.Sensitive = (false);
                 }
 
                 public void EnableAddSibling ()
                 {
-                        addSiblingButton.Sensitive = (true);
+                        //addSiblingButton.Sensitive = (true);
                 }
 
                 public void DisableDelete ()
                 {
-                        deleteButton.Sensitive = (false);
+                        //deleteButton.Sensitive = (false);
                 }
 
                 public void EnableDelete ()
                 {
-                        deleteButton.Sensitive = (true);
+                        //deleteButton.Sensitive = (true);
                 }
 
                 public void ExpandTopic (string iGuid, bool isExpanded)
@@ -250,6 +267,11 @@ namespace Psycho
                 public void ClearCurrentTopic ()
                 {
                         throw new Exception ("The method or operation is not implemented.");
+                }
+
+                public void EditStyle (TopicStyle iStyle)
+                {
+                        Control.RequestSetStyle (iStyle);
                 }
         }
 }

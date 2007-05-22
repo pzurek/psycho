@@ -30,15 +30,69 @@ using System.Collections.Generic;
 using System.Text;
 using Gtk;
 
-namespace Psycho.GUI
+namespace Psycho
 {
         class TopicLayoutComboBox : ComboBox
         {
-                string entry;
+                IView view;
+                IModel model;
+                Topic topic;
+                TopicStyle style;
+                List<string> topicLayouts;
 
-                public void Update ()
+                public TopicLayoutComboBox (IView iView, IModel iModel)
                 {
+                        view = iView;
+                        model = iModel;
 
+                        this.Changed += new EventHandler(TopicLayoutComboBox_Changed);
+                        this.ExposeEvent += new ExposeEventHandler(TopicLayoutComboBox_ExposeEvent);
+                }
+
+                void CheckSelectionState()
+                {
+                        if (model == null || model.CurrentTopic == null)
+                                this.Sensitive = false;
+                        else {
+                                this.Fill ();
+                                this.Sensitive = true;
+                        }
+                }
+
+                public void Fill ()
+                {
+                        topic = model.CurrentTopic;
+                        topicLayouts.Clear ();
+
+                        if (topic.IsCentral) {
+                                topicLayouts.Add ("Map");
+                                topicLayouts.Add ("Map - Left");
+                                topicLayouts.Add ("Map - Right");
+                                topicLayouts.Add ("Tree");
+                                topicLayouts.Add ("Tree - Left");
+                                topicLayouts.Add ("Tree - Right");
+                                topicLayouts.Add ("OrgChart - Down");
+                                topicLayouts.Add ("OrgChart - Up");
+                                topicLayouts.Add ("OrgChart - Double");
+                        }
+                        else {
+                                topicLayouts.Add ("Map");
+                                topicLayouts.Add ("Tree");
+                                topicLayouts.Add ("OrgChart");
+                        }
+
+                        foreach (string layout in topicLayouts)
+                                this.InsertText (topicLayouts.IndexOf (layout), layout.ToString ());
+                }
+
+                void TopicLayoutComboBox_Changed (object o, EventArgs args)
+                {
+                        view.EditStyle (style);
+                }
+
+                void TopicLayoutComboBox_ExposeEvent (object o, ExposeEventArgs args)
+                {
+                        CheckSelectionState ();
                 }
         }
 }

@@ -136,5 +136,15 @@ namespace Psycho
                         if (Model != null)
                                 Model.ClearCurrent ();
                 }
+
+                #region IControl Members
+
+
+                public void RequestSetStyle (TopicStyle iStyle)
+                {
+                        throw new Exception ("The method or operation is not implemented.");
+                }
+
+                #endregion
         }
 }
