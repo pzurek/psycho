@@ -40,29 +40,36 @@ namespace Psycho
                 TopicStyle style;
                 List<string> topicLayouts;
 
-                public TopicLayoutComboBox (IView iView, IModel iModel)
+                public TopicLayoutComboBox (IView iView, IModel iModel) : base ()
+                {
+                        this.Changed += new EventHandler(TopicLayoutComboBox_Changed);
+                        this.ExposeEvent += new ExposeEventHandler(TopicLayoutComboBox_ExposeEvent);
+                }
+
+                public void Update (IView iView, IModel iModel)
                 {
                         view = iView;
                         model = iModel;
-
-                        this.Changed += new EventHandler(TopicLayoutComboBox_Changed);
-                        this.ExposeEvent += new ExposeEventHandler(TopicLayoutComboBox_ExposeEvent);
+                        Fill ();
                 }
 
                 void CheckSelectionState()
                 {
                         if (model == null || model.CurrentTopic == null)
-                                this.Sensitive = false;
+                                Sensitive = false;
                         else {
-                                this.Fill ();
-                                this.Sensitive = true;
+                                Fill ();
+                                Sensitive = true;
                         }
                 }
 
                 public void Fill ()
                 {
                         topic = model.CurrentTopic;
-                        topicLayouts.Clear ();
+                        if (topicLayouts != null)
+                                topicLayouts.Clear ();
+                        else
+                                topicLayouts = new List<string> ();
 
                         if (topic.IsCentral) {
                                 topicLayouts.Add ("Map");

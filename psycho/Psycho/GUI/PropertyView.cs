@@ -138,6 +138,7 @@ namespace Psycho
                         Control.SetView (this);
                         Model.AddObserver (this);
                         Update (Model);
+                        layoutComboBox.Update (this, Model);
                 }
 
                 public void CheckButtonsLegal ()
