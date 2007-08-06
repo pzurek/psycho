@@ -145,22 +145,26 @@ namespace Psycho
                 {
                         get
                         {
-                                switch (this.Topic.Index) {
-                                case -1:
-                                subLayout = SubtopicLayout.Map;
-                                break;
-                                case 0:
-                                subLayout = SubtopicLayout.Tree;
-                                break;
-                                case 1:
-                                subLayout = SubtopicLayout.Map;
-                                break;
-                                case 2:
-                                subLayout = SubtopicLayout.OrgChart;
-                                break;
-                                default:
-                                subLayout = SubtopicLayout.Map;
-                                break;
+                                if (this.Topic.Level == 1)
+                                        subLayout = SubtopicLayout.Map;
+                                else {
+                                        switch (this.Topic.Index) {
+                                        case -1:
+                                        subLayout = SubtopicLayout.Map;
+                                        break;
+                                        case 0:
+                                        subLayout = SubtopicLayout.Tree;
+                                        break;
+                                        case 1:
+                                        subLayout = SubtopicLayout.Map;
+                                        break;
+                                        case 2:
+                                        subLayout = SubtopicLayout.OrgChart;
+                                        break;
+                                        default:
+                                        subLayout = SubtopicLayout.Map;
+                                        break;
+                                        }
                                 }
 
                                 return subLayout;
