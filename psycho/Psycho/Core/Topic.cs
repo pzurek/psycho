@@ -114,11 +114,11 @@ namespace Psycho
 
                 void UpdateTextSize (Topic iTopic)
                 {
-                        int w, h;
+                        Pango.Rectangle rec, log_rec;
                         iTopic.TextLayout.Alignment = iTopic.Style.TextAlignment;
-                        iTopic.TextLayout.GetPixelSize (out w, out h);
-                        textWidth = w;
-                        textHeight = h;
+                        iTopic.TextLayout.GetPixelExtents (out rec, out log_rec);
+                        textWidth = log_rec.Width;
+                        textHeight = log_rec.Height;
                 }
 
                 IModel model;
