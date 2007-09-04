@@ -5,32 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8EC782FD-9867-49CC-8B19-2055379F36C0}</ProjectGuid>
+    <ProjectGuid>{A1C93511-EE99-4BE3-8513-855CD157C2EA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Psycho</RootNamespace>
     <AssemblyName>Psycho</AssemblyName>
     <StartupObject>
     </StartupObject>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <Win32Resource>
-    </Win32Resource>
-    <ManifestCertificateThumbprint>E6E355FAF4A4A28EDE039E0C6515902D0608180E</ManifestCertificateThumbprint>
-    <ManifestKeyFile>Psycho_TemporaryKey.pfx</ManifestKeyFile>
-    <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
-    <PublishUrl>C:\Psycho_installer\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationVersion>0.0.1.%2a</ApplicationVersion>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,22 +30,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -77,79 +42,73 @@
     <Reference Include="atk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="gdk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="glib-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtk-dotnet, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="gtk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gtksourceview-sharp, Version=1.0.0.2, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="Mono.Cairo, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+    <Reference Include="gtksourceview-sharp, Version=1.0.0.2, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\Mono\lib\mono\2.0\Mono.Cairo.dll</HintPath>
+      <HintPath>..\..\..\..\GtkRun\2.8\lib\gtksourceview-sharp-2.0\gtksourceview-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cairo, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\GtkRun\2.8\lib\mono-1.2.1\Mono.Cairo.dll</HintPath>
     </Reference>
     <Reference Include="pango-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Canvas\CairoHelper.cs" />
-    <Compile Include="Core\MindView.cs" />
-    <Compile Include="Core\TopicConnection.cs" />
-    <Compile Include="Core\TopicFrame.cs" />
     <Compile Include="Canvas\GtkCairo.cs" />
     <Compile Include="Core\Color.cs" />
-    <Compile Include="Core\TopicOffset.cs" />
-    <Compile Include="Core\TopicList.cs" />
-    <Compile Include="Core\StyleTemplate.cs" />
     <Compile Include="Core\Font.cs" />
-    <Compile Include="Core\Title.cs" />
     <Compile Include="Core\FontMarker.cs" />
-    <Compile Include="Core\TopicStyle.cs" />
-    <Compile Include="Core\TopicNote.cs" />
+    <Compile Include="Core\FontMarkerList.cs" />
     <Compile Include="Core\MindControl.cs" />
     <Compile Include="Core\MindModel.cs" />
+    <Compile Include="Core\MindView.cs" />
+    <Compile Include="Core\StyleTemplate.cs" />
     <Compile Include="Core\Stylus.cs" />
-    <Compile Include="Core\Utilities.cs" />
+    <Compile Include="Core\Task.cs" />
+    <Compile Include="Core\Title.cs" />
     <Compile Include="Core\Topic.cs" />
-    <Compile Include="Core\FontMarkerList.cs" />
+    <Compile Include="Core\TopicConnection.cs" />
+    <Compile Include="Core\TopicFrame.cs" />
+    <Compile Include="Core\TopicList.cs" />
+    <Compile Include="Core\TopicNote.cs" />
+    <Compile Include="Core\TopicOffset.cs" />
+    <Compile Include="Core\TopicStyle.cs" />
+    <Compile Include="Core\Utilities.cs" />
     <Compile Include="Enums\ConnectionPoint.cs" />
+    <Compile Include="Enums\ConnectionShape.cs" />
     <Compile Include="Enums\MapType.cs" />
-    <Compile Include="Enums\SubtopicsLayout.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Enums\TopicListOrientation.cs" />
-    <Compile Include="Enums\TopicType.cs" />
     <Compile Include="Enums\SubtopicDistributionDirection.cs" />
-    <Compile Include="GUI\PropertyView.cs" />
+    <Compile Include="Enums\SubtopicsLayout.cs" />
+    <Compile Include="Enums\TopicListOrientation.cs" />
+    <Compile Include="Enums\TopicShape.cs" />
+    <Compile Include="Enums\TopicType.cs" />
     <Compile Include="GUI\IconLoader.cs" />
     <Compile Include="GUI\MainWindow.cs" />
     <Compile Include="GUI\NotesView.cs" />
     <Compile Include="GUI\OutlineView.cs" />
-    <Compile Include="Core\Task.cs" />
+    <Compile Include="GUI\PropertyView.cs" />
     <Compile Include="GUI\StatusView.cs" />
+    <Compile Include="GUI\UIManagerView.cs" />
     <Compile Include="GUI\Widgets\SizeSelector.cs" />
     <Compile Include="GUI\Widgets\SubtopicLayoutSelector.cs" />
     <Compile Include="GUI\Widgets\TopicLayoutComboBox.cs" />
-    <Compile Include="GUI\UIManagerView.cs" />
     <Compile Include="GUI\XMLView.cs" />
-    <Compile Include="Ifaces\IVisitable.cs" />
     <Compile Include="Ifaces\IControl.cs" />
     <Compile Include="Ifaces\IModel.cs" />
-    <Compile Include="Ifaces\IView.cs" />
-    <Compile Include="Ifaces\IVisitor.cs" />
-    <Compile Include="Enums\ConnectionShape.cs" />
-    <Compile Include="Enums\TopicShape.cs" />
     <Compile Include="Ifaces\ITopic.cs" />
     <Compile Include="Ifaces\ITopics.cs" />
+    <Compile Include="Ifaces\IView.cs" />
+    <Compile Include="Ifaces\IVisitable.cs" />
+    <Compile Include="Ifaces\IVisitor.cs" />
     <Compile Include="Main.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Icons\16x16\psycho-delete.png" />
+    <Content Include="Icons\16x16\psycho-small.png" />
     <Content Include="Icons\16x16\psycho-subtopic.png" />
     <Content Include="Icons\16x16\psycho-topic.png" />
     <Content Include="Icons\22x22\psycho-delete.png" />
@@ -158,149 +117,160 @@
     <Content Include="Icons\48x48\psycho-delete.png" />
     <Content Include="Icons\48x48\psycho-subtopic.png" />
     <Content Include="Icons\48x48\psycho-topic.png" />
-    <Content Include="Resources\blue_tile.png">
+    <None Include="Resources\blue_tile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\checker.png">
+    </None>
+    <None Include="Resources\checker.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\paper.PNG">
+    </None>
+    <None Include="Resources\paper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\paper_12.png">
+    </None>
+    <None Include="Resources\paper_12.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\paper_6.png">
+    </None>
+    <None Include="Resources\paper_6.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-border-16.png">
+    </None>
+    <None Include="Resources\psycho-border-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-border-24.png">
+    </None>
+    <None Include="Resources\psycho-border-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-border-32.png">
+    </None>
+    <None Include="Resources\psycho-border-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-border-64.png">
+    </None>
+    <None Include="Resources\psycho-border-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-delete-16.png">
+    </None>
+    <None Include="Resources\psycho-border-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-delete-24.png">
+    </None>
+    <None Include="Resources\psycho-border.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-delete-32.png">
+    </None>
+    <None Include="Resources\psycho-callout-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-delete-64.png">
+    </None>
+    <None Include="Resources\psycho-callout.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-icon-16.png">
+    </None>
+    <None Include="Resources\psycho-delete-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-icon-24.png">
+    </None>
+    <None Include="Resources\psycho-delete-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-icon-32.png">
+    </None>
+    <None Include="Resources\psycho-delete-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-icon-64.png">
+    </None>
+    <None Include="Resources\psycho-delete-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-logo.png">
+    </None>
+    <None Include="Resources\psycho-delete-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-notes-small.png">
+    </None>
+    <None Include="Resources\psycho-delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-notes.png">
+    </None>
+    <None Include="Resources\psycho-icon-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-border-small.png">
+    </None>
+    <None Include="Resources\psycho-icon-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-border.png">
+    </None>
+    <None Include="Resources\psycho-icon-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-callout-small.png">
+    </None>
+    <None Include="Resources\psycho-icon-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-callout.png">
+    </None>
+    <None Include="Resources\psycho-layout-map-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-delete-small.png">
+    </None>
+    <None Include="Resources\psycho-layout-orgchart-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-relation-16.png">
+    </None>
+    <None Include="Resources\psycho-layout-tree-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-relation-24.png">
+    </None>
+    <None Include="Resources\psycho-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-relation-32.png">
+    </None>
+    <None Include="Resources\psycho-notes-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-relation-64.png">
+    </None>
+    <None Include="Resources\psycho-notes.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-relation-small.png">
+    </None>
+    <None Include="Resources\psycho-relation-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-relation.png">
+    </None>
+    <None Include="Resources\psycho-relation-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-small.png">
+    </None>
+    <None Include="Resources\psycho-relation-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-subtopic-16.png">
+    </None>
+    <None Include="Resources\psycho-relation-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-subtopic-24.png">
+    </None>
+    <None Include="Resources\psycho-relation-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-subtopic-32.png">
+    </None>
+    <None Include="Resources\psycho-relation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-subtopic-64.png">
+    </None>
+    <None Include="Resources\psycho-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-subtopic-small.png">
+    </None>
+    <None Include="Resources\psycho-subtopic-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-subtopic.png">
+    </None>
+    <None Include="Resources\psycho-subtopic-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-topic-16.png">
+    </None>
+    <None Include="Resources\psycho-subtopic-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-topic-24.png">
+    </None>
+    <None Include="Resources\psycho-subtopic-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-topic-32.png">
+    </None>
+    <None Include="Resources\psycho-subtopic-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-topic-64.png">
+    </None>
+    <None Include="Resources\psycho-subtopic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-topic-small.png">
+    </None>
+    <None Include="Resources\psycho-topic-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho.png">
+    </None>
+    <None Include="Resources\psycho-topic-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-delete.png">
+    </None>
+    <None Include="Resources\psycho-topic-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\psycho-topic.png">
+    </None>
+    <None Include="Resources\psycho-topic-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
+    <None Include="Resources\psycho-topic-small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\psycho-topic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\psycho.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
+    <None Include="Resources\psycho.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\psycho_icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

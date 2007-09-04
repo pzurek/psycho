@@ -41,9 +41,9 @@ namespace Psycho
                 const string borderIconFile = "psycho-border.png";
                 const string relationIconFile = "psycho-relation.png";
                 const string notesIconFile = "psycho-notes-small.png";
-                const string paperFile = "paper.png";
+                //const string paperFile = "paper.png";
                 //const string paperFile = "paper_12.png";
-                //const string paperFile = "paper_6.png";
+                const string paperFile = "paper_6.png";
                 //const string paperFile = "blue_tile.png";
                 //const string paperFile = "checker.png";
 
