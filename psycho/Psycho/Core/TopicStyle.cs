@@ -178,7 +178,7 @@ namespace Psycho
                         {
                                 switch (this.Topic.Level) {
                                 case 0:
-                                connectShape = ConnectionShape.RoundedAngleCrank;
+                                connectShape = ConnectionShape.Curve;
                                 break;
                                 case 1:
                                 connectShape = ConnectionShape.Curve;
