@@ -131,7 +131,7 @@ namespace Psycho
                         topicToolItem.ButtonPressEvent += new ButtonPressEventHandler (topicToolItem_ButtonPressEvent);
                         uiManager.PreActivate += new PreActivateHandler (uiManager_PreActivate);
                         toolbar.ButtonPressEvent += new ButtonPressEventHandler (toolbar_ButtonPressEvent);
-                        toolbar.IconSize = IconSize.Menu;
+//                        toolbar.IconSize = IconSize.Menu;
                 }
 
                 void topicToolItem_ButtonPressEvent (object o, ButtonPressEventArgs args)

@@ -14,21 +14,31 @@
     </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <Optimize>False</Optimize>
+    <OutputPath>./bin/Debug/</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Psycho</AssemblyName>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <ApplicationIcon>./</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <Optimize>True</Optimize>
+    <OutputPath>./bin/Release/</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Psycho</AssemblyName>
+    <DebugSymbols>True</DebugSymbols>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -39,26 +49,6 @@
   </Target>
   -->
   <ItemGroup>
-    <Reference Include="atk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gdk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="glib-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gtk-dotnet, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gtk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gtksourceview-sharp, Version=1.0.0.2, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\GtkRun\2.8\lib\gtksourceview-sharp-2.0\gtksourceview-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cairo, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\GtkRun\2.8\lib\mono-1.2.1\Mono.Cairo.dll</HintPath>
-    </Reference>
-    <Reference Include="pango-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="System" />
-    <Reference Include="System.XML" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Canvas\CairoHelper.cs" />
-    <Compile Include="Canvas\GtkCairo.cs" />
     <Compile Include="Core\Color.cs" />
     <Compile Include="Core\Font.cs" />
     <Compile Include="Core\FontMarker.cs" />
@@ -117,160 +107,177 @@
     <Content Include="Icons\48x48\psycho-delete.png" />
     <Content Include="Icons\48x48\psycho-subtopic.png" />
     <Content Include="Icons\48x48\psycho-topic.png" />
-    <None Include="Resources\blue_tile.png">
+    <EmbeddedResource Include="Resources\blue_tile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\checker.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\checker.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\paper.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\paper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\paper_12.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\paper_6.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\paper_6.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\paper_12.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-border-16.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-border-24.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-border.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-border-32.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-border-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-border-64.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-border-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-border-small.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-border-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-border.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-border-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-callout-small.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-border-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-callout.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-callout.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-delete-16.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-callout-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-delete-24.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-delete-32.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-delete-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-delete-64.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-delete-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-delete-small.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-delete-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-delete.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-delete-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-icon-16.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-delete-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-icon-24.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-icon-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-icon-32.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-icon-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-icon-64.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-icon-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-layout-map-16.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-icon-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-layout-orgchart-16.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-layout-map-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-layout-tree-16.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="./Resources/psycho-layout-map-left-16.png" />
+    <EmbeddedResource Include="./Resources/psycho-layout-map-right-16.png" />
+    <EmbeddedResource Include="Resources\psycho-layout-orgchart-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-logo.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="./Resources/psycho-layout-orgchart-down-16.png" />
+    <EmbeddedResource Include="./Resources/psycho-layout-orgchart-up-16.png" />
+    <EmbeddedResource Include="Resources\psycho-layout-tree-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-notes-small.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="./Resources/psycho-layout-tree-left-16.png" />
+    <EmbeddedResource Include="./Resources/psycho-layout-tree-right-16.png" />
+    <EmbeddedResource Include="Resources\psycho-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-notes.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-notes.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-relation-16.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-notes-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-relation-24.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-relation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-relation-32.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-relation-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-relation-64.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-relation-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-relation-small.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-relation-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-relation.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-relation-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-small.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-relation-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-subtopic-16.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-subtopic-24.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-subtopic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-subtopic-32.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-subtopic-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-subtopic-64.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-subtopic-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-subtopic-small.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-subtopic-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-subtopic.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-subtopic-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-topic-16.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-subtopic-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-topic-24.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-topic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-topic-32.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-topic-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-topic-64.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-topic-24.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-topic-small.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-topic-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho-topic.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-topic-64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho-topic-small.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\psycho.svg">
+    <EmbeddedResource Include="Resources\psycho.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\psycho_icons.svg">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\psycho_icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="atk-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gdk-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtk-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtksourceview-sharp, Version=1.0.0.2, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="Mono.Cairo, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <Reference Include="pango-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="glib-sharp, Version=2.10.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </ItemGroup>
 </Project>
