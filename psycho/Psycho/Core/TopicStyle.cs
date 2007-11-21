@@ -75,6 +75,8 @@ namespace Psycho
 
                         // TODO: That all of course has to be loaded from a style
                         this.StyleFont = (new Font ("Tahoma", 10));
+                        //this.StyleFont.Bold = true;
+
                         this.StrokeWidth = 1;
                         this.EqualMargins = true;
                         this.LeftMargin = 2;
