@@ -52,6 +52,7 @@
   -->
   <ItemGroup>
     <Compile Include="Core\Color.cs" />
+    <Compile Include="Core\Event.cs" />
     <Compile Include="Core\Font.cs" />
     <Compile Include="Core\FontMarker.cs" />
     <Compile Include="Core\FontMarkerList.cs" />

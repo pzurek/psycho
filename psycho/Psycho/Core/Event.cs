@@ -32,19 +32,26 @@ namespace Psycho
         using System.Collections.Generic;
         using Psycho;
 
-        public class ToDo
+        public class Event
         {
                 /// <summary>
-                /// Todo object holds data that transforms a Topic into a Todo list element.
+                /// Event object holds data that transforms a Topic into a calendar element.
                 /// </summary>
                 /// <param name="iTopic"></param>
-                public ToDo (Topic iTopic)
+                public Event (Topic iTopic)
                 {
                         this.topic = iTopic;
                 }
 
                 Topic topic;
+
                 string subject;
+
+                public string Subject
+                {
+                        get { return subject; }
+                        set { subject = value; }
+                }
                 DateTime startDate;
                 DateTime dueDate;
                 Priority priority;
@@ -52,12 +59,6 @@ namespace Psycho
                 int completeness;
                 string recurrence;
                 string notes;
-
-
-                public string Subject
-                {
-                        get { return this.Topic.TopicTitle.Text; }
-                }
 
                 public DateTime StartDate
                 {
