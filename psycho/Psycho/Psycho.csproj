@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Psycho</RootNamespace>
     <AssemblyName>Psycho</AssemblyName>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>Psycho.MainClass</StartupObject>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -26,6 +27,7 @@
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     <ApplicationIcon>./</ApplicationIcon>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,7 +60,7 @@
     <Compile Include="Core\MindView.cs" />
     <Compile Include="Core\StyleTemplate.cs" />
     <Compile Include="Core\Stylus.cs" />
-    <Compile Include="Core\Task.cs" />
+    <Compile Include="Core\Todo.cs" />
     <Compile Include="Core\Title.cs" />
     <Compile Include="Core\Topic.cs" />
     <Compile Include="Core\TopicConnection.cs" />
@@ -70,6 +72,8 @@
     <Compile Include="Core\Utilities.cs" />
     <Compile Include="Enums\ConnectionPoint.cs" />
     <Compile Include="Enums\ConnectionShape.cs" />
+    <Compile Include="Enums\Status.cs" />
+    <Compile Include="Enums\Priority.cs" />
     <Compile Include="Enums\MapType.cs" />
     <Compile Include="Enums\SubtopicDistributionDirection.cs" />
     <Compile Include="Enums\SubtopicsLayout.cs" />
@@ -95,6 +99,7 @@
     <Compile Include="Ifaces\IVisitable.cs" />
     <Compile Include="Ifaces\IVisitor.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icons\16x16\psycho-delete.png" />

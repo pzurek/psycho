@@ -32,24 +32,29 @@ namespace Psycho
         using System.Collections.Generic;
         using Psycho;
 
-        public class Task
+        public class ToDo
         {
-                public Task (Topic iTopic)
+                public ToDo (Topic iTopic)
                 {
                         this.topic = iTopic;
                 }
 
-                string startDate;
-                string dueDate;
                 Topic topic;
+                DateTime startDate;
+                DateTime dueDate;
+                Priority priority;
+                Status status;
+                int completeness;
+                string recurrence;
+                String notes;
 
-                public string StartDate
+                public DateTime StartDate
                 {
                         get { return startDate; }
                         set { startDate = value; }
                 }
 
-                public string DueDate
+                public DateTime DueDate
                 {
                         get { return dueDate; }
                         set { dueDate = value; }
@@ -63,6 +68,36 @@ namespace Psycho
                 public string GUID
                 {
                         get { return this.Topic.GUID; }
+                }
+
+                public Priority Priority
+                {
+                        get { return priority; }
+                        set { priority = value; }
+                }
+
+                public Status Status
+                {
+                        get { return status; }
+                        set { status = value; }
+                }
+
+                public int Completeness
+                {
+                        get { return completeness; }
+                        set { completeness = value; }
+                }
+
+                public string Recurrence
+                {
+                        get { return recurrence; }
+                        set { recurrence = value; }
+                }
+
+                public String Notes
+                {
+                        get { return notes; }
+                        set { notes = value; }
                 }
         }
 }
