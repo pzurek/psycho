@@ -106,7 +106,7 @@ namespace Psycho
                                 this.Parent.Update ();
                 }
 
-                public void Update ()
+                public void Update()
                 {
                         this.UpdateTextSize (this);
                         this.Frame.Update (this);
