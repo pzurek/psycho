@@ -17,8 +17,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>./bin/Debug/</OutputPath>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,13 +26,13 @@
     <AssemblyName>Psycho</AssemblyName>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <ApplicationIcon>./</ApplicationIcon>
+    <ApplicationIcon>\</ApplicationIcon>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>True</Optimize>
-    <OutputPath>./bin/Release/</OutputPath>
+    <OutputPath>/bin/Release/</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -188,18 +188,30 @@
     <EmbeddedResource Include="Resources\psycho-layout-map-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="./Resources/psycho-layout-map-left-16.png" />
-    <EmbeddedResource Include="./Resources/psycho-layout-map-right-16.png" />
+    <EmbeddedResource Include="./Resources/psycho-layout-map-left-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="./Resources/psycho-layout-map-right-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\psycho-layout-orgchart-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="./Resources/psycho-layout-orgchart-down-16.png" />
-    <EmbeddedResource Include="./Resources/psycho-layout-orgchart-up-16.png" />
+    <EmbeddedResource Include="./Resources/psycho-layout-orgchart-down-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="./Resources/psycho-layout-orgchart-up-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\psycho-layout-tree-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="./Resources/psycho-layout-tree-left-16.png" />
-    <EmbeddedResource Include="./Resources/psycho-layout-tree-right-16.png" />
+    <EmbeddedResource Include="./Resources/psycho-layout-tree-left-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="./Resources/psycho-layout-tree-right-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\psycho-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
