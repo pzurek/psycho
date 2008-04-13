@@ -1,6 +1,0 @@
-<CombineEntry name="psychoTranslation" fileversion="2.0" outputType="RelativeToOutput" ctype="TranslationProject">
-  <translations>
-    <Translation isoCode="en" />
-    <Translation isoCode="pl" />
-  </translations>
-</CombineEntry>
