@@ -15,6 +15,5 @@
   </Configurations>
   <Contents>
     <File name="." subtype="Directory" buildaction="Compile" />
-    <File name="Topic.cs" subtype="Code" buildaction="Compile" />
   </Contents>
 </Project>
