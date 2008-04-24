@@ -1,12 +1,17 @@
-﻿<UserCombinePreferences version="1.0" filename="/mnt/common/Projects/Psycho-git/trunk/Psycho/Psycho.mds">
+﻿<UserCombinePreferences version="1.0" filename="/mnt/common/Projects/Psycho/trunk/Psycho/Psycho.mds">
   <Files>
     <File name="Welcome" />
+    <File name="src/Core/Psycho.Data/Psycho.Data/Topic.cs" line="25" column="2" />
   </Files>
   <Views>
     <ViewMemento id="ProjectPad">
       <Node expanded="True">
         <Node name="Psycho" expanded="True">
-          <Node name="Libraries" selected="True" />
+          <Node name="Core" expanded="True">
+            <Node name="Psycho.Data" expanded="True">
+              <Node name="Psycho.Data" expanded="True" selected="True" />
+            </Node>
+          </Node>
         </Node>
       </Node>
     </ViewMemento>
@@ -15,7 +20,7 @@
     </ViewMemento>
   </Views>
   <Properties>
-    <Property key="ActiveWindow" value="Welcome" />
+    <Property key="ActiveWindow" value="/mnt/common/Projects/Psycho/trunk/Psycho/src/Core/Psycho.Data/Psycho.Data/Topic.cs" />
     <Property key="ActiveConfiguration" value="" />
   </Properties>
 </UserCombinePreferences>
