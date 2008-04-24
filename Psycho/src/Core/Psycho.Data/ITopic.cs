@@ -1,6 +1,6 @@
 //------10--------20--------30--------40--------50--------60--------70--------80
 //
-// Topic.cs
+// ITopic.cs
 // 
 // Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com
 //
@@ -22,10 +22,7 @@ using System;
 
 namespace Psycho.Data
 {
-	public class Topic : ITopic
+	public interface ITopic
 	{
-		public Topic()
-		{
-		}
 	}
 }
