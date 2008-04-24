@@ -3,9 +3,11 @@
     <Execute type="None" entry="Core" />
     <Execute type="None" entry="Libraries" />
     <Execute type="None" entry="Extensions" />
+    <Execute type="None" entry="Core" />
   </StartMode>
   <Entries>
     <Entry filename="Libraries/Libraries.mds" />
     <Entry filename="Extensions/Extensions.mds" />
+    <Entry filename="Core/Core.mds" />
   </Entries>
 </Combine>
