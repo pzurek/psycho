@@ -1,4 +1,8 @@
 <Combine name="Core" fileversion="2.0">
-  <StartMode single="True" />
-  <Entries />
+  <StartMode startupentry="Psycho.Data" single="True">
+    <Execute type="None" entry="Psycho.Data" />
+  </StartMode>
+  <Entries>
+    <Entry filename="Psycho.Data/Psycho.Data.mds" />
+  </Entries>
 </Combine>
