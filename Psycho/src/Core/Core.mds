@@ -1,8 +1,16 @@
 <Combine name="Core" fileversion="2.0">
   <Configurations active="Debug">
-    <Configuration name="Debug" ctype="CombineConfiguration" />
-    <Configuration name="Release" ctype="CombineConfiguration" />
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="Psycho.Core" configuration="Debug" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="Psycho.Core" configuration="Release" />
+    </Configuration>
   </Configurations>
-  <StartMode single="True" />
-  <Entries />
+  <StartMode startupentry="Psycho.Core" single="True">
+    <Execute type="None" entry="Psycho.Core" />
+  </StartMode>
+  <Entries>
+    <Entry filename="Psycho.Core/Psycho.Core.mdp" />
+  </Entries>
 </Combine>

@@ -1,0 +1,25 @@
+<Project name="Psycho.Core" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="DotNetProjectConfiguration">
+      <Output directory="bin/Debug" assembly="Psycho.Core" />
+      <Build debugmode="True" target="Exe" />
+      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+    <Configuration name="Release" ctype="DotNetProjectConfiguration">
+      <Output directory="bin/Release" assembly="Psycho.Core" />
+      <Build debugmode="False" target="Exe" />
+      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+  </Configurations>
+  <Contents>
+    <File name="Psycho.Data" subtype="Directory" buildaction="Compile" />
+    <File name="Psycho.Data/ITopic.cs" subtype="Code" buildaction="Compile" />
+    <File name="Psycho.Data/Topic.cs" subtype="Code" buildaction="Compile" />
+    <File name="Psycho.Data/IMindMap.cs" subtype="Code" buildaction="Compile" />
+    <File name="Psycho.Data/MindMap.cs" subtype="Code" buildaction="Compile" />
+    <File name="Psycho.Data/INote.cs" subtype="Code" buildaction="Compile" />
+    <File name="Psycho.Data/Note.cs" subtype="Code" buildaction="Compile" />
+  </Contents>
+</Project>
