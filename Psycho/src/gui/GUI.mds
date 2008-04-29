@@ -1,4 +1,8 @@
 <Combine name="GUI" fileversion="2.0">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="CombineConfiguration" />
+    <Configuration name="Release" ctype="CombineConfiguration" />
+  </Configurations>
   <StartMode single="True" />
   <Entries />
 </Combine>
