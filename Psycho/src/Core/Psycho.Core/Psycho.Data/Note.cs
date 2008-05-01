@@ -27,5 +27,12 @@ namespace Psycho.Core
 		public Note()
 		{
 		}
+		
+		private string text;
+		
+		public string Text {
+			get { return text; }
+			set { text = value; }
+		}
 	}
 }
