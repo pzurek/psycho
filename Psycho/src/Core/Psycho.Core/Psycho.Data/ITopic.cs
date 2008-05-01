@@ -23,22 +23,22 @@ using System.Collections.Generic;
 
 namespace Psycho.Core
 {
-        public interface ITopic
-        {
-                string Text { get; set; }
-                string GUID { get; }
-                Topic Parent { get; set; }
-                Note Note { get; set; }
-                bool IsExpanded { get; set; }
-                bool HasNote { get;}
-                int TotalCount { get; }
-                string Path { get; }
-                string Number { get; }
-                int Level { get; }
+	public interface ITopic
+	{
+		string Text { get; set; }
+		string ID { get; set; }
+		Topic Parent { get; set; }
+		Note Note { get; set; }
+		bool IsExpanded { get; set; }
+		bool HasNote { get;}
+		int TotalCount { get; }
+		string Path { get; }
+		string Number { get; }
+		int Level { get; }
 
-                void AddSubtopic (Topic iTopic);
-                void AddSubtopic (int iIndex, Topic iTopic);
-                void Delete ();
-                void ForEach (Action<Topic> action);
-        }
+		void AddSubtopic ();
+		void InsertSubtopic (int at_index, Topic my_topic);
+		void Delete ();
+		void ForEach (Action<Topic> action);
+	}
 }
