@@ -115,6 +115,8 @@ namespace Psycho.Core
 
 		public void Delete ()
 		{
+			if (this.Parent != null)
+				this.Parent.SubtopicList.Remove(this);
 		}
 
 		public void ForEach (System.Action<Topic> action)
