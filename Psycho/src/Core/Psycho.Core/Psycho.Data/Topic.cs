@@ -41,14 +41,15 @@ namespace Psycho.Core
 		
 		public Topic()
 		{
+			this.Text = "Topic ";
 		}
 		
-		string ITopic.Text {
+		public string Text {
 			get { return text; }
 			set { text = value; }
 		}
 
-		string ITopic.ID {
+		public string ID {
 			get {
 				if (id == null) {
 					Guid guid = System.Guid.NewGuid();
@@ -59,41 +60,41 @@ namespace Psycho.Core
 			set { id = value; }
 		}
 
-		Topic ITopic.Parent {
+		public Topic Parent {
 			get { return parent; }
 			set { parent = value; }
 		}
 
-		Note ITopic.Note {
+		public Note Note {
 			get { return note; }
 			set { note = value; }
 		}
 
-		bool ITopic.IsExpanded {
+		public bool IsExpanded {
 			get { return isExpanded; }
 			set { isExpanded = value; }
 		}
 
-		bool ITopic.HasNote {
+		public bool HasNote {
 			get {
 				return (note != null &&
 				        !string.IsNullOrEmpty(note.Text));
 			}
 		}
 
-		int ITopic.TotalCount {
+		public int TotalCount {
 			get { return totalCount; }
 		}
 
-		string ITopic.Path {
+		public string Path {
 			get { return path; }
 		}
 
-		string ITopic.Number {
+		public string Number {
 			get { return number; }
 		}
 
-		int ITopic.Level {
+		public int Level {
 			get { return level; }
 		}
 
@@ -103,20 +104,20 @@ namespace Psycho.Core
 			}
 		}
 
-		void ITopic.AddSubtopic ()
+		public void AddSubtopic ()
 		{
 			
 		}
 
-		void ITopic.InsertSubtopic (int at_index, Topic my_topic)
+		public void InsertSubtopic (int at_index, Topic my_topic)
 		{
 			this.SubtopicList.Insert (at_index, my_topic);		}
 
-		void ITopic.Delete ()
+		public void Delete ()
 		{
 		}
 
-		void ITopic.ForEach (System.Action<Topic> action)
+		public void ForEach (System.Action<Topic> action)
 		{
 		}
 	}
