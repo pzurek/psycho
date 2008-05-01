@@ -40,5 +40,6 @@ namespace Psycho.Core
 		void InsertSubtopic (int at_index, Topic my_topic);
 		void Delete ();
 		void ForEach (Action<Topic> action);
+		void Update ();
 	}
 }

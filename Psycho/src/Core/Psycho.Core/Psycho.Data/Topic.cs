@@ -122,5 +122,9 @@ namespace Psycho.Core
 		public void ForEach (System.Action<Topic> action)
 		{
 		}
+
+		public void Update ()
+		{
+		}
 	}
 }
