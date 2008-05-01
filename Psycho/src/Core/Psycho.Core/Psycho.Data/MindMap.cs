@@ -19,11 +19,18 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using Psycho.Core;
 
 namespace Psycho.Core
 {	
 	public class MindMap : IMindMap
 	{
+		Topic rootTopic;
+		TopicList freeTopicList;
+		TopicList calloutTopicList;
+
 		public MindMap()
 		{
 		}
