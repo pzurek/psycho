@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using System.Xml.Serialization;
 using Psycho.Core;
 
 namespace Psycho.Core
@@ -44,11 +45,13 @@ namespace Psycho.Core
 			this.Text = "Topic ";
 		}
 		
+		[XmlElement ()]
 		public string Text {
 			get { return text; }
 			set { text = value; }
 		}
 
+		[XmlAttribute ()]
 		public string ID {
 			get {
 				if (id == null) {
@@ -65,11 +68,13 @@ namespace Psycho.Core
 			set { parent = value; }
 		}
 
+		[XmlElement ()]
 		public Note Note {
 			get { return note; }
 			set { note = value; }
 		}
 
+		[XmlElement ()]
 		public bool IsExpanded {
 			get { return isExpanded; }
 			set { isExpanded = value; }
@@ -98,6 +103,7 @@ namespace Psycho.Core
 			get { return level; }
 		}
 
+		[XmlElement ("Subtopics")]
 		public TopicList SubtopicList {
 			get {
 				return subtopicList;

@@ -21,16 +21,33 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
 using Psycho.Core;
 
 namespace Psycho.Core
 {	
+	/// <summary>
+	/// The main mind map data container.
+	/// </summary>
+	
+	[XmlRoot]
 	public class MindMap : IMindMap
 	{
 		Topic rootTopic;
 		TopicList freeTopicList;
 		TopicList calloutTopicList;
 
+		[XmlElement]
+		public Topic RootTopic {
+			get {
+				return rootTopic;
+			}
+			set {
+				rootTopic = value;
+			}
+		}
+		
 		public MindMap()
 		{
 		}
