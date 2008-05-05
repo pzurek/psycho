@@ -27,7 +27,7 @@ using Psycho.Core;
 
 namespace Psycho.Core
 {
-	public class Topic : ITopic
+	public class Topic : MapItem, ITopic
 	{
 		private string text;
 		private string id;
@@ -49,18 +49,6 @@ namespace Psycho.Core
 		public string Text {
 			get { return text; }
 			set { text = value; }
-		}
-
-		[XmlAttribute ()]
-		public string ID {
-			get {
-				if (id == null) {
-					Guid guid = System.Guid.NewGuid();
-					id = guid.ToString();
-				}
-				return id;
-			}
-			set { id = value; }
 		}
 
 		public Topic Parent {

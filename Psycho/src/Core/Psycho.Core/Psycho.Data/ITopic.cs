@@ -23,10 +23,9 @@ using System.Collections.Generic;
 
 namespace Psycho.Core
 {
-	public interface ITopic
+	public interface ITopic : IMapItem
 	{
 		string Text { get; set; }
-		string ID { get; set; }
 		Topic Parent { get; set; }
 		Note Note { get; set; }
 		bool IsExpanded { get; set; }
