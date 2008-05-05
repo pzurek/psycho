@@ -24,11 +24,11 @@ namespace Psycho.Core
 {
 	public class Note : INote
 	{
+		string text;
+
 		public Note()
 		{
 		}
-		
-		private string text;
 		
 		public string Text {
 			get { return text; }
