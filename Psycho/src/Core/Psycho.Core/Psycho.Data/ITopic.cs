@@ -31,14 +31,15 @@ namespace Psycho.Core
 		bool IsExpanded { get; set; }
 		bool HasNote { get;}
 		int TotalCount { get; }
+		string StyleID { get; set; }
 		string Path { get; }
 		string Number { get; }
 		int Level { get; }
 
 		void AddSubtopic ();
-		void InsertSubtopic (int at_index, Topic my_topic);
+		void InsertSubtopic (int index, ITopic topic);
 		void Delete ();
-		void ForEach (Action<Topic> action);
+		void ForEach (Action<ITopic> action);
 		void Update ();
 	}
 }
