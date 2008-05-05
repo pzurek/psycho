@@ -24,23 +24,23 @@ using Psycho.Core;
 
 namespace Psycho.Core
 {
-	public class TopicList : List<Topic>
+	public class TopicList : List<ITopic>
 	{
-		Topic parent;
-		Topic first;
-		Topic last;
+		ITopic parent;
+		ITopic first;
+		ITopic last;
 
-		public TopicList (Topic my_topic) : base()
+		public TopicList (ITopic my_topic) : base()
 		{
 			this.parent = my_topic;
 		}
 
-		public Topic Parent
+		public ITopic Parent
 		{
 			get { return parent; }
 		}
 
-		public Topic First
+		public ITopic First
 		{
 			get{
 				if (this.Count > 0)
@@ -49,7 +49,7 @@ namespace Psycho.Core
 			}
 		}
 
-		public Topic Last
+		public ITopic Last
 		{
 			get{
 				if (this.Count > 0)
