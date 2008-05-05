@@ -34,8 +34,9 @@ namespace Psycho.Core
 		private Topic parent;
 		private Note note;
 		private bool isExpanded;
-		private TopicList subtopicList;
+		private TopicList<ITopic> subtopicList;
 		private int totalCount;
+		private string styleID;
 		private string path;
 		private string number;
 		private int level;
@@ -92,20 +93,27 @@ namespace Psycho.Core
 		}
 
 		[XmlElement ("Subtopics")]
-		public TopicList SubtopicList {
+		public TopicList<ITopic> SubtopicList {
 			get {
 				return subtopicList;
 			}
 		}
 
-		public void AddSubtopic ()
-		{
-			
+		[XmlElement]
+		public string StyleID {
+			get { return styleID; }
+			set { styleID = value; }
 		}
 
-		public void InsertSubtopic (int at_index, Topic my_topic)
+		public void AddSubtopic ()
 		{
-			this.SubtopicList.Insert (at_index, my_topic);		}
+			ITopic topic = new Topic();
+			this.SubtopicList.Add (topic);
+		}
+
+		public void InsertSubtopic (int index, ITopic item)
+		{
+			this.SubtopicList.Insert (index, item);		}
 
 		public void Delete ()
 		{
@@ -113,7 +121,7 @@ namespace Psycho.Core
 				this.Parent.SubtopicList.Remove(this);
 		}
 
-		public void ForEach (System.Action<Topic> action)
+		public void ForEach (System.Action<ITopic> action)
 		{
 		}
 
