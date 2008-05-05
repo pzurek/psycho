@@ -40,34 +40,34 @@ namespace Psycho.Core
 			this.blue = 0;
 		}
 
-		public Color (ushort my_red, ushort my_green, ushort my_blue)
+		public Color (ushort red, ushort green, ushort blue)
 		{
 			this.name = "";
 			this.alfa = 255;
-			this.red = my_red;
-			this.green = my_green;
-			this.blue = my_blue;
+			this.red = red;
+			this.green = green;
+			this.blue = blue;
 		}
 
-		public Color (ushort my_alfa, ushort my_red,
-			      ushort my_green, ushort my_blue)
+		public Color (ushort alfa, ushort red,
+			      ushort green, ushort blue)
 		{
 			this.name = "";
-			this.alfa = my_alfa;
-			this.red = my_red;
-			this.green = my_green;
-			this.blue = my_blue;
+			this.alfa = alfa;
+			this.red = red;
+			this.green = green;
+			this.blue = blue;
 		}
 
 		public Color (string name,
-			      ushort my_alfa, ushort my_red,
-			      ushort my_green, ushort my_blue)
+			      ushort alfa, ushort red,
+			      ushort green, ushort blue)
 		{
 			this.name = name;
-			this.alfa = my_alfa;
-			this.red = my_red;
-			this.green = my_green;
-			this.blue = my_blue;
+			this.alfa = alfa;
+			this.red = red;
+			this.green = green;
+			this.blue = blue;
 		}
 
 		public string Name
@@ -82,28 +82,28 @@ namespace Psycho.Core
 			set { isAuto = value; }
 		}
 
-		public void SetARGB (ushort my_alfa, ushort my_red,
-				     ushort my_green, ushort my_blue)
+		public void SetARGB (ushort new_alfa, ushort new_red,
+				     ushort new_green, ushort new_blue)
 		{
-			alfa = my_alfa;
-			red = my_red;
-			green = my_green;
-			blue = my_blue;
+			alfa = new_alfa;
+			red = new_red;
+			green = new_green;
+			blue = new_blue;
 		}
 
-		public void SetRGB (ushort my_red,
-				    ushort my_green,
-				    ushort my_blue)
+		public void SetRGB (ushort new_red,
+				    ushort new_green,
+				    ushort new_blue)
 		{
 			alfa = 255;
-			red = my_red;
-			green = my_green;
-			blue = my_blue;
+			red = new_red;
+			green = new_green;
+			blue = new_blue;
 		}
 
-		public void SetAlfa (ushort my_alfa)
+		public void SetAlfa (ushort new_alfa)
 		{
-			this.alfa = my_alfa;
+			this.alfa = new_alfa;
 		}
 
 		public void GetARGB (out ushort out_alfa, out ushort out_red,
