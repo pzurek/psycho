@@ -41,9 +41,9 @@ namespace Psycho.Core
 		SubtopicLayout subtopicLayout;
 		TextAlignment textAlignment;
 
-		public Style (Topic my_topic)
+		public Style (Topic topic)
 		{
-			this.Topic = my_topic;
+			this.Topic = topic;
 		}
 
 		public ITopic Topic
