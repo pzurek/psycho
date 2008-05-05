@@ -19,21 +19,21 @@
 //
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Psycho.Core;
 
 namespace Psycho.Core
 {
-	public class TopicList : ITopicList<ITopic>
+	public class TopicList<T> : ITopicList<T>
+	where T : ITopic
 	{
-		private List<ITopic> list;
+		private List<T> list;
 		private ITopic parent;
-		private ITopic first;
-		private ITopic last;
 
-		public TopicList (ITopic my_topic) : base()
+		public TopicList (ITopic topic) : base()
 		{
-			this.parent = my_topic;
+			this.parent = topic;
 		}
 
 		public ITopic Parent
@@ -44,8 +44,8 @@ namespace Psycho.Core
 		public ITopic First
 		{
 			get{
-				if (this.Count > 0)
-					return this[0];
+				if (list.Count > 0)
+					return list[0];
 				return null;
 			}
 		}
@@ -53,18 +53,91 @@ namespace Psycho.Core
 		public ITopic Last
 		{
 			get{
-				if (this.Count > 0)
-					return this[this.Count];
+				if (list.Count > 0)
+					return list[list.Count];
 				return null;
 			}
 		}
 
-		public void Insert (int at_index, ITopic my_topic) {
-			list.Insert (at_index, my_topic);
+		public void Add (T item)
+		{
+			list.Add (item);
 		}
 
-		public void Remove (ITopic my_topic) {
-			list.Remove (my_topic);
+		public void Insert (int index, T item)
+		{
+			list.Insert (index, item);
 		}
+
+		void IList<T>.Insert (int index, T item)
+		{
+			list.Insert (index, item);
+		}
+
+		void IList<T>.RemoveAt (int index)
+		{
+			list.RemoveAt (index);
+		}
+
+		int IList<T>.IndexOf (T item)
+		{
+			return list.IndexOf (item);
+		}
+
+		T IList<T>.this[int index] {
+			get { return list[index]; }
+			set { list[index] = value; }
+		}
+
+		public IEnumerator<T> GetEnumerator ()
+		{
+			return list.GetEnumerator ();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator ()
+		{
+			return GetEnumerator ();
+		}
+
+		void ICollection<T>.Add (T item)
+		{
+			list.Add (item);
+		}
+
+		public bool Remove (T item)
+		{
+			lock (this) {
+				return list.Remove (item);
+			}
+		}
+
+		void ICollection<T>.Clear ()
+		{
+			list.Clear ();
+		}
+
+		bool ICollection<T>.Contains (T item)
+		{
+			return list.Contains (item);
+		}
+
+		void ICollection<T>.CopyTo (T [] array, int arrayIndex)
+		{
+			list.CopyTo (array, arrayIndex);
+		}
+
+		public int Count {
+			get {
+				lock (this) { 
+					return list.Count;
+				}
+			}
+		}
+
+		bool ICollection<T>.IsReadOnly {
+			get {
+				return ((ICollection<T>)list).IsReadOnly; }
+		}
+
 	}
 }
