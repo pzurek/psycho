@@ -1,6 +1,6 @@
 //------10--------20--------30--------40--------50--------60--------70--------80
 //
-// TopicList.cs
+// ITopicList.cs
 // 
 // Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com
 //
@@ -19,52 +19,16 @@
 //
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using Psycho.Core;
 
 namespace Psycho.Core
 {
-	public class TopicList : ITopicList<ITopic>
+	public interface ITopicList<T> : IList<T>
+	where T : ITopic
 	{
-		private List<ITopic> list;
-		private ITopic parent;
-		private ITopic first;
-		private ITopic last;
-
-		public TopicList (ITopic my_topic) : base()
-		{
-			this.parent = my_topic;
-		}
-
-		public ITopic Parent
-		{
-			get { return parent; }
-		}
-
-		public ITopic First
-		{
-			get{
-				if (this.Count > 0)
-					return this[0];
-				return null;
-			}
-		}
-
-		public ITopic Last
-		{
-			get{
-				if (this.Count > 0)
-					return this[this.Count];
-				return null;
-			}
-		}
-
-		public void Insert (int at_index, ITopic my_topic) {
-			list.Insert (at_index, my_topic);
-		}
-
-		public void Remove (ITopic my_topic) {
-			list.Remove (my_topic);
-		}
+		ITopic Parent { get; }
+		ITopic First { get; }
+		ITopic Last { get; }
 	}
 }
