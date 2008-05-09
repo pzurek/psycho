@@ -22,9 +22,54 @@ using System;
 
 namespace Psycho.Core
 {
-	
-	
 	public interface IStyle
 	{
+		string Font {get; set; }
+
+		FrameShape FrameShape {get; set; }
+
+		SubtopicLayout SubtopicLayout {get; set; }
+
+		ConnectionShape ConnectionShape {get; set; }
+
+		IColor FillColor {get; set; }
+
+		IColor StrokeColor {get; set; }
+
+		int LineWidth {get; set; }
+
+		bool EqualMargins {get; set; }
+
+		int LeftMargin {get; set; }
+
+		int RightMargin {get; set; }
+
+		int TopMargin {get; set; }
+
+		int BottomMargin {get; set; }
+
+		int MinMargin {get; }
+
+		int MaxMargin {get; }
+
+		int CrankRadius {get; set; }
+
+		int CrankChamfer {get; set; }
+
+		int PolyDistance {get; set; }
+
+		int Padding {get; set; }
+
+		int HorChildDist {get; set; }
+
+		int VerChildDist {get; set; }
+
+		int OrgChartVertDist {get; set; }
+
+		bool FixedWidth {get; set; }
+
+		int Width {get; set; }
+
+		TextAlignment TextAlignment {get; set; }
 	}
 }
