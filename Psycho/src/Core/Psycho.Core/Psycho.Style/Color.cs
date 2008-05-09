@@ -19,6 +19,8 @@
 //
 
 using System;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Psycho.Core
 {
@@ -70,16 +72,42 @@ namespace Psycho.Core
 			this.blue = blue;
 		}
 
+		[XmlAttribute ()]
 		public string Name
 		{
 			get { return name; }
 			set { name = value; }
 		}
 
+		[XmlAttribute ()]
 		public bool IsAuto
 		{
 			get { return isAuto; }
 			set { isAuto = value; }
+		}
+
+		[XmlAttribute ()]
+		public ushort Red {
+			get { return red; }
+			set { red = value; }
+		}
+
+		[XmlAttribute ()]
+		public ushort Green {
+			get { return green; }
+			set { green = value; }
+		}
+
+		[XmlAttribute ()]
+		public ushort Blue {
+			get { return blue; }
+			set { blue = value; }
+		}
+
+		[XmlAttribute ()]
+		public ushort Alfa {
+			get { return alfa; }
+			set { alfa = value; }
 		}
 
 		public void SetARGB (ushort new_alfa, ushort new_red,
@@ -101,11 +129,6 @@ namespace Psycho.Core
 			blue = new_blue;
 		}
 
-		public void SetAlfa (ushort new_alfa)
-		{
-			this.alfa = new_alfa;
-		}
-
 		public void GetARGB (out ushort out_alfa, out ushort out_red,
 				     out ushort out_green, out ushort out_blue)
 		{
@@ -115,9 +138,9 @@ namespace Psycho.Core
 			out_blue = blue;
 		}
 
-		public void GetARGB (out ushort out_red,
-				     out ushort out_green,
-				     out ushort out_blue)
+		public void GetRGB (out ushort out_red,
+				    out ushort out_green,
+				    out ushort out_blue)
 		{
 			out_red = red;
 			out_green = green;
