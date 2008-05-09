@@ -24,7 +24,6 @@ namespace Psycho.Core
 {
 	public class Style
 	{
-		ITopic topic;
 		string font;
 		FrameShape frameShape;
 		ConnectionPoint connectionPoint;
@@ -44,12 +43,6 @@ namespace Psycho.Core
 		public Style (Topic topic)
 		{
 			this.Topic = topic;
-		}
-
-		public ITopic Topic
-		{
-			get { return Topic; }
-			set { Topic = value; }
 		}
 
 		public string Font
