@@ -24,7 +24,7 @@ using System.Xml.Serialization;
 
 namespace Psycho.Core
 {
-	public class Color
+	public class Color : IColor
 	{
 		string name;
 		ushort red;
