@@ -36,6 +36,8 @@
     <File name="Psycho.Style/TextAlignment.cs" subtype="Code" buildaction="Compile" />
     <File name="Psycho.Data/ITopicList.cs" subtype="Code" buildaction="Compile" />
     <File name="Psycho.Style/IColor.cs" subtype="Code" buildaction="Compile" />
+    <File name="Psycho.Data/Application.cs" subtype="Code" buildaction="Compile" />
+    <File name="Psycho.Data/IApplication.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
