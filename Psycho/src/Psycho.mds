@@ -9,6 +9,5 @@
     <Entry filename="Core/Core.mds" />
     <Entry filename="Libraries/Libraries.mds" />
     <Entry filename="Extensions/Extensions.mds" />
-    <Entry filename="GUI/GUI.mds" />
   </Entries>
 </Combine>
