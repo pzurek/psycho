@@ -19,6 +19,8 @@
 //
 
 using System;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Psycho.Core
 {
@@ -28,7 +30,7 @@ namespace Psycho.Core
 		FrameShape frameShape;
 		ConnectionPoint connectionPoint;
 		ConnectionShape connectionShape;
-		Color fillColor, strokeColor;
+		IColor fillColor, strokeColor;
 		bool equalMargins;
 		int leftMargin, rightMargin, topMargin, bottomMargin;
 		int minMargin, maxMargin;
@@ -39,11 +41,6 @@ namespace Psycho.Core
 		int width, lineWidth;
 		SubtopicLayout subtopicLayout;
 		TextAlignment textAlignment;
-
-		public Style (Topic topic)
-		{
-			this.Topic = topic;
-		}
 
 		public string Font
 		{
@@ -69,13 +66,13 @@ namespace Psycho.Core
 			set { connectionShape = value; }
 		}
 
-		public Color FillColor
+		public IColor FillColor
 		{
 			get { return fillColor; }
 			set { fillColor = value; }
 		}
 
-		public Color StrokeColor
+		public IColor StrokeColor
 		{
 			get { return strokeColor; }
 			set { strokeColor = value; }
