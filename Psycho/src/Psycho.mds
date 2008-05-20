@@ -3,13 +3,10 @@
     <Execute type="None" entry="Core" />
     <Execute type="None" entry="Libraries" />
     <Execute type="None" entry="Extensions" />
-    <Execute type="None" entry="GUI" />
-    <Execute type="None" entry="Clients" />
   </StartMode>
   <Entries>
     <Entry filename="Core/Core.mds" />
     <Entry filename="Libraries/Libraries.mds" />
     <Entry filename="Extensions/Extensions.mds" />
-    <Entry filename="Clients/Clients.mds" />
   </Entries>
 </Combine>
