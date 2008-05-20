@@ -15,7 +15,6 @@
   </Configurations>
   <Contents>
     <File name="Psycho.Data" subtype="Directory" buildaction="Compile" />
-    <File name="Psycho.Data" subtype="Directory" buildaction="Compile" />
     <File name="Psycho.Properties" subtype="Directory" buildaction="Compile" />
     <File name="Psycho.Data/ITopic.cs" subtype="Code" buildaction="Compile" />
     <File name="Psycho.Data/Topic.cs" subtype="Code" buildaction="Compile" />

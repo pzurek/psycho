@@ -3,7 +3,6 @@
     <Execute type="None" entry="Core" />
     <Execute type="None" entry="Libraries" />
     <Execute type="None" entry="Extensions" />
-    <Execute type="None" entry="GUI" />
   </StartMode>
   <Entries>
     <Entry filename="Core/Core.mds" />
