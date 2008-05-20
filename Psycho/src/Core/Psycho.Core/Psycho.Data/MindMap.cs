@@ -60,5 +60,18 @@ namespace Psycho.Core
 			}
 		}
 
+		[XmlElement]
+		public ITopicList<ITopic> CalloutTopicList {
+			get {
+				return calloutTopicList;
+			}
+		}
+
+		[XmlElement]
+		public IStyleList<IStyle> StyleList {
+			get {
+				return styleList;
+			}
+		}
 	}
 }
