@@ -37,6 +37,11 @@ namespace Psycho.Core
 		ITopic rootTopic;
 		ITopicList<ITopic> freeTopicList;
 		ITopicList<ITopic> calloutTopicList;
+		IStyleList<IStyle> styleList;
+
+		public MindMap()
+		{
+		}
 
 		[XmlElement]
 		public ITopic RootTopic {
@@ -47,9 +52,13 @@ namespace Psycho.Core
 				rootTopic = value;
 			}
 		}
-		
-		public MindMap()
-		{
+
+		[XmlElement]
+		public ITopicList<ITopic> FreeTopicList {
+			get {
+				return freeTopicList;
+			}
 		}
+
 	}
 }
