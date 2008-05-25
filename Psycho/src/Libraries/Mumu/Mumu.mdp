@@ -13,6 +13,11 @@
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
+  <Contents>
+    <File name="." subtype="Directory" buildaction="Compile" />
+    <File name="Mumu.Data" subtype="Directory" buildaction="Compile" />
+    <File name="Mumu.Geometry" subtype="Directory" buildaction="Compile" />
+  </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Gac" localcopy="True" refto="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
