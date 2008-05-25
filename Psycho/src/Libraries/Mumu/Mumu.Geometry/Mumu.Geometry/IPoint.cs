@@ -20,7 +20,7 @@
 
 using System;
 
-namespace Mumu
+namespace Mumu.Geometry
 {
 	public interface IPoint
 	{

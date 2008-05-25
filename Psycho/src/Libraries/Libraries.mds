@@ -1,16 +1,17 @@
 <Combine name="Libraries" fileversion="2.0">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="CombineConfiguration">
-      <Entry build="True" name="Mumu" configuration="Debug" />
+      <Entry build="True" name="Mumu" configuration="" />
     </Configuration>
     <Configuration name="Release" ctype="CombineConfiguration">
-      <Entry build="True" name="Mumu" configuration="Release" />
+      <Entry build="True" name="Mumu" configuration="" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Mumu" single="True">
     <Execute type="None" entry="Mumu" />
+    <Execute type="None" entry="Mumu" />
   </StartMode>
   <Entries>
-    <Entry filename="Mumu/Mumu.mdp" />
+    <Entry filename="Mumu/Mumu.mds" />
   </Entries>
 </Combine>

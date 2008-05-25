@@ -1,6 +1,6 @@
 //------10--------20--------30--------40--------50--------60--------70--------80
 //
-// Point.cs
+// IMindModel.cs
 // 
 // Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com
 //
@@ -19,35 +19,10 @@
 //
 
 using System;
-using Mumu;
 
-namespace Mumu
+namespace Mumu.Data
 {
-	public class Point : IPoint
+	public interface IMindModel
 	{
-		double x;
-		double y;
-		
-		public double X {
-			get {
-				return x;
-			}
-			set {
-				x = value;
-			}
-		}
-
-		public double Y {
-			get {
-				return y;
-			}
-			set {
-				y = value;
-			}
-		}
-		
-		public Point()
-		{
-		}
 	}
 }
