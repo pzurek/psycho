@@ -22,8 +22,6 @@ using System;
 
 namespace Mumu.Data
 {
-	
-	
 	public interface IMindView
 	{
 	}
