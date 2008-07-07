@@ -1,5 +1,5 @@
 <Combine name="Mumu" fileversion="2.0">
-  <Configurations active="Debug">
+  <Configurations>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Mumu.Data" configuration="Debug" />
       <Entry build="True" name="Mumu.Geometry" configuration="Debug" />
