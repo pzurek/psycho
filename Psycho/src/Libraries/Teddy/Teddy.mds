@@ -1,0 +1,16 @@
+<Combine name="Teddy" fileversion="2.0">
+  <Configurations>
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="Teddy.Core" configuration="Debug" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="Teddy.Core" configuration="Release" />
+    </Configuration>
+  </Configurations>
+  <StartMode startupentry="Teddy.Core" single="True">
+    <Execute type="None" entry="Teddy.Core" />
+  </StartMode>
+  <Entries>
+    <Entry filename="Teddy.Core/Teddy.Core.mdp" />
+  </Entries>
+</Combine>
