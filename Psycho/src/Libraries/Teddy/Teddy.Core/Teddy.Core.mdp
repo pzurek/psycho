@@ -1,0 +1,54 @@
+<Project name="Teddy.Core" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="DotNetProjectConfiguration">
+      <Output directory="bin/Debug" assemblyKeyFile="." assembly="Teddy.Core" />
+      <Build debugmode="True" target="Library" />
+      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+    <Configuration name="Release" ctype="DotNetProjectConfiguration">
+      <Output directory="bin/Release" assembly="Teddy.Core" />
+      <Build debugmode="False" target="Library" />
+      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+  </Configurations>
+  <Contents>
+    <File name="Teddy.Core.Canvas" subtype="Directory" buildaction="Compile" />
+    <File name="Teddy.Core.Canvas/ICanvas.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape" subtype="Directory" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/Shape.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/IShape.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/ShapeTypeEnum.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Canvas/Canvas.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/ISelectable.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/IMovable.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/IPaintable.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/Stroke.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/IStroke.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/IFill.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core" subtype="Directory" buildaction="Compile" />
+    <File name="Teddy.Core/Color.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core/Dash.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core/IColor.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core/IDash.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/Fill.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Layer" subtype="Directory" buildaction="Compile" />
+    <File name="Teddy.Core.Layer/ILayer.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Layer/Layer.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/IDrawable.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Layer/LayerList.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Layer/ILayerList.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/ShapeList.cs" subtype="Code" buildaction="Compile" />
+    <File name="Teddy.Core.Shape/IShapeList.cs" subtype="Code" buildaction="Compile" />
+  </Contents>
+  <References>
+    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="Mono.Cairo, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <ProjectReference type="Gac" localcopy="True" refto="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+  </References>
+</Project>

@@ -1,0 +1,20 @@
+<Combine name="Mumu" fileversion="2.0">
+  <Configurations>
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="Mumu.Data" configuration="Debug" />
+      <Entry build="True" name="Mumu.Geometry" configuration="Debug" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="Mumu.Data" configuration="Release" />
+      <Entry build="True" name="Mumu.Geometry" configuration="Release" />
+    </Configuration>
+  </Configurations>
+  <StartMode startupentry="Mumu.Data" single="True">
+    <Execute type="None" entry="Mumu.Data" />
+    <Execute type="None" entry="Mumu.Geometry" />
+  </StartMode>
+  <Entries>
+    <Entry filename="Mumu.Data/Mumu.Data.mdp" />
+    <Entry filename="Mumu.Geometry/Mumu.Geometry.mdp" />
+  </Entries>
+</Combine>
