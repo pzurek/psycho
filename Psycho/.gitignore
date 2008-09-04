@@ -1,2 +1,3 @@
-Psycho.userprefs
-Psycho.usertasks
+*.user*
+*.pidb
+bin

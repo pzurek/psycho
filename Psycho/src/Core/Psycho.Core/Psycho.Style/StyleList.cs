@@ -27,11 +27,11 @@ namespace Psycho.Core
 	public class StyleList<T> : IStyleList<T>
 	where T : IStyle
 	{
-		private List<T> list;
-
 		public StyleList () : base()
 		{
 		}
+		
+		private List<T> list;
 
 		public void Add (T item)
 		{
