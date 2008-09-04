@@ -1,6 +1,6 @@
 //------10--------20--------30--------40--------50--------60--------70--------80
 //
-// Layer.cs
+// Main.cs
 // 
 // Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com
 //
@@ -22,49 +22,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-
-
 using System;
-using Cairo;
-using Teddy.Core;
+using Gtk;
 
-namespace Teddy.Core
+namespace TeddyPad
 {
-	public class Layer : ILayer
-	{
-		Surface surface;
-		IShapeList<Shape> shapes;
-		
-		public Surface Surface {
-			get {
-				return surface;
-			}
-			set {
-				surface = value;
-			}
-		}
+        class MainClass
+        {
+                public static void Main()
+                {
+                        Application.Init();
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.DeleteEvent += OnDelete;
+                        mainWindow.SetDefaultSize(640, 480);
+                        mainWindow.SetPosition(WindowPosition.Center);
+                        mainWindow.Show();
+                        Application.Run();
+                }
 
-		public IShapeList<Shape> Shapes {
-			get {
-				return shapes;
-			}
-			set {
-				shapes = value;
-			}
-		}
-		
-		public Layer()
-		{
-		}
-
-		public void AddShape (IShape my_shape)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void RemoveShape (IShape my_shape)
-		{
-			throw new NotImplementedException();
-		}
-	}
+                static void OnDelete(object sender, DeleteEventArgs args)
+                {
+                        Application.Quit();
+                        return;
+                }
+        }
 }

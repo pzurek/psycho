@@ -37,7 +37,7 @@ namespace Teddy.Core
 		void MoveSelectedShapes (double x, double y);
 		void DeleteSelectedShapes();
 		void ClearSelection();
-		Shape GetShapeAt (double x, double y);
+		IShape GetShapeAt (double x, double y);
 		IList<IShape> GetShapesAt (double x, double y,
 		                           double width, double height);
 	}

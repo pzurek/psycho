@@ -23,12 +23,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Cairo;
+using Gtk;
 
 using Teddy.Core;
 
 namespace Teddy.Core
 {
-	public class Canvas : ICanvas
+	public class Canvas : DrawingArea, ICanvas
 	{
 		double width;
 		double height;
@@ -97,7 +98,7 @@ namespace Teddy.Core
 
 		public void AddShape (IShape new_shape)
 		{
-			throw new NotImplementedException();
+			Shapes.Add (new_shape);
 		}
 
 		public void MoveSelectedShapes (double x, double y)
@@ -107,18 +108,21 @@ namespace Teddy.Core
 
 		public void DeleteSelectedShapes ()
 		{
-			throw new NotImplementedException();
+			if (Selection.Count > 0)
+				foreach (IShape shape in Selection)
+					if (Shapes.Contains(shape))
+						Shapes.Remove(shape);
 		}
 
 		public void ClearSelection ()
 		{
-			throw new NotImplementedException();
+			Selection.Clear();
 		}
 
-		public Shape GetShapeAt (double x, double y)
+		public IShape GetShapeAt (double x, double y)
 		{
-			throw new NotImplementedException();
-		}
+            throw new NotImplementedException();
+        }
 
 		public IList<IShape> GetShapesAt (double x, double y,
 		                                  double width, double height)

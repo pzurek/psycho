@@ -32,5 +32,8 @@ namespace Teddy.Core
 	public interface ILayer
 	{
 		Surface Surface { get; set; }
+		IShapeList<Shape> Shapes { get; set; }
+		void AddShape (IShape my_shape);
+		void RemoveShape (IShape my_shape);
 	}
 }

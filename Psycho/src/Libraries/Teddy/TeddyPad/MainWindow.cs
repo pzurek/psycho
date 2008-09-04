@@ -1,6 +1,6 @@
 //------10--------20--------30--------40--------50--------60--------70--------80
 //
-// Layer.cs
+// MainWindow.cs
 // 
 // Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com
 //
@@ -25,46 +25,31 @@
 
 
 using System;
-using Cairo;
+using Gtk;
+using Gdk;
 using Teddy.Core;
 
-namespace Teddy.Core
+namespace TeddyPad
 {
-	public class Layer : ILayer
-	{
-		Surface surface;
-		IShapeList<Shape> shapes;
-		
-		public Surface Surface {
-			get {
-				return surface;
-			}
-			set {
-				surface = value;
-			}
-		}
+        public class MainWindow : Gtk.Window
+        {
+                public MainWindow () : base ("Psycho")
+                {
+                        VBox globalVBox = new VBox ();
 
-		public IShapeList<Shape> Shapes {
-			get {
-				return shapes;
-			}
-			set {
-				shapes = value;
-			}
-		}
-		
-		public Layer()
-		{
-		}
+                        Canvas canvas = new Canvas();
+			Button addShapeButton = new Button ();
+			addShapeButton.Label = "Add new shape";
+			
+			HBox buttonHBox = new HBox();
+			
+			buttonHBox.PackStart (addShapeButton, false, true, 6);
+			
+			globalVBox.PackStart(canvas, true, true, 6);
+			globalVBox.PackStart(buttonHBox, false, false, 6);
+			globalVBox.ShowAll ();
 
-		public void AddShape (IShape my_shape)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void RemoveShape (IShape my_shape)
-		{
-			throw new NotImplementedException();
-		}
-	}
+                        this.Add (globalVBox);
+                }
+        }
 }
