@@ -113,7 +113,8 @@ namespace Psycho.Core
 
 		public void InsertSubtopic (int index, ITopic item)
 		{
-			this.SubtopicList.Insert (index, item);		}
+			this.SubtopicList.Insert (index, item);
+		}
 
 		public void Delete ()
 		{
