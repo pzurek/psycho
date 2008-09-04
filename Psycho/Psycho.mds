@@ -1,9 +1,0 @@
-<Combine name="Psycho" fileversion="2.0">
-  <StartMode startupentry="Psycho" single="True">
-    <Execute type="None" entry="Psycho" />
-  </StartMode>
-  <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="OneChangeLogInProjectRootDirectory" />
-  <Entries>
-    <Entry filename="src/Psycho.mds" />
-  </Entries>
-</Combine>
