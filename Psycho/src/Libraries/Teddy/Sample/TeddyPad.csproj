@@ -9,7 +9,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputType>Exe</OutputType>
-    <AssemblyName>TeddyPad</AssemblyName>
+    <AssemblyName>Sample</AssemblyName>
     <OutputPath>bin\Debug\</OutputPath>
     <DebugSymbols>true</DebugSymbols>
     <RootNamespace>
@@ -23,7 +23,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputType>Exe</OutputType>
-    <AssemblyName>TeddyPad</AssemblyName>
+    <AssemblyName>Sample</AssemblyName>
     <OutputPath>bin\Release\</OutputPath>
     <DebugSymbols>false</DebugSymbols>
     <RootNamespace>
