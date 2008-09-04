@@ -1,0 +1,46 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{68B9B57D-18A3-4814-BE57-AB8871B9137B}</ProjectGuid>
+    <RootNamespace>
+    </RootNamespace>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputType>Library</OutputType>
+    <AssemblyName>Mumu.Geometry</AssemblyName>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <RootNamespace>
+    </RootNamespace>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputType>Library</OutputType>
+    <AssemblyName>Mumu.Geometry</AssemblyName>
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>false</DebugSymbols>
+    <RootNamespace>
+    </RootNamespace>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DefineConstants>
+    </DefineConstants>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="mscorlib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Mumu.Geometry\Point.cs" />
+    <Compile Include="Mumu.Geometry\IPoint.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+</Project>
