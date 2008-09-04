@@ -1,0 +1,4 @@
+bin
+*.pidb
+Psycho.Core.pidb
+Psycho.Properties
