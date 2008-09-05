@@ -64,5 +64,8 @@
     <Compile Include="Psycho.Style\IStyleList.cs" />
     <Compile Include="Psycho.Style\StyleList.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Psycho.Core.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>
