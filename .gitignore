@@ -1,5 +1,5 @@
 *.user*
 *.pidb
 *.suo
-bin
-obj
+bin/
+obj/
