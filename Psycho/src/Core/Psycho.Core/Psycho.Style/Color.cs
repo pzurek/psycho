@@ -35,7 +35,7 @@ namespace Psycho.Core
 
 		public Color ()
 		{
-			this.name = "";
+			this.Name = "";
 			this.alfa = 255;
 			this.red = 0;
 			this.green = 0;
@@ -44,7 +44,7 @@ namespace Psycho.Core
 
 		public Color (ushort red, ushort green, ushort blue)
 		{
-			this.name = "";
+			this.Name = "";
 			this.alfa = 255;
 			this.red = red;
 			this.green = green;
@@ -54,7 +54,7 @@ namespace Psycho.Core
 		public Color (ushort alfa, ushort red,
 			      ushort green, ushort blue)
 		{
-			this.name = "";
+			this.Name = "";
 			this.alfa = alfa;
 			this.red = red;
 			this.green = green;
@@ -65,7 +65,7 @@ namespace Psycho.Core
 			      ushort alfa, ushort red,
 			      ushort green, ushort blue)
 		{
-			this.name = name;
+			this.Name = Name;
 			this.alfa = alfa;
 			this.red = red;
 			this.green = green;
@@ -75,8 +75,8 @@ namespace Psycho.Core
 		[XmlAttribute ()]
 		public string Name
 		{
-			get { return name; }
-			set { name = value; }
+			get { return Name; }
+			set { Name = value; }
 		}
 
 		[XmlAttribute ()]
