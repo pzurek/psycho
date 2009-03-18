@@ -2,7 +2,7 @@
 //
 // Note.cs
 // 
-// Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com
+// Copyright (C) 2009 Piotr Zurek p.zurek@gmail.com
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,15 +24,6 @@ namespace Psycho.Core
 {
 	public class Note : INote
 	{
-		string text;
-
-		public Note()
-		{
-		}
-		
-		public string Text {
-			get { return text; }
-			set { text = value; }
-		}
+		public string Text { get; set; }
 	}
 }

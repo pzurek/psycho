@@ -29,11 +29,7 @@ namespace Psycho.Core
 {
 	public class Topic : MapItem, ITopic
 	{
-		private string text;
-		private string id;
 		private Topic parent;
-		private Note note;
-		private bool isExpanded;
 		private TopicList<ITopic> subtopicList;
 		private int totalCount;
 		private string styleID;
@@ -46,33 +42,17 @@ namespace Psycho.Core
 			this.Text = "Topic ";
 		}
 		
-		[XmlElement ()]
-		public string Text {
-			get { return text; }
-			set { text = value; }
-		}
+		[XmlElement] public string Text { get; set;}
+		[XmlElement] public string StyleID { get; set;}
+		[XmlElement] public Note Note  { get; set;}
+		[XmlElement] public bool IsExpanded { get; set;}
 
-		public Topic Parent {
-			get { return parent; }
-			set { parent = value; }
-		}
-
-		[XmlElement ()]
-		public Note Note {
-			get { return note; }
-			set { note = value; }
-		}
-
-		[XmlElement ()]
-		public bool IsExpanded {
-			get { return isExpanded; }
-			set { isExpanded = value; }
-		}
-
+		public Topic Parent { get; set;}
+		
 		public bool HasNote {
 			get {
-				return (note != null &&
-				        !string.IsNullOrEmpty(note.Text));
+				return (Note != null &&
+				        !string.IsNullOrEmpty(Note.Text));
 			}
 		}
 
@@ -99,11 +79,6 @@ namespace Psycho.Core
 			}
 		}
 
-		[XmlElement]
-		public string StyleID {
-			get { return styleID; }
-			set { styleID = value; }
-		}
 
 		public void AddSubtopic ()
 		{

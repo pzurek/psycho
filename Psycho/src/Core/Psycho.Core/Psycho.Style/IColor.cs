@@ -24,25 +24,29 @@ namespace Psycho.Core
 {
 	public interface IColor
 	{
-		string Name {get; set; }
-
-		bool IsAuto { get; set; }
-
-		ushort Alfa { get; set; }
-		ushort Red { get; set; }
+		string Name  {get; set; }
+		bool IsAuto  { get; set; }
+		ushort Alfa  { get; set; }
+		ushort Red   { get; set; }
 		ushort Green { get; set; }
-		ushort Blue { get; set; }
+		ushort Blue  { get; set; }
 
-		void SetARGB (ushort new_alfa, ushort new_red,
-			      ushort new_green, ushort new_blue);
+		void SetARGB (ushort new_alfa,
+		              ushort new_red,
+					  ushort new_green, 
+		              ushort new_blue);
 
-		void SetRGB (ushort new_red, ushort new_green, ushort new_blue);
+		void SetRGB (ushort new_red, 
+		             ushort new_green,
+		             ushort new_blue);
 
-		void GetARGB (out ushort out_alfa, out ushort out_red,
-			      out ushort out_green, out ushort out_blue);
+		void GetARGB (out ushort out_alfa, 
+		              out ushort out_red,
+			      	  out ushort out_green,
+		              out ushort out_blue);
 
 		void GetRGB (out ushort out_red,
-			     out ushort out_green,
-			     out ushort out_blue);
+			     	 out ushort out_green,
+			     	 out ushort out_blue);
 	}
 }

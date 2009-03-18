@@ -26,113 +26,53 @@ namespace Psycho.Core
 {
 	public class Style
 	{
-		string font;
-		FrameShape frameShape;
-		ConnectionPoint connectionPoint;
-		ConnectionShape connectionShape;
-		IColor fillColor, strokeColor;
-		bool equalMargins;
-		int leftMargin, rightMargin, topMargin, bottomMargin;
-		int minMargin, maxMargin;
-		int padding, horChildDist, verChildDist, orgChartVertDist;
-		int crankRadius, crankChamfer;
-		int polyDistance;
-		bool fixedWidth;
-		int width, lineWidth;
-		SubtopicLayout subtopicLayout;
-		TextAlignment textAlignment;
+		public string Font {get; set;}
+		public FrameShape FrameShape {get; set;}
+		public SubtopicLayout SubtopicLayout {get; set;}
+		public ConnectionShape ConnectionShape {get; set;}
+		public IColor FillColor {get; set;}
+		public IColor StrokeColor {get; set;}
+		public int LineWidth {get; set;}
 
-		public string Font
-		{
-			get { return font; }
-			set { font = value; }
-		}
-
-		public FrameShape FrameShape
-		{
-			get { return frameShape; }
-			set { frameShape = value; }
-		}
-
-		public SubtopicLayout SubtopicLayout
-		{
-			get { return subtopicLayout; }
-			set { subtopicLayout = value; }
-		}
-
-		public ConnectionShape ConnectionShape
-		{
-			get { return connectionShape; }
-			set { connectionShape = value; }
-		}
-
-		public IColor FillColor
-		{
-			get { return fillColor; }
-			set { fillColor = value; }
-		}
-
-		public IColor StrokeColor
-		{
-			get { return strokeColor; }
-			set { strokeColor = value; }
-		}
-
-		public int LineWidth
-		{
-			get { return lineWidth; }
-			set { lineWidth = value; }
-		}
-
-		public bool EqualMargins
-		{
-			get { return equalMargins; }
-			set { equalMargins = value; }
-		}
-
-		public int LeftMargin
-		{
-			get { return leftMargin; }
-			set { leftMargin = value; }
-		}
-
+		public bool EqualMargins {get; set;}
+		public int LeftMargin {get; set;}
 		public int RightMargin
 		{
 			get {
-				if (equalMargins)
-					return leftMargin;
+				if (EqualMargins)
+					return LeftMargin;
 				else
-					return rightMargin;
+					return RightMargin;
 			}
-			set { rightMargin = value; }
+			set { RightMargin = value; }
 		}
 
 		public int TopMargin
 		{
 			get {
-				if (equalMargins)
-					return leftMargin;
+				if (EqualMargins)
+					return LeftMargin;
 				else
-					return topMargin;
+					return TopMargin;
 			}
-			set { topMargin = value; }
+			set { TopMargin = value; }
 		}
 
 		public int BottomMargin
 		{
 			get {
-				if (equalMargins)
-					return leftMargin;
+				if (EqualMargins)
+					return LeftMargin;
 				else
-					return bottomMargin;
+					return BottomMargin;
 			}
-			set { bottomMargin = value; }
+			set { BottomMargin = value; }
 		}
 
 		public int MinMargin
 		{
 			get {
-				minMargin = LeftMargin;
+				int minMargin = LeftMargin;
 				if (RightMargin < minMargin)
 					minMargin = RightMargin;
 				if (TopMargin < minMargin)
@@ -146,7 +86,7 @@ namespace Psycho.Core
 		public int MaxMargin
 		{
  			get {
-				maxMargin = LeftMargin;
+				int maxMargin = LeftMargin;
 				if (RightMargin > maxMargin)
 					maxMargin = RightMargin;
 				if (TopMargin > maxMargin)
@@ -157,63 +97,15 @@ namespace Psycho.Core
 			}
 		}
 
-		public int CrankRadius
-		{
-			get { return crankRadius; }
-			set { crankRadius = value; }
-		}
-
-		public int CrankChamfer
-		{
-			get { return crankChamfer; }
-			set { crankChamfer = value; }
-		}
-
-		public int PolyDistance
-		{
-			get { return polyDistance; }
-			set { polyDistance = value; }
-		}
-
-		public int Padding
-		{
-			get { return padding; }
-			set { padding = value; }
-		}
-
-		public int HorChildDist
-		{
-			get { return horChildDist; }
-			set { horChildDist = value; }
-		}
-
-		public int VerChildDist
-		{
-			get { return verChildDist; }
-			set { verChildDist = value; }
-		}
-
-		public int OrgChartVertDist
-		{
-			get { return orgChartVertDist; }
-			set { orgChartVertDist = value; }
-		}
-
-		public bool FixedWidth
-		{
-			get { return fixedWidth; }
-			set { fixedWidth = value; }
-		}
-
-		public int Width
-		{
-			get { return width; }
-			set { width = value; }
-		}
-
-		public TextAlignment TextAlignment{
-			get { return textAlignment; }
-			set { textAlignment = value; }
-		}
+		public int CrankRadius {get; set;}
+		public int CrankChamfer {get; set;}
+		public int PolyDistance {get; set;}
+		public int Padding {get; set;}
+		public int HorChildDist {get; set;}
+		public int VerChildDist {get; set;}
+		public int OrgChartVertDist {get; set;}
+		public bool FixedWidth {get; set;}
+		public int Width {get; set;}
+		public TextAlignment TextAlignment {get; set;}
 	}
 }

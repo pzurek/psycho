@@ -26,125 +26,97 @@ namespace Psycho.Core
 {
 	public class Color : IColor
 	{
-		string name;
-		ushort red;
-		ushort green;
-		ushort blue;
-		ushort alfa;
-		bool isAuto;
-
 		public Color ()
 		{
 			this.Name = "";
-			this.alfa = 255;
-			this.red = 0;
-			this.green = 0;
-			this.blue = 0;
+			this.Alfa = 255;
+			this.Red = 0;
+			this.Green = 0;
+			this.Blue = 0;
 		}
 
-		public Color (ushort red, ushort green, ushort blue)
+		public Color (ushort red,
+		              ushort green,
+		              ushort blue)
 		{
 			this.Name = "";
-			this.alfa = 255;
-			this.red = red;
-			this.green = green;
-			this.blue = blue;
+			this.Alfa = 255;
+			this.Red = red;
+			this.Green = green;
+			this.Blue = blue;
 		}
 
-		public Color (ushort alfa, ushort red,
-			      ushort green, ushort blue)
+		public Color (ushort alfa,
+		              ushort red,
+					  ushort green,
+		              ushort blue)
 		{
 			this.Name = "";
-			this.alfa = alfa;
-			this.red = red;
-			this.green = green;
-			this.blue = blue;
+			this.Alfa = alfa;
+			this.Red = red;
+			this.Green = green;
+			this.Blue = blue;
 		}
 
 		public Color (string name,
-			      ushort alfa, ushort red,
-			      ushort green, ushort blue)
+			      	  ushort alfa, 
+		              ushort red,
+					  ushort green,
+		              ushort blue)
 		{
 			this.Name = Name;
-			this.alfa = alfa;
-			this.red = red;
-			this.green = green;
-			this.blue = blue;
+			this.Alfa = alfa;
+			this.Red = red;
+			this.Green = green;
+			this.Blue = blue;
 		}
 
-		[XmlAttribute ()]
-		public string Name
+		[XmlAttribute ("name")]  public string Name { get; set; }
+		[XmlAttribute ("auto")]  public bool IsAuto { get; set; }
+		[XmlAttribute ("red")]   public ushort Red { get; set; }
+		[XmlAttribute ("green")] public ushort Green { get; set; }
+		[XmlAttribute ("blue")]  public ushort Blue { get; set; }
+		[XmlAttribute ("alfa")]  public ushort Alfa { get; set; }
+
+		public void SetARGB (ushort new_alfa,
+		                     ushort new_red,
+				     		 ushort new_green,
+		                     ushort new_blue)
 		{
-			get { return Name; }
-			set { Name = value; }
-		}
-
-		[XmlAttribute ()]
-		public bool IsAuto
-		{
-			get { return isAuto; }
-			set { isAuto = value; }
-		}
-
-		[XmlAttribute ()]
-		public ushort Red {
-			get { return red; }
-			set { red = value; }
-		}
-
-		[XmlAttribute ()]
-		public ushort Green {
-			get { return green; }
-			set { green = value; }
-		}
-
-		[XmlAttribute ()]
-		public ushort Blue {
-			get { return blue; }
-			set { blue = value; }
-		}
-
-		[XmlAttribute ()]
-		public ushort Alfa {
-			get { return alfa; }
-			set { alfa = value; }
-		}
-
-		public void SetARGB (ushort new_alfa, ushort new_red,
-				     ushort new_green, ushort new_blue)
-		{
-			alfa = new_alfa;
-			red = new_red;
-			green = new_green;
-			blue = new_blue;
+			Alfa = new_alfa;
+			Red = new_red;
+			Green = new_green;
+			Blue = new_blue;
 		}
 
 		public void SetRGB (ushort new_red,
-				    ushort new_green,
-				    ushort new_blue)
+				    		ushort new_green,
+				    		ushort new_blue)
 		{
-			alfa = 255;
-			red = new_red;
-			green = new_green;
-			blue = new_blue;
+			Alfa = 255;
+			Red = new_red;
+			Green = new_green;
+			Blue = new_blue;
 		}
 
-		public void GetARGB (out ushort out_alfa, out ushort out_red,
-				     out ushort out_green, out ushort out_blue)
+		public void GetARGB (out ushort out_alfa,
+		                     out ushort out_red,
+				     		 out ushort out_green,
+		                     out ushort out_blue)
 		{
-			out_alfa = alfa;
-			out_red = red;
-			out_green = green;
-			out_blue = blue;
+			out_alfa = Alfa;
+			out_red = Red;
+			out_green = Green;
+			out_blue = Blue;
 		}
 
 		public void GetRGB (out ushort out_red,
-				    out ushort out_green,
-				    out ushort out_blue)
+				    		out ushort out_green,
+				    		out ushort out_blue)
 		{
-			out_red = red;
-			out_green = green;
-			out_blue = blue;
+			out_red = Red;
+			out_green = Green;
+			out_blue = Blue;
 		}
 	}
 }
