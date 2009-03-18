@@ -19,11 +19,7 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <DefineConstants>DEBUG</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <EnvironmentVariables>
-      <EnvironmentVariables />
-    </EnvironmentVariables>
     <DebugType>full</DebugType>
-    <StartupObject />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputType>Library</OutputType>
@@ -34,7 +30,6 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Xml" />
@@ -42,44 +37,44 @@
     <Reference Include="mscorlib" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Psycho.Data\ITopic.cs" />
-    <Compile Include="Psycho.Data\Topic.cs" />
-    <Compile Include="Psycho.Data\IMindMap.cs" />
-    <Compile Include="Psycho.Data\MindMap.cs" />
-    <Compile Include="Psycho.Data\INote.cs" />
-    <Compile Include="Psycho.Data\Note.cs" />
-    <Compile Include="Psycho.Data\TopicList.cs" />
-    <Compile Include="Psycho.Style\Style.cs" />
-    <Compile Include="Psycho.Data\MapItem.cs" />
-    <Compile Include="Psycho.Data\IMapItem.cs" />
-    <Compile Include="Psycho.Style\IStyle.cs" />
-    <Compile Include="Psycho.Style\FrameShapeEnum.cs" />
-    <Compile Include="Psycho.Style\ConnectionShapeEnum.cs" />
-    <Compile Include="Psycho.Style\SubtopicLayoutEnum.cs" />
-    <Compile Include="Psycho.Style\ConnectionPointEnum.cs" />
-    <Compile Include="Psycho.Style\Color.cs" />
-    <Compile Include="Psycho.Style\TextAlignmentEnum.cs" />
-    <Compile Include="Psycho.Data\ITopicList.cs" />
-    <Compile Include="Psycho.Style\IColor.cs" />
-    <Compile Include="Psycho.Data\Application.cs" />
-    <Compile Include="Psycho.Data\IApplication.cs" />
-    <Compile Include="Psycho.Style\IStyleList.cs" />
-    <Compile Include="Psycho.Style\StyleList.cs" />
-    <Compile Include="Psycho.Data\IMindModel.cs" />
-    <Compile Include="Psycho.Data\IMindView.cs" />
-    <Compile Include="Psycho.Metadata\Author.cs" />
-    <Compile Include="Psycho\IDocument.cs" />
+    <Compile Include="Psycho.Core.Data\ITopic.cs" />
+    <Compile Include="Psycho.Core.Data\Topic.cs" />
+    <Compile Include="Psycho.Core.Data\IMindMap.cs" />
+    <Compile Include="Psycho.Core.Data\MindMap.cs" />
+    <Compile Include="Psycho.Core.Data\INote.cs" />
+    <Compile Include="Psycho.Core.Data\Note.cs" />
+    <Compile Include="Psycho.Core.Data\TopicList.cs" />
+    <Compile Include="Psycho.Core.Style\Style.cs" />
+    <Compile Include="Psycho.Core.Data\MapItem.cs" />
+    <Compile Include="Psycho.Core.Data\IMapItem.cs" />
+    <Compile Include="Psycho.Core.Style\IStyle.cs" />
+    <Compile Include="Psycho.Core.Style\FrameShapeEnum.cs" />
+    <Compile Include="Psycho.Core.Style\ConnectionShapeEnum.cs" />
+    <Compile Include="Psycho.Core.Style\SubtopicLayoutEnum.cs" />
+    <Compile Include="Psycho.Core.Style\ConnectionPointEnum.cs" />
+    <Compile Include="Psycho.Core.Style\Color.cs" />
+    <Compile Include="Psycho.Core.Style\TextAlignmentEnum.cs" />
+    <Compile Include="Psycho.Core.Data\ITopicList.cs" />
+    <Compile Include="Psycho.Core.Style\IColor.cs" />
+    <Compile Include="Psycho.Core.Data\Application.cs" />
+    <Compile Include="Psycho.Core.Data\IApplication.cs" />
+    <Compile Include="Psycho.Core.Style\IStyleList.cs" />
+    <Compile Include="Psycho.Core.Style\StyleList.cs" />
+    <Compile Include="Psycho.Core.Data\IMindModel.cs" />
+    <Compile Include="Psycho.Core.Data\IMindView.cs" />
+    <Compile Include="Psycho.Core.Metadata\Author.cs" />
+    <Compile Include="Psycho.Core\IDocument.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <Folder Include="Psycho.Metadata/" />
-    <Folder Include="Psycho/" />
+    <Folder Include="Psycho.Core.Metadata\" />
+    <Folder Include="Psycho.Core\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties InternalTargetFrameworkVersion="3.5">
         <Policies>
-          <TextStylePolicy FileWidth="80" TabWidth="4" TabsToSpaces="False" NoTabsAfterNonTabs="False" RemoveTrailingWhitespace="False" />
+          <TextStylePolicy FileWidth="80" TabWidth="4" TabsToSpaces="False" NoTabsAfterNonTabs="False" RemoveTrailingWhitespace="False" EolMarker="Native" />
         </Policies>
       </Properties>
     </MonoDevelop>

@@ -24,10 +24,6 @@ namespace Psycho.Core
 {
 	public class Application : IApplication
 	{
-		public Application()
-		{
-		}
-
 		public void Initialize ()
 		{
 			throw new NotImplementedException();

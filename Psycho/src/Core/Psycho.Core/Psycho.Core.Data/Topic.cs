@@ -29,10 +29,8 @@ namespace Psycho.Core
 {
 	public class Topic : MapItem, ITopic
 	{
-		private Topic parent;
 		private TopicList<ITopic> subtopicList;
 		private int totalCount;
-		private string styleID;
 		private string path;
 		private string number;
 		private int level;
@@ -79,11 +77,10 @@ namespace Psycho.Core
 			}
 		}
 
-
 		public void AddSubtopic ()
 		{
-			ITopic topic = new Topic();
-			this.SubtopicList.Add (topic);
+			ITopic newTopic = new Topic();
+			this.SubtopicList.Add (newTopic);
 		}
 
 		public void InsertSubtopic (int index, ITopic item)
