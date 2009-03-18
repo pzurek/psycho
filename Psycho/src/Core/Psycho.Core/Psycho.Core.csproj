@@ -68,10 +68,12 @@
     <Compile Include="Psycho.Data\IMindModel.cs" />
     <Compile Include="Psycho.Data\IMindView.cs" />
     <Compile Include="Psycho.Metadata\Author.cs" />
+    <Compile Include="Psycho\IDocument.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
     <Folder Include="Psycho.Metadata/" />
+    <Folder Include="Psycho/" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
