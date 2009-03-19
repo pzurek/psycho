@@ -36,4 +36,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Psycho.GUI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Psycho.GUI\MainWindow.cs" />
+  </ItemGroup>
 </Project>
