@@ -30,10 +30,6 @@ namespace Psycho.Core
 	public class Topic : MapItem, ITopic
 	{
 		private TopicList<ITopic> subtopicList;
-		private int totalCount;
-		private string path;
-		private string number;
-		private int level;
 		
 		public Topic()
 		{
@@ -46,28 +42,16 @@ namespace Psycho.Core
 		[XmlElement] public bool IsExpanded { get; set;}
 
 		public Topic Parent { get; set;}
+		public int TotalCount { get; set;}
+		public string Path { get; set;}
+		public string Number { get; set;}
+		public int Level { get; set;}
 		
 		public bool HasNote {
 			get {
 				return (Note != null &&
 				        !string.IsNullOrEmpty(Note.Text));
 			}
-		}
-
-		public int TotalCount {
-			get { return totalCount; }
-		}
-
-		public string Path {
-			get { return path; }
-		}
-
-		public string Number {
-			get { return number; }
-		}
-
-		public int Level {
-			get { return level; }
 		}
 
 		[XmlElement ("Subtopics")]
