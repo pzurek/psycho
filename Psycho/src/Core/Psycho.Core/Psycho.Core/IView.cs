@@ -22,7 +22,7 @@ using System;
 
 namespace Psycho.Core
 {
-	public interface IMindView
+	public interface IView
 	{
 	}
 }

@@ -60,10 +60,11 @@
     <Compile Include="Psycho.Core.Data\IApplication.cs" />
     <Compile Include="Psycho.Core.Style\IStyleList.cs" />
     <Compile Include="Psycho.Core.Style\StyleList.cs" />
-    <Compile Include="Psycho.Core.Data\IMindModel.cs" />
-    <Compile Include="Psycho.Core.Data\IMindView.cs" />
     <Compile Include="Psycho.Core.Metadata\Author.cs" />
     <Compile Include="Psycho.Core\IDocument.cs" />
+    <Compile Include="Psycho.Core\IController.cs" />
+    <Compile Include="Psycho.Core\IModel.cs" />
+    <Compile Include="Psycho.Core\IView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
