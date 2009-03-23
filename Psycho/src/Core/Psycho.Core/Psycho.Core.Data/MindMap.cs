@@ -34,44 +34,12 @@ namespace Psycho.Core
 	[XmlRoot]
 	public class MindMap : IMindMap
 	{
-		ITopic rootTopic;
-		ITopicList<ITopic> freeTopicList;
-		ITopicList<ITopic> calloutTopicList;
-		IStyleList<IStyle> styleList;
-
 		public MindMap()
 		{
 		}
 
-		[XmlElement]
-		public ITopic RootTopic {
-			get {
-				return rootTopic;
-			}
-			set {
-				rootTopic = value;
-			}
-		}
-
-		[XmlElement]
-		public ITopicList<ITopic> FreeTopicList {
-			get {
-				return freeTopicList;
-			}
-		}
-
-		[XmlElement]
-		public ITopicList<ITopic> CalloutTopicList {
-			get {
-				return calloutTopicList;
-			}
-		}
-
-		[XmlElement]
-		public IStyleList<IStyle> StyleList {
-			get {
-				return styleList;
-			}
-		}
+		[XmlElement] public ITopic RootTopic { get; set; }
+		[XmlElement] public ITopicList<ITopic> FreeTopicList { get; set; }
+		[XmlElement] public IStyleList<IStyle> StyleList  { get; set; }
 	}
 }
