@@ -4,7 +4,7 @@
     <ProjectGuid>{49875DE6-9539-4B4F-B38F-AB262F8935B5}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <AssemblyName>Psycho.Core</AssemblyName>
