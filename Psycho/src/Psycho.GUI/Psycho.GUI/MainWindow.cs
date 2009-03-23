@@ -24,7 +24,11 @@ using Gtk;
 
 namespace Psycho.GUI
 {
-	public class MainWindow
+	public class MainWindow : Window
 	{
+		public MainWindow () : base ("Psycho")
+        {
+			
+		}
 	}
 }
