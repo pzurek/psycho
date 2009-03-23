@@ -6,8 +6,9 @@
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8D891006-2941-417C-86FB-C5F1ACB6C540}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AssemblyName>Psycho.GUI</AssemblyName>
+    <StartupObject>Psycho.GUI.MainClass</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,5 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Psycho.GUI\MainWindow.cs" />
+    <Compile Include="Main.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Psycho.Core\Psycho.Core.csproj">
+      <Project>{49875DE6-9539-4B4F-B38F-AB262F8935B5}</Project>
+      <Name>Psycho.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties InternalTargetFrameworkVersion="3.5" />
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
