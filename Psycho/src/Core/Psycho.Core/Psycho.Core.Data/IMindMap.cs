@@ -25,8 +25,7 @@ namespace Psycho.Core
 	public interface IMindMap
 	{
 		ITopic RootTopic { get; set; }
-		ITopicList<ITopic> FreeTopicList { get; }
-		ITopicList<ITopic> CalloutTopicList { get; }
-		IStyleList<IStyle> StyleList { get; }
+		ITopicList<ITopic> FreeTopicList { get; set; }
+		IStyleList<IStyle> StyleList { get; set; }
 	}
 }
