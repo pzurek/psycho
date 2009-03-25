@@ -31,10 +31,6 @@ namespace Psycho.Core
                 void RequestSetCurrent (string Guid);
                 void RequestClearCurrent ();
                 void RequestSetCurrentByCoords (int X, int Y);
-                void RequestCurrentForward ();
-                void RequestCurrentBack ();
-                void RequestCurrentUp ();
-                void RequestCurrentDown ();
                 void RequestExpand (string Guid, bool expand);
 
                 void SetModel (IModel Model);
