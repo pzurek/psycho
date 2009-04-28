@@ -1,3 +1,4 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Psycho", "Psycho", "{7A5E2F8C-9A9E-4C83-9854-F2113F5FDA1F}"
@@ -27,14 +28,14 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 0.1
-		StartupItem = src\Core\Psycho.Core\Psycho.Core.csproj
+		StartupItem = src\Psycho.GUI\Psycho.GUI.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
 		$1.FileWidth = 80
 		$1.TabWidth = 4
-		$1.TabsToSpaces = False
+		$1.TabsToSpaces = True
 		$1.NoTabsAfterNonTabs = False
-		$1.RemoveTrailingWhitespace = False
+		$1.RemoveTrailingWhitespace = True
 		$1.EolMarker = Native
 		$0.StandardHeader = $2
 		$2.Text = @//------10--------20--------30--------40--------50--------60--------70--------80\r\n//\r\n// $Filename\r\n// \r\n// Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com\r\n//\r\n// This program is free software: you can redistribute it and/or modify\r\n// it under the terms of the GNU General Public License as published by\r\n// the Free Software Foundation, either version 3 of the License, or\r\n// (at your option) any later version.\r\n//\r\n// This program is distributed in the hope that it will be useful,\r\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\r\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\r\n// GNU General Public License for more details.\r\n//\r\n// You should have received a copy of the GNU General Public License\r\n// along with this program.  If not, see <http://www.gnu.org/licenses/>.\r\n//
