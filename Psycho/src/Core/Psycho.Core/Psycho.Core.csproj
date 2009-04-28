@@ -56,8 +56,6 @@
     <Compile Include="Psycho.Core.Style\TextAlignmentEnum.cs" />
     <Compile Include="Psycho.Core.Data\ITopicList.cs" />
     <Compile Include="Psycho.Core.Style\IColor.cs" />
-    <Compile Include="Psycho.Core.Data\Application.cs" />
-    <Compile Include="Psycho.Core.Data\IApplication.cs" />
     <Compile Include="Psycho.Core.Style\IStyleList.cs" />
     <Compile Include="Psycho.Core.Style\StyleList.cs" />
     <Compile Include="Psycho.Core.Metadata\Author.cs" />
@@ -65,6 +63,8 @@
     <Compile Include="Psycho.Core\IController.cs" />
     <Compile Include="Psycho.Core\IModel.cs" />
     <Compile Include="Psycho.Core\IView.cs" />
+    <Compile Include="Psycho.Core\Application.cs" />
+    <Compile Include="Psycho.Core\IApplication.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
