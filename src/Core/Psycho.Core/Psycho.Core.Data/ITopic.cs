@@ -1,6 +1,6 @@
 //------10--------20--------30--------40--------50--------60--------70--------80
 //
-// IApplication.cs
+// ITopic.cs
 // 
 // Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com
 //
@@ -19,12 +19,27 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 namespace Psycho.Core
 {
-	public interface IApplication
+	public interface ITopic : IMapItem
 	{
-		void Initialize ();
-		void Shutdown ();
+		string Text { get; set; }
+		Topic Parent { get; set; }
+		Note Note { get; set; }
+		bool IsExpanded { get; set; }
+		bool HasNote { get;}
+		int TotalCount { get; }
+		string StyleID { get; set; }
+		string Path { get; }
+		string Number { get; }
+		int Level { get; }
+
+		void AddSubtopic ();
+		void InsertSubtopic (int index, ITopic topic);
+		void Delete ();
+		void ForEach (Action<ITopic> action);
+		void Update ();
 	}
 }

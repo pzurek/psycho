@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <AssemblyName>Psycho.Core</AssemblyName>
     <FileUpgradeFlags>
@@ -64,18 +64,12 @@
     <Compile Include="Psycho.Core.Style\IStyleList.cs" />
     <Compile Include="Psycho.Core.Style\StyleList.cs" />
     <Compile Include="Psycho.Core.Metadata\Author.cs" />
-    <Compile Include="Psycho.Core\IDocument.cs" />
+    <Compile Include="Psycho.Core.Data\IDocument.cs" />
     <Compile Include="Psycho.Core\IController.cs" />
     <Compile Include="Psycho.Core\IModel.cs" />
     <Compile Include="Psycho.Core\IView.cs" />
-    <Compile Include="Psycho.Core\Application.cs" />
-    <Compile Include="Psycho.Core\IApplication.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
-  <ItemGroup>
-    <Folder Include="Psycho.Core.Metadata\" />
-    <Folder Include="Psycho.Core\" />
-  </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties InternalTargetFrameworkVersion="3.5">
@@ -84,5 +78,6 @@
         </Policies>
       </Properties>
     </MonoDevelop>
+    <VisualStudio />
   </ProjectExtensions>
 </Project>
