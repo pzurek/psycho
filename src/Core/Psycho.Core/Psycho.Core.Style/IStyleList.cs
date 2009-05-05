@@ -22,7 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Psycho.Core
+namespace Psycho.Core.Style
 {
 	public interface IStyleList<T> : IList<T>
 	where T: IStyle

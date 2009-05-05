@@ -1,6 +1,6 @@
 //------10--------20--------30--------40--------50--------60--------70--------80
 //
-// SubtopicLayout.cs
+// SubtopicLayoutEnum.cs
 // 
 // Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com
 //
@@ -20,7 +20,7 @@
 
 using System;
 
-namespace Psycho.Core
+namespace Psycho.Core.Style
 {
 	public enum SubtopicLayout
 	{

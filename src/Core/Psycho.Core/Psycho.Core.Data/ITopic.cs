@@ -21,7 +21,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Psycho.Core
+namespace Psycho.Core.Data
 {
 	public interface ITopic : IMapItem
 	{

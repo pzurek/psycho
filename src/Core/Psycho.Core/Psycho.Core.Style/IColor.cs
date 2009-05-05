@@ -20,7 +20,7 @@
 
 using System;
 
-namespace Psycho.Core
+namespace Psycho.Core.Style
 {
 	public interface IColor
 	{

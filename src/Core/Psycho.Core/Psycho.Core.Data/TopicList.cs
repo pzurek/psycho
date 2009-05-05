@@ -23,7 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Psycho.Core;
 
-namespace Psycho.Core
+namespace Psycho.Core.Data
 {
 	public class TopicList<T> : ITopicList<T>
 	where T : ITopic

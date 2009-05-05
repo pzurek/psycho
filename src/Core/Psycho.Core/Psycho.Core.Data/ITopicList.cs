@@ -22,7 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Psycho.Core
+namespace Psycho.Core.Data
 {
 	public interface ITopicList<T> : IList<T>
 	where T : ITopic

@@ -22,7 +22,7 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Psycho.Core
+namespace Psycho.Core.Style
 {
 	public class Color : IColor
 	{

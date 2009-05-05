@@ -25,7 +25,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Psycho.Core;
 
-namespace Psycho.Core
+namespace Psycho.Core.Data
 {	
 	/// <summary>
 	/// The main mind map data container.
