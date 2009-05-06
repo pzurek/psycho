@@ -19,6 +19,9 @@
 //
 
 using System;
+using Psycho.Core.Data;
+using Psycho.Core.Style;
+
 
 namespace Psycho.Core
 {

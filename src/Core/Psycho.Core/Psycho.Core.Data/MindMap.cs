@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using Psycho.Core;
+using Psycho.Core.Style;
+
 
 namespace Psycho.Core.Data
 {	
