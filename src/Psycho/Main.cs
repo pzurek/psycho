@@ -1,6 +1,6 @@
 //------10--------20--------30--------40--------50--------60--------70--------80
 //
-// MainWindow.cs
+// Main.cs
 // 
 // Copyright (C) 2009 Piotr Zurek p.zurek@gmail.com
 //
@@ -19,16 +19,28 @@
 //
 
 using System;
+using Psycho.GUI;
 using Psycho.Core;
-using Gtk;
 
-namespace Psycho.GUI
+namespace Psycho
 {
-	public class MainWindow : Window
-	{
-		public MainWindow () : base ("Psycho")
+        class MainClass
         {
-			
-		}
-	}
+                public static void Main ()
+                {
+                        Application.Init ();
+                        MainWindow mainWindow = new MainWindow ();
+                        mainWindow.DeleteEvent += OnDelete;
+                        mainWindow.SetDefaultSize (640, 480);
+                        mainWindow.SetPosition (WindowPosition.Center);
+                        mainWindow.Show ();
+                        Application.Run ();
+                }
+
+                static void OnDelete (object sender, DeleteEventArgs args)
+                {
+                        Application.Quit ();
+                        return;
+                }
+        }
 }
