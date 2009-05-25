@@ -24,5 +24,16 @@ namespace Psycho.Core
 {
 	public interface IModel
 	{
+	    ITopic CurrentTopic { get; set; }
+	    ITopic CentralTopic { get; set; }
+	
+	    void CreateTopic ();
+	    void CreateSubtopic ();
+	    void DeleteTopic ();
+	    void ChangeTopic (ITopic topic);
+	    void SetCurrent (string guid);
+	    void SetCurrent (ITopic topic);
+	    void ClearCurrent ();
+	    void ExpandTopic (string guid, bool isExpanded);
 	}
 }
