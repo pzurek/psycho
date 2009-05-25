@@ -42,6 +42,5 @@ namespace Psycho.Core.Data
 
 		[XmlElement] public ITopic RootTopic { get; set; }
 		[XmlElement] public ITopicList<ITopic> FreeTopicList { get; set; }
-		[XmlElement] public IStyleList<IStyle> StyleList  { get; set; }
 	}
 }
