@@ -29,23 +29,24 @@ namespace Psycho.Core.Data
 {
 	public class Topic : MapItem, ITopic
 	{
-		private TopicList<ITopic> subtopicList;
-		
 		public Topic()
 		{
 			this.Text = "Topic ";
 		}
 		
-		[XmlElement] public string Text { get; set;}
-		[XmlElement] public string StyleID { get; set;}
-		[XmlElement] public Note Note  { get; set;}
-		[XmlElement] public bool IsExpanded { get; set;}
+		[XmlElement] public string Text     {get; set;}
+		[XmlElement] public string StyleID  {get; set;}
+		[XmlElement] public INote Note      {get; set;}
+		[XmlElement] public bool IsExpanded {get; set;}
+		[XmlElement] public bool IsCurrent  {get; set;}
+		[XmlElement ("Subtopics")] public ITopicList<ITopic> SubtopicList {get; set;}
 
-		public Topic Parent { get; set;}
-		public int TotalCount { get; set;}
-		public string Path { get; set;}
-		public string Number { get; set;}
-		public int Level { get; set;}
+		public IMindMap Map   {get; set;}
+		public ITopic Parent  {get; set;}
+		public int TotalCount {get; set;}
+		public string Path    {get; set;}
+		public string Number  {get; set;}
+		public int Level      {get; set;}
 		
 		public bool HasNote {
 			get {
@@ -54,18 +55,11 @@ namespace Psycho.Core.Data
 			}
 		}
 
-		[XmlElement ("Subtopics")]
-		public TopicList<ITopic> SubtopicList {
-			get {
-				return subtopicList;
-			}
-		}
 
-		public void AddSubtopic ()
-		{
-			ITopic newTopic = new Topic();
-			this.SubtopicList.Add (newTopic);
-		}
+        public void AddSubtopic (ITopic topic)
+        {
+            this.SubtopicList.Add (topic);
+        }
 
 		public void InsertSubtopic (int index, ITopic item)
 		{
@@ -79,9 +73,19 @@ namespace Psycho.Core.Data
 			this.Parent.SubtopicList.Remove(this);
 		}
 
-		public void ForEach (System.Action<ITopic> action)
-		{
-		}
+        public void ForEach (Action<ITopic> action)
+        {
+            Queue<Topic> remaining = new Queue<Topic> ();
+
+            remaining.Enqueue (this);
+
+            while (remaining.Count > 0) {
+                    Topic topic = remaining.Dequeue ();
+                    action (topic);
+                    foreach (Topic child in topic.SubtopicList)
+                            remaining.Enqueue (child);
+            }
+        }
 
 		public void Update ()
 		{

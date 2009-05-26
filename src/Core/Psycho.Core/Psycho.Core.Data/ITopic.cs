@@ -26,9 +26,12 @@ namespace Psycho.Core.Data
 	public interface ITopic : IMapItem
 	{
 		string Text { get; set; }
-		Topic Parent { get; set; }
-		Note Note { get; set; }
+		ITopicList<ITopic> SubtopicList { get; set; }
+		ITopic Parent { get; set; }
+		IMindMap Map { get; set; }
+		INote Note { get; set; }
 		bool IsExpanded { get; set; }
+		bool IsCurrent { get; set; }
 		bool HasNote { get;}
 		int TotalCount { get; }
 		string StyleID { get; set; }
@@ -36,7 +39,7 @@ namespace Psycho.Core.Data
 		string Number { get; }
 		int Level { get; }
 
-		void AddSubtopic ();
+		void AddSubtopic (ITopic topic);
 		void InsertSubtopic (int index, ITopic topic);
 		void Delete ();
 		void ForEach (Action<ITopic> action);
