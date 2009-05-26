@@ -55,7 +55,6 @@ namespace Psycho.Core.Data
 			}
 		}
 
-
         public void AddSubtopic (ITopic topic)
         {
             SubtopicList.Add (topic);
@@ -68,7 +67,7 @@ namespace Psycho.Core.Data
 
 		public void Delete ()
 		{
-			if (Parent != null)
+			if (Parent != null && Parent.SubtopicList.Contains(this))
 				Parent.SubtopicList.Remove(this);
 		}
 
