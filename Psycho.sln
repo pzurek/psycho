@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Psycho", "Psycho", "{7A5E2F8C-9A9E-4C83-9854-F2113F5FDA1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psycho.Core", "src\Core\Psycho.Core\Psycho.Core.csproj", "{49875DE6-9539-4B4F-B38F-AB262F8935B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psycho.Core", "src\Psycho.Core\Psycho.Core.csproj", "{49875DE6-9539-4B4F-B38F-AB262F8935B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psycho.GUI", "src\Psycho.GUI\Psycho.GUI.csproj", "{8D891006-2941-417C-86FB-C5F1ACB6C540}"
 EndProject
