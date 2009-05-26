@@ -1,8 +1,8 @@
 //------10--------20--------30--------40--------50--------60--------70--------80
 //
-// IController.cs
+// IMindView.cs
 // 
-// Copyright (C) 2009 Piotr Zurek p.zurek@gmail.com
+// Copyright (C) 2008 Piotr Zurek p.zurek@gmail.com
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,24 +19,10 @@
 //
 
 using System;
-using Psycho.Core.Data;
-using Psycho.Core.Style;
-
 
 namespace Psycho.Core
 {
-        public interface IController
-        {
-                void RequestAddTopic ();
-                void RequestAddSubtopic ();
-                void RequestDelete ();
-                void RequestChange (ITopic Topic);
-                void RequestSetCurrent (string Guid);
-                void RequestClearCurrent ();
-                void RequestSetCurrentByCoords (int X, int Y);
-                void RequestExpand (string Guid, bool expand);
-
-                void SetModel (IModel Model);
-                void SetView (IView View);
-        }
+	public interface IMindView
+	{
+	}
 }
