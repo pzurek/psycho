@@ -19,6 +19,7 @@
 //
 
 using System;
+using Psycho.Core.Data;
 
 namespace Psycho.Core
 {
