@@ -79,7 +79,7 @@ namespace Psycho.Core.Data
                 if (CurrentTopic != null)
                         CurrentTopic.IsCurrent = false;
                 CurrentTopic = topic;
-                CurrentTopic.IsCurrent = true;
+                topic.IsCurrent = true;
         }
 	}
 }
