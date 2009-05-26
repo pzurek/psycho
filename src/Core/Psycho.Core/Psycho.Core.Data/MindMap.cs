@@ -70,6 +70,7 @@ namespace Psycho.Core.Data
         public void CreateFreeTopic ()
         {
                 ITopic newTopic = new Topic();
+				FreeTopicList.Add(newTopic);
                 SetCurrent (newTopic);
         }
 
