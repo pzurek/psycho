@@ -50,8 +50,7 @@ namespace Psycho.Core.Data
 		
 		public bool HasNote {
 			get {
-				return (Note != null &&
-				        !string.IsNullOrEmpty(Note.Text));
+				return (Note != null && !string.IsNullOrEmpty(Note.Text));
 			}
 		}
 
