@@ -58,19 +58,18 @@ namespace Psycho.Core.Data
 
         public void AddSubtopic (ITopic topic)
         {
-            this.SubtopicList.Add (topic);
+            SubtopicList.Add (topic);
         }
 
 		public void InsertSubtopic (int index, ITopic item)
 		{
-			this.SubtopicList.Insert (index, item);
+			SubtopicList.Insert (index, item);
 		}
 
 		public void Delete ()
 		{
-			if (this.Parent == null)
-				return;
-			this.Parent.SubtopicList.Remove(this);
+			if (Parent != null)
+				Parent.SubtopicList.Remove(this);
 		}
 
         public void ForEach (Action<ITopic> action)
