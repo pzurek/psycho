@@ -74,14 +74,14 @@ namespace Psycho.Core.Data
 
         public void ForEach (Action<ITopic> action)
         {
-            Queue<Topic> remaining = new Queue<Topic> ();
+            Queue<ITopic> remaining = new Queue<ITopic> ();
 
             remaining.Enqueue (this);
 
             while (remaining.Count > 0) {
-                    Topic topic = remaining.Dequeue ();
+                    ITopic topic = remaining.Dequeue ();
                     action (topic);
-                    foreach (Topic child in topic.SubtopicList)
+                    foreach (ITopic child in topic.SubtopicList)
                             remaining.Enqueue (child);
             }
         }
