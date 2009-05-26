@@ -62,6 +62,8 @@ namespace Psycho.Core.Data
                         newTopic.Parent = CurrentTopic;
                         CurrentTopic.IsExpanded = true;
                         CurrentTopic.AddSubtopic (newTopic);
+                        newTopic.Map = this;
+                        SetCurrent (newTopic);
                 }
         }
 
