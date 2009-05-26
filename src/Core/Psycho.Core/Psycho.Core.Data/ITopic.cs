@@ -33,8 +33,8 @@ namespace Psycho.Core.Data
 		bool IsExpanded { get; set; }
 		bool IsCurrent { get; set; }
 		bool HasNote { get;}
-		int TotalCount { get; }
 		string StyleID { get; set; }
+		int TotalCount { get; }
 		string Path { get; }
 		string Number { get; }
 		int Level { get; }
