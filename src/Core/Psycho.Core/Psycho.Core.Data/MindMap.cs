@@ -40,7 +40,43 @@ namespace Psycho.Core.Data
 		{
 		}
 
-		[XmlElement] public ITopic RootTopic { get; set; }
+		[XmlElement] public ITopic CentralTopic { get; set; }
+		[XmlElement] public ITopic CurrentTopic { get; set; }
 		[XmlElement] public ITopicList<ITopic> FreeTopicList { get; set; }
+
+        public void CreateTopic ()
+        {
+                if (CurrentTopic.Parent != null) {
+                        ITopic newTopic = new Topic();
+                        newTopic.Parent = CurrentTopic.Parent;
+                        CurrentTopic.Parent.AddSubtopic (newTopic);
+                        newTopic.Map = this;
+                        SetCurrent (newTopic);
+                }
+        }
+
+        public void CreateSubtopic ()
+        {
+                if (CurrentTopic != null) {
+                        ITopic newTopic = new Topic();
+                        newTopic.Parent = CurrentTopic;
+                        CurrentTopic.IsExpanded = true;
+                        CurrentTopic.AddSubtopic (newTopic);
+                }
+        }
+
+        public void CreateFreeTopic ()
+        {
+                ITopic newTopic = new Topic();
+                SetCurrent (newTopic);
+        }
+
+        public void SetCurrent (ITopic topic)
+        {
+                if (CurrentTopic != null)
+                        CurrentTopic.IsCurrent = false;
+                CurrentTopic = topic;
+                CurrentTopic.IsCurrent = true;
+        }
 	}
 }
