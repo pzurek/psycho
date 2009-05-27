@@ -65,7 +65,6 @@
     <Compile Include="Psycho.Core.Style\IStyleList.cs" />
     <Compile Include="Psycho.Core.Style\StyleList.cs" />
     <Compile Include="Psycho.Core.Metadata\Author.cs" />
-    <Compile Include="Psycho.Core.Data\IDocument.cs" />
     <Compile Include="Psycho.Core.Data\IMindController.cs" />
     <Compile Include="Psycho.Core.Data\IMindView.cs" />
   </ItemGroup>
