@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AssemblyName>Psycho</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <StartupObject>Psycho.GUI.MainClass</StartupObject>
+    <StartupObject>Psycho.MainClass</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
