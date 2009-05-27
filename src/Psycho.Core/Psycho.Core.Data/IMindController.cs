@@ -36,7 +36,7 @@ namespace Psycho.Core
                 void RequestSetCurrentByCoords (int X, int Y);
                 void RequestExpand (string Guid, bool expand);
 
-                void SetModel (IModel Model);
-                void SetView (IView View);
+                void SetModel (IMindMap Map);
+                void SetView (IMindView View);
         }
 }
