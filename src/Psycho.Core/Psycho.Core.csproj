@@ -68,7 +68,6 @@
     <Compile Include="Psycho.Core.Data\IDocument.cs" />
     <Compile Include="Psycho.Core.Data\IMindController.cs" />
     <Compile Include="Psycho.Core.Data\IMindView.cs" />
-    <Compile Include="Psycho.Core.Data\IModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ProjectExtensions>
