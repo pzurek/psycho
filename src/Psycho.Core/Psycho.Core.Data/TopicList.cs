@@ -31,9 +31,9 @@ namespace Psycho.Core.Data
 		private List<T> list;
 		private ITopic parent;
 
-		public TopicList (ITopic topic) : base()
+		public TopicList (ITopic parent) : base()
 		{
-			this.parent = topic;
+			this.parent = parent;
 		}
 
 		public ITopic Parent
@@ -138,6 +138,5 @@ namespace Psycho.Core.Data
 			get {
 				return ((ICollection<T>)list).IsReadOnly; }
 		}
-
 	}
 }
