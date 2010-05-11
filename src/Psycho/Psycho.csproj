@@ -6,7 +6,7 @@
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C2A08901-9495-49AF-9114-F70D5A0F0492}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AssemblyName>Psycho</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <StartupObject>Psycho.MainClass</StartupObject>
