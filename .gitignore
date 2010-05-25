@@ -1,0 +1,22 @@
+ *.obj
+ *.exe
+ *.pdb
+ *.pidb
+ *.user*
+ *.aps
+ *.pch
+ *.vspscc
+ *_i.c
+ *_p.c
+ *.ncb
+ *.suo
+ *.tlb
+ *.tlh
+ *.bak
+ *.cache
+ *.ilk
+ *.log
+bin/
+debug/
+release/
+
