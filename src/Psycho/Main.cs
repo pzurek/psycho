@@ -19,9 +19,11 @@
 //
 
 using System;
+
+using Gtk;
+
 using Psycho.GUI;
 using Psycho.Core;
-using Gtk;
 
 namespace Psycho
 {
