@@ -36,8 +36,8 @@ namespace Psycho
                         mainWindow.DeleteEvent += OnDelete;
                         mainWindow.SetDefaultSize (640, 480);
                         mainWindow.SetPosition (WindowPosition.Center);
-                        mainWindow.Show ();
-                        Application.Run ();
+                        mainWindow.ShowAll();
+                        Application.Run();
                 }
 
                 static void OnDelete (object sender, DeleteEventArgs args)
