@@ -28,7 +28,9 @@ namespace Psycho.GUI
 	{
 		public MainWindow () : base ("Psycho")
         {
-			
+					this.Add(mapArea);
 		}
+		
+		DrawingArea mapArea = new MapArea();
 	}
 }

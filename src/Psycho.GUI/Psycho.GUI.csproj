@@ -60,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Psycho.GUI\MainWindow.cs" />
+    <Compile Include="Psycho.GUI\MapItem.cs" />
+    <Compile Include="Psycho.GUI\MapArea.cs" />
+    <Compile Include="Psycho.GUI\PathItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Psycho.Core\Psycho.Core.csproj">
